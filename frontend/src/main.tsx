@@ -16,10 +16,12 @@ const queryClient = new QueryClient({
   },
 })
 
+const basename = import.meta.env.VITE_BASE_PATH ?? '/'
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <AuthProvider>
           <App />
         </AuthProvider>
