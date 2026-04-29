@@ -1,0 +1,21 @@
+[lint]
+select = ["E", "F", "I", "W"]
+ignore = [
+    "E501",   # Line too long — existing codebase; Black handles formatting going forward
+    "E741",   # Ambiguous variable name (e.g. 'l') — acceptable in short scopes
+]
+
+[lint.per-file-ignores]
+# Django settings use `from .base import *` by convention — star import warnings expected
+"config/settings/*.py" = ["F401", "F403", "F405", "E402", "I001"]
+# Tests: unused imports for fixtures, imports inside functions for reload testing
+"**/tests.py" = ["F401", "E402", "I001"]
+"**/tests_*.py" = ["F401", "E402", "I001"]
+"conftest.py" = ["F401"]
+# Seed scripts: standalone, not part of the main app
+"scripts/*.py" = ["E402", "I001"]
+# Migrations are auto-generated and root-owned — skip entirely
+"**/migrations/*.py" = ["ALL"]
+# Views/services with intentional section imports
+"apps/bible/views.py" = ["E402"]
+"apps/prompts/services.py" = ["E402"]

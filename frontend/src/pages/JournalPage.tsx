@@ -109,7 +109,7 @@ function parseJournalContent(content: string): {
 
     const insightMatch = line.match(/^\*\*AI Insight:\*\*/)
     if (insightMatch) {
-      let insightLines = []
+      const insightLines = []
       for (let j = i + 1; j < lines.length; j++) {
         if (lines[j].trim() === '---') {
           contentStartIndex = j + 1

@@ -1,6 +1,7 @@
 """
 Serializers for user authentication and profile.
 """
+
 from rest_framework import serializers
 
 from .models import User
@@ -21,16 +22,30 @@ class RefreshTokenSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     # Don't expose the full API key, just show if it's set
     ai_api_key_set = serializers.SerializerMethodField()
-    
+
     class Meta:
         model = User
         fields = [
-            'id', 'email', 'display_name', 'language_preference', 'timezone',
-            'ai_provider', 'ai_api_key_set', 'ai_model', 'ai_base_url',
-            'created_at', 'last_active_at'
+            "id",
+            "email",
+            "display_name",
+            "language_preference",
+            "timezone",
+            "ai_provider",
+            "ai_api_key_set",
+            "ai_model",
+            "ai_base_url",
+            "created_at",
+            "last_active_at",
         ]
-        read_only_fields = ['id', 'email', 'created_at', 'last_active_at', 'ai_api_key_set']
-    
+        read_only_fields = [
+            "id",
+            "email",
+            "created_at",
+            "last_active_at",
+            "ai_api_key_set",
+        ]
+
     def get_ai_api_key_set(self, obj):
         return bool(obj.ai_api_key)
 
@@ -38,11 +53,18 @@ class UserSerializer(serializers.ModelSerializer):
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['display_name', 'language_preference', 'timezone',
-                  'ai_provider', 'ai_api_key', 'ai_model', 'ai_base_url']
+        fields = [
+            "display_name",
+            "language_preference",
+            "timezone",
+            "ai_provider",
+            "ai_api_key",
+            "ai_model",
+            "ai_base_url",
+        ]
 
     def update(self, instance, validated_data):
-        ai_api_key = validated_data.pop('ai_api_key', None)
+        ai_api_key = validated_data.pop("ai_api_key", None)
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
         if ai_api_key is not None:
@@ -53,6 +75,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
 
 class AISettingsSerializer(serializers.Serializer):
     """Serializer for AI settings update with validation."""
+
     ai_provider = serializers.ChoiceField(choices=User.AI_PROVIDER_CHOICES)
     ai_api_key = serializers.CharField(required=False, allow_blank=True)
     ai_model = serializers.CharField(required=False, allow_blank=True)

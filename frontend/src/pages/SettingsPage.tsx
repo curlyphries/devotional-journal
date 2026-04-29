@@ -95,10 +95,11 @@ export default function SettingsPage() {
         success: result.success,
         message: result.success ? result.message : result.error
       })
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const apiErr = err as { response?: { data?: { error?: string } } }
       setTestResult({
         success: false,
-        message: err.response?.data?.error || 'Connection test failed'
+        message: apiErr.response?.data?.error || 'Connection test failed'
       })
     } finally {
       setIsTesting(false)

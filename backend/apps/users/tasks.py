@@ -1,7 +1,9 @@
 """
 Celery tasks for user-related operations.
 """
+
 import logging
+
 from celery import shared_task
 from django.conf import settings
 from django.core.mail import send_mail
@@ -22,7 +24,7 @@ def send_magic_link_email(user_id: str, token: str):
     except User.DoesNotExist:
         return
 
-    base_url = getattr(settings, 'FRONTEND_URL', 'http://localhost:3001')
+    base_url = getattr(settings, "FRONTEND_URL", "http://localhost:3001")
     magic_link = f"{base_url}/auth/verify?token={token}"
 
     # Always print the login URL prominently for Tailscale-only internal access

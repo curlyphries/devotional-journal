@@ -2,38 +2,40 @@
 Management command to seed curated reading plans.
 Based on study Bible reading plans.
 """
+
 from django.core.management.base import BaseCommand
+
 from apps.plans.models import ReadingPlan, ReadingPlanDay
 
 
 class Command(BaseCommand):
-    help = 'Seed curated reading plans'
+    help = "Seed curated reading plans"
 
     def handle(self, *args, **options):
-        self.stdout.write('Seeding reading plans...')
-        
+        self.stdout.write("Seeding reading plans...")
+
         self.create_30_days_walk_with_christ()
         self.create_60_day_overview()
         self.create_30_famous_battles()
         self.create_not_so_famous_stories()
-        
-        self.stdout.write(self.style.SUCCESS('Successfully seeded reading plans'))
+
+        self.stdout.write(self.style.SUCCESS("Successfully seeded reading plans"))
 
     def create_30_days_walk_with_christ(self):
         plan, created = ReadingPlan.objects.get_or_create(
             title_en="30 Days for Beginning Your Walk with Christ",
             defaults={
-                'description_en': "A month-long journey through essential passages for new believers and those wanting to strengthen their faith foundation.",
-                'duration_days': 30,
-                'category': 'faith',
-                'is_premium': False,
-            }
+                "description_en": "A month-long journey through essential passages for new believers and those wanting to strengthen their faith foundation.",
+                "duration_days": 30,
+                "category": "faith",
+                "is_premium": False,
+            },
         )
-        
+
         if not created:
             self.stdout.write(f'Plan "{plan.title_en}" already exists, skipping...')
             return
-        
+
         days = [
             (1, "The Fall of Humanity", "Genesis 3:1-19"),
             (2, "A People for God", "Genesis 28:10-15; 32:22-28"),
@@ -66,32 +68,32 @@ class Command(BaseCommand):
             (29, "Living for God", "1 Peter 5:1-11"),
             (30, "Promise of Eternity", "2 Corinthians 5:1-10; Revelation 21:1-4"),
         ]
-        
+
         for day_num, theme, passages in days:
             ReadingPlanDay.objects.create(
                 plan=plan,
                 day_number=day_num,
                 theme_en=theme,
-                passages=passages.split('; ') if '; ' in passages else [passages],
+                passages=passages.split("; ") if "; " in passages else [passages],
             )
-        
-        self.stdout.write(f'Created plan: {plan.title_en}')
+
+        self.stdout.write(f"Created plan: {plan.title_en}")
 
     def create_60_day_overview(self):
         plan, created = ReadingPlan.objects.get_or_create(
             title_en="60-Day Overview of the Bible",
             defaults={
-                'description_en': "Journey through the entire Bible in 60 days, covering major themes and stories from Genesis to Revelation.",
-                'duration_days': 60,
-                'category': 'general',
-                'is_premium': False,
-            }
+                "description_en": "Journey through the entire Bible in 60 days, covering major themes and stories from Genesis to Revelation.",
+                "duration_days": 60,
+                "category": "general",
+                "is_premium": False,
+            },
         )
-        
+
         if not created:
             self.stdout.write(f'Plan "{plan.title_en}" already exists, skipping...')
             return
-        
+
         days = [
             (1, "In the Beginning", "Genesis 1:1-2:25"),
             (2, "Sin Enters the Picture", "Genesis 3:1-24"),
@@ -154,32 +156,32 @@ class Command(BaseCommand):
             (59, "Love Chapter", "1 Corinthians 13:1-13"),
             (60, "New Heaven and Earth", "Revelation 21:1-22:21"),
         ]
-        
+
         for day_num, theme, passages in days:
             ReadingPlanDay.objects.create(
                 plan=plan,
                 day_number=day_num,
                 theme_en=theme,
-                passages=passages.split('; ') if '; ' in passages else [passages],
+                passages=passages.split("; ") if "; " in passages else [passages],
             )
-        
-        self.stdout.write(f'Created plan: {plan.title_en}')
+
+        self.stdout.write(f"Created plan: {plan.title_en}")
 
     def create_30_famous_battles(self):
         plan, created = ReadingPlan.objects.get_or_create(
             title_en="30 Famous Battles",
             defaults={
-                'description_en': "Explore 30 famous battles from Scripture, from Cain vs. Abel to God vs. Satan.",
-                'duration_days': 30,
-                'category': 'general',
-                'is_premium': False,
-            }
+                "description_en": "Explore 30 famous battles from Scripture, from Cain vs. Abel to God vs. Satan.",
+                "duration_days": 30,
+                "category": "general",
+                "is_premium": False,
+            },
         )
-        
+
         if not created:
             self.stdout.write(f'Plan "{plan.title_en}" already exists, skipping...')
             return
-        
+
         days = [
             (1, "Cain vs. Abel", "Genesis 4:1-16"),
             (2, "Abram vs. the Four Kings", "Genesis 14:1-24"),
@@ -212,32 +214,32 @@ class Command(BaseCommand):
             (29, "God vs. Satan", "Revelation 20:1-10"),
             (30, "Final Victory", "Revelation 20:11-15; 21:1-8"),
         ]
-        
+
         for day_num, theme, passages in days:
             ReadingPlanDay.objects.create(
                 plan=plan,
                 day_number=day_num,
                 theme_en=theme,
-                passages=passages.split('; ') if '; ' in passages else [passages],
+                passages=passages.split("; ") if "; " in passages else [passages],
             )
-        
-        self.stdout.write(f'Created plan: {plan.title_en}')
+
+        self.stdout.write(f"Created plan: {plan.title_en}")
 
     def create_not_so_famous_stories(self):
         plan, created = ReadingPlan.objects.get_or_create(
             title_en="Not-So-Famous Bible Stories",
             defaults={
-                'description_en': "Discover lesser-known but powerful stories from Scripture that often get overlooked.",
-                'duration_days': 30,
-                'category': 'general',
-                'is_premium': False,
-            }
+                "description_en": "Discover lesser-known but powerful stories from Scripture that often get overlooked.",
+                "duration_days": 30,
+                "category": "general",
+                "is_premium": False,
+            },
         )
-        
+
         if not created:
             self.stdout.write(f'Plan "{plan.title_en}" already exists, skipping...')
             return
-        
+
         days = [
             (1, "Fire and Birds: God Lays Down the Law", "Numbers 11"),
             (2, "Miriam: Leprous as Snow", "Numbers 12"),
@@ -270,13 +272,13 @@ class Command(BaseCommand):
             (29, "The Writing on the Wall", "Daniel 5"),
             (30, "Handwriting Decoded", "Daniel 5:17-31"),
         ]
-        
+
         for day_num, theme, passages in days:
             ReadingPlanDay.objects.create(
                 plan=plan,
                 day_number=day_num,
                 theme_en=theme,
-                passages=passages.split('; ') if '; ' in passages else [passages],
+                passages=passages.split("; ") if "; " in passages else [passages],
             )
-        
-        self.stdout.write(f'Created plan: {plan.title_en}')
+
+        self.stdout.write(f"Created plan: {plan.title_en}")

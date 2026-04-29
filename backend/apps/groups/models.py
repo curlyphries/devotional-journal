@@ -1,6 +1,7 @@
 """
 Group and church management models (Phase 2).
 """
+
 import secrets
 import uuid
 
@@ -17,9 +18,10 @@ class Group(models.Model):
     """
     A men's group for shared reading plans and accountability.
     """
+
     TIER_CHOICES = [
-        ('free', 'Free'),
-        ('church', 'Church'),
+        ("free", "Free"),
+        ("church", "Church"),
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -28,26 +30,24 @@ class Group(models.Model):
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='created_groups'
+        related_name="created_groups",
     )
     invite_code = models.CharField(
-        max_length=8,
-        unique=True,
-        default=generate_invite_code
+        max_length=8, unique=True, default=generate_invite_code
     )
     active_plan = models.ForeignKey(
-        'plans.ReadingPlan',
+        "plans.ReadingPlan",
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='active_groups'
+        related_name="active_groups",
     )
     max_members = models.PositiveIntegerField(default=25)
-    tier = models.CharField(max_length=10, choices=TIER_CHOICES, default='free')
+    tier = models.CharField(max_length=10, choices=TIER_CHOICES, default="free")
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        db_table = 'groups'
+        db_table = "groups"
 
     def __str__(self):
         return self.name
@@ -58,39 +58,42 @@ class Group(models.Model):
 
     def regenerate_invite_code(self):
         self.invite_code = generate_invite_code()
-        self.save(update_fields=['invite_code'])
+        self.save(update_fields=["invite_code"])
 
 
 class GroupMembership(models.Model):
     """
     Tracks user membership in a group.
     """
+
     ROLE_CHOICES = [
-        ('member', 'Member'),
-        ('leader', 'Leader'),
-        ('admin', 'Admin'),
+        ("member", "Member"),
+        ("leader", "Leader"),
+        ("admin", "Admin"),
     ]
 
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='memberships')
+    group = models.ForeignKey(
+        Group, on_delete=models.CASCADE, related_name="memberships"
+    )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='group_memberships'
+        related_name="group_memberships",
     )
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='member')
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default="member")
     joined_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 
     class Meta:
-        db_table = 'group_memberships'
-        unique_together = ['group', 'user']
+        db_table = "group_memberships"
+        unique_together = ["group", "user"]
 
     def __str__(self):
         return f"GroupMembership({self.id}) - {self.group.name} ({self.role})"
 
     @property
     def is_leader(self):
-        return self.role in ('leader', 'admin')
+        return self.role in ("leader", "admin")
 
 
 class GroupEngagementSnapshot(models.Model):
@@ -98,7 +101,10 @@ class GroupEngagementSnapshot(models.Model):
     Daily aggregate engagement metrics for a group.
     Privacy: Only aggregate data, never individual member details.
     """
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='engagement_snapshots')
+
+    group = models.ForeignKey(
+        Group, on_delete=models.CASCADE, related_name="engagement_snapshots"
+    )
     date = models.DateField()
     total_members = models.PositiveIntegerField()
     members_active_today = models.PositiveIntegerField()
@@ -106,9 +112,9 @@ class GroupEngagementSnapshot(models.Model):
     plan_completion_pct = models.FloatField(default=0.0)
 
     class Meta:
-        db_table = 'group_engagement_snapshots'
-        unique_together = ['group', 'date']
-        ordering = ['-date']
+        db_table = "group_engagement_snapshots"
+        unique_together = ["group", "date"]
+        ordering = ["-date"]
 
     def __str__(self):
         return f"{self.group.name} - {self.date}"

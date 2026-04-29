@@ -1,7 +1,9 @@
 """
 Bible models for translations, verses, and user highlights.
 """
+
 import uuid
+
 from django.conf import settings
 from django.db import models
 
@@ -10,9 +12,10 @@ class BibleTranslation(models.Model):
     """
     Bible translation metadata.
     """
+
     LANGUAGE_CHOICES = [
-        ('en', 'English'),
-        ('es', 'Spanish'),
+        ("en", "English"),
+        ("es", "Spanish"),
     ]
 
     code = models.CharField(max_length=10, unique=True)
@@ -22,11 +25,11 @@ class BibleTranslation(models.Model):
     provider_class = models.CharField(
         max_length=200,
         blank=True,
-        help_text='Dotted path to Python class for API-based translations'
+        help_text="Dotted path to Python class for API-based translations",
     )
 
     class Meta:
-        db_table = 'bible_translations'
+        db_table = "bible_translations"
 
     def __str__(self):
         return f"{self.code} - {self.name}"
@@ -36,10 +39,9 @@ class BibleVerse(models.Model):
     """
     Individual Bible verse.
     """
+
     translation = models.ForeignKey(
-        BibleTranslation,
-        on_delete=models.CASCADE,
-        related_name='verses'
+        BibleTranslation, on_delete=models.CASCADE, related_name="verses"
     )
     book = models.CharField(max_length=10)
     book_name = models.CharField(max_length=50)
@@ -48,11 +50,11 @@ class BibleVerse(models.Model):
     text = models.TextField()
 
     class Meta:
-        db_table = 'bible_verses'
-        unique_together = ['translation', 'book', 'chapter', 'verse']
+        db_table = "bible_verses"
+        unique_together = ["translation", "book", "chapter", "verse"]
         indexes = [
-            models.Index(fields=['translation', 'book', 'chapter']),
-            models.Index(fields=['book', 'chapter', 'verse']),
+            models.Index(fields=["translation", "book", "chapter"]),
+            models.Index(fields=["book", "chapter", "verse"]),
         ]
 
     def __str__(self):
@@ -67,34 +69,35 @@ class VerseHighlight(models.Model):
     """
     User's highlighted verses with optional notes.
     """
+
     HIGHLIGHT_COLORS = [
-        ('yellow', 'Yellow'),
-        ('green', 'Green'),
-        ('blue', 'Blue'),
-        ('pink', 'Pink'),
-        ('orange', 'Orange'),
+        ("yellow", "Yellow"),
+        ("green", "Green"),
+        ("blue", "Blue"),
+        ("pink", "Pink"),
+        ("orange", "Orange"),
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='verse_highlights'
+        related_name="verse_highlights",
     )
     book = models.CharField(max_length=50)
     chapter = models.IntegerField()
     verse_start = models.IntegerField()
     verse_end = models.IntegerField(null=True, blank=True)
-    translation = models.CharField(max_length=20, default='KJV')
-    color = models.CharField(max_length=20, choices=HIGHLIGHT_COLORS, default='yellow')
+    translation = models.CharField(max_length=20, default="KJV")
+    color = models.CharField(max_length=20, choices=HIGHLIGHT_COLORS, default="yellow")
     note = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'verse_highlights'
-        ordering = ['book', 'chapter', 'verse_start']
-        unique_together = ['user', 'book', 'chapter', 'verse_start', 'translation']
+        db_table = "verse_highlights"
+        ordering = ["book", "chapter", "verse_start"]
+        unique_together = ["user", "book", "chapter", "verse_start", "translation"]
 
     def __str__(self):
         verse_ref = f"{self.book} {self.chapter}:{self.verse_start}"

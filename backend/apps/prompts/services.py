@@ -1,11 +1,13 @@
 """
 LLM prompt generation service with multiple backend support.
 """
+
 import json
 import logging
-import httpx
 from abc import ABC, abstractmethod
 from typing import Optional
+
+import httpx
 
 logger = logging.getLogger(__name__)
 
@@ -16,6 +18,7 @@ class PromptService(ABC):
     """
     Abstract interface for LLM-backed prompt generation.
     """
+
     @abstractmethod
     def generate_reflection_prompts(
         self,
@@ -23,16 +26,13 @@ class PromptService(ABC):
         passage_reference: str,
         language: str,
         num_prompts: int = 3,
-        context: Optional[str] = None
+        context: Optional[str] = None,
     ) -> list[str]:
         pass
 
     @abstractmethod
     def generate_discussion_guide(
-        self,
-        passages: list[dict],
-        group_size: int,
-        language: str
+        self, passages: list[dict], group_size: int, language: str
     ) -> str:
         pass
 
@@ -74,22 +74,22 @@ You MUST respond with valid JSON only, no markdown, no explanation outside the J
     def _parse_explore_response(self, text: str) -> dict:
         text = text.strip()
         # Strip markdown code fences if present
-        if text.startswith('```'):
-            lines = text.split('\n')
-            lines = [l for l in lines if not l.strip().startswith('```')]
-            text = '\n'.join(lines)
+        if text.startswith("```"):
+            lines = text.split("\n")
+            lines = [l for l in lines if not l.strip().startswith("```")]
+            text = "\n".join(lines)
         try:
             return json.loads(text)
         except json.JSONDecodeError:
             # Try to find JSON object in the text
-            start = text.find('{')
-            end = text.rfind('}') + 1
+            start = text.find("{")
+            end = text.rfind("}") + 1
             if start >= 0 and end > start:
                 try:
                     return json.loads(text[start:end])
                 except json.JSONDecodeError:
                     pass
-            logger.warning('AI explore response was not valid JSON: %s', text[:200])
+            logger.warning("AI explore response was not valid JSON: %s", text[:200])
             return {}
 
 
@@ -97,6 +97,7 @@ class OllamaPromptService(PromptService):
     """
     Ollama-based prompt generation for local development.
     """
+
     def __init__(self):
         self.base_url = settings.OLLAMA_BASE_URL
         self.model = settings.OLLAMA_MODEL
@@ -122,7 +123,7 @@ Respond with ONLY the questions, one per line, no numbering."""
         passage_reference: str,
         language: str,
         num_prompts: int = 3,
-        context: Optional[str] = None
+        context: Optional[str] = None,
     ) -> list[str]:
         system_prompt = self._get_system_prompt(language, num_prompts)
 
@@ -138,22 +139,21 @@ Respond with ONLY the questions, one per line, no numbering."""
                         "model": self.model,
                         "prompt": user_prompt,
                         "system": system_prompt,
-                        "stream": False
-                    }
+                        "stream": False,
+                    },
                 )
                 response.raise_for_status()
                 result = response.json()
                 text = result.get("response", "")
-                prompts = [line.strip() for line in text.strip().split("\n") if line.strip()]
+                prompts = [
+                    line.strip() for line in text.strip().split("\n") if line.strip()
+                ]
                 return prompts[:num_prompts]
-        except Exception as e:
-            return [f"What does this passage reveal about God's character?"]
+        except Exception:
+            return ["What does this passage reveal about God's character?"]
 
     def generate_discussion_guide(
-        self,
-        passages: list[dict],
-        group_size: int,
-        language: str
+        self, passages: list[dict], group_size: int, language: str
     ) -> str:
         system_prompt = f"""You are creating a discussion guide for a men's Bible study group of {group_size} members.
 Create a structured discussion guide that:
@@ -165,10 +165,9 @@ Create a structured discussion guide that:
 Language: {language}
 Format the output in clear sections with headers."""
 
-        passages_text = "\n\n".join([
-            f"{p.get('reference', 'Unknown')}: {p.get('text', '')}"
-            for p in passages
-        ])
+        passages_text = "\n\n".join(
+            [f"{p.get('reference', 'Unknown')}: {p.get('text', '')}" for p in passages]
+        )
 
         try:
             with httpx.Client(timeout=60.0) as client:
@@ -178,8 +177,8 @@ Format the output in clear sections with headers."""
                         "model": self.model,
                         "prompt": f"Create a discussion guide for these passages:\n\n{passages_text}",
                         "system": system_prompt,
-                        "stream": False
-                    }
+                        "stream": False,
+                    },
                 )
                 response.raise_for_status()
                 result = response.json()
@@ -199,13 +198,13 @@ Format the output in clear sections with headers."""
                         "system": system_prompt,
                         "stream": False,
                         "format": "json",
-                    }
+                    },
                 )
                 response.raise_for_status()
                 result = response.json()
                 return self._parse_explore_response(result.get("response", ""))
-        except Exception as e:
-            logger.exception('Ollama explore_heart_prompt failed')
+        except Exception:
+            logger.exception("Ollama explore_heart_prompt failed")
             return {}
 
 
@@ -213,6 +212,7 @@ class AnthropicPromptService(PromptService):
     """
     Anthropic Claude-based prompt generation for production.
     """
+
     def __init__(self):
         self.api_key = settings.ANTHROPIC_API_KEY
         self.model = settings.ANTHROPIC_MODEL
@@ -238,7 +238,7 @@ Respond with ONLY the questions, one per line, no numbering."""
         passage_reference: str,
         language: str,
         num_prompts: int = 3,
-        context: Optional[str] = None
+        context: Optional[str] = None,
     ) -> list[str]:
         user_prompt = f"Passage: {passage_reference}\n\n{passage_text}"
         if context:
@@ -251,28 +251,27 @@ Respond with ONLY the questions, one per line, no numbering."""
                     headers={
                         "x-api-key": self.api_key,
                         "anthropic-version": "2023-06-01",
-                        "content-type": "application/json"
+                        "content-type": "application/json",
                     },
                     json={
                         "model": self.model,
                         "max_tokens": 500,
                         "system": self._get_system_prompt(language, num_prompts),
-                        "messages": [{"role": "user", "content": user_prompt}]
-                    }
+                        "messages": [{"role": "user", "content": user_prompt}],
+                    },
                 )
                 response.raise_for_status()
                 result = response.json()
                 text = result["content"][0]["text"]
-                prompts = [line.strip() for line in text.strip().split("\n") if line.strip()]
+                prompts = [
+                    line.strip() for line in text.strip().split("\n") if line.strip()
+                ]
                 return prompts[:num_prompts]
         except Exception:
-            return [f"What does this passage reveal about God's character?"]
+            return ["What does this passage reveal about God's character?"]
 
     def generate_discussion_guide(
-        self,
-        passages: list[dict],
-        group_size: int,
-        language: str
+        self, passages: list[dict], group_size: int, language: str
     ) -> str:
         return "Discussion guide generation not yet implemented for Anthropic."
 
@@ -285,21 +284,21 @@ Respond with ONLY the questions, one per line, no numbering."""
                     headers={
                         "x-api-key": self.api_key,
                         "anthropic-version": "2023-06-01",
-                        "content-type": "application/json"
+                        "content-type": "application/json",
                     },
                     json={
                         "model": self.model,
                         "max_tokens": 1200,
                         "system": system_prompt,
-                        "messages": [{"role": "user", "content": user_input}]
-                    }
+                        "messages": [{"role": "user", "content": user_input}],
+                    },
                 )
                 response.raise_for_status()
                 result = response.json()
                 text = result["content"][0]["text"]
                 return self._parse_explore_response(text)
-        except Exception as e:
-            logger.exception('Anthropic explore_heart_prompt failed')
+        except Exception:
+            logger.exception("Anthropic explore_heart_prompt failed")
             return {}
 
 
@@ -309,9 +308,9 @@ def get_prompt_service() -> PromptService:
     """
     backend = settings.LLM_BACKEND.lower()
 
-    if backend == 'ollama':
+    if backend == "ollama":
         return OllamaPromptService()
-    elif backend == 'anthropic':
+    elif backend == "anthropic":
         return AnthropicPromptService()
     else:
         return OllamaPromptService()

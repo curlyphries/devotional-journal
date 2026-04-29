@@ -1,6 +1,7 @@
 """
 Streak tracking models.
 """
+
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
@@ -10,10 +11,9 @@ class UserStreak(models.Model):
     """
     Tracks user's journaling streak.
     """
+
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='streak'
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="streak"
     )
     current_streak = models.PositiveIntegerField(default=0)
     longest_streak = models.PositiveIntegerField(default=0)
@@ -21,7 +21,7 @@ class UserStreak(models.Model):
     total_entries = models.PositiveIntegerField(default=0)
 
     class Meta:
-        db_table = 'user_streaks'
+        db_table = "user_streaks"
 
     def __str__(self):
         return f"UserStreak({self.id}) - {self.current_streak} day streak"

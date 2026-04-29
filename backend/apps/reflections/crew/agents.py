@@ -2,6 +2,7 @@
 AI Agents for the Devotional Guidance Crew.
 Each agent has a specific role and personality.
 """
+
 import logging
 from abc import ABC, abstractmethod
 from typing import Optional
@@ -14,27 +15,29 @@ logger = logging.getLogger(__name__)
 
 class BaseAgent(ABC):
     """Base class for all crew agents."""
-    
+
     role: str = "Agent"
     goal: str = ""
     backstory: str = ""
-    
+
     def __init__(self, base_url: str = None, model: str = None):
-        self.base_url = base_url or getattr(settings, 'OLLAMA_BASE_URL', 'http://localhost:11434')
-        self.model = model or getattr(settings, 'OLLAMA_MODEL', 'llama3.1:8b')
-    
+        self.base_url = base_url or getattr(
+            settings, "OLLAMA_BASE_URL", "http://localhost:11434"
+        )
+        self.model = model or getattr(settings, "OLLAMA_MODEL", "llama3.1:8b")
+
     @abstractmethod
     def get_system_prompt(self) -> str:
         """Return the system prompt for this agent."""
         pass
-    
+
     def generate(self, prompt: str, context: dict = None) -> Optional[str]:
         """Generate a response from this agent."""
         system_prompt = self.get_system_prompt()
-        
+
         if context:
             system_prompt += f"\n\nCONTEXT:\n{self._format_context(context)}"
-        
+
         try:
             response = httpx.post(
                 f"{self.base_url}/api/generate",
@@ -46,18 +49,18 @@ class BaseAgent(ABC):
                     "options": {
                         "temperature": 0.7,
                         "num_predict": 500,
-                    }
+                    },
                 },
-                timeout=60.0
+                timeout=60.0,
             )
             response.raise_for_status()
             result = response.json()
-            return result.get('response', '').strip()
-            
+            return result.get("response", "").strip()
+
         except Exception as e:
             logger.error(f"{self.role} generation failed: {e}")
             return None
-    
+
     def _format_context(self, context: dict) -> str:
         """Format context dict for inclusion in prompt."""
         lines = []
@@ -77,13 +80,13 @@ class BaseAgent(ABC):
 
 class ScriptureScholar(BaseAgent):
     """Biblical context and relevant passages."""
-    
+
     role = "Scripture Scholar"
     goal = "Provide biblical context and relevant passages"
-    backstory = """You are a biblical scholar who makes scripture accessible. 
-    You understand Hebrew and Greek context but explain things simply. 
+    backstory = """You are a biblical scholar who makes scripture accessible.
+    You understand Hebrew and Greek context but explain things simply.
     You never preach - you illuminate. You connect ancient wisdom to modern struggles."""
-    
+
     def get_system_prompt(self) -> str:
         return f"""You are the {self.role}.
 
@@ -102,13 +105,13 @@ GUIDELINES:
 
 class MentorAgent(BaseAgent):
     """Practical life wisdom from experience."""
-    
+
     role = "Wise Mentor"
     goal = "Offer practical life wisdom"
-    backstory = """You are a man who has lived through struggles - addiction, 
-    divorce, career failure, rebuilding. You speak from experience, not theory. 
+    backstory = """You are a man who has lived through struggles - addiction,
+    divorce, career failure, rebuilding. You speak from experience, not theory.
     You're direct but kind. You never shame. You've been where they are."""
-    
+
     def get_system_prompt(self) -> str:
         return f"""You are the {self.role}.
 
@@ -128,13 +131,13 @@ GUIDELINES:
 
 class PatternAnalyst(BaseAgent):
     """Detects trends, triggers, and patterns."""
-    
+
     role = "Pattern Analyst"
     goal = "Identify trends, triggers, and patterns"
-    backstory = """You analyze behavioral patterns without judgment. You notice 
-    what the user might not see - timing, triggers, correlations. You present 
+    backstory = """You analyze behavioral patterns without judgment. You notice
+    what the user might not see - timing, triggers, correlations. You present
     observations as data, not accusations."""
-    
+
     def get_system_prompt(self) -> str:
         return f"""You are the {self.role}.
 
@@ -155,13 +158,13 @@ GUIDELINES:
 
 class JourneyGuide(BaseAgent):
     """Tracks goal progress and manages accountability."""
-    
+
     role = "Journey Guide"
     goal = "Track goal progress, manage open threads, suggest next steps"
-    backstory = """You are an accountability partner who remembers the user's 
-    goal and gently keeps them oriented toward it. You track open threads 
+    backstory = """You are an accountability partner who remembers the user's
+    goal and gently keeps them oriented toward it. You track open threads
     and ensure nothing falls through the cracks. You celebrate wins."""
-    
+
     def get_system_prompt(self) -> str:
         return f"""You are the {self.role}.
 
@@ -181,13 +184,13 @@ GUIDELINES:
 
 class Coordinator(BaseAgent):
     """Synthesizes insights into coherent guidance."""
-    
+
     role = "Guidance Coordinator"
     goal = "Synthesize insights into coherent, actionable guidance"
-    backstory = """You take multiple perspectives and weave them into a single, 
-    unified message. You're concise - never more than 150 words. You end with 
+    backstory = """You take multiple perspectives and weave them into a single,
+    unified message. You're concise - never more than 150 words. You end with
     a question or gentle challenge, not a lecture."""
-    
+
     def get_system_prompt(self) -> str:
         return f"""You are the {self.role}.
 
@@ -205,7 +208,7 @@ GUIDELINES:
 - Speak as a trusted friend, not an authority
 - Use "you" language, not "one should"
 - Acknowledge difficulty while encouraging progress"""
-    
+
     def synthesize(self, agent_outputs: dict, user_context: dict) -> Optional[str]:
         """Synthesize multiple agent outputs into unified guidance."""
         prompt = f"""Synthesize these perspectives into unified guidance for the user:
@@ -240,15 +243,15 @@ MAXIMUM 150 WORDS. Do not exceed this limit."""
 
 class DevotionalCurator(BaseAgent):
     """Curates scripture passages based on user's focus intention."""
-    
+
     role = "Devotional Curator"
     goal = "Select and present relevant scripture passages with context and reflection prompts"
-    backstory = """You are a thoughtful curator of scripture who understands that 
-    different seasons of life call for different passages. You select verses that 
-    speak directly to someone's current focus - whether they're seeking patience, 
-    healing, courage, or wisdom. You present passages beautifully, with context 
+    backstory = """You are a thoughtful curator of scripture who understands that
+    different seasons of life call for different passages. You select verses that
+    speak directly to someone's current focus - whether they're seeking patience,
+    healing, courage, or wisdom. You present passages beautifully, with context
     that makes ancient words feel immediate and personal."""
-    
+
     def get_system_prompt(self) -> str:
         return f"""You are the {self.role}.
 
@@ -266,9 +269,11 @@ GUIDELINES:
 - Use various translations (NIV, ESV, NLT, MSG) based on what fits best
 - Never be preachy - let the scripture speak for itself"""
 
-    def curate_passages(self, intention: str, period_type: str, themes: list, num_passages: int = 7) -> list:
+    def curate_passages(
+        self, intention: str, period_type: str, themes: list, num_passages: int = 7
+    ) -> list:
         """Generate a series of devotional passages for a focus intention."""
-        
+
         prompt = f"""The user has set a {period_type} focus intention:
 
 "{intention}"
@@ -293,42 +298,50 @@ For EACH passage, provide in this EXACT JSON format:
 Return a JSON array of {num_passages} passages. ONLY return valid JSON, no other text."""
 
         response = self.generate(prompt)
-        
+
         if not response:
             return []
-        
+
         # Parse JSON response
         import json
         import re
+
         try:
             # Try to extract JSON from response
-            start = response.find('[')
-            end = response.rfind(']') + 1
+            start = response.find("[")
+            end = response.rfind("]") + 1
             if start >= 0 and end > start:
                 json_str = response[start:end]
                 # Clean control characters that break JSON parsing
-                json_str = re.sub(r'[\x00-\x1f\x7f-\x9f]', ' ', json_str)
+                json_str = re.sub(r"[\x00-\x1f\x7f-\x9f]", " ", json_str)
                 return json.loads(json_str)
         except json.JSONDecodeError as e:
             logger.error(f"Failed to parse devotional passages JSON: {e}")
             # Return a fallback passage
-            return [{
-                "scripture_reference": "Philippians 4:6-7",
-                "scripture_text": "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.",
-                "translation": "NIV",
-                "stylized_quote": "Do not be anxious about anything...\nthe peace of God will guard your hearts",
-                "context_note": "Paul wrote this while imprisoned, showing peace is possible in any circumstance.",
-                "connection_to_focus": "This passage speaks to finding peace and consistency in your spiritual walk.",
-                "reflection_prompts": ["What causes you to feel anxious?", "How can prayer help you find consistency?"],
-                "application_suggestions": ["Start each day with a brief prayer", "Write down one thing you're thankful for"]
-            }]
-            
-        return []
+            return [
+                {
+                    "scripture_reference": "Philippians 4:6-7",
+                    "scripture_text": "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.",
+                    "translation": "NIV",
+                    "stylized_quote": "Do not be anxious about anything...\nthe peace of God will guard your hearts",
+                    "context_note": "Paul wrote this while imprisoned, showing peace is possible in any circumstance.",
+                    "connection_to_focus": "This passage speaks to finding peace and consistency in your spiritual walk.",
+                    "reflection_prompts": [
+                        "What causes you to feel anxious?",
+                        "How can prayer help you find consistency?",
+                    ],
+                    "application_suggestions": [
+                        "Start each day with a brief prayer",
+                        "Write down one thing you're thankful for",
+                    ],
+                }
+            ]
 
+        return []
 
     def extract_themes(self, intention: str) -> list:
         """Extract themes from a user's focus intention."""
-        
+
         prompt = f"""Analyze this focus intention and extract 3-5 spiritual/emotional themes:
 
 "{intention}"
@@ -339,29 +352,36 @@ Return ONLY a JSON array of theme strings, like:
 No other text, just the JSON array."""
 
         response = self.generate(prompt)
-        
+
         if not response:
             return []
-        
+
         import json
+
         try:
-            start = response.find('[')
-            end = response.rfind(']') + 1
+            start = response.find("[")
+            end = response.rfind("]") + 1
             if start >= 0 and end > start:
                 return json.loads(response[start:end])
         except json.JSONDecodeError:
             pass
-        
+
         return []
 
     def suggest_life_areas(self, intention: str, themes: list) -> list:
         """Suggest related life areas based on intention and themes."""
-        
+
         life_area_codes = [
-            'faith', 'integrity', 'relationships', 'purpose',
-            'stewardship', 'health', 'growth', 'service'
+            "faith",
+            "integrity",
+            "relationships",
+            "purpose",
+            "stewardship",
+            "health",
+            "growth",
+            "service",
         ]
-        
+
         prompt = f"""Given this focus intention and themes, which life areas are most relevant?
 
 Intention: "{intention}"
@@ -375,18 +395,19 @@ Return ONLY a JSON array of 1-3 relevant life area codes, like:
 No other text, just the JSON array."""
 
         response = self.generate(prompt)
-        
+
         if not response:
-            return ['faith']
-        
+            return ["faith"]
+
         import json
+
         try:
-            start = response.find('[')
-            end = response.rfind(']') + 1
+            start = response.find("[")
+            end = response.rfind("]") + 1
             if start >= 0 and end > start:
                 areas = json.loads(response[start:end])
                 return [a for a in areas if a in life_area_codes]
         except json.JSONDecodeError:
             pass
-        
-        return ['faith']
+
+        return ["faith"]

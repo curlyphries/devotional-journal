@@ -1,29 +1,30 @@
 """
 AI Crew for personalized devotional guidance.
 """
+
 from .agents import (
-    ScriptureScholar,
+    Coordinator,
+    JourneyGuide,
     MentorAgent,
     PatternAnalyst,
-    JourneyGuide,
-    Coordinator,
+    ScriptureScholar,
 )
 from .crew import DevotionalCrew, get_crew
 from .tasks import (
-    WeeklyReviewTask,
-    MonthlyRecapTask,
     DailyInsightTask,
+    MonthlyRecapTask,
+    WeeklyReviewTask,
 )
 
 __all__ = [
-    'ScriptureScholar',
-    'MentorAgent',
-    'PatternAnalyst',
-    'JourneyGuide',
-    'Coordinator',
-    'DevotionalCrew',
-    'get_crew',
-    'WeeklyReviewTask',
-    'MonthlyRecapTask',
-    'DailyInsightTask',
+    "ScriptureScholar",
+    "MentorAgent",
+    "PatternAnalyst",
+    "JourneyGuide",
+    "Coordinator",
+    "DevotionalCrew",
+    "get_crew",
+    "WeeklyReviewTask",
+    "MonthlyRecapTask",
+    "DailyInsightTask",
 ]

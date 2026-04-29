@@ -1,8 +1,8 @@
 """
 Link journal entries to the user's active focus intention at time of writing.
 """
-from django.db import migrations, models
 import django.db.models.deletion
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
