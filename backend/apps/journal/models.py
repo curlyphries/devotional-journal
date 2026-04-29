@@ -42,6 +42,14 @@ class JournalEntry(models.Model):
         blank=True,
         related_name='journal_entries'
     )
+    focus_intention = models.ForeignKey(
+        'reflections.FocusIntention',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='journal_entries'
+    )
+    focus_themes = models.JSONField(default=list, blank=True)
     encrypted_content = models.BinaryField()
     reflection_prompts_used = models.JSONField(default=list, blank=True)
     mood_tag = models.CharField(max_length=20, choices=MOOD_CHOICES, blank=True)
