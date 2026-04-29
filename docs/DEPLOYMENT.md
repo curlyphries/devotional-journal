@@ -209,6 +209,42 @@ Ensure `.env.prod` contains:
 SECURE_SSL_REDIRECT=false
 ```
 
+### Blank white page — CSS/JS blocked due to MIME type mismatch
+
+Browser console shows:
+```
+The resource ".../assets/index-xxx.css" was blocked due to MIME type ("text/html") mismatch
+Loading module ".../assets/index-xxx.js" was blocked because of a disallowed MIME type ("text/html")
+```
+
+The container nginx is returning `index.html` instead of the actual asset files. This happens when
+`try_files $uri` resolves `/devotional-journal/assets/...` against the filesystem where the file
+doesn't exist at that path (Vite outputs to `/assets/`, not `/devotional-journal/assets/`).
+
+Ensure `frontend/nginx.conf` uses `alias` locations to strip the sub-path prefix:
+```nginx
+location /devotional-journal/assets/ {
+    alias /usr/share/nginx/html/assets/;
+}
+location /devotional-journal/ {
+    alias /usr/share/nginx/html/;
+    try_files $uri $uri/ /index.html;
+}
+```
+
+### Google Fonts blocked by Content-Security-Policy
+
+Browser console shows:
+```
+Content-Security-Policy: blocked a style (style-src-elem) at https://fonts.googleapis.com/...
+```
+
+The outer Nginx CSP header doesn't include Google Fonts domains. Add them:
+```nginx
+style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+font-src  'self' https://fonts.gstatic.com;
+```
+
 ### Backend secret key warning in logs
 
 `SECRET_KEY` was not set — Django fell back to the dev placeholder.
