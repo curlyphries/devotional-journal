@@ -47,7 +47,9 @@ frontend/dist/
 .env
 .env.local
 .env.*.local
+.env.prod
 !.env.example
+!.env.prod.example
 
 # IDE
 .idea/
@@ -72,6 +74,7 @@ docker-compose.override.yml
 
 # Environment (root-level for docker-compose)
 .env
+.env.prod
 
 # Celery
 celerybeat-schedule

@@ -95,6 +95,7 @@ devotional-journal/
 
 - [API Documentation](docs/API.md)
 - [Architecture](docs/ARCHITECTURE.md)
+- [Deployment Guide](docs/DEPLOYMENT.md)
 - [Development Guide](docs/DEVELOPMENT.md)
 
 ## Contributing

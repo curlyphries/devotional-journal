@@ -14,7 +14,7 @@ except ImportError:
 
 DEBUG = False
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = [h for h in os.environ.get('ALLOWED_HOSTS', '').split(',') if h.strip()]
 
 DATABASES = {
     'default': dj_database_url.config(conn_max_age=600)
@@ -33,7 +33,8 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
 # CORS - restrict to known origins
-CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
+_cors_origins = os.environ.get('CORS_ALLOWED_ORIGINS', '')
+CORS_ALLOWED_ORIGINS = [o for o in _cors_origins.split(',') if o.strip()]
 
 # Sub-path deployment support (e.g. curlyphries.net/devotional-journal/)
 _script_name = os.environ.get('FORCE_SCRIPT_NAME', '')
