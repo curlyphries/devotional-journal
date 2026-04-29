@@ -1,0 +1,62 @@
+version: '3.8'
+
+# Production compose for curlyphries.net/devotional-journal/
+# Uses host PostgreSQL (port 5432) and Redis (port 6379) directly.
+# Backend exposed on 127.0.0.1:8010, frontend on 127.0.0.1:3010.
+
+services:
+  dj-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8010:8000"
+    env_file:
+      - .env.prod
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.prod
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: >
+      sh -c "python manage.py migrate --noinput &&
+             gunicorn --bind 0.0.0.0:8000 --workers 4 --timeout 120 config.wsgi:application"
+
+  dj-celery:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env.prod
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.prod
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: celery -A config worker -l info --concurrency 2
+
+  dj-celery-beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env.prod
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.prod
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: celery -A config beat -l info
+
+  dj-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_BASE_PATH=/devotional-journal/
+        - VITE_API_URL=/devotional-journal/api/v1
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3010:80"
+    depends_on:
+      - dj-backend
