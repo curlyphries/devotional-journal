@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back"
+  },
+  "auth": {
+    "login": "Sign In",
+    "logout": "Sign Out",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "sendMagicLink": "Send Magic Link",
+    "magicLinkSent": "Check your email for a login link",
+    "verifying": "Verifying your login..."
+  },
+  "dashboard": {
+    "greeting": "Good morning",
+    "currentStreak": "Current Streak",
+    "days": "days",
+    "todaysReading": "Today's Reading",
+    "readAndReflect": "Read & Reflect",
+    "recentEntries": "Recent Entries",
+    "noEntries": "No journal entries yet",
+    "startJourney": "Start your journey today"
+  },
+  "reading": {
+    "reflectionPrompts": "Reflection Prompts",
+    "journalEntry": "Journal Entry",
+    "saveEntry": "Save Entry",
+    "moodTag": "How are you feeling?",
+    "moods": {
+      "grateful": "Grateful",
+      "struggling": "Struggling",
+      "convicted": "Convicted",
+      "peaceful": "Peaceful",
+      "fired_up": "Fired Up"
+    }
+  },
+  "journal": {
+    "history": "Journal History",
+    "newEntry": "New Entry",
+    "noEntries": "No entries found",
+    "filterByMood": "Filter by mood",
+    "allMoods": "All moods"
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "displayName": "Display Name",
+    "language": "Language",
+    "timezone": "Timezone",
+    "saveChanges": "Save Changes",
+    "languages": {
+      "en": "English",
+      "es": "Spanish",
+      "bilingual": "Bilingual"
+    }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "journal": "Journal",
+    "plans": "Plans",
+    "settings": "Settings"
+  }
+}
