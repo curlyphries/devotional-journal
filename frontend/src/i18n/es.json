@@ -1,0 +1,69 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrio un error",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "back": "Volver"
+  },
+  "auth": {
+    "login": "Iniciar Sesion",
+    "logout": "Cerrar Sesion",
+    "email": "Correo Electronico",
+    "emailPlaceholder": "Ingresa tu correo",
+    "sendMagicLink": "Enviar Enlace Magico",
+    "magicLinkSent": "Revisa tu correo para el enlace de acceso",
+    "verifying": "Verificando tu acceso..."
+  },
+  "dashboard": {
+    "greeting": "Buenos dias",
+    "currentStreak": "Racha Actual",
+    "days": "dias",
+    "todaysReading": "Lectura de Hoy",
+    "readAndReflect": "Leer y Reflexionar",
+    "recentEntries": "Entradas Recientes",
+    "noEntries": "Sin entradas de diario",
+    "startJourney": "Comienza tu jornada hoy"
+  },
+  "reading": {
+    "reflectionPrompts": "Preguntas de Reflexion",
+    "journalEntry": "Entrada de Diario",
+    "saveEntry": "Guardar Entrada",
+    "moodTag": "Como te sientes?",
+    "moods": {
+      "grateful": "Agradecido",
+      "struggling": "Luchando",
+      "convicted": "Convicto",
+      "peaceful": "En Paz",
+      "fired_up": "Encendido"
+    }
+  },
+  "journal": {
+    "history": "Historial del Diario",
+    "newEntry": "Nueva Entrada",
+    "noEntries": "No se encontraron entradas",
+    "filterByMood": "Filtrar por estado",
+    "allMoods": "Todos los estados"
+  },
+  "settings": {
+    "title": "Configuracion",
+    "profile": "Perfil",
+    "displayName": "Nombre",
+    "language": "Idioma",
+    "timezone": "Zona Horaria",
+    "saveChanges": "Guardar Cambios",
+    "languages": {
+      "en": "Ingles",
+      "es": "Espanol",
+      "bilingual": "Bilingue"
+    }
+  },
+  "nav": {
+    "dashboard": "Inicio",
+    "journal": "Diario",
+    "plans": "Planes",
+    "settings": "Configuracion"
+  }
+}
