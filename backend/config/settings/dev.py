@@ -27,8 +27,14 @@ else:
         }
     }
 
-# CORS - allow all in development
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS - restrict to known local origins even in development
+CORS_ALLOWED_ORIGINS = os.environ.get(
+    'CORS_ALLOWED_ORIGINS',
+    'http://localhost:3000,http://localhost:3001,http://127.0.0.1:3000,http://127.0.0.1:3001'
+).split(',')
+
+# Disable throttling in local dev to avoid friction during development
+REST_FRAMEWORK['DEFAULT_THROTTLE_CLASSES'] = []
 
 # Debug toolbar (optional - only if installed)
 try:
@@ -44,6 +50,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Use a default encryption key for development
 if not ENCRYPTION_ROOT_KEY:
+    import warnings
+    warnings.warn(
+        "ENCRYPTION_ROOT_KEY is not set. Using insecure dev key — NEVER use this in production.",
+        stacklevel=2
+    )
     ENCRYPTION_ROOT_KEY = 'dev-encryption-key-32-bytes-long!'
 
 # Tailscale-only access - disabled for public OAuth access

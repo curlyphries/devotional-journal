@@ -35,15 +35,13 @@ class TailscaleOnlyMiddleware:
         return self.get_response(request)
     
     def get_client_ip(self, request):
-        """Get the real client IP, handling proxies."""
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            return x_forwarded_for.split(',')[0].strip()
-        
-        x_real_ip = request.META.get('HTTP_X_REAL_IP')
-        if x_real_ip:
-            return x_real_ip
-        
+        """
+        Return the actual TCP connection IP (REMOTE_ADDR).
+        X-Forwarded-For is intentionally ignored here because it can be
+        trivially spoofed by any client, defeating the Tailscale IP check.
+        If this service runs behind a trusted reverse proxy, configure
+        Django's SECURE_PROXY_SSL_HEADER and NUM_PROXIES instead.
+        """
         return request.META.get('REMOTE_ADDR', '')
     
     def is_allowed_ip(self, ip):

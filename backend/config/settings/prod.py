@@ -2,10 +2,15 @@
 Production settings for Devotional Journal.
 """
 import dj_database_url
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
 
 from .base import *
+
+try:
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+    _sentry_available = True
+except ImportError:
+    _sentry_available = False
 
 DEBUG = False
 
@@ -32,8 +37,11 @@ CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
 # Static files
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
+# Security headers
+SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
+
 # Sentry
-if os.environ.get('SENTRY_DSN'):
+if _sentry_available and os.environ.get('SENTRY_DSN'):
     sentry_sdk.init(
         dsn=os.environ.get('SENTRY_DSN'),
         integrations=[DjangoIntegration()],
