@@ -14,7 +14,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/devotional-journal.git
+git clone https://github.com/curlyphries/devotional-journal.git
 cd devotional-journal
 
 # Copy environment files

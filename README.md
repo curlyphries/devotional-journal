@@ -34,7 +34,7 @@ An open-source, bilingual (English/Spanish) men's devotional Bible journal desig
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/devotional-journal.git
+git clone https://github.com/curlyphries/devotional-journal.git
 cd devotional-journal
 
 # Start services with Docker Compose
@@ -95,8 +95,7 @@ devotional-journal/
 
 - [API Documentation](docs/API.md)
 - [Architecture](docs/ARCHITECTURE.md)
-- [Deployment Guide](docs/DEPLOYMENT.md)
-- [Encryption & Security](docs/ENCRYPTION.md)
+- [Development Guide](docs/DEVELOPMENT.md)
 
 ## Contributing
 
