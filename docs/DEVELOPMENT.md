@@ -195,7 +195,7 @@ npx tsc --noEmit
 | `DEBUG` | Debug mode | `False` |
 | `DATABASE_URL` | PostgreSQL connection | Required |
 | `REDIS_URL` | Redis connection | `redis://localhost:6379/0` |
-| `ENCRYPTION_ROOT_KEY` | 32-char encryption key | Required |
+| `ENCRYPTION_ROOT_KEY` | 32-byte encryption key (generate with `python3 -c "import secrets; print(secrets.token_hex(32))"`) | Required |
 | `LLM_BACKEND` | `ollama` or `anthropic` | `ollama` |
 | `OLLAMA_BASE_URL` | Ollama API URL | `http://localhost:11434` |
 | `OLLAMA_MODEL` | Ollama model name | `llama3.1:8b` |

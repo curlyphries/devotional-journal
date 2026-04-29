@@ -11,6 +11,9 @@ from django.conf import settings
 from django.db import models
 
 
+PBKDF2_ITERATIONS = 600_000  # NIST SP 800-132 recommendation for SHA-256 (2023)
+
+
 def derive_user_key(user_salt: bytes) -> bytes:
     """
     Derive a user-specific encryption key from the root key and user salt.
@@ -20,7 +23,7 @@ def derive_user_key(user_salt: bytes) -> bytes:
         'sha256',
         root_key,
         user_salt,
-        iterations=100000,
+        iterations=PBKDF2_ITERATIONS,
         dklen=32
     )
     return base64.urlsafe_b64encode(derived)

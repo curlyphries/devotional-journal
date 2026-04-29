@@ -132,10 +132,38 @@ class JournalDetailView(APIView):
 
 class JournalExportView(APIView):
     """
-    Export all journal entries.
+    Export journal entries for a date range (max 365 days per request).
     """
     def get(self, request):
-        entries = JournalEntry.objects.filter(user=request.user).order_by('date')
+        from datetime import date, timedelta
+
+        date_from_str = request.query_params.get('date_from')
+        date_to_str = request.query_params.get('date_to')
+
+        if not date_from_str or not date_to_str:
+            return Response(
+                {'error': 'date_from and date_to query parameters are required (YYYY-MM-DD)'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            date_from = date.fromisoformat(date_from_str)
+            date_to = date.fromisoformat(date_to_str)
+        except ValueError:
+            return Response(
+                {'error': 'Invalid date format. Use YYYY-MM-DD.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if (date_to - date_from).days > 365:
+            return Response(
+                {'error': 'Export range cannot exceed 365 days per request.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        entries = JournalEntry.objects.filter(
+            user=request.user, date__gte=date_from, date__lte=date_to
+        ).order_by('date')
 
         export_data = []
         for entry in entries:

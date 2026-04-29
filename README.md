@@ -65,7 +65,7 @@ DATABASE_URL=postgres://user:pass@localhost:5432/devotional
 # Redis
 REDIS_URL=redis://localhost:6379/0
 
-# Encryption
+# Encryption (generate with: python3 -c "import secrets; print(secrets.token_hex(32))")
 ENCRYPTION_ROOT_KEY=your-32-byte-key-here
 
 # LLM (development)
