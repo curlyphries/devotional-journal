@@ -24,7 +24,7 @@ class UserStreak(models.Model):
         db_table = 'user_streaks'
 
     def __str__(self):
-        return f"{self.user.email} - {self.current_streak} day streak"
+        return f"UserStreak({self.id}) - {self.current_streak} day streak"
 
     def record_entry(self, entry_date=None):
         """

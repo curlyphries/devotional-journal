@@ -86,7 +86,7 @@ class GroupMembership(models.Model):
         unique_together = ['group', 'user']
 
     def __str__(self):
-        return f"{self.user.email} - {self.group.name} ({self.role})"
+        return f"GroupMembership({self.id}) - {self.group.name} ({self.role})"
 
     @property
     def is_leader(self):

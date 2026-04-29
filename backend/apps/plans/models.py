@@ -103,7 +103,7 @@ class UserPlanEnrollment(models.Model):
         db_table = 'user_plan_enrollments'
 
     def __str__(self):
-        return f"{self.user.email} - {self.plan.title_en}"
+        return f"PlanEnrollment({self.id}) - {self.plan.title_en}"
 
     @property
     def is_completed(self):

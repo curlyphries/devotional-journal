@@ -54,7 +54,7 @@ class JournalEntry(models.Model):
         ordering = ['-date', '-created_at']
 
     def __str__(self):
-        return f"{self.user.email} - {self.date}"
+        return f"JournalEntry({self.id}) - {self.date}"
 
     def set_content(self, content: str):
         """Encrypt and store content."""

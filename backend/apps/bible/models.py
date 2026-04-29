@@ -100,7 +100,7 @@ class VerseHighlight(models.Model):
         verse_ref = f"{self.book} {self.chapter}:{self.verse_start}"
         if self.verse_end and self.verse_end != self.verse_start:
             verse_ref += f"-{self.verse_end}"
-        return f"{self.user.email} - {verse_ref}"
+        return f"VerseHighlight({self.id}) - {verse_ref}"
 
     @property
     def reference(self):
