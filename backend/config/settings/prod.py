@@ -24,7 +24,8 @@ DATABASES = {
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'true').lower() == 'true'
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000
@@ -33,6 +34,11 @@ SECURE_HSTS_PRELOAD = True
 
 # CORS - restrict to known origins
 CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split(',')
+
+# Sub-path deployment support (e.g. curlyphries.net/devotional-journal/)
+_script_name = os.environ.get('FORCE_SCRIPT_NAME', '')
+if _script_name:
+    FORCE_SCRIPT_NAME = _script_name
 
 # Static files
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
