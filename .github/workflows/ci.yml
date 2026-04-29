@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -132,3 +132,38 @@ jobs:
           tags: devotional-journal-frontend:test
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [backend-test, frontend-test]
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+
+    steps:
+      - name: Deploy to curlyphries.net
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: curlyphries
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            set -e
+            cd /home/curlyphries/projects/devotional-journal
+
+            echo "--- Pulling latest code ---"
+            git pull origin master
+
+            echo "--- Rebuilding changed images ---"
+            docker-compose -f docker-compose.prod.yml build
+
+            echo "--- Restarting services ---"
+            docker-compose -f docker-compose.prod.yml down
+            docker-compose -f docker-compose.prod.yml up -d
+
+            echo "--- Running migrations ---"
+            docker-compose -f docker-compose.prod.yml run --rm dj-backend python manage.py migrate --no-input
+
+            echo "--- Health check ---"
+            sleep 5
+            curl -sf http://127.0.0.1:8010/api/v1/health/ || echo "WARNING: health check failed"
+
+            echo "--- Deploy complete ---"
