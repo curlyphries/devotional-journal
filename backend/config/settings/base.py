@@ -10,7 +10,14 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
+if not SECRET_KEY:
+    import warnings
+    warnings.warn(
+        "SECRET_KEY is not set. Using an empty key — set SECRET_KEY in your environment.",
+        stacklevel=2,
+    )
+    SECRET_KEY = 'dev-only-insecure-key-do-not-use-in-production-replace-me'
 
 ALLOWED_HOSTS = []
 
