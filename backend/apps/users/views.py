@@ -11,7 +11,9 @@ from django.shortcuts import redirect
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.throttling import AnonRateThrottle
 from rest_framework.views import APIView
+
 
 from .authentication import generate_tokens, refresh_access_token
 from .models import User, MagicLinkToken
@@ -27,18 +29,38 @@ from .tasks import send_magic_link_email
 logger = logging.getLogger(__name__)
 
 
+class MagicLinkThrottle(AnonRateThrottle):
+    rate = '5/hour'
+    scope = 'magic_link'
+
+
+class AuthThrottle(AnonRateThrottle):
+    rate = '10/hour'
+    scope = 'auth'
+
+
 class MagicLinkRequestView(APIView):
     """
     Request a magic link for passwordless authentication.
     """
     permission_classes = [AllowAny]
+    throttle_classes = [MagicLinkThrottle]
 
     def post(self, request):
         serializer = MagicLinkRequestSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         email = serializer.validated_data['email']
-        user, created = User.objects.get_or_create(email=email)
+
+        # Do NOT create accounts here — silently succeed for unknown emails
+        # to prevent account enumeration and unsolicited magic link spam.
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response(
+                {'message': 'Magic link sent to your email'},
+                status=status.HTTP_200_OK
+            )
 
         token_obj, raw_token = MagicLinkToken.create_for_user(user)
         send_magic_link_email.delay(user.id, raw_token)
@@ -54,6 +76,7 @@ class MagicLinkVerifyView(APIView):
     Verify a magic link token and return JWT tokens.
     """
     permission_classes = [AllowAny]
+    throttle_classes = [AuthThrottle]
 
     def post(self, request):
         serializer = MagicLinkVerifySerializer(data=request.data)
@@ -81,6 +104,7 @@ class RefreshTokenView(APIView):
     Refresh an access token using a refresh token.
     """
     permission_classes = [AllowAny]
+    throttle_classes = [AuthThrottle]
 
     def post(self, request):
         serializer = RefreshTokenSerializer(data=request.data)
@@ -152,6 +176,34 @@ class ProfileView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+def _validate_external_url(url: str) -> bool:
+    """
+    Validate a user-supplied URL to prevent SSRF.
+    Only permits http/https to non-private, non-loopback hosts.
+    """
+    import ipaddress
+    from urllib.parse import urlparse
+    if not url:
+        return False
+    parsed = urlparse(url)
+    if parsed.scheme not in ('http', 'https'):
+        return False
+    host = parsed.hostname or ''
+    if not host:
+        return False
+    # Block loopback, link-local, private ranges, and cloud metadata
+    blocked_hosts = {'localhost', '169.254.169.254', 'metadata.google.internal'}
+    if host in blocked_hosts:
+        return False
+    try:
+        addr = ipaddress.ip_address(host)
+        if addr.is_loopback or addr.is_private or addr.is_link_local or addr.is_reserved:
+            return False
+    except ValueError:
+        pass  # host is a domain name, not an IP
+    return True
+
+
 class TestAIConnectionView(APIView):
     """
     Test the user's AI provider connection.
@@ -160,7 +212,7 @@ class TestAIConnectionView(APIView):
 
     def post(self, request):
         import httpx
-        
+
         provider = request.data.get('provider', 'openai')
         api_key = request.data.get('api_key', '')
         model = request.data.get('model', '')
@@ -202,13 +254,23 @@ class TestAIConnectionView(APIView):
                 response = httpx.get(url, headers=headers, timeout=10)
                 
             elif provider == 'ollama':
-                url = base_url or 'http://localhost:11434'
-                response = httpx.get(f'{url}/api/tags', timeout=10)
-                
+                ollama_url = base_url or settings.OLLAMA_BASE_URL
+                if base_url and not _validate_external_url(base_url):
+                    return Response(
+                        {'success': False, 'error': 'Invalid or disallowed base URL'},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                response = httpx.get(f'{ollama_url}/api/tags', timeout=10)
+
             elif provider == 'custom':
                 if not base_url:
                     return Response(
                         {'success': False, 'error': 'Base URL is required for custom provider'},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+                if not _validate_external_url(base_url):
+                    return Response(
+                        {'success': False, 'error': 'Invalid or disallowed base URL'},
                         status=status.HTTP_400_BAD_REQUEST
                     )
                 url = f'{base_url.rstrip("/")}/models'
@@ -318,7 +380,7 @@ class GoogleOAuthCallbackView(APIView):
             )
             
             if token_response.status_code != 200:
-                logger.error(f"Google token exchange failed: {token_response.text}")
+                logger.error("Google token exchange failed: status=%s", token_response.status_code)
                 return redirect(f"{frontend_url}/login?error=token_exchange_failed")
             
             token_data = token_response.json()
@@ -332,7 +394,7 @@ class GoogleOAuthCallbackView(APIView):
             )
             
             if userinfo_response.status_code != 200:
-                logger.error(f"Google userinfo failed: {userinfo_response.text}")
+                logger.error("Google userinfo failed: status=%s", userinfo_response.status_code)
                 return redirect(f"{frontend_url}/login?error=userinfo_failed")
             
             userinfo = userinfo_response.json()
@@ -360,14 +422,19 @@ class GoogleOAuthCallbackView(APIView):
             
             # Generate JWT tokens
             tokens = generate_tokens(user)
-            
-            # Redirect to frontend with tokens
-            params = urlencode({
+
+            # Store tokens server-side under a short-lived one-time code.
+            # The frontend redeems this code via POST /auth/exchange/ so that
+            # tokens never appear in URLs, browser history, or server logs.
+            one_time_code = secrets.token_urlsafe(32)
+            request.session[f'oauth_code_{one_time_code}'] = {
                 'access_token': tokens['access_token'],
                 'refresh_token': tokens['refresh_token'],
-                'new_user': 'true' if created else 'false',
-            })
-            
+                'new_user': created,
+            }
+            request.session.set_expiry(300)  # 5-minute window to redeem
+
+            params = urlencode({'code': one_time_code})
             return redirect(f"{frontend_url}/auth/callback?{params}")
             
         except httpx.TimeoutException:
@@ -376,6 +443,37 @@ class GoogleOAuthCallbackView(APIView):
         except Exception as e:
             logger.error(f"Google OAuth error: {e}")
             return redirect(f"{frontend_url}/login?error=server_error")
+
+
+class OAuthTokenExchangeView(APIView):
+    """
+    Redeem a one-time OAuth callback code for JWT tokens.
+    The code is consumed on first use and expires after 5 minutes.
+    """
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        code = request.data.get('code')
+        if not code:
+            return Response(
+                {'error': 'code is required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        session_key = f'oauth_code_{code}'
+        token_data = request.session.pop(session_key, None)
+
+        if not token_data:
+            return Response(
+                {'error': 'Invalid or expired code'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        return Response({
+            'access_token': token_data['access_token'],
+            'refresh_token': token_data['refresh_token'],
+            'new_user': token_data['new_user'],
+        }, status=status.HTTP_200_OK)
 
 
 class GoogleOAuthTokenView(APIView):

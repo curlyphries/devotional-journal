@@ -38,8 +38,17 @@ class UserSerializer(serializers.ModelSerializer):
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['display_name', 'language_preference', 'timezone', 
+        fields = ['display_name', 'language_preference', 'timezone',
                   'ai_provider', 'ai_api_key', 'ai_model', 'ai_base_url']
+
+    def update(self, instance, validated_data):
+        ai_api_key = validated_data.pop('ai_api_key', None)
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        if ai_api_key is not None:
+            instance.set_ai_api_key(ai_api_key)
+        instance.save()
+        return instance
 
 
 class AISettingsSerializer(serializers.Serializer):

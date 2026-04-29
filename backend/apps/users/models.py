@@ -81,6 +81,24 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
+    def set_ai_api_key(self, raw_key: str):
+        """Encrypt and store the user's AI API key."""
+        from shared.encryption import encrypt_content
+        if raw_key:
+            self.ai_api_key = encrypt_content(raw_key, self.encryption_key_salt).decode('latin-1')
+        else:
+            self.ai_api_key = ''
+
+    def get_ai_api_key(self) -> str:
+        """Decrypt and return the user's AI API key."""
+        from shared.encryption import decrypt_content
+        if not self.ai_api_key:
+            return ''
+        try:
+            return decrypt_content(self.ai_api_key.encode('latin-1'), self.encryption_key_salt)
+        except Exception:
+            return self.ai_api_key
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
