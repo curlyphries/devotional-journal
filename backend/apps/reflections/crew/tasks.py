@@ -35,8 +35,8 @@ class DailyInsightTask(BaseTask):
         # Just the mentor and coordinator
         mentor_output = self.crew.mentor.generate(
             f"The user reflected: {reflection.get_reflection()[:500]}\n"
-            f"They're grateful for: {reflection.gratitude_note}\n"
-            f"They struggled with: {reflection.struggle_note}\n"
+            f"They're grateful for: {reflection.get_gratitude_note()}\n"
+            f"They struggled with: {reflection.get_struggle_note()}\n"
             f"Offer brief, practical encouragement.",
             context
         )
@@ -148,8 +148,8 @@ class WeeklyReviewTask(BaseTask):
         
         # Aggregate data
         scriptures = [r.scripture_reference for r in reflections if r.scripture_reference]
-        struggles = [r.struggle_note for r in reflections if r.struggle_note]
-        gratitudes = [r.gratitude_note for r in reflections if r.gratitude_note]
+        struggles = [r.get_struggle_note() for r in reflections if r.encrypted_struggle]
+        gratitudes = [r.get_gratitude_note() for r in reflections if r.encrypted_gratitude]
         reflection_days = [r.date.strftime('%A') for r in reflections]
         
         # Calculate area averages
@@ -282,7 +282,7 @@ class MonthlyRecapTask(BaseTask):
         top_themes = sorted(theme_counts.items(), key=lambda x: x[1], reverse=True)[:5]
         
         # Collect struggles
-        struggles = [r.struggle_note for r in reflections if r.struggle_note]
+        struggles = [r.get_struggle_note() for r in reflections if r.encrypted_struggle]
         
         # Calculate consistency
         days_in_period = 30

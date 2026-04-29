@@ -90,66 +90,111 @@ class DailyReflectionSerializer(serializers.ModelSerializer):
     reflection_content = serializers.CharField(
         write_only=True, required=False, allow_blank=True
     )
+    gratitude_note = serializers.CharField(
+        write_only=True, required=False, allow_blank=True
+    )
+    struggle_note = serializers.CharField(
+        write_only=True, required=False, allow_blank=True
+    )
+    tomorrow_intention = serializers.CharField(
+        write_only=True, required=False, allow_blank=True
+    )
     reflection = serializers.SerializerMethodField()
-    
+    gratitude = serializers.SerializerMethodField()
+    struggle = serializers.SerializerMethodField()
+    intention = serializers.SerializerMethodField()
+
     class Meta:
         model = DailyReflection
         fields = [
             'id', 'journey', 'date', 'scripture_reference',
             'scripture_themes', 'reflection_content', 'reflection',
-            'area_scores', 'gratitude_note', 'struggle_note',
-            'tomorrow_intention', 'ai_insight', 'ai_provider_used',
+            'area_scores', 'gratitude_note', 'gratitude',
+            'struggle_note', 'struggle',
+            'tomorrow_intention', 'intention',
+            'ai_insight', 'ai_provider_used',
             'created_at', 'updated_at'
         ]
         read_only_fields = [
             'id', 'scripture_themes', 'ai_insight',
             'ai_provider_used', 'created_at', 'updated_at'
         ]
-    
+
     def get_reflection(self, obj):
         """Return decrypted reflection content."""
         return obj.get_reflection()
-    
-    def create(self, validated_data):
+
+    def get_gratitude(self, obj):
+        return obj.get_gratitude_note()
+
+    def get_struggle(self, obj):
+        return obj.get_struggle_note()
+
+    def get_intention(self, obj):
+        return obj.get_tomorrow_intention()
+
+    def _apply_encrypted_fields(self, instance, validated_data):
         reflection_content = validated_data.pop('reflection_content', None)
-        user = self.context['request'].user
-        reflection = DailyReflection.objects.create(user=user, **validated_data)
-        if reflection_content:
-            reflection.set_reflection(reflection_content)
-            reflection.save()
-        return reflection
-    
-    def update(self, instance, validated_data):
-        reflection_content = validated_data.pop('reflection_content', None)
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
+        gratitude = validated_data.pop('gratitude_note', None)
+        struggle = validated_data.pop('struggle_note', None)
+        intention = validated_data.pop('tomorrow_intention', None)
         if reflection_content is not None:
             instance.set_reflection(reflection_content)
+        if gratitude is not None:
+            instance.set_gratitude_note(gratitude)
+        if struggle is not None:
+            instance.set_struggle_note(struggle)
+        if intention is not None:
+            instance.set_tomorrow_intention(intention)
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        reflection = DailyReflection.objects.create(user=user, **{
+            k: v for k, v in validated_data.items()
+            if k not in ('reflection_content', 'gratitude_note', 'struggle_note', 'tomorrow_intention')
+        })
+        self._apply_encrypted_fields(reflection, validated_data)
+        reflection.save()
+        return reflection
+
+    def update(self, instance, validated_data):
+        self._apply_encrypted_fields(instance, validated_data)
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
         instance.save()
         return instance
 
 
-class DailyReflectionCreateSerializer(serializers.ModelSerializer):
+class DailyReflectionCreateSerializer(serializers.Serializer):
     """Serializer for creating a daily reflection."""
-    reflection_content = serializers.CharField(
-        write_only=True, required=False, allow_blank=True
+    journey = serializers.PrimaryKeyRelatedField(
+        queryset=UserJourney.objects.all(),
+        required=False, allow_null=True
     )
-    
-    class Meta:
-        model = DailyReflection
-        fields = [
-            'journey', 'date', 'scripture_reference',
-            'reflection_content', 'area_scores',
-            'gratitude_note', 'struggle_note', 'tomorrow_intention'
-        ]
-    
+    date = serializers.DateField()
+    scripture_reference = serializers.CharField(max_length=200, required=False, allow_blank=True)
+    reflection_content = serializers.CharField(required=False, allow_blank=True)
+    area_scores = serializers.JSONField(required=False, default=dict)
+    gratitude_note = serializers.CharField(required=False, allow_blank=True)
+    struggle_note = serializers.CharField(required=False, allow_blank=True)
+    tomorrow_intention = serializers.CharField(required=False, allow_blank=True)
+
     def create(self, validated_data):
-        reflection_content = validated_data.pop('reflection_content', None)
         user = self.context['request'].user
+        reflection_content = validated_data.pop('reflection_content', None)
+        gratitude = validated_data.pop('gratitude_note', None)
+        struggle = validated_data.pop('struggle_note', None)
+        intention = validated_data.pop('tomorrow_intention', None)
         reflection = DailyReflection.objects.create(user=user, **validated_data)
         if reflection_content:
             reflection.set_reflection(reflection_content)
-            reflection.save()
+        if gratitude:
+            reflection.set_gratitude_note(gratitude)
+        if struggle:
+            reflection.set_struggle_note(struggle)
+        if intention:
+            reflection.set_tomorrow_intention(intention)
+        reflection.save()
         return reflection
 
 

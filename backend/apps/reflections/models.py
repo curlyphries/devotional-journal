@@ -119,7 +119,7 @@ class UserJourney(models.Model):
         verbose_name_plural = 'User Journeys'
 
     def __str__(self):
-        return f"{self.user.email} - {self.title}"
+        return f"Journey({self.id}) - {self.title}"
 
     def set_specific_struggle(self, content: str):
         """Encrypt and store specific struggle."""
@@ -183,9 +183,9 @@ class DailyReflection(models.Model):
         help_text="Life area scores: {'integrity': 4, 'faith': 3}"
     )
 
-    gratitude_note = models.TextField(blank=True)
-    struggle_note = models.TextField(blank=True)
-    tomorrow_intention = models.TextField(blank=True)
+    encrypted_gratitude = models.BinaryField(null=True, blank=True)
+    encrypted_struggle = models.BinaryField(null=True, blank=True)
+    encrypted_tomorrow_intention = models.BinaryField(null=True, blank=True)
 
     ai_insight = models.TextField(blank=True)
     ai_provider_used = models.CharField(max_length=50, blank=True)
@@ -201,7 +201,7 @@ class DailyReflection(models.Model):
         verbose_name_plural = 'Daily Reflections'
 
     def __str__(self):
-        return f"{self.user.email} - {self.date}"
+        return f"Reflection({self.id}) - {self.date}"
 
     def set_reflection(self, content: str):
         """Encrypt and store reflection content."""
@@ -224,6 +224,49 @@ class DailyReflection(models.Model):
     @property
     def reflection_content(self):
         return self.get_reflection()
+
+    def set_gratitude_note(self, content: str):
+        """Encrypt and store gratitude note."""
+        if content:
+            self.encrypted_gratitude = encrypt_content(content, self.user.encryption_key_salt)
+        else:
+            self.encrypted_gratitude = None
+
+    def get_gratitude_note(self) -> str:
+        """Decrypt and return gratitude note."""
+        if not self.encrypted_gratitude:
+            return ""
+        return decrypt_content(bytes(self.encrypted_gratitude), self.user.encryption_key_salt)
+
+    def set_struggle_note(self, content: str):
+        """Encrypt and store struggle note."""
+        if content:
+            self.encrypted_struggle = encrypt_content(content, self.user.encryption_key_salt)
+        else:
+            self.encrypted_struggle = None
+
+    def get_struggle_note(self) -> str:
+        """Decrypt and return struggle note."""
+        if not self.encrypted_struggle:
+            return ""
+        return decrypt_content(bytes(self.encrypted_struggle), self.user.encryption_key_salt)
+
+    def set_tomorrow_intention(self, content: str):
+        """Encrypt and store tomorrow intention."""
+        if content:
+            self.encrypted_tomorrow_intention = encrypt_content(
+                content, self.user.encryption_key_salt
+            )
+        else:
+            self.encrypted_tomorrow_intention = None
+
+    def get_tomorrow_intention(self) -> str:
+        """Decrypt and return tomorrow intention."""
+        if not self.encrypted_tomorrow_intention:
+            return ""
+        return decrypt_content(
+            bytes(self.encrypted_tomorrow_intention), self.user.encryption_key_salt
+        )
 
 
 class AlignmentTrend(models.Model):
@@ -276,7 +319,7 @@ class AlignmentTrend(models.Model):
         verbose_name_plural = 'Alignment Trends'
 
     def __str__(self):
-        return f"{self.user.email} - {self.period_type} {self.period_start}"
+        return f"AlignmentTrend({self.id}) - {self.period_type} {self.period_start}"
 
 
 class OpenThread(models.Model):
@@ -348,7 +391,7 @@ class OpenThread(models.Model):
         verbose_name_plural = 'Open Threads'
 
     def __str__(self):
-        return f"{self.user.email} - {self.thread_type} ({self.status})"
+        return f"OpenThread({self.id}) - {self.thread_type} ({self.status})"
 
     def set_summary(self, content: str):
         """Encrypt and store thread summary."""
@@ -581,7 +624,7 @@ class FocusIntention(models.Model):
         verbose_name_plural = 'Focus Intentions'
 
     def __str__(self):
-        return f"{self.user.email} - {self.period_type} ({self.period_start})"
+        return f"FocusIntention({self.id}) - {self.period_type} ({self.period_start})"
 
     def set_intention(self, content: str):
         """Encrypt and store intention content."""
@@ -750,7 +793,7 @@ class StudyGuideSession(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.user.email} - {self.source_reference}"
+        return f"StudyGuideSession({self.id}) - {self.source_reference}"
 
     @property
     def total_days(self):
@@ -946,7 +989,7 @@ class ScriptureInsight(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.scripture_reference} - {self.user.email}"
+        return f"DevotionalPassage({self.id}) - {self.scripture_reference}"
 
     def increment_access(self):
         """Increment access count when insight is retrieved from cache."""
