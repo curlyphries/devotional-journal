@@ -54,7 +54,7 @@ class TestBibleAPI:
             "/api/v1/bible/search/",
             {
                 "translation": "TEST",
-                "q": "verse",
+                "query": "verse",
             },
         )
         assert response.status_code == status.HTTP_200_OK

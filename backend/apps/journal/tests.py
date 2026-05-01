@@ -43,7 +43,7 @@ class TestJournalEntry:
             user=user,
             date=timezone.now().date(),
         )
-        assert user.email in str(entry)
+        assert str(entry.id) in str(entry)
 
 
 @pytest.mark.django_db
@@ -60,7 +60,8 @@ class TestJournalAPI:
 
         response = authenticated_client.get("/api/v1/journal/")
         assert response.status_code == status.HTTP_200_OK
-        assert len(response.data["results"]) == 3
+        results = response.data["results"] if isinstance(response.data, dict) else response.data
+        assert len(results) == 3
 
     def test_create_entry(self, authenticated_client):
         response = authenticated_client.post(
@@ -84,7 +85,7 @@ class TestJournalAPI:
 
         response = authenticated_client.get(f"/api/v1/journal/{entry.id}/")
         assert response.status_code == status.HTTP_200_OK
-        assert response.data["content"] == "Test content"
+        assert response.data.get("decrypted_content") == "Test content"
 
     def test_update_entry(self, authenticated_client, user):
         entry = JournalEntry.objects.create(

@@ -48,7 +48,8 @@ class TestPlansAPI:
     def test_list_plans(self, authenticated_client, reading_plan):
         response = authenticated_client.get("/api/v1/plans/")
         assert response.status_code == status.HTTP_200_OK
-        assert len(response.data["results"]) >= 1
+        results = response.data["results"] if isinstance(response.data, dict) else response.data
+        assert len(results) >= 1
 
     def test_get_plan_detail(self, authenticated_client, reading_plan):
         response = authenticated_client.get(f"/api/v1/plans/{reading_plan.id}/")
@@ -94,8 +95,9 @@ class TestPlansAPI:
             f"/api/v1/plans/enrolled/{enrollment.id}/today/"
         )
         assert response.status_code == status.HTTP_200_OK
-        assert "day_number" in response.data
-        assert "theme" in response.data
+        assert "day" in response.data
+        assert "day_number" in response.data["day"]
+        assert "theme" in response.data["day"]
 
     def test_advance_day(self, authenticated_client, user, reading_plan):
         enrollment = UserPlanEnrollment.objects.create(

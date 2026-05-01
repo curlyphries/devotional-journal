@@ -114,7 +114,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         db_table = "users"
 
     def __str__(self):
-        return self.email
+        return self.display_name or f"User({self.id})"
 
     def save(self, *args, **kwargs):
         if not self.encryption_key_salt:

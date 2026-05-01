@@ -18,10 +18,16 @@ class JWTAuthentication(authentication.BaseAuthentication):
 
     keyword = "Bearer"
 
+    def authenticate_header(self, request):
+        return self.keyword
+
     def authenticate(self, request):
         auth_header = request.META.get("HTTP_AUTHORIZATION", "")
-        if not auth_header.startswith(f"{self.keyword} "):
+        if not auth_header:
             return None
+        if not auth_header.startswith(f"{self.keyword} "):
+            raise exceptions.AuthenticationFailed("Invalid authentication scheme")
+        
 
         token = auth_header[len(self.keyword) + 1 :]
         try:
