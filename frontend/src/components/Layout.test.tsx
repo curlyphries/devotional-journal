@@ -1,9 +1,11 @@
+import type { ReactNode } from 'react'
 import { describe, it, expect, vi } from 'vitest'
 import { screen } from '@testing-library/react'
 import { render } from '../test/utils'
 import Layout from './Layout'
 
 vi.mock('../context/AuthContext', () => ({
+  AuthProvider: ({ children }: { children: ReactNode }) => children,
   useAuth: () => ({
     user: { display_name: 'Test User', email: 'test@example.com' },
     logout: vi.fn(),
