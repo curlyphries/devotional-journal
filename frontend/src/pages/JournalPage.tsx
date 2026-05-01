@@ -282,7 +282,7 @@ ${passageContext.theme ? `Today's theme: "${passageContext.theme}"` : ''}${focus
         userContent: '',
       })
     }
-  }, [passageContext.passage, entryId])
+  }, [passageContext.passage, passageContext.aiInsight, passageContext.dayNumber, passageContext.planTitle, passageContext.theme, content, entryId])
 
   const createMutation = useMutation({
     mutationFn: createJournalEntry,

@@ -60,7 +60,11 @@ class TestJournalAPI:
 
         response = authenticated_client.get("/api/v1/journal/")
         assert response.status_code == status.HTTP_200_OK
-        results = response.data["results"] if isinstance(response.data, dict) else response.data
+        results = (
+            response.data["results"]
+            if isinstance(response.data, dict)
+            else response.data
+        )
         assert len(results) == 3
 
     def test_create_entry(self, authenticated_client):
