@@ -145,7 +145,7 @@ jobs:
         with:
           host: ${{ secrets.DEPLOY_HOST }}
           username: curlyphries
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          key: ${{ secrets.DEVOTIONAL_JOURNAL_KEY }}
           script: |
             set -e
             cd /home/curlyphries/projects/devotional-journal
