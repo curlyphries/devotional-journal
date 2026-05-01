@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { 
   Target, 
   Calendar, 
@@ -18,10 +17,9 @@ import {
   useJourneyActions,
   useLifeAreas
 } from '../hooks/useReflections'
-import { UserJourney, CreateJourneyData } from '../api/reflections'
+import { UserJourney, LifeArea } from '../api/reflections'
 
 export default function JourneyPage() {
-  const navigate = useNavigate()
   const { data: activeJourney, isLoading: activeLoading } = useActiveJourney()
   const { data: journeys, isLoading: journeysLoading } = useJourneys()
   const [showCreateForm, setShowCreateForm] = useState(false)
@@ -65,7 +63,7 @@ export default function JourneyPage() {
           <div className="mt-8">
             <h2 className="text-lg font-semibold text-text-primary mb-4">Past Journeys</h2>
             <div className="space-y-4">
-              {journeys.filter(j => j.status !== 'active').map((journey) => (
+              {journeys.filter((j: UserJourney) => j.status !== 'active').map((journey: UserJourney) => (
                 <JourneyCard key={journey.id} journey={journey} />
               ))}
             </div>
@@ -330,7 +328,7 @@ function CreateJourneyForm({
             Focus Areas (select up to 3)
           </label>
           <div className="flex flex-wrap gap-2">
-            {lifeAreas?.map((area) => (
+            {lifeAreas?.map((area: LifeArea) => (
               <button
                 key={area.code}
                 type="button"

@@ -19,7 +19,7 @@ export default function SettingsPage() {
 
   // Profile settings
   const [displayName, setDisplayName] = useState(user?.display_name || '')
-  const [language, setLanguage] = useState(user?.language_preference || 'en')
+  const [language, setLanguage] = useState<'en' | 'es' | 'bilingual'>(user?.language_preference as 'en' | 'es' | 'bilingual' || 'en')
   const [timezone, setTimezone] = useState(user?.timezone || 'UTC')
   
   // AI settings
@@ -93,7 +93,7 @@ export default function SettingsPage() {
       })
       setTestResult({
         success: result.success,
-        message: result.success ? result.message : result.error
+        message: result.success ? (result.message ?? '') : (result.error ?? '')
       })
     } catch (err: unknown) {
       const apiErr = err as { response?: { data?: { error?: string } } }
@@ -146,7 +146,7 @@ export default function SettingsPage() {
             </label>
             <select
               value={language}
-              onChange={(e) => setLanguage(e.target.value)}
+              onChange={(e) => setLanguage(e.target.value as 'en' | 'es' | 'bilingual')}
               className="input w-full"
             >
               <option value="en">{t('settings.languages.en')}</option>

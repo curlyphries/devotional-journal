@@ -8,9 +8,10 @@ import {
   getEnrolledPlans,
   getTodayReading,
   advanceDay,
+  ReadingPlan,
   ReadingPlanDetail,
-  UserPlanEnrollment,
   ReadingPlanDay,
+  UserPlanEnrollment,
 } from '../api/plans'
 import ScriptureReader from '../components/ScriptureReader'
 
@@ -86,7 +87,7 @@ export default function PlansPage() {
   }
 
   const isEnrolled = (planId: string) => {
-    return enrollments.some((e) => e.plan.id === planId && e.is_active && !e.completed_at)
+    return enrollments.some((e: UserPlanEnrollment) => e.plan.id === planId && e.is_active && !e.completed_at)
   }
 
   const handleReadPassage = (
@@ -107,7 +108,7 @@ export default function PlansPage() {
     setActiveEnrollment(null)
   }
 
-  const activeEnrollments = enrollments.filter((e) => e.is_active && !e.completed_at)
+  const activeEnrollments = enrollments.filter((e: UserPlanEnrollment) => e.is_active && !e.completed_at)
 
   // If reading a passage, show the scripture reader with context
   if (readingContext) {
@@ -157,7 +158,7 @@ export default function PlansPage() {
             Your Active Plans
           </h2>
           <div className="grid gap-4 md:grid-cols-2">
-            {activeEnrollments.map((enrollment) => (
+            {activeEnrollments.map((enrollment: UserPlanEnrollment) => (
               <div
                 key={enrollment.id}
                 className="bg-gray-700 rounded-lg p-4 cursor-pointer hover:bg-gray-600 transition-colors"
@@ -210,7 +211,7 @@ export default function PlansPage() {
         <div className="text-center py-12 text-gray-400">Loading plans...</div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {plans.map((plan) => (
+          {plans.map((plan: ReadingPlan) => (
             <div
               key={plan.id}
               className="bg-gray-800 rounded-xl p-5 hover:bg-gray-750 transition-colors"
@@ -426,7 +427,7 @@ function TodayReadingModal({
           <div>
             <div className="text-sm text-gray-400 mb-2">Passages to Read</div>
             <div className="space-y-2">
-              {Array.isArray(day.passages) && day.passages.map((passage, idx) => {
+              {Array.isArray(day.passages) && (day as ReadingPlanDay).passages.map((passage: string, idx: number) => {
                 const passageStr = formatPassage(passage)
                 return (
                   <button

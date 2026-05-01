@@ -8,8 +8,8 @@ import confetti from 'canvas-confetti'
 import { 
   Flame, BookOpen, ChevronRight, Target, Calendar, 
   Highlighter, PenLine, TrendingUp, TrendingDown, Minus,
-  Sparkles, MessageCircle, Loader2, BookMarked, Clock, Trophy,
-  Heart, Compass, CheckCircle2
+  Sparkles, MessageCircle, Loader2, BookMarked,
+  Compass, CheckCircle2
 } from 'lucide-react'
 import DailyPulseCard from '../components/DailyPulseCard'
 import StreakSaverModal from '../components/StreakSaverModal'
@@ -243,7 +243,7 @@ export default function DashboardPage() {
     const today = new Date().toISOString().split('T')[0]
     
     const streak = stats?.stats.journal_streak || 0
-    const journaledToday = stats?.stats.journal_today > 0
+    const journaledToday = (stats?.stats.journal_today ?? 0) > 0
     const currentHour = new Date().getHours()
     
     if (
@@ -452,7 +452,7 @@ export default function DashboardPage() {
               </div>
               <ProgressBar value={stats.focus.day_number} max={stats.focus.total_days} color="purple" />
               <div className="flex flex-wrap gap-1 mt-2">
-                {stats.focus.themes.slice(0, 3).map((theme, i) => (
+                {stats.focus.themes.slice(0, 3).map((theme: string, i: number) => (
                   <span key={i} className="text-xs px-2 py-0.5 bg-purple-500/20 text-purple-300 rounded">
                     {theme}
                   </span>
@@ -580,7 +580,7 @@ export default function DashboardPage() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {stats.life_area_scores.map((area, i) => (
+            {stats.life_area_scores.map((area: { area: string; score: number; trend: string }, i: number) => (
               <div key={i} className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg">
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-1">
@@ -611,7 +611,7 @@ export default function DashboardPage() {
             </Link>
           </div>
           <div className="space-y-3">
-            {stats.recent_highlights.map((highlight, i) => (
+            {stats.recent_highlights.map((highlight: { book: string; chapter: number; verse: number; note: string; color: string }, i: number) => (
               <div key={i} className="p-3 bg-gray-800/50 rounded-lg border-l-4 border-amber-500">
                 <div className="text-sm text-amber-500 mb-1">
                   {highlight.book} {highlight.chapter}:{highlight.verse}
