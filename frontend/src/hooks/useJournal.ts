@@ -9,7 +9,6 @@ import {
   updateJournalEntry,
   deleteJournalEntry,
   CreateJournalEntry,
-  UpdateJournalEntry,
 } from '../api/journal'
 
 export function useJournalEntries(params?: {
@@ -47,7 +46,7 @@ export function useUpdateJournalEntry() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ entryId, data }: { entryId: string; data: UpdateJournalEntry }) =>
+    mutationFn: ({ entryId, data }: { entryId: string; data: Partial<CreateJournalEntry> }) =>
       updateJournalEntry(entryId, data),
     onSuccess: (_, { entryId }) => {
       queryClient.invalidateQueries({ queryKey: ['journalEntries'] })

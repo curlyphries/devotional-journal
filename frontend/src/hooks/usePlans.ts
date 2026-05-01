@@ -14,7 +14,7 @@ import {
 export function usePlans(params?: { category?: string; language?: string }) {
   return useQuery({
     queryKey: ['plans', params],
-    queryFn: () => getPlans(params),
+    queryFn: () => getPlans(params?.category),
   })
 }
 
@@ -29,7 +29,7 @@ export function usePlanDetail(planId: string) {
 export function useEnrolledPlans() {
   return useQuery({
     queryKey: ['enrolledPlans'],
-    queryFn: getEnrolledPlans,
+    queryFn: () => getEnrolledPlans(),
   })
 }
 
@@ -57,7 +57,7 @@ export function useAdvanceDay() {
 
   return useMutation({
     mutationFn: advanceDay,
-    onSuccess: (_, enrollmentId) => {
+    onSuccess: (_result: { message: string; enrollment: unknown }, enrollmentId: string) => {
       queryClient.invalidateQueries({ queryKey: ['enrolledPlans'] })
       queryClient.invalidateQueries({ queryKey: ['todayReading', enrollmentId] })
     },

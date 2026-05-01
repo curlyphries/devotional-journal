@@ -1,9 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import client from '../api/client'
-import { 
-  Trophy, Flame, BookOpen, PenLine, Target, Star,
-  Calendar, TrendingUp, Heart, Loader2, Check
-} from 'lucide-react'
+import { Trophy, Loader2, Check } from 'lucide-react'
 
 interface NextMilestone {
   id: string
@@ -36,29 +33,6 @@ interface MilestonesData {
   }
 }
 
-const MILESTONE_ICONS: Record<string, typeof Trophy> = {
-  streak: Flame,
-  journal: PenLine,
-  highlight: Star,
-  reading: BookOpen,
-  focus: Target,
-  consistency: Calendar,
-  growth: TrendingUp,
-  relationship: Heart,
-  default: Trophy,
-}
-
-const MILESTONE_COLORS: Record<string, string> = {
-  streak: 'text-orange-400 bg-orange-500/20',
-  journal: 'text-green-400 bg-green-500/20',
-  highlight: 'text-amber-400 bg-amber-500/20',
-  reading: 'text-blue-400 bg-blue-500/20',
-  focus: 'text-purple-400 bg-purple-500/20',
-  consistency: 'text-cyan-400 bg-cyan-500/20',
-  growth: 'text-emerald-400 bg-emerald-500/20',
-  relationship: 'text-pink-400 bg-pink-500/20',
-  default: 'text-gray-400 bg-gray-500/20',
-}
 
 function ProgressBar({ value, max, color = 'amber' }: { value: number; max: number; color?: string }) {
   const percentage = Math.min((value / max) * 100, 100)

@@ -9,7 +9,7 @@ import QuickCaptureModal from './QuickCaptureModal'
 
 export default function Layout() {
   const { t } = useTranslation()
-  const { user, logout } = useAuth()
+  const { logout } = useAuth()
   const location = useLocation()
   const [showQuickCapture, setShowQuickCapture] = useState(false)
 
@@ -86,7 +86,7 @@ export default function Layout() {
       <QuickCaptureModal
         isOpen={showQuickCapture}
         onClose={() => setShowQuickCapture(false)}
-        activeFocus={activeFocus[0]}
+        activeFocus={activeFocus[0] ? { intention: activeFocus[0].intention_text, themes: activeFocus[0].themes } : undefined}
       />
     </div>
   )

@@ -4,6 +4,11 @@ import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup.ts'],
+  },
   base: process.env.VITE_BASE_PATH ?? '/',
   resolve: {
     alias: {
