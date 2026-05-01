@@ -27,7 +27,6 @@ class JWTAuthentication(authentication.BaseAuthentication):
             return None
         if not auth_header.startswith(f"{self.keyword} "):
             raise exceptions.AuthenticationFailed("Invalid authentication scheme")
-        
 
         token = auth_header[len(self.keyword) + 1 :]
         try:
