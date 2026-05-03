@@ -17,7 +17,7 @@ export default function AuthCallbackPage() {
       return
     }
 
-    apiClient.post('/auth/exchange/', { code })
+    apiClient.post('/auth/google/exchange/', { code })
       .then((res) => {
         const { access_token, refresh_token, new_user } = res.data
         login(access_token, refresh_token)
