@@ -8,6 +8,7 @@ from urllib.parse import urlencode
 
 import httpx
 from django.conf import settings
+from django.core.cache import cache
 from django.shortcuts import redirect
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -341,7 +342,7 @@ class GoogleOAuthInitView(APIView):
     def get(self, request):
         # Generate state token for CSRF protection
         state = secrets.token_urlsafe(32)
-        request.session["google_oauth_state"] = state
+        cache.set(f"google_oauth_state:{state}", True, timeout=600)
 
         params = {
             "client_id": settings.GOOGLE_CLIENT_ID,
@@ -381,11 +382,11 @@ class GoogleOAuthCallbackView(APIView):
         if not code:
             return redirect(f"{frontend_url}/login?error=no_code")
 
-        # Verify state (CSRF protection)
-        stored_state = request.session.get("google_oauth_state")
-        if state != stored_state:
-            logger.warning("Google OAuth state mismatch")
+        # Verify state (CSRF protection) via cache
+        if not state or not cache.get(f"google_oauth_state:{state}"):
+            logger.warning("Google OAuth state mismatch or expired")
             return redirect(f"{frontend_url}/login?error=invalid_state")
+        cache.delete(f"google_oauth_state:{state}")
 
         try:
             # Exchange code for tokens
