@@ -80,6 +80,12 @@ docker-compose.override.yml
 celerybeat-schedule
 celerybeat.pid
 
+# Backend caches / generated data
+backend/scripts/kjv_cache.json
+backend/.ruff_cache/
+backend/.pytest_cache/
+backend/__pycache__/
+
 # Misc
 *.bak
 *.tmp
