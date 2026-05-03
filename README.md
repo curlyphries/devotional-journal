@@ -2,6 +2,24 @@
 
 An open-source, bilingual (English/Spanish) men's devotional Bible journal designed for web and mobile.
 
+**Live demo:** [curlyphries.net/devotional-journal](https://curlyphries.net/devotional-journal)
+
+![App Preview](docs/screenshots/preview.gif)
+
+## Screenshots
+
+| Dashboard | Journal |
+|-----------|---------|
+| ![Dashboard](docs/screenshots/01-dashboard.png) | ![Journal](docs/screenshots/02-journal.png) |
+
+| Reading Plans | Devotional Focus |
+|---------------|-----------------|
+| ![Plans](docs/screenshots/03-plans.png) | ![Focus](docs/screenshots/04-focus.png) |
+
+| Progress |
+|----------|
+| ![Progress](docs/screenshots/05-progress.png) |
+
 ## Features
 
 - **Daily Scripture Reading** - Structured reading plans with progress tracking
