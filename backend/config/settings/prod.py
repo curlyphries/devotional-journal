@@ -36,6 +36,18 @@ SECURE_HSTS_PRELOAD = True
 _cors_origins = os.environ.get("CORS_ALLOWED_ORIGINS", "")
 CORS_ALLOWED_ORIGINS = [o for o in _cors_origins.split(",") if o.strip()]
 
+# Cache (Redis — shared across all gunicorn workers)
+_redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379/1")
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": _redis_url,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}
+
 # Sub-path deployment support (e.g. curlyphries.net/devotional-journal/)
 _script_name = os.environ.get("FORCE_SCRIPT_NAME", "")
 if _script_name:
