@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { useAuth } from '../context/AuthContext'
 import { getActiveFocusIntentions } from '../api/devotional'
-import { Home, BookOpen, Settings, LogOut, Flame, Book, Calendar, Trophy, PenLine, Lightbulb } from 'lucide-react'
+import { Home, BookOpen, Settings, LogOut, Flame, Book, Calendar, Trophy, PenLine, Lightbulb, HelpCircle } from 'lucide-react'
 import QuickCaptureModal from './QuickCaptureModal'
 
 export default function Layout() {
@@ -57,6 +57,18 @@ export default function Layout() {
                   <span className="hidden sm:inline">{item.label}</span>
                 </Link>
               ))}
+
+              <Link
+                to="/help"
+                className={`flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 transition-colors whitespace-nowrap ${
+                  location.pathname === '/help'
+                    ? 'bg-bg-elevated text-accent-primary'
+                    : 'text-text-secondary hover:text-text-primary'
+                }`}
+                title="Help & Guide"
+              >
+                <HelpCircle className="w-5 h-5" />
+              </Link>
 
               <button
                 onClick={logout}

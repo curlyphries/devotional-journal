@@ -17,6 +17,7 @@ import PlansPage from './pages/PlansPage'
 import BiblePage from './pages/BiblePage'
 import ProgressPage from './pages/ProgressPage'
 import InsightsHistoryPage from './pages/InsightsHistoryPage'
+import HelpPage from './pages/HelpPage'
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth()
@@ -61,6 +62,7 @@ function App() {
         <Route path="progress" element={<ProgressPage />} />
         <Route path="insights" element={<InsightsHistoryPage />} />
         <Route path="settings" element={<SettingsPage />} />
+        <Route path="help" element={<HelpPage />} />
       </Route>
     </Routes>
   )
