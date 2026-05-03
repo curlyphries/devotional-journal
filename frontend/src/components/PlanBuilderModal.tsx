@@ -112,13 +112,17 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
       setStep('preview')
     } catch (err: unknown) {
       clearInterval(interval)
-      const data = (err as { response?: { data?: { error?: string; days_returned?: number } } })?.response?.data
-      let msg = data?.error || 'Generation failed. Please try again.'
-      if (data?.days_returned !== undefined) {
-        msg += ` Try reducing to ${data.days_returned} days.`
+      const data = (err as { response?: { data?: { error?: string; days_returned?: number; partial_plan?: PlanDraft } } })?.response?.data
+      if (data?.partial_plan) {
+        setDraft(data.partial_plan)
+        setDurationDays(data.partial_plan.duration_days)
+        setError(`AI generated ${data.days_returned} of ${durationDays} days. You can review and save what was generated.`)
+        setStep('preview')
+      } else {
+        const msg = data?.error || 'Generation failed. Please try again.'
+        setError(msg)
+        setStep('form')
       }
-      setError(msg)
-      setStep('form')
     }
   }
 

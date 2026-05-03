@@ -250,6 +250,17 @@ class PlanGenerateView(APIView):
 
         days_data = plan_data.get("days", [])
         if len(days_data) < duration_days:
+            partial_plan = None
+            if len(days_data) >= 3:
+                partial_plan = {
+                    "title_en": plan_data.get("title_en", topic),
+                    "title_es": plan_data.get("title_es", ""),
+                    "description_en": plan_data.get("description_en", ""),
+                    "description_es": plan_data.get("description_es", ""),
+                    "duration_days": len(days_data),
+                    "category": category,
+                    "days": days_data,
+                }
             return Response(
                 {
                     "error": (
@@ -258,6 +269,7 @@ class PlanGenerateView(APIView):
                     ),
                     "days_returned": len(days_data),
                     "days_requested": duration_days,
+                    "partial_plan": partial_plan,
                 },
                 status=status.HTTP_502_BAD_GATEWAY,
             )
