@@ -181,7 +181,7 @@ Ordered by **impact on user retention and growth**, not technical complexity.
 ## 5. Architecture Notes for New Developer
 
 ### API Pattern
-All endpoints live under `/api/v1/`. DRF views with JWT auth. Default permission is `IsAuthenticated`. Throttling is configured globally with per-endpoint overrides.
+All endpoints live under `/api/v1/`. DRF views with JWT auth. Default permission is `IsAuthenticated` unless noted. Throttling is configured globally with per-endpoint overrides.
 
 ```
 /api/v1/auth/          → users app (login, register, refresh, Google OAuth)
@@ -193,6 +193,148 @@ All endpoints live under `/api/v1/`. DRF views with JWT auth. Default permission
 /api/v1/groups/        → groups app (models exist, views TBD)
 /api/v1/               → reflections app (reflections, threads, focus, dashboard)
 ```
+
+### Complete API Reference
+
+> All paths are relative to `/api/v1/`. Methods marked 🔓 are `AllowAny` (no auth needed).
+
+#### Auth — `/auth/`
+
+| Method | Path | Description |
+|--------|------|-------------|
+| POST 🔓 | `auth/magic-link/request/` | Send magic link email (rate-limited) |
+| POST 🔓 | `auth/magic-link/verify/` | Verify magic link token → JWT tokens |
+| POST | `auth/refresh/` | Refresh JWT access token (rotates refresh token) |
+| POST | `auth/logout/` | Logout — blacklists access + refresh tokens |
+| POST | `auth/test-ai/` | Test user's AI provider connection |
+| GET/PUT | `auth/profile/` | Get or update user profile |
+| GET 🔓 | `auth/google/login/` | Initiate Google OAuth flow |
+| GET 🔓 | `auth/google/callback/` | Google OAuth callback |
+| POST 🔓 | `auth/google/exchange/` | Exchange OAuth code for JWT tokens |
+| POST 🔓 | `auth/google/token/` | Exchange Google ID token for JWT tokens |
+| POST 🔓 | `auth/dev-login/` | Dev-only: login by email (DEBUG=true only) |
+
+#### Profile & Export — `/me/`
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET/PUT | `me/` | Get or update profile |
+| GET | `me/export/` | Full data export — ZIP with all JSON files (GDPR) |
+| GET | `me/export/journal/` | Journal entries as Markdown |
+| GET | `me/export/highlights/` | Verse highlights as Markdown, grouped by book |
+| GET | `me/export/growth/` | Growth report — stats, area averages, mood distribution |
+
+#### Bible — `/bible/`
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET 🔓 | `bible/translations/` | List local Bible translations |
+| GET 🔓 | `bible/read/` | Read a passage (`?translation=KJV&book=John&chapter=3&verse_start=16&verse_end=17`) |
+| GET 🔓 | `bible/search/` | Search verses (`?translation=KJV&query=love`) |
+| GET 🔓 | `bible/bolls/translations/` | List external Bolls Bible API translations |
+| GET 🔓 | `bible/bolls/read/` | Read passage from Bolls API (KJV, ASV, YLT, WEB, RVR1960) |
+| GET 🔓 | `bible/bolls/search/` | Search via Bolls API |
+| GET 🔓 | `bible/bolls/verify/` | Verify a passage reference exists |
+| GET | `bible/highlights/` | List user's verse highlights |
+| POST | `bible/highlights/` | Create a highlight (`{book, chapter, verse_start, verse_end, color, note, translation}`) |
+| GET/PUT/DELETE | `bible/highlights/<uuid>/` | Get, update, or delete a highlight |
+
+#### Reading Plans — `/plans/`
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `plans/` | List available reading plans (public + user's own) |
+| POST | `plans/generate/` | AI-generate a plan (`{topic, duration_days, ...}`) |
+| POST | `plans/save/` | Save a generated or manual plan |
+| GET | `plans/<uuid>/` | Plan detail (must be public or owned by user) |
+| DELETE | `plans/<uuid>/delete/` | Delete a plan (owner only) |
+| POST | `plans/<uuid>/enroll/` | Enroll in a plan |
+| GET | `plans/enrolled/` | List user's active enrollments |
+| GET | `plans/enrolled/<uuid>/today/` | Get today's reading for an enrollment |
+| POST | `plans/enrolled/<uuid>/advance/` | Mark today complete, advance to next day |
+
+#### Journal — `/journal/`
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `journal/` | List entries (`?date_from=&date_to=&mood=`) |
+| POST | `journal/` | Create entry (`{content, mood_tag, date, ...}`) |
+| GET/PATCH/DELETE | `journal/<uuid>/` | Get, update, or delete an entry |
+| POST | `journal/<uuid>/deep-dive/` | Generate AI study guide from a journal entry |
+| GET | `journal/export/` | Export entries as JSON (`?date_from=&date_to=`, max 365 days) |
+
+#### AI & Prompts — `/prompts/`
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `prompts/ai-status/` | Check if configured LLM backend is reachable |
+| POST | `prompts/generate/` | Generate reflection prompts from a passage |
+| POST | `prompts/explore/` | "Speak Your Mind" — freeform input → scripture + prompts + plan suggestions |
+| GET | `prompts/explorations/` | List saved explorations (`?bookmarked=true`) |
+| GET/DELETE | `prompts/explorations/<uuid>/` | Get or delete a saved exploration |
+| POST | `prompts/explorations/<uuid>/bookmark/` | Toggle bookmark on an exploration |
+
+#### Reflections & Focus — `/` (root of `/api/v1/`)
+
+**ViewSet endpoints** (DRF router — standard CRUD):
+
+| Resource | List/Create | Detail | Custom Actions |
+|----------|-------------|--------|----------------|
+| `life-areas/` | GET/POST | GET/PUT/PATCH/DELETE `<uuid>/` | — |
+| `journeys/` | GET/POST | GET/PUT/PATCH/DELETE `<uuid>/` | — |
+| `reflections/` | GET/POST | GET/PUT/PATCH/DELETE `<uuid>/` | — |
+| `trends/` | GET/POST | GET/PUT/PATCH/DELETE `<uuid>/` | — |
+| `threads/` | GET/POST | GET/PUT/PATCH/DELETE `<uuid>/` | — |
+| `thread-prompts/` | GET/POST | GET/PUT/PATCH/DELETE `<uuid>/` | — |
+| `focus/` | GET/POST | GET/PUT/PATCH/DELETE `<uuid>/` | `active/` (GET), `today/` (GET), `<uuid>/complete/` (POST), `<uuid>/passages/` (GET) |
+| `passages/` | GET | GET `<uuid>/` | `<uuid>/mark_read/` (POST), `<uuid>/reflect/` (POST), `<uuid>/deep_dive/` (POST) |
+| `study-sessions/` | GET | GET `<uuid>/` | `summary/` (GET) |
+
+**Standalone endpoints:**
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `dashboard/stats/` | Unified dashboard — streak, focus, plan, highlights, life areas, insight |
+| GET | `thread-prompts/pending/` | Get open threads needing follow-up (max 2) |
+| POST | `thread-prompts/<uuid>/respond/` | Respond to a thread (`{response: better/same/worse/resolved, expanded_text}`) |
+| GET | `milestones/` | User milestones — next milestone, recent achievements, stats |
+| GET | `trends/growth/` | Growth visualization — life areas, weekly activity, focus history |
+| GET | `insights/scripture/` | Scripture insights based on recent reflections and focus |
+
+**Crew (AI Agent):**
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `crew/health/` | Agent health check |
+| POST | `crew/weekly-review/` | Trigger AI weekly review |
+| POST | `crew/monthly-recap/` | Trigger AI monthly recap |
+| POST | `crew/ask-agent/` | Freeform agent query |
+
+#### Groups — `/groups/` (Phase 2 — backend ready, no frontend yet)
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `groups/` | List user's groups |
+| POST | `groups/` | Create a group |
+| GET | `groups/<uuid>/` | Group detail |
+| POST | `groups/<uuid>/join/` | Join via invite code (`{invite_code}`) |
+| DELETE | `groups/<uuid>/leave/` | Leave a group |
+| GET | `groups/<uuid>/engagement/` | Engagement metrics (leaders only) |
+| POST | `groups/<uuid>/set-plan/` | Assign reading plan to group (leaders only) |
+
+#### Admin — (staff only)
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | `admin/audits/` | List devotional audits (`?status=&days=&min_accuracy=`) |
+| GET | `admin/audits/dashboard/` | Audit dashboard stats |
+| GET | `admin/quality-report/` | Devotional quality report |
+
+#### System
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET 🔓 | `health/` | Health check → `{"status": "ok"}` |
 
 ### AI Service Abstraction
 `backend/apps/prompts/services.py` defines `PromptService` (abstract) with `OllamaPromptService` and `AnthropicPromptService` implementations. Factory: `get_prompt_service()` reads `LLM_BACKEND` env var. Methods:
