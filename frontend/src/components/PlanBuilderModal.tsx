@@ -196,8 +196,12 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
                 <ArrowLeft className="w-4 h-4" />
               </button>
               <div>
-                <h2 className="text-base font-semibold text-white">Review Your Plan</h2>
-                <p className="text-xs text-gray-400">Edit anything before saving</p>
+                <h2 className="text-base font-semibold text-white">
+                  {mode === 'manual' ? 'Build Your Plan' : 'Review Your Plan'}
+                </h2>
+                <p className="text-xs text-gray-400">
+                  {mode === 'manual' ? 'Fill in passages for each day' : 'Edit anything before saving'}
+                </p>
               </div>
             </div>
             <button onClick={handleClose} className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">
@@ -247,7 +251,10 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
                         </span>
                         <div>
                           <p className="text-sm font-medium text-white leading-tight">{day.theme_en || `Day ${day.day_number}`}</p>
-                          <p className="text-xs text-gray-400">{(day.passages || []).join(', ')}</p>
+                          {(day.passages || []).length > 0
+                            ? <p className="text-xs text-gray-400">{day.passages.join(', ')}</p>
+                            : <p className="text-xs text-gray-500 italic">No passages yet — tap to add</p>
+                          }
                         </div>
                       </div>
                       {expandedDay === idx
@@ -259,7 +266,26 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
                     {expandedDay === idx && (
                       <div className="px-4 pb-4 space-y-3 border-t border-gray-700 pt-3">
                         <div>
-                          <label className="block text-xs text-gray-400 mb-1">Theme</label>
+                          <label className="block text-xs text-gray-400 mb-1">
+                            Passages
+                            <span className="text-gray-500 font-normal ml-1">(comma-separated, e.g. Romans 8:1-17, Psalm 23)</span>
+                          </label>
+                          <input
+                            value={(day.passages || []).join(', ')}
+                            onChange={e => {
+                              const updated = [...draft.days]
+                              updated[idx] = {
+                                ...updated[idx],
+                                passages: e.target.value.split(',').map(p => p.trim()).filter(Boolean),
+                              }
+                              setDraft({ ...draft, days: updated })
+                            }}
+                            placeholder="e.g. John 1:1-18"
+                            className="w-full px-3 py-1.5 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs text-gray-400 mb-1">Theme <span className="text-gray-500 font-normal">(optional)</span></label>
                           <input
                             value={day.theme_en}
                             onChange={e => {
@@ -267,11 +293,12 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
                               updated[idx] = { ...updated[idx], theme_en: e.target.value }
                               setDraft({ ...draft, days: updated })
                             }}
-                            className="w-full px-3 py-1.5 bg-gray-700 border border-gray-600 rounded-lg text-white text-sm focus:outline-none focus:ring-1 focus:ring-amber-500"
+                            placeholder="e.g. The Word became flesh"
+                            className="w-full px-3 py-1.5 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500"
                           />
                         </div>
                         <div>
-                          <label className="block text-xs text-gray-400 mb-1">Reflection Prompt</label>
+                          <label className="block text-xs text-gray-400 mb-1">Reflection Prompt <span className="text-gray-500 font-normal">(optional)</span></label>
                           <textarea
                             value={day.reflection_prompt}
                             onChange={e => {
@@ -280,7 +307,8 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
                               setDraft({ ...draft, days: updated })
                             }}
                             rows={2}
-                            className="w-full px-3 py-1.5 bg-gray-700 border border-gray-600 rounded-lg text-white text-sm focus:outline-none focus:ring-1 focus:ring-amber-500 resize-none"
+                            placeholder="e.g. Where have you seen God's grace made tangible this week?"
+                            className="w-full px-3 py-1.5 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-1 focus:ring-amber-500 resize-none"
                           />
                         </div>
                       </div>
@@ -301,7 +329,7 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
               onClick={() => { setStep('form'); setError('') }}
               className="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-xl text-sm font-medium transition-colors"
             >
-              ← Regenerate
+              {mode === 'manual' ? '← Back' : '← Regenerate'}
             </button>
             <button
               onClick={handleSave}
@@ -519,6 +547,7 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
                     reflection_prompt: '',
                   })),
                 })
+                setExpandedDay(0)
                 setStep('preview')
               }}
               disabled={!topic.trim()}
