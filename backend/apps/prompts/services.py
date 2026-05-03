@@ -19,6 +19,67 @@ class PromptService(ABC):
     Abstract interface for LLM-backed prompt generation.
     """
 
+    _PLAN_SYSTEM_PROMPT = """You are a biblical curriculum designer building structured devotional reading plans for men.
+
+Given a topic, duration, and optional anchor passages, return a complete reading plan as valid JSON only.
+
+The plan MUST have exactly {duration_days} days. Each day must have:
+- day_number (int)
+- passages: list of scripture references e.g. ["Romans 8:28-39"]
+- theme_en: short phrase (max 60 chars) naming the day's theme
+- theme_es: Spanish translation of theme_en
+- reflection_prompt: one focused journal question tied to the passage
+
+Return ONLY this JSON structure, no markdown, no explanation:
+{{
+  "title_en": "Plan title in English",
+  "title_es": "Plan title in Spanish",
+  "description_en": "2-3 sentence description in English",
+  "description_es": "2-3 sentence description in Spanish",
+  "days": [
+    {{
+      "day_number": 1,
+      "passages": ["Book Chapter:Verses"],
+      "theme_en": "Day theme",
+      "theme_es": "Tema del día",
+      "reflection_prompt": "Journal question for this day"
+    }}
+  ]
+}}
+
+Guidelines:
+- Choose passages that progressively build on each other across weeks
+- Prefer the Psalms, Proverbs, Gospels, and Epistles for practical application
+- Anchor passages provided by the user must appear in the plan
+- Keep themes direct and masculine — no religious jargon
+- Reflection prompts must be specific, not generic ("What does faith mean to you?" is BAD)
+"""
+
+    def _parse_plan_response(self, text: str) -> Optional[dict]:
+        text = text.strip()
+        if text.startswith("```"):
+            lines = text.split("\n")
+            text = "\n".join(l for l in lines if not l.strip().startswith("```"))
+        start = text.find("{")
+        end = text.rfind("}") + 1
+        if start < 0 or end <= start:
+            return None
+        try:
+            return json.loads(text[start:end])
+        except json.JSONDecodeError:
+            return None
+
+    @abstractmethod
+    def generate_reading_plan(
+        self,
+        topic: str,
+        duration_days: int,
+        category: str,
+        anchor_passages: list[str],
+        language: str,
+    ) -> Optional[dict]:
+        pass
+
     @abstractmethod
     def generate_reflection_prompts(
         self,
@@ -186,6 +247,43 @@ Format the output in clear sections with headers."""
         except Exception:
             return "Discussion guide generation failed. Please try again."
 
+    def generate_reading_plan(
+        self,
+        topic: str,
+        duration_days: int,
+        category: str,
+        anchor_passages: list[str],
+        language: str,
+    ) -> Optional[dict]:
+        system = self._PLAN_SYSTEM_PROMPT.format(duration_days=duration_days)
+        anchors = ", ".join(anchor_passages) if anchor_passages else "none"
+        user_prompt = (
+            f"Topic: {topic}\n"
+            f"Duration: {duration_days} days\n"
+            f"Category: {category}\n"
+            f"Anchor passages: {anchors}\n"
+            f"Language preference: {language}"
+        )
+        try:
+            with httpx.Client(timeout=120.0) as client:
+                response = client.post(
+                    f"{self.base_url}/api/generate",
+                    json={
+                        "model": self.model,
+                        "prompt": user_prompt,
+                        "system": system,
+                        "stream": False,
+                        "format": "json",
+                        "options": {"temperature": 0.5, "num_predict": 4000},
+                    },
+                )
+                response.raise_for_status()
+                result = response.json()
+                return self._parse_plan_response(result.get("response", ""))
+        except Exception:
+            logger.exception("Ollama generate_reading_plan failed")
+            return None
+
     def explore_heart_prompt(self, user_input: str, language: str) -> dict:
         system_prompt = self._get_explore_system_prompt(language)
         try:
@@ -269,6 +367,47 @@ Respond with ONLY the questions, one per line, no numbering."""
                 return prompts[:num_prompts]
         except Exception:
             return ["What does this passage reveal about God's character?"]
+
+    def generate_reading_plan(
+        self,
+        topic: str,
+        duration_days: int,
+        category: str,
+        anchor_passages: list[str],
+        language: str,
+    ) -> Optional[dict]:
+        system = self._PLAN_SYSTEM_PROMPT.format(duration_days=duration_days)
+        anchors = ", ".join(anchor_passages) if anchor_passages else "none"
+        user_prompt = (
+            f"Topic: {topic}\n"
+            f"Duration: {duration_days} days\n"
+            f"Category: {category}\n"
+            f"Anchor passages: {anchors}\n"
+            f"Language preference: {language}"
+        )
+        try:
+            with httpx.Client(timeout=120.0) as client:
+                response = client.post(
+                    "https://api.anthropic.com/v1/messages",
+                    headers={
+                        "x-api-key": self.api_key,
+                        "anthropic-version": "2023-06-01",
+                        "content-type": "application/json",
+                    },
+                    json={
+                        "model": self.model,
+                        "max_tokens": 4000,
+                        "system": system,
+                        "messages": [{"role": "user", "content": user_prompt}],
+                    },
+                )
+                response.raise_for_status()
+                result = response.json()
+                text = result["content"][0]["text"]
+                return self._parse_plan_response(text)
+        except Exception:
+            logger.exception("Anthropic generate_reading_plan failed")
+            return None
 
     def generate_discussion_guide(
         self, passages: list[dict], group_size: int, language: str

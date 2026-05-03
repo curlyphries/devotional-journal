@@ -33,6 +33,11 @@ class ReadingPlan(models.Model):
     )
     is_premium = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    is_public = models.BooleanField(
+        default=False,
+        help_text="Public plans appear in the library for all users. "
+        "Personal plans are only visible to their creator.",
+    )
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,

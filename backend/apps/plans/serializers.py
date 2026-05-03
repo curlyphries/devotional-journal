@@ -25,6 +25,7 @@ class ReadingPlanDaySerializer(serializers.ModelSerializer):
 class ReadingPlanSerializer(serializers.ModelSerializer):
     title = serializers.SerializerMethodField()
     description = serializers.SerializerMethodField()
+    is_owned = serializers.SerializerMethodField()
 
     class Meta:
         model = ReadingPlan
@@ -35,8 +36,16 @@ class ReadingPlanSerializer(serializers.ModelSerializer):
             "duration_days",
             "category",
             "is_premium",
+            "is_public",
+            "is_owned",
             "created_at",
         ]
+
+    def get_is_owned(self, obj):
+        request = self.context.get("request")
+        if request and request.user.is_authenticated:
+            return obj.created_by_id == request.user.id
+        return False
 
     def get_title(self, obj):
         request = self.context.get("request")

@@ -7,6 +7,8 @@ export interface ReadingPlan {
   duration_days: number
   category: string
   is_premium: boolean
+  is_public: boolean
+  is_owned: boolean
 }
 
 export interface ReadingPlanDay {

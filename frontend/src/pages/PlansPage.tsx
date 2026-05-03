@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Book, Calendar, CheckCircle, Play, BookOpen, ArrowLeft } from 'lucide-react'
+import { Book, Calendar, CheckCircle, Play, BookOpen, ArrowLeft, Sparkles } from 'lucide-react'
+import PlanBuilderModal from '../components/PlanBuilderModal'
 import {
   getPlans,
   getPlanDetail,
@@ -50,6 +51,7 @@ export default function PlansPage() {
   const [selectedPlan, setSelectedPlan] = useState<ReadingPlanDetail | null>(null)
   const [activeEnrollment, setActiveEnrollment] = useState<UserPlanEnrollment | null>(null)
   const [readingContext, setReadingContext] = useState<ReadingContext | null>(null)
+  const [showBuilder, setShowBuilder] = useState(false)
 
   const { data: plans = [], isLoading: plansLoading } = useQuery({
     queryKey: ['plans', selectedCategory],
@@ -139,15 +141,32 @@ export default function PlansPage() {
 
   return (
     <div className="space-y-8">
+      <PlanBuilderModal
+        isOpen={showBuilder}
+        onClose={() => setShowBuilder(false)}
+        onCreated={() => {
+          queryClient.invalidateQueries({ queryKey: ['plans'] })
+        }}
+      />
+
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-white flex items-center gap-3">
-          <Book className="w-8 h-8 text-amber-500" />
-          Reading Plans
-        </h1>
-        <p className="text-gray-400 mt-2">
-          Structured Bible reading plans to guide your spiritual journey
-        </p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+            <Book className="w-8 h-8 text-amber-500" />
+            Reading Plans
+          </h1>
+          <p className="text-gray-400 mt-2">
+            Structured Bible reading plans to guide your spiritual journey
+          </p>
+        </div>
+        <button
+          onClick={() => setShowBuilder(true)}
+          className="flex items-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-gray-900 rounded-xl font-semibold text-sm transition-colors shrink-0"
+        >
+          <Sparkles className="w-4 h-4" />
+          Build a Plan
+        </button>
       </div>
 
       {/* Active Enrollments */}
