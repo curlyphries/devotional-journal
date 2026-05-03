@@ -944,6 +944,7 @@ class DashboardStatsView(APIView):
         plan_data = None
         if active_enrollment:
             plan_data = {
+                "enrollment_id": str(active_enrollment.id),
                 "plan_title": active_enrollment.plan.title_en,
                 "current_day": active_enrollment.current_day,
                 "total_days": active_enrollment.plan.duration_days,

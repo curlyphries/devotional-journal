@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import { updateProfile, testAIConnection } from '../api/auth'
-import { Save, User, Bot, Key, CheckCircle, XCircle, Loader2, Eye, EyeOff } from 'lucide-react'
+import { Save, User, Bot, Key, CheckCircle, XCircle, Loader2, Eye, EyeOff, Download, FileText } from 'lucide-react'
+import client from '../api/client'
 
 const AI_PROVIDERS = [
   { value: 'none', label: 'None (Use System Default)', needsKey: false, needsUrl: false },
@@ -339,6 +340,100 @@ export default function SettingsPage() {
           {isSaving ? t('common.loading') : t('settings.saveChanges')}
         </button>
       </div>
+
+      {/* Export Your Data */}
+      <div className="card">
+        <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border">
+          <Download className="w-6 h-6 text-amber-500" />
+          <div>
+            <h2 className="text-lg font-semibold text-text-primary">Export Your Data</h2>
+            <p className="text-sm text-text-secondary">Download your data — it's yours</p>
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <ExportButton
+            label="Full Data Export"
+            description="Everything as JSON in a ZIP file (GDPR-compliant)"
+            endpoint="/me/export/"
+            filename="devotional-journal-export.zip"
+            icon={<Download className="w-4 h-4" />}
+          />
+          <ExportButton
+            label="Journal (Markdown)"
+            description="All journal entries formatted for reading or printing"
+            endpoint="/me/export/journal/"
+            filename="journal-entries.md"
+            icon={<FileText className="w-4 h-4" />}
+          />
+          <ExportButton
+            label="Highlights (Markdown)"
+            description="Verse highlights and notes grouped by book"
+            endpoint="/me/export/highlights/"
+            filename="highlights.md"
+            icon={<FileText className="w-4 h-4" />}
+          />
+          <ExportButton
+            label="Growth Report (Markdown)"
+            description="Summary of your spiritual growth journey with stats"
+            endpoint="/me/export/growth/"
+            filename="growth-report.md"
+            icon={<FileText className="w-4 h-4" />}
+          />
+        </div>
+      </div>
     </div>
+  )
+}
+
+function ExportButton({
+  label,
+  description,
+  endpoint,
+  filename,
+  icon,
+}: {
+  label: string
+  description: string
+  endpoint: string
+  filename: string
+  icon: React.ReactNode
+}) {
+  const [isDownloading, setIsDownloading] = useState(false)
+
+  const handleDownload = async () => {
+    setIsDownloading(true)
+    try {
+      const response = await client.get(endpoint, { responseType: 'blob' })
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const a = document.createElement('a')
+      a.href = url
+      a.download = filename
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      window.URL.revokeObjectURL(url)
+    } catch {
+      alert('Export failed. Please try again.')
+    } finally {
+      setIsDownloading(false)
+    }
+  }
+
+  return (
+    <button
+      onClick={handleDownload}
+      disabled={isDownloading}
+      className="w-full flex items-center gap-4 p-4 bg-gray-800/50 hover:bg-gray-800 border border-gray-700 hover:border-amber-500/30 rounded-xl text-left transition-all group disabled:opacity-50"
+    >
+      <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 group-hover:bg-amber-500/20 transition-colors">
+        {isDownloading ? <Loader2 className="w-4 h-4 animate-spin" /> : icon}
+      </div>
+      <div className="flex-1">
+        <p className="text-text-primary font-medium">{label}</p>
+        <p className="text-text-secondary text-sm">{description}</p>
+      </div>
+      <Download className="w-4 h-4 text-text-secondary opacity-0 group-hover:opacity-100 transition-opacity" />
+    </button>
   )
 }

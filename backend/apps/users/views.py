@@ -16,7 +16,7 @@ from rest_framework.response import Response
 from rest_framework.throttling import AnonRateThrottle
 from rest_framework.views import APIView
 
-from .authentication import generate_tokens, refresh_access_token
+from .authentication import blacklist_token, generate_tokens, refresh_access_token
 from .models import MagicLinkToken, User
 from .serializers import (
     MagicLinkRequestSerializer,
@@ -119,12 +119,41 @@ class RefreshTokenView(APIView):
 
 class LogoutView(APIView):
     """
-    Logout (client-side token invalidation).
+    Logout — blacklists the current access token and optional refresh token.
     """
 
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
+        import jwt as _jwt
+
+        # Blacklist the current access token
+        auth_header = request.META.get("HTTP_AUTHORIZATION", "")
+        if auth_header.startswith("Bearer "):
+            token = auth_header[7:]
+            try:
+                payload = _jwt.decode(
+                    token, settings.SECRET_KEY, algorithms=["HS256"]
+                )
+                jti = payload.get("jti")
+                if jti:
+                    blacklist_token(jti)
+            except _jwt.InvalidTokenError:
+                pass
+
+        # Blacklist the refresh token if provided
+        refresh_token = request.data.get("refresh_token")
+        if refresh_token:
+            try:
+                payload = _jwt.decode(
+                    refresh_token, settings.SECRET_KEY, algorithms=["HS256"]
+                )
+                jti = payload.get("jti")
+                if jti:
+                    blacklist_token(jti)
+            except _jwt.InvalidTokenError:
+                pass
+
         return Response(
             {"message": "Logged out successfully"}, status=status.HTTP_200_OK
         )

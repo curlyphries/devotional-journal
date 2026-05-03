@@ -12,6 +12,7 @@ import {
   Compass, CheckCircle2
 } from 'lucide-react'
 import DailyPulseCard from '../components/DailyPulseCard'
+import ShareCard from '../components/ShareCard'
 import StreakSaverModal from '../components/StreakSaverModal'
 import HeartPromptExplorer from '../components/HeartPromptExplorer'
 
@@ -28,6 +29,7 @@ interface DashboardStats {
     passages_read: number
   } | null
   reading_plan: {
+    enrollment_id: string
     plan_title: string
     current_day: number
     total_days: number
@@ -402,10 +404,18 @@ export default function DashboardPage() {
         {/* Streak Badge */}
         <div className="card flex items-center gap-3 bg-gradient-to-r from-orange-500/20 to-amber-500/20 border-amber-500/30">
           <Flame className="w-8 h-8 text-amber-500" />
-          <div>
+          <div className="flex-1">
             <div className="text-2xl font-bold text-text-primary">{stats?.stats.journal_streak || 0}</div>
             <div className="text-sm text-text-secondary">day streak</div>
           </div>
+          {(stats?.stats.journal_streak || 0) >= 3 && (
+            <ShareCard
+              variant="streak"
+              headline={`${stats?.stats.journal_streak} Day Streak`}
+              subtitle="Consistent in the Word"
+              detail={`${stats?.stats.journal_today || 0} entries today · ${stats?.stats.journal_week || 0} this week`}
+            />
+          )}
         </div>
       </div>
 
@@ -481,7 +491,7 @@ export default function DashboardPage() {
 
           {/* Reading Plan Card */}
           {stats?.reading_plan ? (
-            <Link to="/plans" className="p-4 bg-gray-800/50 rounded-lg border border-blue-500/30 hover:border-blue-400 transition-colors cursor-pointer group">
+            <Link to={`/reading/${stats.reading_plan.enrollment_id}`} className="p-4 bg-gray-800/50 rounded-lg border border-blue-500/30 hover:border-blue-400 transition-colors cursor-pointer group">
               <div className="flex items-center gap-2 mb-2">
                 <BookMarked className="w-4 h-4 text-blue-400" />
                 <span className="text-sm font-medium text-blue-400">Reading Plan</span>

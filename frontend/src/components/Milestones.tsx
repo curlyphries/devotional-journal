@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import client from '../api/client'
 import { Trophy, Loader2, Check } from 'lucide-react'
+import ShareCard from './ShareCard'
 
 interface NextMilestone {
   id: string
@@ -125,10 +126,16 @@ export default function Milestones() {
               <div className="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center">
                 <Check className="w-5 h-5 text-green-400" />
               </div>
-              <div>
+              <div className="flex-1">
                 <p className="text-text-primary font-medium">{achievement.title}</p>
                 <p className="text-text-secondary text-sm">{achievement.description}</p>
               </div>
+              <ShareCard
+                variant="achievement"
+                headline={achievement.title}
+                subtitle={achievement.description}
+                detail="Devotional Journal Achievement"
+              />
             </div>
           ))}
         </div>

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { useAuth } from '../context/AuthContext'
 import { getActiveFocusIntentions } from '../api/devotional'
-import { Home, BookOpen, Settings, LogOut, Flame, Book, Calendar, Trophy, PenLine } from 'lucide-react'
+import { Home, BookOpen, Settings, LogOut, Flame, Book, Calendar, Trophy, PenLine, Lightbulb } from 'lucide-react'
 import QuickCaptureModal from './QuickCaptureModal'
 
 export default function Layout() {
@@ -26,6 +26,7 @@ export default function Layout() {
     { path: '/plans', icon: Calendar, label: 'Plans' },
     { path: '/devotional', icon: Book, label: 'Focus' },
     { path: '/progress', icon: Trophy, label: 'Progress' },
+    { path: '/insights', icon: Lightbulb, label: 'Insights' },
     { path: '/settings', icon: Settings, label: t('nav.settings') },
   ]
 

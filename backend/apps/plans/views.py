@@ -59,7 +59,9 @@ class PlanDetailView(APIView):
     def get(self, request, plan_id):
         try:
             plan = ReadingPlan.objects.prefetch_related("days").get(
-                id=plan_id, is_active=True
+                Q(is_public=True) | Q(created_by=request.user),
+                id=plan_id,
+                is_active=True,
             )
         except ReadingPlan.DoesNotExist:
             return Response(

@@ -62,7 +62,8 @@ export const testAIConnection = async (data: {
 }
 
 export const logout = async (): Promise<void> => {
-  await client.post('/auth/logout/')
+  const refreshToken = localStorage.getItem('refresh_token')
+  await client.post('/auth/logout/', { refresh_token: refreshToken })
   localStorage.removeItem('access_token')
   localStorage.removeItem('refresh_token')
 }

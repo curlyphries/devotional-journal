@@ -2,7 +2,7 @@
 
 > **Feature:** User-facing reading plan builder (AI + Manual)
 > **Last updated:** 2026-05-03
-> **Status:** MVP deployed, needs Sprint A/B/C cleanup before public release
+> **Status:** ✅ Feature complete — Sprint A/B/C all shipped. See `docs/developer-handoff.md` for current roadmap.
 
 ---
 
@@ -83,8 +83,7 @@ All under `/api/v1/plans/`. All require authentication (JWT).
 |--------|------|------|---------|
 | GET    | `/`                       | `PlanListView`         | List visible plans (public + user's own) |
 | POST   | `/generate/`              | `PlanGenerateView`     | AI-generate plan draft (NOT saved to DB) |
-| POST   | `/save/`                  | `PlanSaveView`         | Save an AI-generated draft after review |
-| POST   | `/create/`                | `PlanCreateManualView` | Save a manually-built plan |
+| POST   | `/save/`                  | `PlanSaveView`         | Save any plan (AI or manual) after review |
 | GET    | `/<uuid>/`                | `PlanDetailView`       | Full plan with all days |
 | DELETE | `/<uuid>/delete/`         | `PlanDeleteView`       | Delete own non-public plan |
 | POST   | `/<uuid>/enroll/`         | `EnrollView`           | Start a plan |
@@ -227,107 +226,37 @@ interface ReadingPlan {
 
 | ID | Severity | Description |
 |----|----------|-------------|
-| TD-1 | **High** | `PlanSaveView` and `PlanCreateManualView` are near-identical. Merge into single `POST /plans/` endpoint. Only difference is `reflection_prompt` vs `reflection_prompts_seed` key name — a naming inconsistency between AI response format and DB field. |
-| TD-2 | **High** | No schema validation on AI-generated days. Malformed LLM output (missing `passages`, wrong key names) silently creates broken plan days in the DB. |
-| TD-3 | **Medium** | No rate limiting on `POST /plans/generate/`. User can spam expensive AI calls. Add `UserRateThrottle`. |
-| TD-4 | **Medium** | Plan list cards don't show "My Plan" badge for user-owned plans. No delete button in UI despite backend support. |
-| TD-5 | **Medium** | No auto-enroll after creating a plan. User builds a 7-day plan, saves it, then has to find it in the grid and click "Start Plan" — bad UX. |
-| TD-6 | **Low** | Manual mode description field is on the preview screen (step 2), not the form (step 1). Most users skip it → blank description in plan cards. |
+| TD-1 | ~~High~~ ✅ | ~~Merged~~ — Single `POST /plans/save/` endpoint handles AI + manual. |
+| TD-2 | ~~High~~ ✅ | ~~Fixed~~ — AI response validation rejects days with no passages, sets defaults. |
+| TD-3 | ~~Medium~~ ✅ | ~~Fixed~~ — `PlanGenerateThrottle` at 3/hour. |
+| TD-4 | ~~Medium~~ ✅ | ~~Fixed~~ — "My Plan" badge + delete button on plan cards. |
+| TD-5 | ~~Medium~~ ✅ | ~~Fixed~~ — Auto-enroll after save. |
+| TD-6 | ~~Low~~ ✅ | ~~Fixed~~ — Description on form step for manual mode. |
 | TD-7 | **Low** | Bilingual (ES) fields always empty for manual plans. AI generates them but they're never reviewed. Acceptable for now. |
 | TD-8 | **Low** | No plan editing after save. Users can delete and recreate but not update. |
 
 ---
 
-## 7. What to Build Next
+## 7. Completed Sprints (Archived)
 
-### Sprint A — Cleanup & Guard Rails (< 1 hour)
+> All sprints below were completed and deployed on 2026-05-03.
+> For the current roadmap, see `docs/developer-handoff.md`.
 
-**A1. Merge save endpoints**
+### Sprint A — Cleanup & Guard Rails ✅
+- **A1.** Merged save endpoints — deleted `PlanCreateManualView`, single `POST /plans/save/`
+- **A2.** AI response validation — rejects days with no passages, sets defaults
+- **A3.** Rate throttle — `PlanGenerateThrottle` at 3/hour
+- **A4.** Description moved to form step for manual mode
 
-Delete `PlanCreateManualView`. Modify `PlanSaveView` to handle both AI and manual plans. The day payload should normalize `reflection_prompt` → `reflection_prompts_seed` on the backend:
+### Sprint B — User Plan Management ✅
+- **B1.** "My Plan" badge + delete button on plan cards
+- **B2.** "My Plans" filter tab
+- **B3.** Auto-enroll after save
 
-```python
-# In PlanSaveView.post(), for each day:
-reflection_prompts_seed=day.get("reflection_prompt", day.get("reflection_prompts_seed", ""))
-```
-
-(Already done in `PlanSaveView` — just delete `PlanCreateManualView` and point both frontend paths to `/plans/save/`.)
-
-Update `urls.py` to remove `/create/` route. Update `PlanBuilderModal` `handleSave` to always use `/plans/save/`.
-
-**A2. AI response validation**
-
-Add to `PlanGenerateView.post()` after getting `days_data`:
-
-```python
-for i, day in enumerate(days_data):
-    if not isinstance(day.get("passages"), list) or len(day.get("passages", [])) == 0:
-        return Response(
-            {"error": f"AI generated Day {i+1} with no passages. Please retry."},
-            status=status.HTTP_502_BAD_GATEWAY,
-        )
-    day.setdefault("theme_en", f"Day {day.get('day_number', i+1)}")
-    day.setdefault("theme_es", "")
-    day.setdefault("reflection_prompt", "")
-```
-
-**A3. Rate throttle**
-
-```python
-# In PlanGenerateView:
-from rest_framework.throttling import UserRateThrottle
-
-class PlanGenerateThrottle(UserRateThrottle):
-    rate = '3/hour'
-
-class PlanGenerateView(APIView):
-    throttle_classes = [PlanGenerateThrottle]
-```
-
-**A4. Move description to form step for manual mode**
-
-In `PlanBuilderModal`, when `mode === 'manual'`, add a description textarea below the title on the form screen. Pass it into the draft when transitioning to preview.
-
----
-
-### Sprint B — User Plan Management (~ 1 hour)
-
-**B1. "My Plan" badge + delete button on plan cards**
-
-In `PlansPage` plan grid, check `plan.is_owned`:
-
-```tsx
-{plan.is_owned && !plan.is_public && (
-  <span className="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full">
-    My Plan
-  </span>
-)}
-```
-
-Add delete button that calls `DELETE /plans/<id>/delete/` and invalidates the `plans` query.
-
-**B2. "My Plans" filter tab**
-
-Add to the category filter pills:
-```tsx
-{ value: 'mine', label: 'My Plans' }
-```
-
-When selected, filter client-side: `plans.filter(p => p.is_owned)` (or add `?owned=true` query param to backend).
-
-**B3. Auto-enroll option**
-
-After `handleSave` succeeds, show a toast or immediately call `POST /plans/<new_id>/enroll/`. The save response already returns the full plan with `id`.
-
----
-
-### Sprint C — Polish (30 min)
-
-**C1. Empty state** — When plan list is empty, show illustration + "Build your first plan" CTA.
-
-**C2. Success toast** — After save, flash a green toast: "Plan saved! [Start Plan →]"
-
-**C3. Error recovery** — If AI returns wrong day count, offer a "Use {n} days instead" button that adjusts `durationDays` and retries.
+### Sprint C — Polish ✅
+- **C1.** Empty state for plan list
+- **C2.** Success flow (auto-enroll as implicit confirmation)
+- **C3.** Error recovery — partial plan acceptance when day count mismatches
 
 ---
 

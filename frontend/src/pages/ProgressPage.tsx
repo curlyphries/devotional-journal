@@ -1,17 +1,19 @@
 import { useState } from 'react'
-import { Trophy, TrendingUp, MessageCircle, BookOpen } from 'lucide-react'
+import { Trophy, TrendingUp, MessageCircle, BookOpen, Target } from 'lucide-react'
 import Milestones from '../components/Milestones'
 import GrowthVisualization from '../components/GrowthVisualization'
 import ThreadPrompts from '../components/ThreadPrompts'
 import StudyTracker from '../components/StudyTracker'
+import JourneyPage from './JourneyPage'
 
-type TabType = 'milestones' | 'growth' | 'threads' | 'studies'
+type TabType = 'milestones' | 'growth' | 'threads' | 'studies' | 'journey'
 
 export default function ProgressPage() {
   const [activeTab, setActiveTab] = useState<TabType>('studies')
 
   const tabs = [
     { id: 'studies' as TabType, label: 'Studies', icon: BookOpen },
+    { id: 'journey' as TabType, label: 'Journey', icon: Target },
     { id: 'milestones' as TabType, label: 'Achievements', icon: Trophy },
     { id: 'growth' as TabType, label: 'Growth', icon: TrendingUp },
     { id: 'threads' as TabType, label: 'Follow-ups', icon: MessageCircle },
@@ -50,6 +52,7 @@ export default function ProgressPage() {
         {activeTab === 'studies' && <StudyTracker />}
         {activeTab === 'milestones' && <Milestones />}
         {activeTab === 'growth' && <GrowthVisualization />}
+        {activeTab === 'journey' && <JourneyPage />}
         {activeTab === 'threads' && (
           <div className="space-y-4">
             <p className="text-text-secondary">
