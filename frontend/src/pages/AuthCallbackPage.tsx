@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { Flame, Loader2 } from 'lucide-react'
+import apiClient from '../api/client'
 
 export default function AuthCallbackPage() {
   const navigate = useNavigate()
@@ -9,24 +10,26 @@ export default function AuthCallbackPage() {
   const { login } = useAuth()
 
   useEffect(() => {
-    const accessToken = searchParams.get('access_token')
-    const refreshToken = searchParams.get('refresh_token')
-    const newUser = searchParams.get('new_user') === 'true'
+    const code = searchParams.get('code')
 
-    if (accessToken && refreshToken) {
-      // Store tokens and redirect
-      login(accessToken, refreshToken)
-      
-      // Redirect new users to onboarding, existing users to dashboard
-      if (newUser) {
-        navigate('/settings', { replace: true })
-      } else {
-        navigate('/', { replace: true })
-      }
-    } else {
-      // No tokens, redirect to login with error
+    if (!code) {
       navigate('/login?error=no_tokens', { replace: true })
+      return
     }
+
+    apiClient.post('/auth/exchange/', { code })
+      .then((res) => {
+        const { access_token, refresh_token, new_user } = res.data
+        login(access_token, refresh_token)
+        if (new_user) {
+          navigate('/settings', { replace: true })
+        } else {
+          navigate('/', { replace: true })
+        }
+      })
+      .catch(() => {
+        navigate('/login?error=no_tokens', { replace: true })
+      })
   }, [searchParams, login, navigate])
 
   return (
