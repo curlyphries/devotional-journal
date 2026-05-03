@@ -455,12 +455,11 @@ class GoogleOAuthCallbackView(APIView):
             # The frontend redeems this code via POST /auth/exchange/ so that
             # tokens never appear in URLs, browser history, or server logs.
             one_time_code = secrets.token_urlsafe(32)
-            request.session[f"oauth_code_{one_time_code}"] = {
+            cache.set(f"oauth_code:{one_time_code}", {
                 "access_token": tokens["access_token"],
                 "refresh_token": tokens["refresh_token"],
                 "new_user": created,
-            }
-            request.session.set_expiry(300)  # 5-minute window to redeem
+            }, timeout=300)  # 5-minute window to redeem
 
             params = urlencode({"code": one_time_code})
             return redirect(f"{frontend_url}/auth/callback?{params}")
@@ -488,8 +487,10 @@ class OAuthTokenExchangeView(APIView):
                 {"error": "code is required"}, status=status.HTTP_400_BAD_REQUEST
             )
 
-        session_key = f"oauth_code_{code}"
-        token_data = request.session.pop(session_key, None)
+        session_key = f"oauth_code:{code}"
+        token_data = cache.get(session_key)
+        if token_data:
+            cache.delete(session_key)
 
         if not token_data:
             return Response(
