@@ -185,6 +185,45 @@ class HeartPromptGuidanceView(APIView):
         )
 
 
+class AIStatusView(APIView):
+    """
+    Returns whether the configured LLM backend is reachable and ready.
+    Used by the frontend to show/hide AI features and warn users.
+    """
+
+    def get(self, request):
+        from django.conf import settings
+        import httpx
+
+        backend = getattr(settings, "LLM_BACKEND", "ollama").lower()
+        reachable = False
+        model = None
+
+        try:
+            if backend == "anthropic":
+                api_key = getattr(settings, "ANTHROPIC_API_KEY", None)
+                reachable = bool(api_key and len(api_key) > 10)
+                model = getattr(settings, "ANTHROPIC_MODEL", None)
+            else:
+                base_url = getattr(settings, "OLLAMA_BASE_URL", "http://localhost:11434")
+                model = getattr(settings, "OLLAMA_MODEL", "llama3.1:8b")
+                resp = httpx.get(f"{base_url}/api/tags", timeout=4.0)
+                resp.raise_for_status()
+                models = [m["name"] for m in resp.json().get("models", [])]
+                reachable = any(model in m for m in models)
+        except Exception:
+            reachable = False
+
+        return Response(
+            {
+                "backend": backend,
+                "model": model,
+                "reachable": reachable,
+                "configured": reachable,
+            }
+        )
+
+
 class ExplorationHistoryListView(APIView):
     """
     List recent explorations for the authenticated user.

@@ -195,11 +195,16 @@ class AdvanceDayView(APIView):
         )
 
 
+def _parse_anchor_passages(raw):
+    if isinstance(raw, str):
+        return [p.strip() for p in raw.split(",") if p.strip()]
+    return raw if isinstance(raw, list) else []
+
+
 class PlanGenerateView(APIView):
     """
-    AI-generate a reading plan draft from a topic description.
-    Saves the plan as a personal (non-public) plan owned by the requesting user.
-    Admins can pass is_public=true to publish immediately.
+    AI-generate a plan preview WITHOUT saving to the database.
+    Returns the raw AI draft for frontend review.
     """
 
     def post(self, request):
@@ -217,14 +222,8 @@ class PlanGenerateView(APIView):
             )
 
         category = request.data.get("category", "general")
-        anchor_passages = request.data.get("anchor_passages", [])
-        if isinstance(anchor_passages, str):
-            anchor_passages = [p.strip() for p in anchor_passages.split(",") if p.strip()]
-
+        anchor_passages = _parse_anchor_passages(request.data.get("anchor_passages", []))
         language = getattr(request.user, "language_preference", "en")
-        is_public = request.data.get("is_public", False)
-        if is_public and not request.user.is_staff:
-            is_public = False
 
         service = get_prompt_service()
         plan_data = service.generate_reading_plan(
@@ -242,23 +241,68 @@ class PlanGenerateView(APIView):
             )
 
         days_data = plan_data.get("days", [])
-        if len(days_data) != duration_days:
+        if len(days_data) < duration_days:
             return Response(
                 {
-                    "error": f"AI returned {len(days_data)} days instead of {duration_days}. Please retry."
+                    "error": (
+                        f"AI returned only {len(days_data)} of {duration_days} days. "
+                        "Try a shorter duration or simplify the topic."
+                    ),
+                    "days_returned": len(days_data),
+                    "days_requested": duration_days,
                 },
                 status=status.HTTP_502_BAD_GATEWAY,
             )
 
+        return Response(
+            {
+                "title_en": plan_data.get("title_en", topic),
+                "title_es": plan_data.get("title_es", ""),
+                "description_en": plan_data.get("description_en", ""),
+                "description_es": plan_data.get("description_es", ""),
+                "duration_days": duration_days,
+                "category": category,
+                "days": days_data[:duration_days],
+            },
+            status=status.HTTP_200_OK,
+        )
+
+
+class PlanSaveView(APIView):
+    """
+    Save a reviewed AI-generated plan draft to the database.
+    Accepts the same shape returned by PlanGenerateView, optionally
+    with user edits to title/description/days.
+    """
+
+    def post(self, request):
+        title_en = request.data.get("title_en", "").strip()
+        if not title_en:
+            return Response(
+                {"error": "title_en is required"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        days_data = request.data.get("days", [])
+        if not days_data:
+            return Response(
+                {"error": "days is required"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        duration_days = int(request.data.get("duration_days", len(days_data)))
+        category = request.data.get("category", "general")
+        is_public = bool(request.data.get("is_public", False))
+        if is_public and not request.user.is_staff:
+            is_public = False
+
         plan = ReadingPlan.objects.create(
-            title_en=plan_data.get("title_en", topic),
-            title_es=plan_data.get("title_es", ""),
-            description_en=plan_data.get("description_en", ""),
-            description_es=plan_data.get("description_es", ""),
+            title_en=title_en,
+            title_es=request.data.get("title_es", ""),
+            description_en=request.data.get("description_en", ""),
+            description_es=request.data.get("description_es", ""),
             duration_days=duration_days,
             category=category,
             is_active=True,
-            is_public=bool(is_public),
+            is_public=is_public,
             created_by=request.user,
         )
 
@@ -269,7 +313,53 @@ class PlanGenerateView(APIView):
                 passages=day.get("passages", []),
                 theme_en=day.get("theme_en", ""),
                 theme_es=day.get("theme_es", ""),
-                reflection_prompts_seed=day.get("reflection_prompt", ""),
+                reflection_prompts_seed=day.get("reflection_prompt", day.get("reflection_prompts_seed", "")),
+            )
+
+        serializer = ReadingPlanDetailSerializer(plan, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class PlanCreateManualView(APIView):
+    """
+    Create a reading plan manually (no AI).
+    User supplies title, description, category, duration and at least one day.
+    """
+
+    def post(self, request):
+        title_en = request.data.get("title_en", "").strip()
+        if not title_en:
+            return Response(
+                {"error": "title_en is required"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        days_data = request.data.get("days", [])
+        duration_days = int(request.data.get("duration_days", max(len(days_data), 1)))
+        category = request.data.get("category", "general")
+        is_public = bool(request.data.get("is_public", False))
+        if is_public and not request.user.is_staff:
+            is_public = False
+
+        plan = ReadingPlan.objects.create(
+            title_en=title_en,
+            title_es=request.data.get("title_es", ""),
+            description_en=request.data.get("description_en", ""),
+            description_es=request.data.get("description_es", ""),
+            duration_days=duration_days,
+            category=category,
+            is_active=True,
+            is_public=is_public,
+            created_by=request.user,
+        )
+
+        for i, day in enumerate(days_data, start=1):
+            ReadingPlanDay.objects.create(
+                plan=plan,
+                day_number=int(day.get("day_number", i)),
+                passages=day.get("passages", []),
+                theme_en=day.get("theme_en", ""),
+                theme_es=day.get("theme_es", ""),
+                reflection_prompts_seed=day.get("reflection_prompts_seed", ""),
             )
 
         serializer = ReadingPlanDetailSerializer(plan, context={"request": request})

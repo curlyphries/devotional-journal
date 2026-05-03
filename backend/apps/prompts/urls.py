@@ -5,6 +5,7 @@ URL routes for prompt generation.
 from django.urls import path
 
 from .views import (
+    AIStatusView,
     ExplorationBookmarkView,
     ExplorationHistoryDetailView,
     ExplorationHistoryListView,
@@ -13,6 +14,7 @@ from .views import (
 )
 
 urlpatterns = [
+    path("ai-status/", AIStatusView.as_view(), name="ai-status"),
     path("generate/", GeneratePromptsView.as_view(), name="generate-prompts"),
     path("explore/", HeartPromptGuidanceView.as_view(), name="explore-heart-prompt"),
     path(
