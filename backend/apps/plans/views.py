@@ -6,9 +6,11 @@ from django.db.models import Q
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework.throttling import UserRateThrottle
 from rest_framework.views import APIView
 
 from apps.prompts.services import get_prompt_service
+
 
 from .models import ReadingPlan, ReadingPlanDay, UserPlanEnrollment
 from .serializers import (
@@ -16,6 +18,10 @@ from .serializers import (
     ReadingPlanSerializer,
     UserPlanEnrollmentSerializer,
 )
+
+
+class PlanGenerateThrottle(UserRateThrottle):
+    rate = "3/hour"
 
 
 class PlanListView(APIView):
@@ -207,6 +213,8 @@ class PlanGenerateView(APIView):
     Returns the raw AI draft for frontend review.
     """
 
+    throttle_classes = [PlanGenerateThrottle]
+
     def post(self, request):
         topic = request.data.get("topic", "").strip()
         if not topic:
@@ -254,6 +262,25 @@ class PlanGenerateView(APIView):
                 status=status.HTTP_502_BAD_GATEWAY,
             )
 
+        validated_days = []
+        for i, day in enumerate(days_data[:duration_days]):
+            passages = day.get("passages")
+            if not isinstance(passages, list) or len(passages) == 0:
+                return Response(
+                    {
+                        "error": (
+                            f"AI generated Day {i + 1} with no passages. "
+                            "Please retry or simplify the topic."
+                        )
+                    },
+                    status=status.HTTP_502_BAD_GATEWAY,
+                )
+            day.setdefault("day_number", i + 1)
+            day.setdefault("theme_en", f"Day {day['day_number']}")
+            day.setdefault("theme_es", "")
+            day.setdefault("reflection_prompt", "")
+            validated_days.append(day)
+
         return Response(
             {
                 "title_en": plan_data.get("title_en", topic),
@@ -262,7 +289,7 @@ class PlanGenerateView(APIView):
                 "description_es": plan_data.get("description_es", ""),
                 "duration_days": duration_days,
                 "category": category,
-                "days": days_data[:duration_days],
+                "days": validated_days,
             },
             status=status.HTTP_200_OK,
         )
@@ -314,52 +341,6 @@ class PlanSaveView(APIView):
                 theme_en=day.get("theme_en", ""),
                 theme_es=day.get("theme_es", ""),
                 reflection_prompts_seed=day.get("reflection_prompt", day.get("reflection_prompts_seed", "")),
-            )
-
-        serializer = ReadingPlanDetailSerializer(plan, context={"request": request})
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-class PlanCreateManualView(APIView):
-    """
-    Create a reading plan manually (no AI).
-    User supplies title, description, category, duration and at least one day.
-    """
-
-    def post(self, request):
-        title_en = request.data.get("title_en", "").strip()
-        if not title_en:
-            return Response(
-                {"error": "title_en is required"}, status=status.HTTP_400_BAD_REQUEST
-            )
-
-        days_data = request.data.get("days", [])
-        duration_days = int(request.data.get("duration_days", max(len(days_data), 1)))
-        category = request.data.get("category", "general")
-        is_public = bool(request.data.get("is_public", False))
-        if is_public and not request.user.is_staff:
-            is_public = False
-
-        plan = ReadingPlan.objects.create(
-            title_en=title_en,
-            title_es=request.data.get("title_es", ""),
-            description_en=request.data.get("description_en", ""),
-            description_es=request.data.get("description_es", ""),
-            duration_days=duration_days,
-            category=category,
-            is_active=True,
-            is_public=is_public,
-            created_by=request.user,
-        )
-
-        for i, day in enumerate(days_data, start=1):
-            ReadingPlanDay.objects.create(
-                plan=plan,
-                day_number=int(day.get("day_number", i)),
-                passages=day.get("passages", []),
-                theme_en=day.get("theme_en", ""),
-                theme_es=day.get("theme_es", ""),
-                reflection_prompts_seed=day.get("reflection_prompts_seed", ""),
             )
 
         serializer = ReadingPlanDetailSerializer(plan, context={"request": request})

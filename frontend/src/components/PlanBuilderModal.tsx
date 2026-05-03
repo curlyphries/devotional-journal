@@ -57,6 +57,7 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
 
   // Form state
   const [topic, setTopic] = useState('')
+  const [description, setDescription] = useState('')
   const [category, setCategory] = useState('general')
   const [durationDays, setDurationDays] = useState(7)
   const [anchorInput, setAnchorInput] = useState('')
@@ -126,8 +127,11 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
     setSaving(true)
     setError('')
     try {
-      const endpoint = mode === 'ai' ? '/plans/save/' : '/plans/create/'
-      await apiClient.post(endpoint, draft)
+      const res = await apiClient.post('/plans/save/', draft)
+      const planId = res.data?.id
+      if (planId) {
+        try { await apiClient.post(`/plans/${planId}/enroll/`) } catch { /* non-blocking */ }
+      }
       onCreated()
       handleClose()
     } catch (err: unknown) {
@@ -141,7 +145,7 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
   }
 
   const handleClose = () => {
-    setTopic(''); setCategory('general'); setDurationDays(7)
+    setTopic(''); setDescription(''); setCategory('general'); setDurationDays(7)
     setAnchors([]); setAnchorInput(''); setError('')
     setStep('form'); setDraft(null); setExpandedDay(null)
     onClose()
@@ -448,6 +452,22 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
             />
           </div>
 
+          {/* Description (manual mode only — AI generates this) */}
+          {mode === 'manual' && (
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Description <span className="text-gray-500 font-normal">(optional)</span>
+              </label>
+              <textarea
+                value={description}
+                onChange={e => setDescription(e.target.value)}
+                placeholder="A brief description of what this plan covers"
+                rows={2}
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 resize-none text-sm"
+              />
+            </div>
+          )}
+
           {/* Category + Duration */}
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -535,7 +555,7 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
                 setDraft({
                   title_en: topic.trim(),
                   title_es: '',
-                  description_en: '',
+                  description_en: description.trim(),
                   description_es: '',
                   duration_days: durationDays,
                   category,

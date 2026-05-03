@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Book, Calendar, CheckCircle, Play, BookOpen, ArrowLeft, Sparkles } from 'lucide-react'
+import { Book, Calendar, CheckCircle, Play, BookOpen, ArrowLeft, Sparkles, Trash2 } from 'lucide-react'
 import PlanBuilderModal from '../components/PlanBuilderModal'
 import {
   getPlans,
@@ -9,6 +9,7 @@ import {
   getEnrolledPlans,
   getTodayReading,
   advanceDay,
+  deletePlan,
   ReadingPlan,
   ReadingPlanDetail,
   ReadingPlanDay,
@@ -18,6 +19,7 @@ import ScriptureReader from '../components/ScriptureReader'
 
 const CATEGORIES = [
   { value: '', label: 'All Plans' },
+  { value: 'mine', label: 'My Plans' },
   { value: 'general', label: 'General' },
   { value: 'faith', label: 'Faith Foundations' },
   { value: 'fatherhood', label: 'Fatherhood' },
@@ -53,10 +55,14 @@ export default function PlansPage() {
   const [readingContext, setReadingContext] = useState<ReadingContext | null>(null)
   const [showBuilder, setShowBuilder] = useState(false)
 
-  const { data: plans = [], isLoading: plansLoading } = useQuery({
-    queryKey: ['plans', selectedCategory],
-    queryFn: () => getPlans(selectedCategory || undefined),
+  const { data: rawPlans = [], isLoading: plansLoading } = useQuery({
+    queryKey: ['plans', selectedCategory === 'mine' ? '' : selectedCategory],
+    queryFn: () => getPlans(selectedCategory === 'mine' ? undefined : selectedCategory || undefined),
   })
+
+  const plans = selectedCategory === 'mine'
+    ? rawPlans.filter((p: ReadingPlan) => p.is_owned)
+    : rawPlans
 
   const { data: enrollments = [] } = useQuery({
     queryKey: ['enrollments'],
@@ -76,6 +82,13 @@ export default function PlansPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['enrollments'] })
       queryClient.invalidateQueries({ queryKey: ['todayReading'] })
+    },
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: deletePlan,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['plans'] })
     },
   })
 
@@ -146,6 +159,7 @@ export default function PlansPage() {
         onClose={() => setShowBuilder(false)}
         onCreated={() => {
           queryClient.invalidateQueries({ queryKey: ['plans'] })
+          queryClient.invalidateQueries({ queryKey: ['enrollments'] })
         }}
       />
 
@@ -228,6 +242,25 @@ export default function PlansPage() {
       {/* Plans Grid */}
       {plansLoading ? (
         <div className="text-center py-12 text-gray-400">Loading plans...</div>
+      ) : plans.length === 0 ? (
+        <div className="text-center py-16">
+          <BookOpen className="w-12 h-12 text-gray-600 mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-gray-300">
+            {selectedCategory === 'mine' ? 'You haven\'t built any plans yet' : 'No plans found'}
+          </h3>
+          <p className="text-gray-500 text-sm mt-2 mb-6">
+            {selectedCategory === 'mine'
+              ? 'Create your first personalized reading plan'
+              : 'Try a different category or build your own'}
+          </p>
+          <button
+            onClick={() => setShowBuilder(true)}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-gray-900 rounded-xl font-semibold text-sm transition-colors"
+          >
+            <Sparkles className="w-4 h-4" />
+            Build a Plan
+          </button>
+        </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {plans.map((plan: ReadingPlan) => (
@@ -237,9 +270,30 @@ export default function PlansPage() {
             >
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-white text-lg">{plan.title}</h3>
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-semibold text-white text-lg">{plan.title}</h3>
+                    {plan.is_owned && !plan.is_public && (
+                      <span className="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full font-medium shrink-0">
+                        My Plan
+                      </span>
+                    )}
+                  </div>
                   <p className="text-gray-400 text-sm mt-2 line-clamp-2">{plan.description}</p>
                 </div>
+                {plan.is_owned && !plan.is_public && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      if (confirm('Delete this plan? This cannot be undone.')) {
+                        deleteMutation.mutate(plan.id)
+                      }
+                    }}
+                    className="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors shrink-0 ml-2"
+                    title="Delete plan"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                )}
               </div>
               
               <div className="flex items-center gap-4 mt-4 text-sm text-gray-400">

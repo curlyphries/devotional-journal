@@ -67,3 +67,7 @@ export const advanceDay = async (enrollmentId: string): Promise<{ message: strin
   const response = await client.post(`/plans/enrolled/${enrollmentId}/advance/`)
   return response.data
 }
+
+export const deletePlan = async (planId: string): Promise<void> => {
+  await client.delete(`/plans/${planId}/delete/`)
+}
