@@ -1,10 +1,14 @@
 # Contributing to Devotional Journal
 
-Thank you for your interest in contributing to Devotional Journal!
+Thanks for being here. This project is built by men, for men trying to be more consistent in their faith — and contributions from anyone who wants to make that happen are welcome.
+
+If you're new to open-source, that's fine. Open an issue, ask questions, and pair on a small fix. Drive-by typo fixes in docs are perfectly valid PRs.
 
 ## Code of Conduct
 
-Be respectful, inclusive, and constructive. This project serves a faith-based community.
+Be respectful, inclusive, and constructive. This project serves a faith-based community, and we expect everyone here to treat each other with the dignity that implies.
+
+Disagreements are welcome. Personal attacks, harassment, and gatekeeping by tradition or denomination are not.
 
 ## Getting Started
 
@@ -81,9 +85,20 @@ test: add integration tests for magic link auth
 
 - **API-first**: All features are DRF endpoints first
 - **Encryption**: Journal entries must remain encrypted at rest
-- **Bilingual**: Content should support en/es from the start
+- **Bilingual**: Content should support en/es from the start, including proper diacritics in Spanish (`Configuración`, not `Configuracion`)
 - **Privacy**: Never expose private journal content through group endpoints
+- **No third-party trackers**: Do not add Google Analytics, Facebook pixels, or similar without explicit operator opt-in
+- **Accessibility**: New UI must keep keyboard navigation, semantic landmarks, and ARIA labels working — see the skip-link and `aria-current` patterns in `Layout.tsx`
+
+## Documentation expectations
+
+If your PR adds or changes user-visible behavior:
+
+1. Update the relevant docs (README features list, ROADMAP, etc.)
+2. Add a line to the `[Unreleased]` section of `CHANGELOG.md`
+3. If it changes data handling, update `PRIVACY.md`
+4. If it changes a security boundary, update `SECURITY.md`
 
 ## Questions?
 
-Open an issue or reach out to the maintainers.
+Open an issue or start a discussion on GitHub. PRs without an associated issue are fine for small fixes; please open an issue first for anything larger.
