@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /journal
+Disallow: /reflection
+Disallow: /settings
+Disallow: /auth/

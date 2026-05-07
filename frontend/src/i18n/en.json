@@ -6,7 +6,8 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "edit": "Edit",
-    "back": "Back"
+    "back": "Back",
+    "skipToContent": "Skip to main content"
   },
   "auth": {
     "login": "Sign In",
@@ -16,6 +17,25 @@
     "sendMagicLink": "Send Magic Link",
     "magicLinkSent": "Check your email for a login link",
     "verifying": "Verifying your login..."
+  },
+  "login": {
+    "title": "Devotional Journal",
+    "tagline": "Daily Bible rhythm. Spiritual focus. Encrypted journaling.",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithEmail": "Continue with email",
+    "or": "or",
+    "magicLinkExplainer": "We'll email you a one-tap sign-in link. No password to remember.",
+    "checkEmailHeading": "Check your email",
+    "useAnotherEmail": "Use a different email",
+    "trust": {
+      "encrypted": "End-to-end encrypted journal",
+      "bilingual": "Bilingual EN / ES",
+      "byoai": "Bring your own AI"
+    },
+    "footer": {
+      "source": "Source",
+      "privacy": "Privacy"
+    }
   },
   "dashboard": {
     "greeting": "Good morning",
@@ -64,6 +84,12 @@
     "dashboard": "Dashboard",
     "journal": "Journal",
     "plans": "Plans",
-    "settings": "Settings"
+    "focus": "Focus",
+    "progress": "Progress",
+    "insights": "Insights",
+    "settings": "Settings",
+    "help": "Help & Guide",
+    "changeLanguage": "Change language",
+    "quickCapture": "Quick capture"
   }
 }
