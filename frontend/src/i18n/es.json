@@ -7,6 +7,10 @@
     "delete": "Eliminar",
     "edit": "Editar",
     "back": "Volver",
+    "next": "Siguiente",
+    "skip": "Omitir",
+    "done": "Listo",
+    "close": "Cerrar",
     "skipToContent": "Saltar al contenido principal"
   },
   "auth": {
@@ -37,15 +41,170 @@
       "privacy": "Privacidad"
     }
   },
+  "landing": {
+    "docTitle": "Devotional Journal — Estudio bíblico bilingüe, enfoque y diario cifrado",
+    "nav": {
+      "features": "Funciones",
+      "privacy": "Privacidad",
+      "faq": "Preguntas",
+      "signIn": "Iniciar sesión"
+    },
+    "hero": {
+      "eyebrow": "Código abierto · Cifrado · Bilingüe",
+      "headline": {
+        "part1": "Construye un ritmo diario en la Biblia",
+        "part2": "que de verdad dure."
+      },
+      "sub": "Un compañero de estudio bíblico bilingüe (EN/ES) para hombres que quieren constancia. Establece un enfoque, sigue planes de lectura con IA y lleva un diario privado — cifrado de extremo a extremo.",
+      "ctaPrimary": "Empezar — gratis",
+      "ctaSecondary": "Aloja en tu servidor",
+      "screenshotAlt": "Vista previa del panel de Devotional Journal"
+    },
+    "trust": {
+      "encrypted": "Cifrado de extremo a extremo",
+      "bilingual": "Bilingüe EN / ES",
+      "selfHost": "Amigable para autohospedaje",
+      "byoai": "Usa tu propia IA"
+    },
+    "problem": {
+      "quote": "Quiero ser constante en mi fe — pero sigo fallando.",
+      "body": "La mayoría de las aplicaciones bíblicas son bibliotecas de contenido o redes sociales. No te ayudan a construir un ritmo diario. Devotional Journal está construido alrededor del ciclo del hábito — enfoque, lectura, diario, reflexión, seguimiento."
+    },
+    "how": {
+      "heading": "Cómo funciona",
+      "sub": "Cinco pequeños pasos que se convierten en un hábito real.",
+      "step1": { "title": "Establece un enfoque", "body": "Elige en qué estás trabajando — ansiedad, liderazgo, vida de oración, ira." },
+      "step2": { "title": "Lee", "body": "La IA selecciona pasajes diarios relacionados con tu enfoque, en tu traducción." },
+      "step3": { "title": "Escribe en tu diario", "body": "Cifrado en reposo. Con etiqueta de estado de ánimo. Solo tú puedes leerlo." },
+      "step4": { "title": "Reflexiona", "body": "Puntuación de áreas de vida. Hilos de IA hacen seguimiento de lo que luchaste la semana pasada." },
+      "step5": { "title": "Registra tu avance", "body": "Rachas, hitos e informes de crecimiento de 30/60/90 días que puedes exportar." }
+    },
+    "features": {
+      "heading": "Todo lo que necesitas para construir el hábito",
+      "sub": "Sin ventas adicionales. Sin feeds sociales. Sin guías de estudio de pago. Solo las herramientas para presentarte cada día.",
+      "f1": { "title": "Devocionales con IA", "body": "Establece un enfoque, recibe pasajes diarios, preguntas y guías de estudio personalizados." },
+      "f2": { "title": "Planes de lectura", "body": "Explora planes prediseñados o genera el tuyo con IA desde un solo tema." },
+      "f3": { "title": "Diario cifrado", "body": "Cifrado AES por usuario. Incluso con acceso a la base de datos, nadie puede leer tus entradas." },
+      "f4": { "title": "Lector bíblico integrado", "body": "RVR1960 y KJV incluidos. ASV, YLT, WEB y más a través de la API de Bolls." },
+      "f5": { "title": "Hilos abiertos", "body": "\"La semana pasada mencionaste ansiedad por el trabajo. ¿Cómo va eso?\" La IA recuerda lo que luchaste." },
+      "f6": { "title": "Rachas e hitos", "body": "Confeti en los hitos. Tarjetas para compartir a los 3, 7, 30, 90 y 365 días." },
+      "f7": { "title": "Bilingüe hasta el núcleo", "body": "Planes, temas y preguntas almacenados en EN y ES. El modo bilingüe muestra ambos lado a lado." },
+      "f8": { "title": "Exporta todo", "body": "Copia de seguridad ZIP completa o exportaciones en Markdown para diario, destacados e informes de crecimiento." },
+      "f9": { "title": "Amigable para autohospedaje", "body": "Pila Docker Compose. Funciona en una Raspberry Pi o cualquier servidor. Licencia AGPL-3.0." }
+    },
+    "privacy": {
+      "heading": "Tus reflexiones son tuyas",
+      "sub": "La privacidad no es una línea de marketing aquí. El código de cifrado es abierto y el modelo de amenazas está documentado.",
+      "p1": "Cifrado AES por usuario en cada entrada del diario",
+      "p2": "Sin análisis de terceros por defecto",
+      "p3": "Usa tu propia IA — Ollama mantiene todo local",
+      "p4": "Exportación y eliminación al estilo GDPR desde tu cuenta",
+      "p5": "Código fuente bajo AGPL-3.0 — audítalo tú mismo",
+      "p6": "Las tarjetas para compartir nunca incluyen texto del diario",
+      "readMore": "Leer la política de privacidad completa"
+    },
+    "shots": {
+      "heading": "Un vistazo al interior",
+      "sub": "Diseñado para ser tranquilo, enfocado y sin distracciones.",
+      "focus": "Enfoque diario",
+      "plans": "Planes de lectura",
+      "progress": "Progreso y rachas",
+      "journal": "Diario cifrado"
+    },
+    "faq": {
+      "heading": "Preguntas frecuentes",
+      "q1": "¿Es esto solo para hombres?",
+      "a1": "El tono, las preguntas y las sugerencias de enfoque están escritas con hombres en mente — padres, líderes, hombres en recuperación, hombres construyendo disciplina de fe. Las funciones en sí funcionan para cualquiera.",
+      "q2": "¿Necesito una cuenta de OpenAI o Anthropic?",
+      "a2": "No. Puedes ejecutar todo localmente con Ollama. Tus reflexiones nunca salen de tu red en esa configuración.",
+      "q3": "¿Qué pasa si pierdo mi clave de cifrado?",
+      "a3": "Cada entrada del diario se vuelve ilegible para siempre. No hay recuperación. Trata la clave como una contraseña maestra y respaldarla antes que cualquier otra cosa.",
+      "q4": "¿Puedo exportar mis datos?",
+      "a4": "Sí. Configuración → Exportar te da un ZIP completo y exportaciones en Markdown para diario, destacados e informe de crecimiento.",
+      "q5": "¿Hay una versión alojada?",
+      "a5": "Existe una instancia administrada por el mantenedor para uso personal. Todavía no hay una oferta alojada pública — el autohospedaje es el camino soportado.",
+      "q6": "¿Cuánto cuesta?",
+      "a6": "Gratis. Licencia AGPL-3.0. Si lo alojas para otros, tus modificaciones deben ser de código abierto bajo la misma licencia."
+    },
+    "cta": {
+      "heading": "Empieza el ritmo hoy",
+      "sub": "Inicia sesión con Google o tu correo. Establece un enfoque en 30 segundos. Lee tu primer pasaje hoy.",
+      "button": "Iniciar sesión para empezar"
+    },
+    "footer": {
+      "tagline": "Construido para la constancia.",
+      "privacy": "Privacidad",
+      "security": "Seguridad",
+      "roadmap": "Hoja de ruta",
+      "changelog": "Cambios"
+    }
+  },
   "dashboard": {
     "greeting": "Buenos días",
+    "greetingAfternoon": "Buenas tardes",
+    "greetingEvening": "Buenas noches",
+    "greetingFallback": "Hermano",
     "currentStreak": "Racha actual",
+    "dayStreak": "días de racha",
     "days": "días",
     "todaysReading": "Lectura de hoy",
     "readAndReflect": "Leer y reflexionar",
     "recentEntries": "Entradas recientes",
     "noEntries": "Sin entradas de diario",
-    "startJourney": "Comienza tu jornada hoy"
+    "startJourney": "Comienza tu jornada hoy",
+    "snapshot": "Panorama espiritual de hoy",
+    "focus": "Enfoque",
+    "readingPlan": "Plan de lectura",
+    "todaysActivity": "Actividad de hoy",
+    "highlights": "Destacados",
+    "journalEntries": "Entradas del diario",
+    "highlightsThisWeek": "Destacados esta semana",
+    "journalEntriesShort": "Entradas del diario",
+    "reflections": "Reflexiones",
+    "openThreads": "Hilos abiertos",
+    "lifeAreaGrowth": "Crecimiento por área de vida",
+    "viewDetails": "Ver detalles →",
+    "recentNotes": "Notas recientes",
+    "viewAll": "Ver todo →",
+    "dayOf": "Día {{day}} de {{total}}",
+    "loadFailed": "No se pudo cargar el panel",
+    "wizard": {
+      "step1Heading": "Empecemos tu jornada",
+      "step1Sub": "¿Qué está en tu corazón ahora mismo?",
+      "writeOwn": "Escribir mi propio enfoque →",
+      "skipForNow": "Omitir por ahora",
+      "step2Heading": "¡Excelente elección!",
+      "step2Sub": "Ahora elijamos un camino de lectura",
+      "suggestedPlanTitle": "Evangelio de Juan - 7 días",
+      "suggestedPlanBody": "Una introducción perfecta a la vida y las enseñanzas de Jesús",
+      "startPlan": "Iniciar plan",
+      "browseAll": "Ver todos los planes →",
+      "suggestion1": "Encontrar paz en la ansiedad",
+      "suggestion2": "Construir constancia en la fe",
+      "suggestion3": "Profundizar mi relación con Dios",
+      "suggestion4": "Superar el miedo y la duda"
+    },
+    "emptyFocus": {
+      "heading": "¿Cuál es el enfoque de tu corazón?",
+      "body": "Establece un enfoque para personalizar tus devocionales diarios y recomendaciones de escritura.",
+      "cta": "Establecer mi enfoque →"
+    },
+    "emptyPlan": {
+      "heading": "¿Listo para un viaje guiado?",
+      "body": "Empieza con \"Evangelio de Juan - 7 días\" o explora todos los planes.",
+      "cta": "Ver planes →"
+    },
+    "quickActions": {
+      "devotional": "Devocional diario",
+      "devotionalSub": "Continúa tu jornada de enfoque",
+      "plans": "Planes de lectura",
+      "plansSub": "Estudio bíblico estructurado",
+      "newEntry": "Nueva entrada del diario",
+      "newEntrySub": "Captura tus pensamientos"
+    },
+    "tour": {
+      "replay": "Repetir tour"
+    }
   },
   "reading": {
     "reflectionPrompts": "Preguntas de reflexión",
@@ -91,5 +250,40 @@
     "help": "Ayuda y guía",
     "changeLanguage": "Cambiar idioma",
     "quickCapture": "Captura rápida"
+  },
+  "tour": {
+    "stepLabel": "Paso {{current}} de {{total}}",
+    "next": "Siguiente",
+    "back": "Volver",
+    "skip": "Omitir tour",
+    "finish": "Entendido",
+    "welcome": {
+      "title": "Bienvenido — hagamos un recorrido rápido",
+      "body": "Dos minutos para mostrarte todo. Puedes repetirlo en cualquier momento desde la página de Ayuda."
+    },
+    "streak": {
+      "title": "Tu racha vive aquí",
+      "body": "Cada día que escribas en tu diario cuenta. A los 3 días aparece el botón de compartir, y hay confeti en cada hito."
+    },
+    "speakYourMind": {
+      "title": "Habla tu mente",
+      "body": "Escribe lo que está en tu corazón. La IA encuentra escrituras relevantes y preguntas de reflexión en segundos."
+    },
+    "snapshot": {
+      "title": "Tu panorama diario",
+      "body": "Enfoque, el plan de lectura de hoy y la actividad de hoy — todo en una sola tarjeta."
+    },
+    "fab": {
+      "title": "Captura rápida, siempre a un toque",
+      "body": "Usa este botón flotante para guardar un pensamiento desde cualquier parte de la app."
+    },
+    "language": {
+      "title": "Cambia de idioma en cualquier momento",
+      "body": "Alterna entre inglés y español. Tus planes de lectura, temas y preguntas están almacenados en ambos."
+    },
+    "help": {
+      "title": "¿Necesitas recordar algo?",
+      "body": "La página de Ayuda tiene un recorrido guiado de cada función, con enlaces directos."
+    }
   }
 }

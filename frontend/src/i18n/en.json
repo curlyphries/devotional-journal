@@ -7,6 +7,10 @@
     "delete": "Delete",
     "edit": "Edit",
     "back": "Back",
+    "next": "Next",
+    "skip": "Skip",
+    "done": "Done",
+    "close": "Close",
     "skipToContent": "Skip to main content"
   },
   "auth": {
@@ -37,15 +41,170 @@
       "privacy": "Privacy"
     }
   },
+  "landing": {
+    "docTitle": "Devotional Journal — Bilingual Bible study, focus, and encrypted journaling",
+    "nav": {
+      "features": "Features",
+      "privacy": "Privacy",
+      "faq": "FAQ",
+      "signIn": "Sign in"
+    },
+    "hero": {
+      "eyebrow": "Open-source · Encrypted · Bilingual",
+      "headline": {
+        "part1": "Build a daily Bible rhythm",
+        "part2": "that actually sticks."
+      },
+      "sub": "A bilingual (EN/ES) Bible study companion for men who want consistency. Set a focus, follow AI-curated reading plans, and journal privately — encrypted end-to-end.",
+      "ctaPrimary": "Get started — free",
+      "ctaSecondary": "Self-host on GitHub",
+      "screenshotAlt": "Devotional Journal dashboard preview"
+    },
+    "trust": {
+      "encrypted": "End-to-end encrypted",
+      "bilingual": "EN / ES bilingual",
+      "selfHost": "Self-host friendly",
+      "byoai": "Bring your own AI"
+    },
+    "problem": {
+      "quote": "I want to be consistent in my faith — but I keep falling off.",
+      "body": "Most Bible apps are content libraries or social feeds. They don't help you build a daily rhythm. Devotional Journal is built around the habit loop — focus, read, journal, reflect, track."
+    },
+    "how": {
+      "heading": "How it works",
+      "sub": "Five small steps that compound into a real habit.",
+      "step1": { "title": "Set a focus", "body": "Pick what you're working through — anxiety, leadership, prayer life, anger." },
+      "step2": { "title": "Read", "body": "AI curates daily passages tied to your focus, in your translation." },
+      "step3": { "title": "Journal", "body": "Encrypted at rest. Mood-tagged. Only you can read it." },
+      "step4": { "title": "Reflect", "body": "Life-area scoring. AI threads follow up on what you wrestled with last week." },
+      "step5": { "title": "Track", "body": "Streaks, milestones, and a 30/60/90-day growth report you can export." }
+    },
+    "features": {
+      "heading": "Everything you need to build the habit",
+      "sub": "No upsells. No social feed. No paywalled study guides. Just the tools to show up daily.",
+      "f1": { "title": "AI-curated devotionals", "body": "Set a focus, get daily scripture, prompts, and study guides personalized to it." },
+      "f2": { "title": "Reading plans", "body": "Browse pre-built plans or generate your own with AI from a single topic." },
+      "f3": { "title": "Encrypted journal", "body": "Per-user AES encryption. Even with database access, no one can read your entries." },
+      "f4": { "title": "Built-in Bible reader", "body": "KJV included. ASV, YLT, WEB, RVR1960 (Spanish) and more via the Bolls API." },
+      "f5": { "title": "Open threads", "body": "\"Last week you mentioned anxiety about work. How's that going?\" The AI remembers what you wrestled with." },
+      "f6": { "title": "Streaks & milestones", "body": "Confetti at milestones. Share cards for 3, 7, 30, 90, and 365 days." },
+      "f7": { "title": "Bilingual to the bone", "body": "Plans, themes, and prompts stored in EN and ES. Bilingual mode shows both side by side." },
+      "f8": { "title": "Export everything", "body": "Full ZIP backup or Markdown exports for journal, highlights, and growth reports." },
+      "f9": { "title": "Self-host friendly", "body": "Docker Compose stack. Runs on a Pi or any cloud VM. AGPL-3.0 licensed." }
+    },
+    "privacy": {
+      "heading": "Your reflections are yours",
+      "sub": "Privacy isn't a marketing line here. The encryption code is open and the threat model is documented.",
+      "p1": "Per-user AES encryption on every journal entry",
+      "p2": "No third-party analytics by default",
+      "p3": "Bring your own AI — Ollama keeps everything local",
+      "p4": "GDPR-style export and delete from your account",
+      "p5": "Source code under AGPL-3.0 — audit it yourself",
+      "p6": "Share cards never include journal text",
+      "readMore": "Read the full privacy policy"
+    },
+    "shots": {
+      "heading": "A look inside",
+      "sub": "Designed to be calm, focused, and out of the way.",
+      "focus": "Daily focus",
+      "plans": "Reading plans",
+      "progress": "Progress & streaks",
+      "journal": "Encrypted journal"
+    },
+    "faq": {
+      "heading": "Frequently asked questions",
+      "q1": "Is this only for men?",
+      "a1": "The tone, prompts, and focus suggestions are written with men in mind — fathers, leaders, men in recovery, men building faith discipline. The features themselves work for anyone.",
+      "q2": "Do I need an OpenAI or Anthropic account?",
+      "a2": "No. You can run everything locally with Ollama. Your reflections never leave your network in that setup.",
+      "q3": "What happens if I lose my encryption key?",
+      "a3": "Every journal entry becomes unreadable forever. There is no recovery. Treat the key like a master password and back it up before anything else.",
+      "q4": "Can I export my data?",
+      "a4": "Yes. Settings → Export gives you a full ZIP and Markdown exports for journal, highlights, and a growth report.",
+      "q5": "Is there a hosted version?",
+      "a5": "A maintainer-run instance exists for personal use. There is no public hosted offering yet — self-host is the supported path.",
+      "q6": "How much does it cost?",
+      "a6": "Free. AGPL-3.0 licensed. If you self-host for others, your modifications must be open-sourced under the same license."
+    },
+    "cta": {
+      "heading": "Start the rhythm today",
+      "sub": "Sign in with Google or your email. Set a focus in 30 seconds. Read your first passage today.",
+      "button": "Sign in to get started"
+    },
+    "footer": {
+      "tagline": "Built for consistency.",
+      "privacy": "Privacy",
+      "security": "Security",
+      "roadmap": "Roadmap",
+      "changelog": "Changelog"
+    }
+  },
   "dashboard": {
     "greeting": "Good morning",
+    "greetingAfternoon": "Good afternoon",
+    "greetingEvening": "Good evening",
+    "greetingFallback": "Brother",
     "currentStreak": "Current Streak",
+    "dayStreak": "day streak",
     "days": "days",
     "todaysReading": "Today's Reading",
     "readAndReflect": "Read & Reflect",
     "recentEntries": "Recent Entries",
     "noEntries": "No journal entries yet",
-    "startJourney": "Start your journey today"
+    "startJourney": "Start your journey today",
+    "snapshot": "Today's Spiritual Snapshot",
+    "focus": "Focus",
+    "readingPlan": "Reading Plan",
+    "todaysActivity": "Today's Activity",
+    "highlights": "Highlights",
+    "journalEntries": "Journal entries",
+    "highlightsThisWeek": "Highlights this week",
+    "journalEntriesShort": "Journal entries",
+    "reflections": "Reflections",
+    "openThreads": "Open threads",
+    "lifeAreaGrowth": "Life Area Growth",
+    "viewDetails": "View Details →",
+    "recentNotes": "Recent Notes",
+    "viewAll": "View All →",
+    "dayOf": "Day {{day}} of {{total}}",
+    "loadFailed": "Failed to load dashboard",
+    "wizard": {
+      "step1Heading": "Let's start your journey",
+      "step1Sub": "What's on your heart right now?",
+      "writeOwn": "Write my own focus →",
+      "skipForNow": "Skip for now",
+      "step2Heading": "Great choice!",
+      "step2Sub": "Now let's pick a reading path",
+      "suggestedPlanTitle": "Gospel of John - 7 Days",
+      "suggestedPlanBody": "A perfect introduction to Jesus' life and teachings",
+      "startPlan": "Start Plan",
+      "browseAll": "Browse all plans →",
+      "suggestion1": "Finding peace in anxiety",
+      "suggestion2": "Building consistency in faith",
+      "suggestion3": "Deepening my relationship with God",
+      "suggestion4": "Overcoming fear and doubt"
+    },
+    "emptyFocus": {
+      "heading": "What focus is on your heart?",
+      "body": "Set a focus to personalize your daily devotions and scripture recommendations.",
+      "cta": "Set Your Focus →"
+    },
+    "emptyPlan": {
+      "heading": "Ready for a Guided Journey?",
+      "body": "Start with \"Gospel of John - 7 Days\" or browse all plans.",
+      "cta": "Browse Plans →"
+    },
+    "quickActions": {
+      "devotional": "Daily Devotional",
+      "devotionalSub": "Continue your focus journey",
+      "plans": "Reading Plans",
+      "plansSub": "Structured Bible study",
+      "newEntry": "New Journal Entry",
+      "newEntrySub": "Capture your thoughts"
+    },
+    "tour": {
+      "replay": "Replay tour"
+    }
   },
   "reading": {
     "reflectionPrompts": "Reflection Prompts",
@@ -91,5 +250,40 @@
     "help": "Help & Guide",
     "changeLanguage": "Change language",
     "quickCapture": "Quick capture"
+  },
+  "tour": {
+    "stepLabel": "Step {{current}} of {{total}}",
+    "next": "Next",
+    "back": "Back",
+    "skip": "Skip tour",
+    "finish": "Got it",
+    "welcome": {
+      "title": "Welcome — let's take a quick tour",
+      "body": "Two minutes to show you around. You can replay this anytime from the Help page."
+    },
+    "streak": {
+      "title": "Your streak lives here",
+      "body": "Every day you journal counts. At 3 days the share button appears, and confetti pops at every milestone."
+    },
+    "speakYourMind": {
+      "title": "Speak your mind",
+      "body": "Type whatever's on your heart. The AI finds relevant scripture and reflection prompts in seconds."
+    },
+    "snapshot": {
+      "title": "Your daily snapshot",
+      "body": "Focus, today's reading plan, and today's activity — all in one card."
+    },
+    "fab": {
+      "title": "Quick capture, always one tap away",
+      "body": "Use this floating button to save a thought from anywhere in the app."
+    },
+    "language": {
+      "title": "Switch languages anytime",
+      "body": "Toggle between English and Spanish. Your reading plans, themes, and prompts are stored in both."
+    },
+    "help": {
+      "title": "Need a refresher?",
+      "body": "The Help page has a guided tour of every feature, with deep links."
+    }
   }
 }

@@ -79,6 +79,7 @@ export default function Layout() {
               })}
 
               <button
+                data-tour-id="language"
                 onClick={toggleLanguage}
                 className="flex shrink-0 items-center gap-1 rounded-lg px-3 py-2 text-text-secondary transition-colors hover:text-text-primary"
                 title={t('nav.changeLanguage', 'Change language')}
@@ -91,6 +92,7 @@ export default function Layout() {
               </button>
 
               <Link
+                data-tour-id="help"
                 to="/help"
                 className={`flex shrink-0 items-center gap-2 rounded-lg px-3 py-2 transition-colors whitespace-nowrap ${
                   location.pathname === '/help'
@@ -121,6 +123,7 @@ export default function Layout() {
 
       {/* Quick Capture FAB */}
       <button
+        data-tour-id="fab"
         onClick={() => setShowQuickCapture(true)}
         className="fixed bottom-6 right-6 w-14 h-14 bg-amber-500 hover:bg-amber-400 rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 z-40 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-bg-primary"
         aria-label={t('nav.quickCapture', 'Quick capture')}
