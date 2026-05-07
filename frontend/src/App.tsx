@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
 import Layout from './components/Layout'
+import LandingPage from './pages/LandingPage'
 import LoginPage from './pages/LoginPage'
 import VerifyPage from './pages/VerifyPage'
 import AuthCallbackPage from './pages/AuthCallbackPage'
@@ -30,12 +31,13 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
     )
   }
 
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />
+  return isAuthenticated ? <>{children}</> : <Navigate to="/welcome" replace />
 }
 
 function App() {
   return (
     <Routes>
+      <Route path="/welcome" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/auth/verify" element={<VerifyPage />} />
       <Route path="/auth/callback" element={<AuthCallbackPage />} />
