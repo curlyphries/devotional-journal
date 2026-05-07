@@ -99,6 +99,7 @@ def reading_plan(db):
         category="faith",
         is_premium=False,
         is_active=True,
+        is_public=True,
     )
 
     for day in range(1, 8):

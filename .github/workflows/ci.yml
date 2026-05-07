@@ -64,7 +64,7 @@ jobs:
           CELERY_BROKER_URL: redis://localhost:6379/0
           CELERY_RESULT_BACKEND: redis://localhost:6379/0
           DJANGO_SETTINGS_MODULE: config.settings.dev
-          SECRET_KEY: test-secret-key-for-ci
+          SECRET_KEY: test-secret-key-for-ci-at-least-32-bytes-long
           ENCRYPTION_ROOT_KEY: test-encryption-key-32-chars-long
         run: |
           python manage.py migrate --run-syncdb --no-input
