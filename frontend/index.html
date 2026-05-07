@@ -2,14 +2,45 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="%BASE_URL%vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Devotional Journal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#1A1A1A" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- Primary meta -->
+    <title>Devotional Journal — Bilingual Bible study, focus, and encrypted journaling</title>
+    <meta name="description" content="A bilingual (EN/ES) men's Bible study companion. Set a spiritual focus, follow AI-curated reading plans, and journal privately with end-to-end encryption. Self-hostable, bring-your-own-AI, AGPL-licensed." />
+    <meta name="keywords" content="devotional, bible, journal, christian, spiritual, men, bilingual, encrypted, self-hosted, AI" />
+    <meta name="author" content="Devotional Journal" />
+
+    <!-- Icons & PWA -->
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <link rel="apple-touch-icon" href="%BASE_URL%apple-touch-icon.svg" />
+    <link rel="manifest" href="%BASE_URL%manifest.webmanifest" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Devotional Journal — Build a daily Bible rhythm" />
+    <meta property="og:description" content="Set a spiritual focus, follow AI-curated reading plans, and journal privately with encryption. Bilingual (EN/ES). Self-host friendly." />
+    <meta property="og:site_name" content="Devotional Journal" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="es_ES" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Devotional Journal" />
+    <meta name="twitter:description" content="Bilingual Bible study, spiritual focus, and encrypted journaling. Self-host friendly." />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
   </head>
   <body>
+    <noscript>
+      <div style="padding:1.5rem;text-align:center;font-family:system-ui,sans-serif;background:#1A1A1A;color:#E8E0D8;">
+        Devotional Journal needs JavaScript to run. Please enable it in your browser settings.
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

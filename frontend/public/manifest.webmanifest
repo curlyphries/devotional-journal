@@ -1,0 +1,28 @@
+{
+  "name": "Devotional Journal",
+  "short_name": "Devotional",
+  "description": "Bilingual Bible study, spiritual focus, and encrypted journaling.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1A1A1A",
+  "theme_color": "#1A1A1A",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["lifestyle", "education", "books"],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -14,7 +14,11 @@ vi.mock('../context/AuthContext', () => ({
 
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
-    t: (key: string) => key,
+    t: (key: string, fallback?: string) => fallback ?? key,
+    i18n: {
+      language: 'en',
+      changeLanguage: vi.fn(),
+    },
   }),
 }))
 

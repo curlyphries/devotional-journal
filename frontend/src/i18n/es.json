@@ -1,69 +1,95 @@
 {
   "common": {
     "loading": "Cargando...",
-    "error": "Ocurrio un error",
+    "error": "Ocurrió un error",
     "save": "Guardar",
     "cancel": "Cancelar",
     "delete": "Eliminar",
     "edit": "Editar",
-    "back": "Volver"
+    "back": "Volver",
+    "skipToContent": "Saltar al contenido principal"
   },
   "auth": {
-    "login": "Iniciar Sesion",
-    "logout": "Cerrar Sesion",
-    "email": "Correo Electronico",
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "email": "Correo electrónico",
     "emailPlaceholder": "Ingresa tu correo",
-    "sendMagicLink": "Enviar Enlace Magico",
+    "sendMagicLink": "Enviar enlace mágico",
     "magicLinkSent": "Revisa tu correo para el enlace de acceso",
     "verifying": "Verificando tu acceso..."
   },
+  "login": {
+    "title": "Devotional Journal",
+    "tagline": "Ritmo diario en la Palabra. Enfoque espiritual. Diario cifrado.",
+    "continueWithGoogle": "Continuar con Google",
+    "continueWithEmail": "Continuar con correo",
+    "or": "o",
+    "magicLinkExplainer": "Te enviaremos un enlace de acceso de un solo toque. Sin contraseñas que recordar.",
+    "checkEmailHeading": "Revisa tu correo",
+    "useAnotherEmail": "Usar otro correo",
+    "trust": {
+      "encrypted": "Diario cifrado de extremo a extremo",
+      "bilingual": "Bilingüe EN / ES",
+      "byoai": "Usa tu propia IA"
+    },
+    "footer": {
+      "source": "Código",
+      "privacy": "Privacidad"
+    }
+  },
   "dashboard": {
-    "greeting": "Buenos dias",
-    "currentStreak": "Racha Actual",
-    "days": "dias",
-    "todaysReading": "Lectura de Hoy",
-    "readAndReflect": "Leer y Reflexionar",
-    "recentEntries": "Entradas Recientes",
+    "greeting": "Buenos días",
+    "currentStreak": "Racha actual",
+    "days": "días",
+    "todaysReading": "Lectura de hoy",
+    "readAndReflect": "Leer y reflexionar",
+    "recentEntries": "Entradas recientes",
     "noEntries": "Sin entradas de diario",
     "startJourney": "Comienza tu jornada hoy"
   },
   "reading": {
-    "reflectionPrompts": "Preguntas de Reflexion",
-    "journalEntry": "Entrada de Diario",
-    "saveEntry": "Guardar Entrada",
-    "moodTag": "Como te sientes?",
+    "reflectionPrompts": "Preguntas de reflexión",
+    "journalEntry": "Entrada de diario",
+    "saveEntry": "Guardar entrada",
+    "moodTag": "¿Cómo te sientes?",
     "moods": {
       "grateful": "Agradecido",
-      "struggling": "Luchando",
+      "struggling": "En lucha",
       "convicted": "Convicto",
-      "peaceful": "En Paz",
+      "peaceful": "En paz",
       "fired_up": "Encendido"
     }
   },
   "journal": {
-    "history": "Historial del Diario",
-    "newEntry": "Nueva Entrada",
+    "history": "Historial del diario",
+    "newEntry": "Nueva entrada",
     "noEntries": "No se encontraron entradas",
     "filterByMood": "Filtrar por estado",
     "allMoods": "Todos los estados"
   },
   "settings": {
-    "title": "Configuracion",
+    "title": "Configuración",
     "profile": "Perfil",
     "displayName": "Nombre",
     "language": "Idioma",
-    "timezone": "Zona Horaria",
-    "saveChanges": "Guardar Cambios",
+    "timezone": "Zona horaria",
+    "saveChanges": "Guardar cambios",
     "languages": {
-      "en": "Ingles",
-      "es": "Espanol",
-      "bilingual": "Bilingue"
+      "en": "Inglés",
+      "es": "Español",
+      "bilingual": "Bilingüe"
     }
   },
   "nav": {
     "dashboard": "Inicio",
     "journal": "Diario",
     "plans": "Planes",
-    "settings": "Configuracion"
+    "focus": "Enfoque",
+    "progress": "Progreso",
+    "insights": "Reflexiones",
+    "settings": "Ajustes",
+    "help": "Ayuda y guía",
+    "changeLanguage": "Cambiar idioma",
+    "quickCapture": "Captura rápida"
   }
 }
