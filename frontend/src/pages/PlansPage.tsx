@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Book, Calendar, CheckCircle, Play, BookOpen, ArrowLeft, Sparkles, Trash2 } from 'lucide-react'
 import PlanBuilderModal from '../components/PlanBuilderModal'
@@ -20,12 +21,24 @@ import ScriptureReader from '../components/ScriptureReader'
 const CATEGORIES = [
   { value: '', label: 'All Plans' },
   { value: 'mine', label: 'My Plans' },
-  { value: 'general', label: 'General' },
   { value: 'faith', label: 'Faith Foundations' },
-  { value: 'fatherhood', label: 'Fatherhood' },
-  { value: 'leadership', label: 'Leadership' },
+  { value: 'disciplines', label: 'Spiritual Disciplines' },
+  { value: 'young_men', label: 'Young Men' },
+  { value: 'young_women', label: 'Young Women' },
+  { value: 'dating', label: 'Single & Dating' },
   { value: 'marriage', label: 'Marriage' },
+  { value: 'husband_new', label: 'New Husband' },
+  { value: 'fatherhood', label: 'Fatherhood' },
+  { value: 'father_new', label: 'New Father' },
+  { value: 'motherhood', label: 'Motherhood' },
+  { value: 'parenting_teens', label: 'Parenting Teens' },
+  { value: 'leadership', label: 'Leadership' },
+  { value: 'work', label: 'Workplace & Provision' },
   { value: 'recovery', label: 'Recovery' },
+  { value: 'anxiety', label: 'Anxiety & Mental Health' },
+  { value: 'anger', label: 'Anger & Self-Control' },
+  { value: 'grief', label: 'Grief & Loss' },
+  { value: 'general', label: 'General' },
 ]
 
 function formatPassage(passage: string | { book: string; chapter: number; verses?: string }): string {
@@ -49,6 +62,7 @@ interface ReadingContext {
 
 export default function PlansPage() {
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
   const [selectedCategory, setSelectedCategory] = useState('')
   const [selectedPlan, setSelectedPlan] = useState<ReadingPlanDetail | null>(null)
   const [activeEnrollment, setActiveEnrollment] = useState<UserPlanEnrollment | null>(null)
@@ -432,6 +446,19 @@ export default function PlansPage() {
             day,
             activeEnrollment.id
           )}
+          onJournal={(ctx) => {
+            const params = new URLSearchParams({
+              enrollmentId: ctx.enrollmentId,
+              planTitle: ctx.planTitle,
+              dayNumber: String(ctx.dayNumber),
+              theme: ctx.theme,
+              passage: ctx.passage,
+              ...(ctx.dayId !== undefined ? { dayId: String(ctx.dayId) } : {}),
+              ...(ctx.prompt ? { prompt: ctx.prompt } : {}),
+            })
+            setActiveEnrollment(null)
+            navigate(`/journal/new?${params.toString()}`)
+          }}
         />
       )}
     </div>
@@ -443,11 +470,21 @@ function TodayReadingModal({
   onClose,
   onAdvance,
   onReadPassage,
+  onJournal,
 }: {
   enrollment: UserPlanEnrollment
   onClose: () => void
   onAdvance: () => void
   onReadPassage: (passage: string, day: { day_number: number; theme: string }) => void
+  onJournal: (ctx: {
+    enrollmentId: string
+    dayId?: number
+    planTitle: string
+    dayNumber: number
+    theme: string
+    passage: string
+    prompt?: string
+  }) => void
 }) {
   const { data: todayReading, isLoading } = useQuery({
     queryKey: ['todayReading', enrollment.id],
@@ -518,6 +555,44 @@ function TodayReadingModal({
               })}
             </div>
           </div>
+
+          {Array.isArray(day.reflection_prompts) && day.reflection_prompts.length > 0 && (
+            <div className="mt-6">
+              <div className="text-sm text-gray-400 mb-2">Reflection Prompts</div>
+              <div className="space-y-2">
+                {day.reflection_prompts.map((prompt: string, idx: number) => {
+                  const firstPassage = Array.isArray(day.passages) && day.passages[0]
+                    ? formatPassage(day.passages[0]) : ''
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => onJournal({
+                        enrollmentId: enrollment.id,
+                        dayId: day.id,
+                        planTitle: enrollment.plan.title,
+                        dayNumber: day.day_number,
+                        theme: day.theme || '',
+                        passage: firstPassage,
+                        prompt,
+                      })}
+                      className="w-full flex items-start gap-3 p-3 bg-purple-900/20 border border-purple-500/30 rounded-lg hover:border-purple-400 transition-colors text-left group"
+                    >
+                      <div className="w-7 h-7 bg-purple-500/20 text-purple-300 rounded-full flex items-center justify-center text-sm font-semibold shrink-0">
+                        {idx + 1}
+                      </div>
+                      <span className="text-gray-200 text-sm leading-relaxed flex-1">{prompt}</span>
+                      <span className="text-purple-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity shrink-0 mt-1">
+                        Journal →
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+              <p className="text-xs text-gray-500 mt-2">
+                Tap any prompt to journal — your entry will be linked to this plan day.
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="p-6 border-t border-gray-700 flex gap-3">

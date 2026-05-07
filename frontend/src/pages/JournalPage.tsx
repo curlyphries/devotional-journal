@@ -154,9 +154,11 @@ export default function JournalPage() {
   const passageContext = {
     passage: searchParams.get('passage'),
     enrollmentId: searchParams.get('enrollmentId'),
+    dayId: searchParams.get('dayId'),
     theme: searchParams.get('theme'),
     planTitle: searchParams.get('planTitle'),
     dayNumber: searchParams.get('dayNumber'),
+    prompt: searchParams.get('prompt'),
     aiInsight: searchParams.get('aiInsight'),
     translation: searchParams.get('translation') || 'KJV',
   }
@@ -272,7 +274,12 @@ ${passageContext.theme ? `Today's theme: "${passageContext.theme}"` : ''}${focus
 
   useEffect(() => {
     if (passageContext.passage && !content && !entryId) {
-      setContent('')
+      // Seed the editor with the chosen reflection prompt (if any) so the user
+      // can start typing right under it.
+      const seed = passageContext.prompt
+        ? `> ${passageContext.prompt}\n\n`
+        : ''
+      setContent(seed)
       setParsedMeta({
         planTitle: passageContext.planTitle || undefined,
         dayNumber: passageContext.dayNumber || undefined,
@@ -282,7 +289,7 @@ ${passageContext.theme ? `Today's theme: "${passageContext.theme}"` : ''}${focus
         userContent: '',
       })
     }
-  }, [passageContext.passage, passageContext.aiInsight, passageContext.dayNumber, passageContext.planTitle, passageContext.theme, content, entryId])
+  }, [passageContext.passage, passageContext.aiInsight, passageContext.dayNumber, passageContext.planTitle, passageContext.theme, passageContext.prompt, content, entryId])
 
   const createMutation = useMutation({
     mutationFn: createJournalEntry,
@@ -328,7 +335,7 @@ ${passageContext.theme ? `Today's theme: "${passageContext.theme}"` : ''}${focus
 
   const handleSave = async () => {
     let fullContent = content
-    
+
     // Build content with new robust metadata format (HTML comments + JSON)
     if (!isEditing && passageContext.passage) {
       const metadata = {
@@ -336,13 +343,14 @@ ${passageContext.theme ? `Today's theme: "${passageContext.theme}"` : ''}${focus
         dayNumber: passageContext.dayNumber || null,
         theme: passageContext.theme || null,
         passage: passageContext.passage,
+        prompt: passageContext.prompt || null,
         aiInsight: passageContext.aiInsight || null,
         highlights: highlights.map((h: VerseHighlight) => ({
           verse: h.verse_start,
           note: h.note || null,
         })),
       }
-      
+
       // New format: JSON metadata in HTML comments (won't be accidentally typed by users)
       const metaBlock = `${DJ_META_START}\n${JSON.stringify(metadata, null, 2)}\n${DJ_META_END}\n\n`
       fullContent = metaBlock + content
@@ -376,6 +384,8 @@ ${passageContext.theme ? `Today's theme: "${passageContext.theme}"` : ''}${focus
         date,
         content: fullContent,
         mood_tag: selectedMood || undefined,
+        plan_enrollment: passageContext.enrollmentId || undefined,
+        plan_day: passageContext.dayId || undefined,
       })
     }
   }

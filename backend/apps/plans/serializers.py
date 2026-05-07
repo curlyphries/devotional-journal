@@ -9,17 +9,30 @@ from .models import ReadingPlan, ReadingPlanDay, UserPlanEnrollment
 
 class ReadingPlanDaySerializer(serializers.ModelSerializer):
     theme = serializers.SerializerMethodField()
+    reflection_prompts = serializers.SerializerMethodField()
 
     class Meta:
         model = ReadingPlanDay
-        fields = ["id", "day_number", "passages", "theme", "reflection_prompts_seed"]
+        fields = [
+            "id",
+            "day_number",
+            "passages",
+            "theme",
+            "reflection_prompts",
+            "reflection_prompts_seed",
+        ]
+
+    def _language(self):
+        request = self.context.get("request")
+        if request and request.user.is_authenticated:
+            return request.user.language_preference
+        return "en"
 
     def get_theme(self, obj):
-        request = self.context.get("request")
-        language = "en"
-        if request and request.user.is_authenticated:
-            language = request.user.language_preference
-        return obj.get_theme(language)
+        return obj.get_theme(self._language())
+
+    def get_reflection_prompts(self, obj):
+        return obj.get_reflection_prompts(self._language())
 
 
 class ReadingPlanSerializer(serializers.ModelSerializer):

@@ -15,11 +15,23 @@ class ReadingPlan(models.Model):
 
     CATEGORY_CHOICES = [
         ("general", "General"),
-        ("fatherhood", "Fatherhood"),
-        ("leadership", "Leadership"),
-        ("recovery", "Recovery"),
-        ("marriage", "Marriage"),
         ("faith", "Faith Foundations"),
+        ("disciplines", "Spiritual Disciplines"),
+        ("young_men", "Young Men"),
+        ("young_women", "Young Women"),
+        ("dating", "Single & Dating"),
+        ("marriage", "Marriage"),
+        ("husband_new", "New Husband"),
+        ("fatherhood", "Fatherhood"),
+        ("father_new", "New Father"),
+        ("motherhood", "Motherhood"),
+        ("parenting_teens", "Parenting Teens"),
+        ("leadership", "Leadership"),
+        ("work", "Workplace & Provision"),
+        ("recovery", "Recovery"),
+        ("anxiety", "Anxiety & Mental Health"),
+        ("anger", "Anger & Self-Control"),
+        ("grief", "Grief & Loss"),
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -77,6 +89,16 @@ class ReadingPlanDay(models.Model):
     reflection_prompts_seed = models.TextField(
         blank=True, help_text="Seed prompt for LLM generation"
     )
+    reflection_prompts = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="Curated reflection prompts shown to the user (English).",
+    )
+    reflection_prompts_es = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="Curated reflection prompts shown to the user (Spanish).",
+    )
 
     class Meta:
         db_table = "reading_plan_days"
@@ -90,6 +112,11 @@ class ReadingPlanDay(models.Model):
         if language == "es" and self.theme_es:
             return self.theme_es
         return self.theme_en
+
+    def get_reflection_prompts(self, language="en"):
+        if language == "es" and self.reflection_prompts_es:
+            return self.reflection_prompts_es
+        return self.reflection_prompts or []
 
 
 class UserPlanEnrollment(models.Model):

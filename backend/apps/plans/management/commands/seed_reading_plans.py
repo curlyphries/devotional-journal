@@ -29,6 +29,7 @@ class Command(BaseCommand):
                 "duration_days": 30,
                 "category": "faith",
                 "is_premium": False,
+                "is_public": True,
             },
         )
 
@@ -87,6 +88,7 @@ class Command(BaseCommand):
                 "duration_days": 60,
                 "category": "general",
                 "is_premium": False,
+                "is_public": True,
             },
         )
 
@@ -175,6 +177,7 @@ class Command(BaseCommand):
                 "duration_days": 30,
                 "category": "general",
                 "is_premium": False,
+                "is_public": True,
             },
         )
 
@@ -233,6 +236,7 @@ class Command(BaseCommand):
                 "duration_days": 30,
                 "category": "general",
                 "is_premium": False,
+                "is_public": True,
             },
         )
 

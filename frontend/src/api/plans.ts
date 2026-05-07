@@ -12,9 +12,11 @@ export interface ReadingPlan {
 }
 
 export interface ReadingPlanDay {
+  id?: number
   day_number: number
   passages: string[]
   theme: string
+  reflection_prompts?: string[]
 }
 
 export interface ReadingPlanDetail extends ReadingPlan {
