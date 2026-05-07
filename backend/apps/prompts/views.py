@@ -192,8 +192,8 @@ class AIStatusView(APIView):
     """
 
     def get(self, request):
-        from django.conf import settings
         import httpx
+        from django.conf import settings
 
         backend = getattr(settings, "LLM_BACKEND", "ollama").lower()
         reachable = False
@@ -205,7 +205,9 @@ class AIStatusView(APIView):
                 reachable = bool(api_key and len(api_key) > 10)
                 model = getattr(settings, "ANTHROPIC_MODEL", None)
             else:
-                base_url = getattr(settings, "OLLAMA_BASE_URL", "http://localhost:11434")
+                base_url = getattr(
+                    settings, "OLLAMA_BASE_URL", "http://localhost:11434"
+                )
                 model = getattr(settings, "OLLAMA_MODEL", "llama3.1:8b")
                 resp = httpx.get(f"{base_url}/api/tags", timeout=4.0)
                 resp.raise_for_status()

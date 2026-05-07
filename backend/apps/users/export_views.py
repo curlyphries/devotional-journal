@@ -250,9 +250,9 @@ class FullDataExportView(APIView):
         buf.seek(0)
         timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d")
         response = HttpResponse(buf.read(), content_type="application/zip")
-        response[
-            "Content-Disposition"
-        ] = f'attachment; filename="devotional-journal-export-{timestamp}.zip"'
+        response["Content-Disposition"] = (
+            f'attachment; filename="devotional-journal-export-{timestamp}.zip"'
+        )
         return response
 
 
@@ -296,9 +296,7 @@ class JournalMarkdownExportView(APIView):
 
         md = "\n".join(lines)
         response = HttpResponse(md, content_type="text/markdown; charset=utf-8")
-        response[
-            "Content-Disposition"
-        ] = 'attachment; filename="journal-entries.md"'
+        response["Content-Disposition"] = 'attachment; filename="journal-entries.md"'
         return response
 
 
@@ -347,9 +345,7 @@ class HighlightsMarkdownExportView(APIView):
 
         md = "\n".join(lines)
         response = HttpResponse(md, content_type="text/markdown; charset=utf-8")
-        response[
-            "Content-Disposition"
-        ] = 'attachment; filename="highlights.md"'
+        response["Content-Disposition"] = 'attachment; filename="highlights.md"'
         return response
 
 
@@ -374,7 +370,9 @@ class GrowthReportExportView(APIView):
         total_entries = entries.count()
         total_highlights = highlights.count()
         resolved_threads = threads.filter(status="resolved").count()
-        open_threads = threads.filter(status__in=["open", "following_up", "progressing"]).count()
+        open_threads = threads.filter(
+            status__in=["open", "following_up", "progressing"]
+        ).count()
         completed_plans = enrollments.filter(completed_at__isnull=False).count()
 
         # Aggregate life area scores
@@ -423,8 +421,8 @@ class GrowthReportExportView(APIView):
             lines.append("")
 
         lines.append("## Summary\n")
-        lines.append(f"| Metric | Count |")
-        lines.append(f"|--------|-------|")
+        lines.append("| Metric | Count |")
+        lines.append("|--------|-------|")
         lines.append(f"| Journal entries | {total_entries} |")
         lines.append(f"| Daily reflections | {total_reflections} |")
         lines.append(f"| Verse highlights | {total_highlights} |")
@@ -457,7 +455,9 @@ class GrowthReportExportView(APIView):
             ):
                 pct = round(count / total_moods * 100)
                 emoji = mood_emojis.get(mood, "")
-                lines.append(f"- {emoji} **{mood.replace('_', ' ').title()}**: {count} ({pct}%)")
+                lines.append(
+                    f"- {emoji} **{mood.replace('_', ' ').title()}**: {count} ({pct}%)"
+                )
             lines.append("")
 
         # Recent resolved threads
@@ -485,7 +485,5 @@ class GrowthReportExportView(APIView):
 
         md = "\n".join(lines)
         response = HttpResponse(md, content_type="text/markdown; charset=utf-8")
-        response[
-            "Content-Disposition"
-        ] = 'attachment; filename="growth-report.md"'
+        response["Content-Disposition"] = 'attachment; filename="growth-report.md"'
         return response
