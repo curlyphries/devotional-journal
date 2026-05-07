@@ -6,7 +6,9 @@ Run from the backend directory:
     python manage.py shell < scripts/load_covenant_faithfulness_plan.py
 """
 
-import django, os, sys
+import django
+import os
+import sys
 
 # Allow running directly via `python scripts/load_covenant_faithfulness_plan.py`
 if __name__ == "__main__":
@@ -337,7 +339,12 @@ DAYS = [
     },
     {
         "day_number": 28,
-        "passages": ["Psalm 77:1-20", "Colossians 3:1-10", "James 1:22-25", "Deuteronomy 8:1-20"],
+        "passages": [
+            "Psalm 77:1-20",
+            "Colossians 3:1-10",
+            "James 1:22-25",
+            "Deuteronomy 8:1-20",
+        ],
         "theme_en": "Week 4 — Recall: Covenant Faithfulness — Final Review",
         "theme_es": "Semana 4 — Rememorar: Fidelidad al Pacto — Revisión Final",
         "reflection_prompts_seed": (

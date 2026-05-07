@@ -132,9 +132,7 @@ class LogoutView(APIView):
         if auth_header.startswith("Bearer "):
             token = auth_header[7:]
             try:
-                payload = _jwt.decode(
-                    token, settings.SECRET_KEY, algorithms=["HS256"]
-                )
+                payload = _jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
                 jti = payload.get("jti")
                 if jti:
                     blacklist_token(jti)
@@ -484,11 +482,15 @@ class GoogleOAuthCallbackView(APIView):
             # The frontend redeems this code via POST /auth/exchange/ so that
             # tokens never appear in URLs, browser history, or server logs.
             one_time_code = secrets.token_urlsafe(32)
-            cache.set(f"oauth_code:{one_time_code}", {
-                "access_token": tokens["access_token"],
-                "refresh_token": tokens["refresh_token"],
-                "new_user": created,
-            }, timeout=300)  # 5-minute window to redeem
+            cache.set(
+                f"oauth_code:{one_time_code}",
+                {
+                    "access_token": tokens["access_token"],
+                    "refresh_token": tokens["refresh_token"],
+                    "new_user": created,
+                },
+                timeout=300,
+            )  # 5-minute window to redeem
 
             params = urlencode({"code": one_time_code})
             return redirect(f"{frontend_url}/auth/callback?{params}")

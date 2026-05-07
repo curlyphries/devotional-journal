@@ -11,7 +11,6 @@ from rest_framework.views import APIView
 
 from apps.prompts.services import get_prompt_service
 
-
 from .models import ReadingPlan, ReadingPlanDay, UserPlanEnrollment
 from .serializers import (
     ReadingPlanDetailSerializer,
@@ -31,9 +30,7 @@ class PlanListView(APIView):
 
     def get(self, request):
         user = request.user
-        plans = ReadingPlan.objects.filter(
-            is_active=True
-        ).filter(
+        plans = ReadingPlan.objects.filter(is_active=True).filter(
             Q(is_public=True) | Q(created_by=user)
         )
 
@@ -232,7 +229,9 @@ class PlanGenerateView(APIView):
             )
 
         category = request.data.get("category", "general")
-        anchor_passages = _parse_anchor_passages(request.data.get("anchor_passages", []))
+        anchor_passages = _parse_anchor_passages(
+            request.data.get("anchor_passages", [])
+        )
         language = getattr(request.user, "language_preference", "en")
 
         service = get_prompt_service()
@@ -354,7 +353,9 @@ class PlanSaveView(APIView):
                 passages=day.get("passages", []),
                 theme_en=day.get("theme_en", ""),
                 theme_es=day.get("theme_es", ""),
-                reflection_prompts_seed=day.get("reflection_prompt", day.get("reflection_prompts_seed", "")),
+                reflection_prompts_seed=day.get(
+                    "reflection_prompt", day.get("reflection_prompts_seed", "")
+                ),
             )
 
         serializer = ReadingPlanDetailSerializer(plan, context={"request": request})
