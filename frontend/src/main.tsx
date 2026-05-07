@@ -16,7 +16,7 @@ const queryClient = new QueryClient({
   },
 })
 
-const basename = import.meta.env.VITE_BASE_PATH ?? '/'
+const basename = import.meta.env.VITE_BASE_PATH ?? '/devotional-journal/'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
