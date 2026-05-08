@@ -20,7 +20,7 @@ from .serializers import (
 
 
 class PlanGenerateThrottle(UserRateThrottle):
-    rate = "3/hour"
+    rate = "10/hour"
 
 
 class PlanListView(APIView):
