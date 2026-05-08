@@ -1,0 +1,67 @@
+[package]
+name = "devotional-desktop"
+version = "0.1.0"
+description = "Devotional Journal Desktop Companion"
+authors = ["curlyphries"]
+license = "AGPL-3.0"
+repository = "https://github.com/curlyphries/devotional-journal"
+edition = "2021"
+rust-version = "1.75"
+
+[build-dependencies]
+tauri-build = { version = "2.0.0", features = [] }
+
+[dependencies]
+tauri = { version = "2.0.0", features = ["tray-icon", "devtools"] }
+tauri-plugin-clipboard-manager = "2.0.0"
+tauri-plugin-dialog = "2.0.0"
+tauri-plugin-fs = "2.0.0"
+tauri-plugin-http = "2.0.0"
+tauri-plugin-notification = "2.0.0"
+tauri-plugin-os = "2.0.0"
+tauri-plugin-process = "2.0.0"
+tauri-plugin-shell = "2.0.0"
+tauri-plugin-sql = { version = "2.0.0", features = ["sqlite"] }
+tauri-plugin-store = "2.0.0"
+tauri-plugin-stronghold = "2.0.0"
+tauri-plugin-updater = "2.0.0"
+tauri-plugin-single-instance = "2.0.0"
+
+# Crypto & Security
+ring = "0.17"
+hkdf = "0.12"
+aes-gcm = "0.10"
+rand = "0.8"
+sha2 = "0.10"
+base64 = "0.22"
+
+# OS Keychain
+keyring = { version = "3.0", features = ["linux-secret-service-rt-async-io-crypto-rust"] }
+
+# Async runtime
+tokio = { version = "1.35", features = ["full"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Error handling
+thiserror = "1.0"
+anyhow = "1.0"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# Time
+chrono = { version = "0.4", features = ["serde"] }
+
+# UUID
+uuid = { version = "1.7", features = ["v4", "serde"] }
+
+# HTTP client for sync
+reqwest = { version = "0.12", features = ["json", "rustls-tls"] }
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]

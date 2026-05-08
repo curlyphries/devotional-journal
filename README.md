@@ -10,7 +10,7 @@ Set a spiritual focus, follow AI-curated reading plans, and journal privately wi
 [![Languages](https://img.shields.io/badge/i18n-EN%20%7C%20ES-orange)](#bilingual-from-the-ground-up)
 [![Self-host](https://img.shields.io/badge/self--host-Docker-2496ED.svg)](#quick-start)
 
-![Dashboard](docs/screenshots/dashboard.png)
+![Devotional Journal Preview](docs/screenshots/preview.gif)
 
 ---
 
@@ -328,10 +328,6 @@ Issues and ideas: open a [GitHub issue](https://github.com/curlyphries/devotiona
 
 ---
 
-## Screenshots
+## Preview
 
-| Dashboard | Focus | Plans | Progress |
-|-----------|-------|-------|----------|
-| ![Dashboard](docs/screenshots/dashboard.png) | ![Focus](docs/screenshots/focus.png) | ![Plans](docs/screenshots/plans.png) | ![Progress](docs/screenshots/progress.png) |
-
-![Animated preview](docs/screenshots/preview.gif)
+![App Preview](docs/screenshots/preview.gif)

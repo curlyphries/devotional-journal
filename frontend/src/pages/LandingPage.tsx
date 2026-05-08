@@ -250,7 +250,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Screenshots */}
+      {/* Preview */}
       <section className="px-4 py-16 sm:py-20 bg-bg-surface/40 border-y border-border">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
@@ -259,26 +259,14 @@ export default function LandingPage() {
               {t('landing.shots.sub', 'Designed to be calm, focused, and out of the way.')}
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[
-              { src: '/devotional-journal/docs/screenshots/focus.png', remote: 'https://raw.githubusercontent.com/curlyphries/devotional-journal/master/docs/screenshots/focus.png', label: t('landing.shots.focus', 'Daily focus') },
-              { src: '/devotional-journal/docs/screenshots/plans.png', remote: 'https://raw.githubusercontent.com/curlyphries/devotional-journal/master/docs/screenshots/plans.png', label: t('landing.shots.plans', 'Reading plans') },
-              { src: '/devotional-journal/docs/screenshots/progress.png', remote: 'https://raw.githubusercontent.com/curlyphries/devotional-journal/master/docs/screenshots/progress.png', label: t('landing.shots.progress', 'Progress & streaks') },
-              { src: '/devotional-journal/docs/screenshots/journal.png', remote: 'https://raw.githubusercontent.com/curlyphries/devotional-journal/master/docs/screenshots/journal.png', label: t('landing.shots.journal', 'Encrypted journal') },
-            ].map((s, i) => (
-              <figure key={i} className="rounded-xl overflow-hidden border border-border bg-bg-surface">
-                <img
-                  src={s.src}
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = s.remote }}
-                  alt={s.label}
-                  loading="lazy"
-                  className="w-full h-auto"
-                />
-                <figcaption className="px-4 py-2 text-sm text-text-secondary border-t border-border">
-                  {s.label}
-                </figcaption>
-              </figure>
-            ))}
+          <div className="rounded-2xl overflow-hidden border border-border shadow-2xl max-w-4xl mx-auto">
+            <img
+              src={`${import.meta.env.BASE_URL}preview.gif`}
+              onError={(e) => { (e.currentTarget as HTMLImageElement).src = 'https://raw.githubusercontent.com/curlyphries/devotional-journal/master/docs/screenshots/preview.gif' }}
+              alt={t('landing.hero.screenshotAlt', 'Devotional Journal app preview')}
+              className="w-full h-auto"
+              loading="lazy"
+            />
           </div>
         </div>
       </section>
