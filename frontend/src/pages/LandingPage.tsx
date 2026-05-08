@@ -119,8 +119,8 @@ export default function LandingPage() {
           <div className="mt-14 max-w-5xl mx-auto">
             <div className="rounded-2xl overflow-hidden border border-border shadow-2xl">
               <img
-                src="/devotional-journal/docs/screenshots/dashboard.png"
-                onError={(e) => { (e.currentTarget as HTMLImageElement).src = 'https://raw.githubusercontent.com/curlyphries/devotional-journal/master/docs/screenshots/dashboard.png' }}
+                src={`${import.meta.env.BASE_URL}preview.gif`}
+                onError={(e) => { (e.currentTarget as HTMLImageElement).src = 'https://raw.githubusercontent.com/curlyphries/devotional-journal/master/docs/screenshots/preview.gif' }}
                 alt={t('landing.hero.screenshotAlt', 'Devotional Journal dashboard preview')}
                 className="w-full h-auto"
                 loading="eager"
