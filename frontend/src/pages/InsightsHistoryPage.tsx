@@ -34,12 +34,12 @@ interface JournalEntry {
 
 const fetchReflections = async (): Promise<DailyReflection[]> => {
   const response = await client.get('/reflections/')
-  return response.data
+  return Array.isArray(response.data) ? response.data : response.data.results ?? []
 }
 
 const fetchJournalEntries = async (): Promise<JournalEntry[]> => {
   const response = await client.get('/journal/')
-  return response.data
+  return Array.isArray(response.data) ? response.data : response.data.results ?? []
 }
 
 export default function InsightsHistoryPage() {
