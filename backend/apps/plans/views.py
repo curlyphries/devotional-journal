@@ -20,6 +20,7 @@ from .serializers import (
 
 
 class PlanGenerateThrottle(UserRateThrottle):
+    scope = "plan_generate"
     rate = "10/hour"
 
 

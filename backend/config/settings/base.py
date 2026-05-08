@@ -115,6 +115,7 @@ REST_FRAMEWORK = {
         "user": "1000/hour",
         "auth": "10/hour",
         "magic_link": "5/hour",
+        "plan_generate": "10/hour",
     },
     "DEFAULT_PAGINATION_CLASS": "shared.pagination.StandardPagination",
     "PAGE_SIZE": 20,
