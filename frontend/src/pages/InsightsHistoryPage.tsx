@@ -30,7 +30,12 @@ interface JournalEntry {
   decrypted_content: string
   mood_tag?: string
   focus_themes?: string[]
-  plan_day?: { passages: string; theme_en: string } | null
+  plan_day_info?: {
+    passages: string[] | string
+    theme_en: string
+    theme_es?: string
+    day_number?: number
+  } | null
 }
 
 interface OpenThread {
@@ -145,19 +150,29 @@ export default function InsightsHistoryPage() {
   const [moodFilter, setMoodFilter] = useState<string | null>(null)
   const [themeFilter, setThemeFilter] = useState<string | null>(null)
 
+  // The DRF backend uses pagination for some endpoints (returns a wrapper
+  // {count, next, previous, results}) and a flat array for others. Handle both.
+  const unwrap = <T,>(payload: unknown): T[] => {
+    if (Array.isArray(payload)) return payload as T[]
+    if (payload && typeof payload === 'object' && Array.isArray((payload as { results?: unknown }).results)) {
+      return (payload as { results: T[] }).results
+    }
+    return []
+  }
+
   const { data: reflections = [], isLoading: rLoad } = useQuery<DailyReflection[]>({
     queryKey: ['insights-reflections'],
-    queryFn: async () => (await client.get('/reflections/')).data,
+    queryFn: async () => unwrap<DailyReflection>((await client.get('/reflections/')).data),
   })
 
   const { data: journalEntries = [], isLoading: jLoad } = useQuery<JournalEntry[]>({
     queryKey: ['insights-journal'],
-    queryFn: async () => (await client.get('/journal/')).data,
+    queryFn: async () => unwrap<JournalEntry>((await client.get('/journal/')).data),
   })
 
   const { data: threads = [], isLoading: tLoad } = useQuery<OpenThread[]>({
     queryKey: ['insights-threads'],
-    queryFn: async () => (await client.get('/threads/active/')).data,
+    queryFn: async () => unwrap<OpenThread>((await client.get('/threads/active/')).data),
   })
 
   const isLoading = rLoad || jLoad || tLoad
@@ -190,11 +205,15 @@ export default function InsightsHistoryPage() {
       const { preview: userPreview, aiInsight } = extractFromJournalContent(
         e.decrypted_content || ''
       )
+      const passages = e.plan_day_info?.passages
+      const scriptureRef = Array.isArray(passages)
+        ? passages[0]
+        : (typeof passages === 'string' ? passages : undefined)
       items.push({
         id: e.id,
         source: 'journal',
         date: e.date,
-        scripture: e.plan_day?.passages || undefined,
+        scripture: scriptureRef,
         preview: preview(userPreview),
         themes: e.focus_themes || [],
         mood: e.mood_tag || undefined,
@@ -202,8 +221,8 @@ export default function InsightsHistoryPage() {
         href: `/journal/${e.id}`,
         searchHaystack: [
           userPreview,
-          e.plan_day?.passages,
-          e.plan_day?.theme_en,
+          scriptureRef,
+          e.plan_day_info?.theme_en,
           (e.focus_themes || []).join(' '),
           e.mood_tag,
         ].filter(Boolean).join(' ').toLowerCase(),

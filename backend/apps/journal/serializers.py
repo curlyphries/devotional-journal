@@ -78,6 +78,8 @@ class JournalEntrySerializer(serializers.ModelSerializer):
 
 class JournalEntryListSerializer(serializers.ModelSerializer):
     content_preview = serializers.SerializerMethodField()
+    decrypted_content = serializers.SerializerMethodField()
+    plan_day_info = serializers.SerializerMethodField()
 
     class Meta:
         model = JournalEntry
@@ -87,6 +89,8 @@ class JournalEntryListSerializer(serializers.ModelSerializer):
             "mood_tag",
             "focus_themes",
             "content_preview",
+            "decrypted_content",
+            "plan_day_info",
             "created_at",
         ]
 
@@ -95,3 +99,20 @@ class JournalEntryListSerializer(serializers.ModelSerializer):
         if len(content) > 300:
             return content[:300] + "..."
         return content
+
+    def get_decrypted_content(self, obj):
+        # Full decrypted content so the client can extract embedded AI-insight
+        # metadata for the Insights timeline. Already encrypted at rest; this
+        # endpoint is auth-scoped to the owning user.
+        return obj.get_content()
+
+    def get_plan_day_info(self, obj):
+        if not obj.plan_day_id:
+            return None
+        day = obj.plan_day
+        return {
+            "passages": day.passages,
+            "theme_en": day.theme_en,
+            "theme_es": day.theme_es,
+            "day_number": day.day_number,
+        }
