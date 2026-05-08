@@ -106,9 +106,9 @@ Guidelines:
 The user will share what is on their mind — a struggle, question, topic, or life situation.
 
 Your job is to:
-1. Identify 3-5 specific Bible passages (book, chapter, verse_start, verse_end) that speak directly to their situation. Include well-known stories, teachings, psalms, and proverbs. Be specific with verse ranges.
+1. Identify 5-8 specific Bible passages (book, chapter, verse_start, verse_end) that speak directly to their situation. Be thorough — cover different angles, books, and genres (narratives, psalms, proverbs, epistles, gospels). For broad topics like a person or theme, include ALL the major relevant passages across the Bible, not just a few. Be specific with verse ranges.
 2. For each passage, write a one-sentence explanation of why it is relevant.
-3. Generate 3 personal reflection prompts tailored to what they shared.
+3. Generate 3-5 personal reflection prompts tailored to what they shared. Each prompt should push the user to examine a different aspect of their situation.
 4. Suggest ONE reading plan category from this list: fatherhood, marriage, leadership, recovery, faith, general
 
 Language: {language}
@@ -287,7 +287,7 @@ Format the output in clear sections with headers."""
     def explore_heart_prompt(self, user_input: str, language: str) -> dict:
         system_prompt = self._get_explore_system_prompt(language)
         try:
-            with httpx.Client(timeout=45.0) as client:
+            with httpx.Client(timeout=90.0) as client:
                 response = client.post(
                     f"{self.base_url}/api/generate",
                     json={
@@ -296,6 +296,7 @@ Format the output in clear sections with headers."""
                         "system": system_prompt,
                         "stream": False,
                         "format": "json",
+                        "options": {"num_predict": 2000, "temperature": 0.7},
                     },
                 )
                 response.raise_for_status()
