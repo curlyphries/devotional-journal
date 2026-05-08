@@ -197,12 +197,16 @@ class AIStatusView(APIView):
 
         # Check per-user AI settings first
         user = request.user
-        user_provider = getattr(user, "ai_provider", "none") if user.is_authenticated else "none"
+        user_provider = (
+            getattr(user, "ai_provider", "none") if user.is_authenticated else "none"
+        )
         if user_provider not in ("", "none"):
             backend = user_provider
             model = getattr(user, "ai_model", "") or None
             if backend in ("openai", "anthropic", "openrouter", "custom"):
-                api_key = user.get_ai_api_key() if hasattr(user, "get_ai_api_key") else ""
+                api_key = (
+                    user.get_ai_api_key() if hasattr(user, "get_ai_api_key") else ""
+                )
                 reachable = bool(api_key and len(api_key) > 5)
             elif backend == "ollama":
                 base_url = getattr(user, "ai_base_url", "") or settings.OLLAMA_BASE_URL
@@ -210,13 +214,22 @@ class AIStatusView(APIView):
                     resp = httpx.get(f"{base_url}/api/tags", timeout=4.0)
                     resp.raise_for_status()
                     models = [m["name"] for m in resp.json().get("models", [])]
-                    reachable = any((model or "") in m for m in models) if model else bool(models)
+                    reachable = (
+                        any((model or "") in m for m in models)
+                        if model
+                        else bool(models)
+                    )
                 except Exception:
                     reachable = False
             else:
                 reachable = False
             return Response(
-                {"backend": backend, "model": model, "reachable": reachable, "configured": reachable}
+                {
+                    "backend": backend,
+                    "model": model,
+                    "reachable": reachable,
+                    "configured": reachable,
+                }
             )
 
         # Fall back to global settings

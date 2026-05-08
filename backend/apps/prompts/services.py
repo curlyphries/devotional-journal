@@ -453,12 +453,26 @@ class OpenAICompatiblePromptService(PromptService):
         "openrouter": "https://openrouter.ai/api/v1",
     }
 
-    def __init__(self, api_key: str, model: str = "", base_url: str = "", provider: str = "openai"):
+    def __init__(
+        self,
+        api_key: str,
+        model: str = "",
+        base_url: str = "",
+        provider: str = "openai",
+    ):
         self.api_key = api_key
         self.model = model or "gpt-4o-mini"
-        self.base_url = base_url or self._PROVIDER_URLS.get(provider, self._PROVIDER_URLS["openai"])
+        self.base_url = base_url or self._PROVIDER_URLS.get(
+            provider, self._PROVIDER_URLS["openai"]
+        )
 
-    def _chat(self, system: str, user_content: str, max_tokens: int = 1200, temperature: float = 0.7) -> str:
+    def _chat(
+        self,
+        system: str,
+        user_content: str,
+        max_tokens: int = 1200,
+        temperature: float = 0.7,
+    ) -> str:
         try:
             with httpx.Client(timeout=60.0) as client:
                 response = client.post(
@@ -481,7 +495,9 @@ class OpenAICompatiblePromptService(PromptService):
                 result = response.json()
                 return result["choices"][0]["message"]["content"]
         except Exception:
-            logger.exception("OpenAI-compatible chat call failed (model=%s)", self.model)
+            logger.exception(
+                "OpenAI-compatible chat call failed (model=%s)", self.model
+            )
             return ""
 
     def _get_system_prompt(self, language: str, num_prompts: int) -> str:
@@ -510,7 +526,9 @@ Respond with ONLY the questions, one per line, no numbering."""
         user_prompt = f"Passage: {passage_reference}\n\n{passage_text}"
         if context:
             user_prompt += f"\n\nContext: {context}"
-        text = self._chat(self._get_system_prompt(language, num_prompts), user_prompt, max_tokens=500)
+        text = self._chat(
+            self._get_system_prompt(language, num_prompts), user_prompt, max_tokens=500
+        )
         if not text:
             return ["What does this passage reveal about God's character?"]
         prompts = [line.strip() for line in text.strip().split("\n") if line.strip()]
@@ -553,7 +571,11 @@ Format the output in clear sections with headers."""
         passages_text = "\n\n".join(
             [f"{p.get('reference', 'Unknown')}: {p.get('text', '')}" for p in passages]
         )
-        text = self._chat(system_prompt, f"Create a discussion guide for these passages:\n\n{passages_text}", max_tokens=2000)
+        text = self._chat(
+            system_prompt,
+            f"Create a discussion guide for these passages:\n\n{passages_text}",
+            max_tokens=2000,
+        )
         return text or "Discussion guide generation failed. Please try again."
 
     def explore_heart_prompt(self, user_input: str, language: str) -> dict:
