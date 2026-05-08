@@ -234,7 +234,7 @@ class PlanGenerateView(APIView):
         )
         language = getattr(request.user, "language_preference", "en")
 
-        service = get_prompt_service()
+        service = get_prompt_service(user=request.user)
         plan_data = service.generate_reading_plan(
             topic=topic,
             duration_days=duration_days,

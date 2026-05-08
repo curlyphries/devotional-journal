@@ -159,9 +159,9 @@ class OllamaPromptService(PromptService):
     Ollama-based prompt generation for local development.
     """
 
-    def __init__(self):
-        self.base_url = settings.OLLAMA_BASE_URL
-        self.model = settings.OLLAMA_MODEL
+    def __init__(self, base_url: str = "", model: str = ""):
+        self.base_url = base_url or settings.OLLAMA_BASE_URL
+        self.model = model or settings.OLLAMA_MODEL
 
     def _get_system_prompt(self, language: str, num_prompts: int) -> str:
         return f"""You are a thoughtful men's devotional companion. Given a Bible passage,
@@ -311,9 +311,9 @@ class AnthropicPromptService(PromptService):
     Anthropic Claude-based prompt generation for production.
     """
 
-    def __init__(self):
-        self.api_key = settings.ANTHROPIC_API_KEY
-        self.model = settings.ANTHROPIC_MODEL
+    def __init__(self, api_key: str = "", model: str = ""):
+        self.api_key = api_key or settings.ANTHROPIC_API_KEY
+        self.model = model or settings.ANTHROPIC_MODEL
 
     def _get_system_prompt(self, language: str, num_prompts: int) -> str:
         return f"""You are a thoughtful men's devotional companion. Given a Bible passage,
@@ -441,10 +441,151 @@ Respond with ONLY the questions, one per line, no numbering."""
             return {}
 
 
-def get_prompt_service() -> PromptService:
+class OpenAICompatiblePromptService(PromptService):
+    """
+    OpenAI-compatible prompt generation (works with OpenAI, OpenRouter, and custom endpoints).
+    """
+
+    # Map provider names to their base URLs
+    _PROVIDER_URLS = {
+        "openai": "https://api.openai.com/v1",
+        "openrouter": "https://openrouter.ai/api/v1",
+    }
+
+    def __init__(self, api_key: str, model: str = "", base_url: str = "", provider: str = "openai"):
+        self.api_key = api_key
+        self.model = model or "gpt-4o-mini"
+        self.base_url = base_url or self._PROVIDER_URLS.get(provider, self._PROVIDER_URLS["openai"])
+
+    def _chat(self, system: str, user_content: str, max_tokens: int = 1200, temperature: float = 0.7) -> str:
+        try:
+            with httpx.Client(timeout=60.0) as client:
+                response = client.post(
+                    f"{self.base_url}/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {self.api_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": self.model,
+                        "max_tokens": max_tokens,
+                        "temperature": temperature,
+                        "messages": [
+                            {"role": "system", "content": system},
+                            {"role": "user", "content": user_content},
+                        ],
+                    },
+                )
+                response.raise_for_status()
+                result = response.json()
+                return result["choices"][0]["message"]["content"]
+        except Exception:
+            logger.exception("OpenAI-compatible chat call failed (model=%s)", self.model)
+            return ""
+
+    def _get_system_prompt(self, language: str, num_prompts: int) -> str:
+        return f"""You are a thoughtful men's devotional companion. Given a Bible passage,
+generate {num_prompts} reflection questions that:
+- Are direct and practical, not abstract or overly theological
+- Connect scripture to real-world masculine experiences (work, leadership,
+  fatherhood, integrity, struggle, purpose)
+- Encourage honest self-examination without being preachy
+- Are appropriate for men at varying levels of biblical literacy
+
+Language: {language}
+If "bilingual", naturally blend English and Spanish as a Valley/border
+speaker would — not translated, but code-switched.
+
+Respond with ONLY the questions, one per line, no numbering."""
+
+    def generate_reflection_prompts(
+        self,
+        passage_text: str,
+        passage_reference: str,
+        language: str,
+        num_prompts: int = 3,
+        context: Optional[str] = None,
+    ) -> list[str]:
+        user_prompt = f"Passage: {passage_reference}\n\n{passage_text}"
+        if context:
+            user_prompt += f"\n\nContext: {context}"
+        text = self._chat(self._get_system_prompt(language, num_prompts), user_prompt, max_tokens=500)
+        if not text:
+            return ["What does this passage reveal about God's character?"]
+        prompts = [line.strip() for line in text.strip().split("\n") if line.strip()]
+        return prompts[:num_prompts]
+
+    def generate_reading_plan(
+        self,
+        topic: str,
+        duration_days: int,
+        category: str,
+        anchor_passages: list[str],
+        language: str,
+    ) -> Optional[dict]:
+        system = self._PLAN_SYSTEM_PROMPT.format(duration_days=duration_days)
+        anchors = ", ".join(anchor_passages) if anchor_passages else "none"
+        user_prompt = (
+            f"Topic: {topic}\n"
+            f"Duration: {duration_days} days\n"
+            f"Category: {category}\n"
+            f"Anchor passages: {anchors}\n"
+            f"Language preference: {language}"
+        )
+        text = self._chat(system, user_prompt, max_tokens=4000, temperature=0.5)
+        if not text:
+            return None
+        return self._parse_plan_response(text)
+
+    def generate_discussion_guide(
+        self, passages: list[dict], group_size: int, language: str
+    ) -> str:
+        system_prompt = f"""You are creating a discussion guide for a men's Bible study group of {group_size} members.
+Create a structured discussion guide that:
+- Opens with an icebreaker question
+- Has 3-4 main discussion questions per passage
+- Includes application questions
+- Closes with a challenge for the week
+
+Language: {language}
+Format the output in clear sections with headers."""
+        passages_text = "\n\n".join(
+            [f"{p.get('reference', 'Unknown')}: {p.get('text', '')}" for p in passages]
+        )
+        text = self._chat(system_prompt, f"Create a discussion guide for these passages:\n\n{passages_text}", max_tokens=2000)
+        return text or "Discussion guide generation failed. Please try again."
+
+    def explore_heart_prompt(self, user_input: str, language: str) -> dict:
+        system_prompt = self._get_explore_system_prompt(language)
+        text = self._chat(system_prompt, user_input, max_tokens=1200)
+        if not text:
+            return {}
+        return self._parse_explore_response(text)
+
+
+def get_prompt_service(user=None) -> PromptService:
     """
     Factory function to get the configured prompt service.
+    Uses per-user AI settings when available, falling back to global config.
     """
+    # Check per-user settings first
+    if user and hasattr(user, "ai_provider") and user.ai_provider not in ("", "none"):
+        provider = user.ai_provider
+        api_key = user.get_ai_api_key() if hasattr(user, "get_ai_api_key") else ""
+        model = user.ai_model or ""
+        base_url = user.ai_base_url or ""
+
+        if provider == "anthropic" and api_key:
+            return AnthropicPromptService(api_key=api_key, model=model)
+        elif provider == "ollama":
+            return OllamaPromptService(base_url=base_url, model=model)
+        elif provider in ("openai", "openrouter", "custom") and api_key:
+            return OpenAICompatiblePromptService(
+                api_key=api_key, model=model, base_url=base_url, provider=provider
+            )
+        # If user has a provider set but missing required key, fall through to global
+
+    # Fall back to global settings
     backend = settings.LLM_BACKEND.lower()
 
     if backend == "ollama":
