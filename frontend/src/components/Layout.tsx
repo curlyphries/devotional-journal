@@ -9,6 +9,7 @@ import {
   PenLine, Lightbulb, HelpCircle, Languages,
 } from 'lucide-react'
 import QuickCaptureModal from './QuickCaptureModal'
+import ErrorBoundary from './ErrorBoundary'
 
 export default function Layout() {
   const { t, i18n } = useTranslation()
@@ -118,7 +119,9 @@ export default function Layout() {
       </nav>
 
       <main id="main-content" className="max-w-6xl mx-auto px-4 py-8">
-        <Outlet />
+        <ErrorBoundary label="route-outlet">
+          <Outlet />
+        </ErrorBoundary>
       </main>
 
       {/* Quick Capture FAB */}
