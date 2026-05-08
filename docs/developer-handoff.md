@@ -337,11 +337,63 @@ All endpoints live under `/api/v1/`. DRF views with JWT auth. Default permission
 | GET 🔓 | `health/` | Health check → `{"status": "ok"}` |
 
 ### AI Service Abstraction
-`backend/apps/prompts/services.py` defines `PromptService` (abstract) with `OllamaPromptService` and `AnthropicPromptService` implementations. Factory: `get_prompt_service()` reads `LLM_BACKEND` env var. Methods:
+`backend/apps/prompts/services.py` defines `PromptService` (abstract) with three implementations:
+
+| Service | Provider(s) | Config source |
+|---------|------------|---------------|
+| `OllamaPromptService` | Ollama (local/remote) | `OLLAMA_BASE_URL`, `OLLAMA_MODEL` |
+| `AnthropicPromptService` | Anthropic Claude | `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL` |
+| `OpenAICompatiblePromptService` | OpenAI, OpenRouter, custom | User-provided API key + base URL |
+
+Factory: `get_prompt_service(user=None)`. **Per-user settings take priority** — if the user has configured an AI provider in Settings → AI Provider, their key/model is used. Otherwise falls back to the global `LLM_BACKEND` env var.
+
+Methods:
 - `generate_reflection_prompts()` — scripture → questions
 - `generate_reading_plan()` — topic → multi-day plan JSON
 - `explore_heart_prompt()` — freeform input → scripture + prompts
 - `generate_discussion_guide()` — passages → group discussion guide (Anthropic implementation is a stub)
+
+### AI Model Quality & The Case for a Stronger LLM
+
+The quality of AI-generated results — especially from **"Speak Your Mind" (HeartPromptExplorer)** and **AI Plan Builder** — is directly tied to the capability of the underlying language model. This matters more here than in typical apps because the AI is doing **biblical scholarship**: identifying relevant passages across 66 books, understanding theological themes, and generating personally relevant reflection prompts.
+
+**What changes with a stronger model:**
+
+| Capability | Small model (llama3.1:8b) | Larger model (Claude 3.5, GPT-4o, 70B+) |
+|-----------|--------------------------|------------------------------------------|
+| Passage count per query | 3-5 (often fewer) | 6-10, covering multiple genres and angles |
+| Passage specificity | Sometimes vague ranges (whole chapters) | Precise verse ranges tied to the theme |
+| Reflection prompts | 1-3, sometimes generic | 3-5, each probing a different life aspect |
+| Theological depth | Surface-level connections | Cross-references, typology, context-aware |
+| Plan generation (28-day) | May time out or produce thin themes | Rich daily themes with progressive arc |
+| Bilingual quality | Broken code-switching | Natural Valley/border Spanish-English blend |
+| JSON reliability | Occasional parse failures | Consistently valid structured output |
+
+**Recommended production configurations (ranked by quality):**
+
+1. **Anthropic Claude 3.5 Sonnet** — Best theological reasoning, excellent JSON output, fast. Set `LLM_BACKEND=anthropic` globally or per-user.
+2. **OpenAI GPT-4o** — Strong all-around, good bilingual. Users configure via Settings → AI Provider → OpenAI.
+3. **OpenRouter** — Access to multiple models (Claude, GPT-4o, Llama 70B) through one API key. Users configure via Settings → AI Provider → OpenRouter.
+4. **Ollama with 70B+ model** — If self-hosting with GPU. `OLLAMA_MODEL=llama3.1:70b` or `qwen2.5:32b`. Requires ~48GB VRAM.
+5. **Ollama with 8B model** — Acceptable for dev/testing. Not recommended for production — produces thin results.
+
+**How users configure their own provider:**
+Settings → AI Provider → choose provider → enter API key → select model → Test Connection → Save. The backend will use their key for all AI features. If unconfigured, falls back to the global server default.
+
+**How to change the global server default:**
+Edit `.env.prod` on the VPS:
+```bash
+# Option A: Anthropic (recommended for production)
+LLM_BACKEND=anthropic
+ANTHROPIC_API_KEY=sk-ant-...
+ANTHROPIC_MODEL=claude-3-5-sonnet-20241022
+
+# Option B: Ollama pointed at a GPU server via Tailscale
+LLM_BACKEND=ollama
+OLLAMA_BASE_URL=http://<tailscale-ip>:11434
+OLLAMA_MODEL=llama3.1:70b
+```
+Then rebuild: `docker-compose -f docker-compose.prod.yml down && docker-compose -f docker-compose.prod.yml up -d`
 
 ### Frontend Patterns
 - **State:** TanStack Query for server state, `useState` for local. No Redux/Zustand.
