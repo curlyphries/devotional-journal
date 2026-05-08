@@ -514,46 +514,77 @@ Be selective - not every mention is a thread. Only track things that warrant fol
         """
         Detect threads from a reflection.
 
+        Dispatches to Ollama or Anthropic based on settings.LLM_BACKEND so the
+        same detection works for self-hosted and hosted users.
+
         Returns:
             List of thread dicts with type, summary, life_area, quote
         """
         if not reflection_text and not struggle_note:
             return []
 
-        prompt = self.THREAD_DETECTION_PROMPT.format(
-            reflection_text=reflection_text or "No reflection provided",
-            struggle_note=struggle_note or "Not specified",
-        )
+        backend = getattr(settings, "LLM_BACKEND", "ollama").lower()
 
         try:
-            response = httpx.post(
-                f"{self.base_url}/api/generate",
-                json={
-                    "model": self.model,
-                    "prompt": prompt,
-                    "stream": False,
-                    "options": {
-                        "temperature": 0.3,
-                        "num_predict": 500,
-                    },
-                },
-                timeout=45.0,
-            )
-            response.raise_for_status()
-            result = response.json()
-
-            raw_response = result.get("response", "").strip()
+            if backend == "anthropic":
+                raw_response = self._call_anthropic(reflection_text, struggle_note)
+            else:
+                raw_response = self._call_ollama(reflection_text, struggle_note)
             threads = self._parse_threads(raw_response)
-
-            logger.info(f"Detected {len(threads)} threads from reflection")
+            logger.info(f"Detected {len(threads)} threads from reflection (backend={backend})")
             return threads
-
         except httpx.TimeoutException:
             logger.warning("Timeout detecting threads")
             return []
         except Exception as e:
             logger.error(f"Error detecting threads: {e}")
             return []
+
+    def _call_ollama(self, reflection_text: str, struggle_note: str) -> str:
+        prompt = self.THREAD_DETECTION_PROMPT.format(
+            reflection_text=reflection_text or "No reflection provided",
+            struggle_note=struggle_note or "Not specified",
+        )
+        response = httpx.post(
+            f"{self.base_url}/api/generate",
+            json={
+                "model": self.model,
+                "prompt": prompt,
+                "stream": False,
+                "options": {"temperature": 0.3, "num_predict": 500},
+            },
+            timeout=45.0,
+        )
+        response.raise_for_status()
+        return response.json().get("response", "").strip()
+
+    def _call_anthropic(self, reflection_text: str, struggle_note: str) -> str:
+        prompt = self.THREAD_DETECTION_PROMPT.format(
+            reflection_text=reflection_text or "No reflection provided",
+            struggle_note=struggle_note or "Not specified",
+        )
+        api_key = getattr(settings, "ANTHROPIC_API_KEY", "")
+        model = getattr(settings, "ANTHROPIC_MODEL", "claude-haiku-4-5-20251001")
+        if not api_key:
+            logger.warning("LLM_BACKEND=anthropic but ANTHROPIC_API_KEY is not set")
+            return ""
+        response = httpx.post(
+            "https://api.anthropic.com/v1/messages",
+            headers={
+                "x-api-key": api_key,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+            },
+            json={
+                "model": model,
+                "max_tokens": 1000,
+                "messages": [{"role": "user", "content": prompt}],
+            },
+            timeout=45.0,
+        )
+        response.raise_for_status()
+        result = response.json()
+        return result["content"][0]["text"].strip()
 
     def _parse_threads(self, raw_response: str) -> list[dict]:
         """Parse the JSON response from the LLM."""

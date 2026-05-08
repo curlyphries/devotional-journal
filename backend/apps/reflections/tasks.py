@@ -283,6 +283,73 @@ def generate_monthly_recaps():
     return {"recaps_generated": recaps_generated, "errors": errors}
 
 
+@shared_task(
+    name="reflections.detect_threads_from_journal_entry",
+    autoretry_for=(Exception,),
+    retry_backoff=True,
+    retry_kwargs={"max_retries": 2},
+)
+def detect_threads_from_journal_entry(entry_id: str):
+    """
+    Run thread detection on a freshly-saved journal entry and create OpenThread
+    records for anything significant the LLM finds (struggles, commitments,
+    relationships, decisions, confessions, questions).
+
+    Triggered asynchronously by a post_save signal on JournalEntry so the user
+    never waits on the LLM. Skips entries shorter than ~30 words because trivial
+    entries rarely contain durable threads worth following up on.
+    """
+    from apps.journal.models import JournalEntry
+
+    from .models import OpenThread
+    from .services import get_thread_detection_service
+
+    try:
+        entry = JournalEntry.objects.select_related("user").get(id=entry_id)
+    except JournalEntry.DoesNotExist:
+        logger.warning(f"detect_threads: JournalEntry {entry_id} not found")
+        return {"created": 0, "skipped": "entry_missing"}
+
+    # Decrypt the journal text. If decryption fails (key change, etc.) we
+    # silently skip — never break a save flow because of detection.
+    try:
+        text = entry.get_content() or ""
+    except Exception as e:
+        logger.error(f"detect_threads: decrypt failed for entry {entry_id}: {e}")
+        return {"created": 0, "skipped": "decrypt_failed"}
+
+    # Strip the metadata block the frontend embeds (HTML-comment delimited JSON)
+    # so the LLM only sees the user's actual reflection.
+    if "<!-- DJ_META_END -->" in text:
+        text = text.split("<!-- DJ_META_END -->", 1)[1].strip()
+
+    word_count = len(text.split())
+    if word_count < 30:
+        return {"created": 0, "skipped": "too_short", "words": word_count}
+
+    service = get_thread_detection_service()
+    detected = service.detect_threads(reflection_text=text)
+
+    created = 0
+    for item in detected:
+        thread = OpenThread(
+            user=entry.user,
+            thread_type=item["type"],
+            related_life_area=item.get("life_area", ""),
+            status="open",
+        )
+        thread.set_summary(item["summary"])
+        if item.get("quote"):
+            thread.set_original_context(item["quote"])
+        thread.save()
+        created += 1
+
+    logger.info(
+        f"detect_threads: entry={entry_id} user={entry.user_id} created={created}"
+    )
+    return {"created": created, "entry_id": str(entry_id)}
+
+
 @shared_task(name="reflections.process_thread_followups")
 def process_thread_followups():
     """

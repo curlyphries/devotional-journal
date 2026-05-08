@@ -87,7 +87,7 @@ export default function ThreadsPage() {
 
         {/* Filter */}
         <div className="flex flex-wrap gap-2 mb-6">
-          {['all', 'struggle', 'commitment', 'question', 'relationship', 'decision'].map((type) => (
+          {['all', 'struggle', 'commitment', 'question', 'relationship', 'decision', 'confession'].map((type) => (
             <button
               key={type}
               onClick={() => setFilter(type)}

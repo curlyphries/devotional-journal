@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import {
   Home, BookOpen, Calendar, Book, Trophy, Lightbulb,
   ChevronDown, ChevronRight, Flame, Download, Search,
-  Sparkles, Heart, HelpCircle, ArrowRight
+  Sparkles, Heart, HelpCircle, ArrowRight, MessageCircle
 } from 'lucide-react'
 
 interface FeatureSection {
@@ -208,6 +208,47 @@ const features: FeatureSection[] = [
           <li>Preparing for a small group or accountability conversation.</li>
           <li>Noticing patterns in your spiritual life you might miss day-to-day.</li>
         </ul>
+      </>
+    ),
+  },
+  {
+    id: 'threads',
+    icon: <MessageCircle className="w-5 h-5" />,
+    title: 'Open Threads',
+    tagline: "Things you're still wrestling with — the AI follows up so nothing falls through the cracks",
+    color: 'bg-cyan-500/20 text-cyan-400',
+    link: '/threads',
+    content: (
+      <>
+        <p>
+          A <strong className="text-text-primary">thread</strong> is something you mentioned in a journal entry that the AI thinks is worth following up on — a struggle you're battling, a commitment you made, a tough decision, an unanswered question, a relationship under tension, or something vulnerable you shared. Threads make sure those conversations don't disappear into a sea of past entries.
+        </p>
+        <p><strong className="text-text-primary">How threads appear:</strong></p>
+        <ul className="list-disc list-inside space-y-1 ml-2">
+          <li>You write a journal entry (any length over ~30 words).</li>
+          <li>In the background, your configured AI (Ollama or Anthropic) reads the entry and identifies up to a few significant items.</li>
+          <li>An <strong className="text-text-primary">Open Thread</strong> is created for each, encrypted with your key just like the journal entry.</li>
+          <li>You'll see the count on the Dashboard ("Open threads") and the full list on the Threads page.</li>
+        </ul>
+        <p><strong className="text-text-primary">The six thread types:</strong></p>
+        <ul className="list-disc list-inside space-y-1 ml-2">
+          <li><strong className="text-red-400">Struggle</strong> — battles you're in the middle of (anxiety, anger, lust, comparison)</li>
+          <li><strong className="text-green-400">Commitment</strong> — promises you made to yourself or to God ("I'm going to start praying daily")</li>
+          <li><strong className="text-blue-400">Question</strong> — things you're wondering about and haven't resolved</li>
+          <li><strong className="text-purple-400">Relationship</strong> — tension or a hard conversation pending with someone</li>
+          <li><strong className="text-yellow-400">Decision</strong> — a fork in the road you're weighing</li>
+          <li><strong className="text-pink-400">Confession</strong> — something vulnerable you shared and want to remember walking through</li>
+        </ul>
+        <p><strong className="text-text-primary">How to manage threads:</strong></p>
+        <ul className="list-disc list-inside space-y-1 ml-2">
+          <li>Periodically — every few days for active threads — you'll see a quick check-in card while journaling: "How's that going?" Tap <strong className="text-text-primary">Better / Same / Worse / Resolved</strong>.</li>
+          <li>On the Threads page, you can <strong className="text-text-primary">Resolve</strong> (with an optional note), <strong className="text-text-primary">Defer</strong> (snooze for 7 days), or <strong className="text-text-primary">Drop</strong> any thread you don't want to track.</li>
+          <li>If you skip a thread three times, the system automatically defers it — it won't badger you forever.</li>
+          <li>Threads max out at 3 follow-ups by default; after that they auto-close to keep your inbox clean.</li>
+        </ul>
+        <p className="text-amber-400/80 text-xs mt-3">
+          Privacy: thread summaries and original-context quotes are encrypted with your per-user key. Even with database access, no one can read them. Detection happens server-side via your configured AI provider — set <code className="bg-bg-elevated px-1 rounded">LLM_BACKEND=ollama</code> in your .env if you want detection to run on a local Ollama instance only.
+        </p>
       </>
     ),
   },
