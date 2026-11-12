@@ -27,14 +27,17 @@ def send_magic_link_email(user_id: str, token: str):
     base_url = getattr(settings, "FRONTEND_URL", "http://localhost:3001")
     magic_link = f"{base_url}/auth/verify?token={token}"
 
-    # Always print the login URL prominently for Tailscale-only internal access
-    print("\n" + "=" * 70)
-    print("🔐 DEVOTIONAL JOURNAL - MAGIC LOGIN LINK")
-    print("=" * 70)
-    print(f"User: {user.email}")
-    print(f"\n👉 LOGIN URL:\n{magic_link}\n")
-    print("=" * 70 + "\n")
-    logger.info(f"Magic link generated for {user.email}: {magic_link}")
+    # A sign-in link is a credential: whoever reads it can sign in as this
+    # person. It is written to the log only when the operator asked for that
+    # (MAGIC_LINK_LOG=true — a private instance with no mail server).
+    if getattr(settings, "MAGIC_LINK_LOG", False):
+        print("\n" + "=" * 70)
+        print("DEVOTIONAL JOURNAL - SIGN-IN LINK (MAGIC_LINK_LOG is on)")
+        print(f"User: {user.email}")
+        print(f"\n{magic_link}\n")
+        print("=" * 70 + "\n", flush=True)
+    else:
+        logger.info("Sign-in link generated for user %s", user.id)
 
     subject = "Your Devotional Journal Login Link"
     message = f"""
@@ -51,10 +54,21 @@ If you didn't request this link, you can safely ignore this email.
 - Devotional Journal
 """
 
-    send_mail(
-        subject=subject,
-        message=message,
-        from_email=settings.DEFAULT_FROM_EMAIL,
-        recipient_list=[user.email],
-        fail_silently=False,
-    )
+    try:
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[user.email],
+            fail_silently=False,
+        )
+    except Exception:
+        if getattr(settings, "MAGIC_LINK_LOG", False):
+            # The link is in the log, so sign-in still works without mail.
+            logger.warning("Sign-in email could not be sent; the link is in the log.")
+            return
+        logger.exception(
+            "Sign-in email could not be sent to user %s. Check EMAIL_* settings.",
+            user.id,
+        )
+        raise

@@ -7,59 +7,55 @@ import logging
 from abc import ABC, abstractmethod
 from typing import Optional
 
-import httpx
-from django.conf import settings
+from shared.llm import LLMError, get_llm
 
 logger = logging.getLogger(__name__)
 
 
 class BaseAgent(ABC):
-    """Base class for all crew agents."""
+    """
+    Base class for all crew agents.
+
+    Agents never talk to a model directly: they go through shared.llm, which
+    applies the person's provider choice and consent. Failures raise LLMError
+    (with a code and a suggestion) instead of returning nothing.
+    """
 
     role: str = "Agent"
     goal: str = ""
     backstory: str = ""
+    max_tokens: int = 500
 
-    def __init__(self, base_url: str = None, model: str = None):
-        self.base_url = base_url or getattr(
-            settings, "OLLAMA_BASE_URL", "http://localhost:11434"
-        )
-        self.model = model or getattr(settings, "OLLAMA_MODEL", "llama3.1:8b")
+    def __init__(self, llm=None, user=None):
+        self._llm = llm
+        self.user = user
+
+    @property
+    def llm(self):
+        if self._llm is None:
+            self._llm = get_llm(self.user)
+        return self._llm
 
     @abstractmethod
     def get_system_prompt(self) -> str:
         """Return the system prompt for this agent."""
         pass
 
-    def generate(self, prompt: str, context: dict = None) -> Optional[str]:
-        """Generate a response from this agent."""
+    def generate(self, prompt: str, context: dict = None) -> str:
+        """Generate a response from this agent. Raises LLMError on failure."""
         system_prompt = self.get_system_prompt()
 
         if context:
             system_prompt += f"\n\nCONTEXT:\n{self._format_context(context)}"
 
-        try:
-            response = httpx.post(
-                f"{self.base_url}/api/generate",
-                json={
-                    "model": self.model,
-                    "prompt": prompt,
-                    "system": system_prompt,
-                    "stream": False,
-                    "options": {
-                        "temperature": 0.7,
-                        "num_predict": 500,
-                    },
-                },
-                timeout=60.0,
-            )
-            response.raise_for_status()
-            result = response.json()
-            return result.get("response", "").strip()
+        return self.llm.complete(
+            prompt, system_prompt, max_tokens=self.max_tokens, temperature=0.7
+        )
 
-        except Exception as e:
-            logger.error(f"{self.role} generation failed: {e}")
-            return None
+    def generate_json(self, prompt: str, max_tokens: int = 800):
+        return self.llm.complete_json(
+            prompt, self.get_system_prompt(), max_tokens=max_tokens
+        )
 
     def _format_context(self, context: dict) -> str:
         """Format context dict for inclusion in prompt."""
@@ -95,7 +91,7 @@ ROLE: {self.goal}
 PERSONALITY: {self.backstory}
 
 GUIDELINES:
-- Reference specific verses when relevant
+- Give scripture as references only (e.g. "Romans 8:28"); never write out verse text - the app looks up the exact words
 - Explain cultural/historical context briefly
 - Connect scripture to the user's specific situation
 - Never be preachy or condescending
@@ -104,13 +100,13 @@ GUIDELINES:
 
 
 class MentorAgent(BaseAgent):
-    """Practical life wisdom from experience."""
+    """Practical life wisdom."""
 
     role = "Wise Mentor"
-    goal = "Offer practical life wisdom"
-    backstory = """You are a man who has lived through struggles - addiction,
-    divorce, career failure, rebuilding. You speak from experience, not theory.
-    You're direct but kind. You never shame. You've been where they are."""
+    goal = "Offer practical, grounded encouragement"
+    backstory = """You speak the way a seasoned, trustworthy mentor would:
+    direct but kind, never shaming. You are an AI and never claim experiences
+    of your own - no invented life story, no "when I went through this"."""
 
     def get_system_prompt(self) -> str:
         return f"""You are the {self.role}.
@@ -120,13 +116,13 @@ ROLE: {self.goal}
 PERSONALITY: {self.backstory}
 
 GUIDELINES:
-- Speak as someone who has been there
 - Be direct but compassionate
 - Offer practical, actionable advice
 - Never lecture or moralize
 - Acknowledge the difficulty of change
-- Keep responses under 100 words
-- Use "I" statements from experience when appropriate"""
+- Point toward the character of Jesus (humility, honesty, compassion, service)
+- Never invent personal experiences or speak as if you have lived a human life
+- Keep responses under 100 words"""
 
 
 class PatternAnalyst(BaseAgent):
@@ -245,12 +241,13 @@ class DevotionalCurator(BaseAgent):
     """Curates scripture passages based on user's focus intention."""
 
     role = "Devotional Curator"
-    goal = "Select and present relevant scripture passages with context and reflection prompts"
+    goal = "Select relevant scripture passages with context and reflection prompts"
     backstory = """You are a thoughtful curator of scripture who understands that
-    different seasons of life call for different passages. You select verses that
-    speak directly to someone's current focus - whether they're seeking patience,
-    healing, courage, or wisdom. You present passages beautifully, with context
-    that makes ancient words feel immediate and personal."""
+    different seasons of life call for different passages. You select passages
+    that speak directly to someone's current focus - whether they are seeking
+    patience, healing, courage, or wisdom - and explain plainly why."""
+
+    MAX_PER_CALL = 7
 
     def get_system_prompt(self) -> str:
         return f"""You are the {self.role}.
@@ -261,116 +258,128 @@ PERSONALITY: {self.backstory}
 
 GUIDELINES:
 - Select passages that directly relate to the user's stated focus
+- Give references only (e.g. "James 1:2-4"). NEVER write out the verse text:
+  the app retrieves the exact words from a Bible source itself
+- Only cite passages you are certain exist, 1-8 verses each
 - Provide brief historical/cultural context (1-2 sentences)
-- Create a stylized quote format that highlights key phrases
-- Explain how this passage connects to their specific intention
+- Explain how the passage connects to their specific intention
 - Generate 2-3 reflection questions that are personal and probing
 - Suggest 1-2 practical applications for their daily life
-- Use various translations (NIV, ESV, NLT, MSG) based on what fits best
-- Never be preachy - let the scripture speak for itself"""
+- Never be preachy - let the scripture speak for itself
+- Never claim personal experiences"""
 
     def curate_passages(
-        self, intention: str, period_type: str, themes: list, num_passages: int = 7
+        self,
+        intention: str,
+        period_type: str,
+        themes: list,
+        num_passages: int = 7,
+        avoid: Optional[list] = None,
     ) -> list:
-        """Generate a series of devotional passages for a focus intention."""
+        """
+        Suggest passages for a focus intention and return them with their
+        text fetched from the Bible source.
+
+        Every returned item has a real `scripture_text` and the `translation`
+        it actually came from. Suggestions whose reference does not exist are
+        dropped. Raises LLMError if the model cannot be used.
+        """
+        from apps.bible.lookup import fetch_reference
+
+        wanted = max(1, min(int(num_passages or 1), self.MAX_PER_CALL))
+        avoid_line = (
+            f"\nDo not repeat these (already given): {', '.join(avoid[:20])}"
+            if avoid
+            else ""
+        )
 
         prompt = f"""The user has set a {period_type} focus intention:
 
 "{intention}"
 
-Identified themes: {', '.join(themes) if themes else 'general spiritual growth'}
+Identified themes: {', '.join(themes) if themes else 'general spiritual growth'}{avoid_line}
 
-Generate {num_passages} scripture passages that will guide them through this focus period.
+Suggest {wanted + 2} scripture passages that will guide them through this focus period.
 Each passage should build on the previous, creating a journey of understanding.
 
-For EACH passage, provide in this EXACT JSON format:
+Return ONLY a JSON object of this shape:
 {{
-    "scripture_reference": "Book Chapter:Verse-Verse",
-    "scripture_text": "The full text of the passage",
-    "translation": "NIV/ESV/NLT/MSG",
-    "stylized_quote": "A beautifully formatted version highlighting key phrases with line breaks",
-    "context_note": "1-2 sentences of historical/cultural context",
-    "connection_to_focus": "How this specifically relates to their intention",
-    "reflection_prompts": ["Question 1?", "Question 2?", "Question 3?"],
-    "application_suggestions": ["Practical action 1", "Practical action 2"]
-}}
+  "passages": [
+    {{
+      "scripture_reference": "Book Chapter:Verse-Verse",
+      "context_note": "1-2 sentences of historical/cultural context",
+      "connection_to_focus": "How this specifically relates to their intention",
+      "reflection_prompts": ["Question 1?", "Question 2?"],
+      "application_suggestions": ["Practical action 1", "Practical action 2"]
+    }}
+  ]
+}}"""
 
-Return a JSON array of {num_passages} passages. ONLY return valid JSON, no other text."""
-
-        response = self.generate(prompt)
-
-        if not response:
+        data = self.generate_json(prompt, max_tokens=450 * (wanted + 2))
+        items = data.get("passages") if isinstance(data, dict) else data
+        if not isinstance(items, list):
             return []
 
-        # Parse JSON response
-        import json
-        import re
+        results = []
+        seen = set(avoid or [])
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            passage = fetch_reference(str(item.get("scripture_reference", "")))
+            if passage is None or passage.reference in seen:
+                if passage is None:
+                    logger.info(
+                        "Dropped a suggested passage that is not in the Bible source"
+                    )
+                continue
+            seen.add(passage.reference)
 
-        try:
-            # Try to extract JSON from response
-            start = response.find("[")
-            end = response.rfind("]") + 1
-            if start >= 0 and end > start:
-                json_str = response[start:end]
-                # Clean control characters that break JSON parsing
-                json_str = re.sub(r"[\x00-\x1f\x7f-\x9f]", " ", json_str)
-                return json.loads(json_str)
-        except json.JSONDecodeError as e:
-            logger.error(f"Failed to parse devotional passages JSON: {e}")
-            # Return a fallback passage
-            return [
+            def _strings(value, limit):
+                if not isinstance(value, list):
+                    return []
+                return [str(v).strip()[:400] for v in value if str(v).strip()][:limit]
+
+            results.append(
                 {
-                    "scripture_reference": "Philippians 4:6-7",
-                    "scripture_text": "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.",
-                    "translation": "NIV",
-                    "stylized_quote": "Do not be anxious about anything...\nthe peace of God will guard your hearts",
-                    "context_note": "Paul wrote this while imprisoned, showing peace is possible in any circumstance.",
-                    "connection_to_focus": "This passage speaks to finding peace and consistency in your spiritual walk.",
-                    "reflection_prompts": [
-                        "What causes you to feel anxious?",
-                        "How can prayer help you find consistency?",
-                    ],
-                    "application_suggestions": [
-                        "Start each day with a brief prayer",
-                        "Write down one thing you're thankful for",
-                    ],
+                    "scripture_reference": passage.reference,
+                    "scripture_text": passage.text,
+                    "translation": passage.translation,
+                    "stylized_quote": passage.text,
+                    "context_note": str(item.get("context_note", "")).strip()[:800],
+                    "connection_to_focus": str(
+                        item.get("connection_to_focus", "")
+                    ).strip()[:1000],
+                    "reflection_prompts": _strings(item.get("reflection_prompts"), 3),
+                    "application_suggestions": _strings(
+                        item.get("application_suggestions"), 2
+                    ),
                 }
-            ]
-
-        return []
+            )
+            if len(results) >= wanted:
+                break
+        return results
 
     def extract_themes(self, intention: str) -> list:
-        """Extract themes from a user's focus intention."""
-
+        """Extract themes from a focus intention. Empty list if AI is unavailable."""
         prompt = f"""Analyze this focus intention and extract 3-5 spiritual/emotional themes:
 
 "{intention}"
 
-Return ONLY a JSON array of theme strings, like:
-["patience", "trust", "letting go", "faith in uncertainty"]
-
-No other text, just the JSON array."""
-
-        response = self.generate(prompt)
-
-        if not response:
-            return []
-
-        import json
-
+Return ONLY a JSON array of short lowercase theme strings, like:
+["patience", "trust", "letting go"]"""
         try:
-            start = response.find("[")
-            end = response.rfind("]") + 1
-            if start >= 0 and end > start:
-                return json.loads(response[start:end])
-        except json.JSONDecodeError:
-            pass
-
-        return []
+            data = self.generate_json(prompt, max_tokens=150)
+        except LLMError as exc:
+            logger.warning("Theme extraction unavailable: %s", exc.code)
+            return []
+        if isinstance(data, dict):
+            data = next((v for v in data.values() if isinstance(v, list)), [])
+        if not isinstance(data, list):
+            return []
+        return [str(t).strip().lower()[:40] for t in data if str(t).strip()][:5]
 
     def suggest_life_areas(self, intention: str, themes: list) -> list:
-        """Suggest related life areas based on intention and themes."""
-
+        """Suggest related life areas. Falls back to ["faith"]."""
         life_area_codes = [
             "faith",
             "integrity",
@@ -381,7 +390,6 @@ No other text, just the JSON array."""
             "growth",
             "service",
         ]
-
         prompt = f"""Given this focus intention and themes, which life areas are most relevant?
 
 Intention: "{intention}"
@@ -390,24 +398,15 @@ Themes: {themes}
 Available life areas: {life_area_codes}
 
 Return ONLY a JSON array of 1-3 relevant life area codes, like:
-["faith", "relationships"]
-
-No other text, just the JSON array."""
-
-        response = self.generate(prompt)
-
-        if not response:
-            return ["faith"]
-
-        import json
-
+["faith", "relationships"]"""
         try:
-            start = response.find("[")
-            end = response.rfind("]") + 1
-            if start >= 0 and end > start:
-                areas = json.loads(response[start:end])
-                return [a for a in areas if a in life_area_codes]
-        except json.JSONDecodeError:
-            pass
-
-        return ["faith"]
+            data = self.generate_json(prompt, max_tokens=80)
+        except LLMError as exc:
+            logger.warning("Life-area suggestion unavailable: %s", exc.code)
+            return ["faith"]
+        if isinstance(data, dict):
+            data = next((v for v in data.values() if isinstance(v, list)), [])
+        areas = (
+            [a for a in data if a in life_area_codes] if isinstance(data, list) else []
+        )
+        return areas[:3] or ["faith"]

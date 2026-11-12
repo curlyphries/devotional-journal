@@ -5,7 +5,7 @@ DevotionalCrew - Orchestrates AI agents for personalized guidance.
 import logging
 from typing import Optional
 
-from django.conf import settings
+from shared.llm import get_llm
 
 from .agents import (
     Coordinator,
@@ -27,35 +27,31 @@ class DevotionalCrew:
     """
     AI Crew for personalized devotional guidance.
 
-    Orchestrates multiple specialized agents to provide
-    multi-perspective spiritual guidance.
+    All agents share one LLM client, resolved from the person's own provider
+    settings (see shared.llm). Methods raise LLMError when the model cannot
+    be used - callers decide how to tell the person.
     """
 
-    def __init__(self, base_url: str = None, model: str = None):
-        """
-        Initialize the crew with LLM configuration.
-
-        Args:
-            base_url: Ollama API base URL
-            model: Model name to use
-        """
-        self.base_url = base_url or getattr(
-            settings, "OLLAMA_BASE_URL", "http://localhost:11434"
-        )
-        self.model = model or getattr(settings, "OLLAMA_MODEL", "llama3.1:8b")
-
+    def __init__(self, llm=None, user=None):
+        self.user = user
+        self._llm = llm
         self._create_agents()
         self._create_tasks()
 
-    def _create_agents(self):
-        """Initialize all crew agents."""
-        self.scripture_scholar = ScriptureScholar(self.base_url, self.model)
-        self.mentor = MentorAgent(self.base_url, self.model)
-        self.pattern_analyst = PatternAnalyst(self.base_url, self.model)
-        self.journey_guide = JourneyGuide(self.base_url, self.model)
-        self.coordinator = Coordinator(self.base_url, self.model)
+    @property
+    def llm(self):
+        if self._llm is None:
+            self._llm = get_llm(self.user)
+        return self._llm
 
-        logger.info(f"Crew agents initialized with model {self.model}")
+    def _create_agents(self):
+        """Initialize all crew agents (they resolve the LLM lazily)."""
+        kwargs = {"llm": self._llm, "user": self.user}
+        self.scripture_scholar = ScriptureScholar(**kwargs)
+        self.mentor = MentorAgent(**kwargs)
+        self.pattern_analyst = PatternAnalyst(**kwargs)
+        self.journey_guide = JourneyGuide(**kwargs)
+        self.coordinator = Coordinator(**kwargs)
 
     def _create_tasks(self):
         """Initialize crew tasks."""
@@ -64,37 +60,16 @@ class DevotionalCrew:
         self.monthly_recap_task = MonthlyRecapTask(self)
 
     def generate_daily_insight(self, user, reflection) -> Optional[str]:
-        """
-        Generate daily insight for a reflection.
-        Lightweight - uses mentor + coordinator only.
-        """
-        try:
-            return self.daily_insight_task.execute(user, reflection=reflection)
-        except Exception as e:
-            logger.error(f"Daily insight generation failed: {e}")
-            return None
+        """Daily insight for a reflection (mentor + coordinator)."""
+        return self.daily_insight_task.execute(user, reflection=reflection)
 
     def generate_weekly_review(self, user) -> Optional[str]:
-        """
-        Generate weekly review with full crew analysis.
-        Runs all agents and synthesizes output.
-        """
-        try:
-            return self.weekly_review_task.execute(user)
-        except Exception as e:
-            logger.error(f"Weekly review generation failed: {e}")
-            return None
+        """Weekly review with full crew analysis."""
+        return self.weekly_review_task.execute(user)
 
     def generate_monthly_recap(self, user) -> Optional[str]:
-        """
-        Generate monthly recap with trend analysis.
-        Comprehensive analysis of the past month.
-        """
-        try:
-            return self.monthly_recap_task.execute(user)
-        except Exception as e:
-            logger.error(f"Monthly recap generation failed: {e}")
-            return None
+        """Monthly recap with trend analysis."""
+        return self.monthly_recap_task.execute(user)
 
     def ask_specific_agent(
         self, agent_name: str, prompt: str, context: dict = None
@@ -102,13 +77,8 @@ class DevotionalCrew:
         """
         Ask a specific agent a question.
 
-        Args:
-            agent_name: One of 'scripture', 'mentor', 'patterns', 'journey', 'coordinator'
-            prompt: The question or prompt
-            context: Optional context dict
-
-        Returns:
-            Agent's response or None
+        agent_name: one of 'scripture', 'mentor', 'patterns', 'journey', 'coordinator'
+        Returns None for an unknown agent name.
         """
         agents = {
             "scripture": self.scripture_scholar,
@@ -120,64 +90,27 @@ class DevotionalCrew:
 
         agent = agents.get(agent_name)
         if not agent:
-            logger.warning(f"Unknown agent: {agent_name}")
+            logger.warning("Unknown agent: %s", agent_name)
             return None
-
-        try:
-            return agent.generate(prompt, context)
-        except Exception as e:
-            logger.error(f"Agent {agent_name} failed: {e}")
-            return None
+        return agent.generate(prompt, context)
 
     def health_check(self) -> dict:
-        """
-        Check if the crew's LLM backend is accessible.
+        """Whether this person's AI provider can be used right now. Never raises."""
+        from shared.llm import ai_status
 
-        Returns:
-            Dict with status and details
-        """
-        import httpx
-
-        try:
-            response = httpx.get(f"{self.base_url}/api/tags", timeout=5.0)
-            response.raise_for_status()
-            data = response.json()
-            models = [m["name"] for m in data.get("models", [])]
-
-            model_available = any(self.model in m for m in models)
-
-            return {
-                "status": "healthy" if model_available else "degraded",
-                "base_url": self.base_url,
-                "model": self.model,
-                "model_available": model_available,
-                "available_models": models,
-            }
-        except Exception as e:
-            return {
-                "status": "unhealthy",
-                "base_url": self.base_url,
-                "model": self.model,
-                "error": str(e),
-            }
+        info = ai_status(self.user)
+        return {
+            "status": "healthy" if info["reachable"] else "unhealthy",
+            "provider": info["backend"],
+            "model": info["model"],
+            "local": info["local"],
+            "model_available": info["reachable"],
+            "code": info["code"],
+            "error": info["message"],
+            "suggestion": info["suggestion"],
+        }
 
 
 def get_crew(user=None) -> DevotionalCrew:
-    """
-    Factory function to get a DevotionalCrew instance.
-
-    In the future, this will support user-specific AI provider configuration.
-    For now, uses system Ollama.
-
-    Args:
-        user: Optional user for provider configuration (future)
-
-    Returns:
-        Configured DevotionalCrew instance
-    """
-    # Future: Check user's AI provider config
-    # config = AIProviderConfig.objects.filter(user=user).first()
-    # if config and config.provider != 'system_ollama':
-    #     return DevotionalCrew(config.base_url, config.model)
-
-    return DevotionalCrew()
+    """A DevotionalCrew that uses this person's AI provider settings."""
+    return DevotionalCrew(user=user)

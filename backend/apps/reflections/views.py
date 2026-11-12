@@ -12,6 +12,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from shared.errors import AppError
+
 from .crew import get_crew
 from .crew.agents import DevotionalCurator
 from .models import (
@@ -42,6 +44,7 @@ from .serializers import (
     ThreadResponseSerializer,
     UserJourneyCreateSerializer,
     UserJourneySerializer,
+    create_devotional_passage,
 )
 from .services import (
     get_study_guide_service,
@@ -193,7 +196,7 @@ class DailyReflectionViewSet(viewsets.ModelViewSet):
     def today(self, request):
         """Get today's reflection."""
         today = date.today()
-        reflection = self.get_queryset().filter(reflection_date=today).first()
+        reflection = self.get_queryset().filter(date=today).first()
         if reflection:
             serializer = self.get_serializer(reflection)
             return Response(serializer.data)
@@ -211,7 +214,7 @@ class DailyReflectionViewSet(viewsets.ModelViewSet):
                 {"detail": "Invalid date format"}, status=status.HTTP_400_BAD_REQUEST
             )
 
-        reflection = self.get_queryset().filter(reflection_date=reflection_date).first()
+        reflection = self.get_queryset().filter(date=reflection_date).first()
         if reflection:
             serializer = self.get_serializer(reflection)
             return Response(serializer.data)
@@ -221,39 +224,22 @@ class DailyReflectionViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["post"])
     def generate_insight(self, request, pk=None):
-        """Generate AI insight for a reflection."""
+        """Generate AI insight for a reflection. Raises a coded error if AI is unavailable."""
         reflection = self.get_object()
-        crew = get_crew()
+        crew = get_crew(request.user)
 
-        context = {
-            "gratitude": (
-                reflection.get_gratitude_note()
-                if reflection.encrypted_gratitude
-                else ""
-            ),
-            "struggle": (
-                reflection.get_struggle_note() if reflection.encrypted_struggle else ""
-            ),
-            "intention": (
-                reflection.get_tomorrow_intention()
-                if reflection.encrypted_intention
-                else ""
-            ),
-            "alignment_score": reflection.alignment_score,
-        }
+        insight = crew.generate_daily_insight(request.user, reflection)
+        if not insight:
+            raise AppError(
+                "There is nothing in this reflection to respond to yet.",
+                suggestion="Add a reflection, gratitude or struggle note, then try again.",
+            )
 
-        insight = crew.generate_daily_insight(context)
-
-        if insight:
-            reflection.ai_insight = insight
-            reflection.save()
-            serializer = self.get_serializer(reflection)
-            return Response(serializer.data)
-
-        return Response(
-            {"error": "Failed to generate insight"},
-            status=status.HTTP_503_SERVICE_UNAVAILABLE,
-        )
+        reflection.ai_insight = insight
+        reflection.ai_provider_used = crew.llm.config.provider
+        reflection.save(update_fields=["ai_insight", "ai_provider_used", "updated_at"])
+        serializer = self.get_serializer(reflection)
+        return Response(serializer.data)
 
 
 class AlignmentTrendViewSet(viewsets.ReadOnlyModelViewSet):
@@ -290,13 +276,20 @@ class AlignmentTrendViewSet(viewsets.ReadOnlyModelViewSet):
     @action(detail=False, methods=["get"], url_path="by-area/(?P<area_code>[a-z_]+)")
     def by_area(self, request, area_code=None):
         """Get trends for a specific life area."""
-        trends = (
-            self.get_queryset()
-            .filter(life_area__code=area_code)
-            .order_by("-period_start")[:12]
+        trends = self.get_queryset().order_by("-period_start")[:12]
+        return Response(
+            [
+                {
+                    "period_type": t.period_type,
+                    "period_start": t.period_start,
+                    "period_end": t.period_end,
+                    "average": (t.area_averages or {}).get(area_code),
+                    "delta": (t.area_deltas or {}).get(area_code),
+                }
+                for t in trends
+                if area_code in (t.area_averages or {})
+            ]
         )
-        serializer = self.get_serializer(trends, many=True)
-        return Response(serializer.data)
 
 
 class OpenThreadViewSet(viewsets.ModelViewSet):
@@ -313,6 +306,14 @@ class OpenThreadViewSet(viewsets.ModelViewSet):
         if self.action == "create":
             return OpenThreadCreateSerializer
         return OpenThreadSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        thread = serializer.save()
+        return Response(
+            OpenThreadSerializer(thread).data, status=status.HTTP_201_CREATED
+        )
 
     @action(detail=False, methods=["get"])
     def active(self, request):
@@ -376,7 +377,25 @@ class OpenThreadViewSet(viewsets.ModelViewSet):
             data=request.data, context={"request": request}
         )
         serializer.is_valid(raise_exception=True)
-        result = serializer.save()
+        data = serializer.validated_data
+
+        reflection = None
+        if data.get("reflection_id"):
+            reflection = DailyReflection.objects.filter(
+                id=data["reflection_id"], user=request.user
+            ).first()
+
+        from .services import get_thread_followup_service
+
+        result = get_thread_followup_service().process_thread_response(
+            thread_id=data["thread_id"],
+            response=data["response"],
+            expanded_text=data.get("expanded_text", ""),
+            reflection=reflection,
+            user=request.user,
+        )
+        if "error" in result:
+            return Response(result, status=status.HTTP_404_NOT_FOUND)
         return Response(result)
 
 
@@ -389,12 +408,12 @@ class ThreadPromptViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return ThreadPrompt.objects.filter(user=self.request.user)
+        return ThreadPrompt.objects.filter(thread__user=self.request.user)
 
     @action(detail=False, methods=["get"])
     def recent(self, request):
         """Get recent prompts."""
-        prompts = self.get_queryset().order_by("-created_at")[:10]
+        prompts = self.get_queryset().order_by("-shown_at")[:10]
         serializer = self.get_serializer(prompts, many=True)
         return Response(serializer.data)
 
@@ -402,113 +421,52 @@ class ThreadPromptViewSet(viewsets.ReadOnlyModelViewSet):
 class CrewView(APIView):
     """
     API view for interacting with the AI crew.
+
+    AI failures are raised as coded errors (shared.llm.LLMError) and reach the
+    client in the standard error envelope with a suggestion.
     """
 
     permission_classes = [IsAuthenticated]
 
     def get(self, request, action=None):
         if action == "health":
-            crew = get_crew()
-            return Response(
-                {
-                    "status": "healthy" if crew else "unavailable",
-                    "agents": (
-                        [
-                            "scripture_scholar",
-                            "life_coach",
-                            "prayer_guide",
-                            "wisdom_synthesizer",
-                        ]
-                        if crew
-                        else []
-                    ),
-                }
-            )
+            return Response(get_crew(request.user).health_check())
         return Response({"error": "Invalid action"}, status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, action=None):
-        crew = get_crew()
-        if not crew:
-            return Response(
-                {"error": "AI crew unavailable"},
-                status=status.HTTP_503_SERVICE_UNAVAILABLE,
-            )
+        crew = get_crew(request.user)
 
         if action == "weekly-review":
-            user = request.user
-            reflections = DailyReflection.objects.filter(
-                user=user,
-                reflection_date__gte=timezone.now().date() - timezone.timedelta(days=7),
-            )
+            return Response({"review": crew.generate_weekly_review(request.user)})
 
-            context = {
-                "reflections": [
-                    {
-                        "date": str(r.reflection_date),
-                        "alignment_score": r.alignment_score,
-                        "gratitude": (
-                            r.get_gratitude_note() if r.encrypted_gratitude else ""
-                        ),
-                        "struggle": (
-                            r.get_struggle_note() if r.encrypted_struggle else ""
-                        ),
-                    }
-                    for r in reflections
-                ]
-            }
+        if action == "monthly-recap":
+            return Response({"recap": crew.generate_monthly_recap(request.user)})
 
-            review = crew.generate_weekly_review(context)
-            if review:
-                return Response({"review": review})
-            return Response(
-                {"error": "Failed to generate review"},
-                status=status.HTTP_503_SERVICE_UNAVAILABLE,
-            )
-
-        elif action == "monthly-recap":
-            user = request.user
-            trends = AlignmentTrend.objects.filter(
-                user=user, period_type="week"
-            ).order_by("-period_start")[:4]
-
-            context = {
-                "trends": [
-                    {
-                        "period": str(t.period_start),
-                        "average_score": t.average_score,
-                        "life_area": t.life_area.name if t.life_area else "General",
-                    }
-                    for t in trends
-                ]
-            }
-
-            recap = crew.generate_monthly_recap(context)
-            if recap:
-                return Response({"recap": recap})
-            return Response(
-                {"error": "Failed to generate recap"},
-                status=status.HTTP_503_SERVICE_UNAVAILABLE,
-            )
-
-        elif action == "ask-agent":
+        if action == "ask-agent":
             agent_name = request.data.get("agent")
             prompt = request.data.get("prompt")
             context = request.data.get("context", {})
 
-            if not agent_name or not prompt:
+            if not agent_name or not prompt or not isinstance(prompt, str):
                 return Response(
                     {"error": "agent and prompt are required"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
+            if not isinstance(context, dict):
+                context = {}
 
-            result = crew.ask_specific_agent(agent_name, prompt, context)
-            if result:
+            result = crew.ask_specific_agent(agent_name, prompt[:4000], context)
+            if result is None:
                 return Response(
-                    {"response": result, "agent": agent_name, "provider": "ollama_crew"}
+                    {"error": f"Unknown agent “{agent_name}”."},
+                    status=status.HTTP_400_BAD_REQUEST,
                 )
             return Response(
-                {"error": f"Agent {agent_name} failed to respond"},
-                status=status.HTTP_503_SERVICE_UNAVAILABLE,
+                {
+                    "response": result,
+                    "agent": agent_name,
+                    "provider": crew.llm.config.provider,
+                }
             )
 
         return Response({"error": "Invalid action"}, status=status.HTTP_400_BAD_REQUEST)
@@ -535,8 +493,11 @@ class FocusIntentionViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         instance = serializer.save()
-        response_serializer = FocusIntentionSerializer(instance)
-        return Response(response_serializer.data, status=status.HTTP_201_CREATED)
+        data = dict(FocusIntentionSerializer(instance).data)
+        # The focus is saved even if passages could not be generated; say so
+        # instead of pretending. The daily job retries each morning.
+        data["generation_warning"] = getattr(instance, "generation_warning", None)
+        return Response(data, status=status.HTTP_201_CREATED)
 
     @action(detail=False, methods=["get"])
     def active(self, request):
@@ -632,14 +593,20 @@ class DevotionalPassageViewSet(viewsets.ReadOnlyModelViewSet):
         focus = passage.focus_intention
         extra_context = request.data.get("context", "")
 
-        latest_journal_entry = (
-            JournalEntry.objects.filter(user=request.user)
-            .order_by("-date", "-created_at")
-            .first()
-        )
+        # Journal text is only included when the person asks for it.
         latest_journal_excerpt = ""
-        if latest_journal_entry:
-            latest_journal_excerpt = latest_journal_entry.get_content()[:1200]
+        if request.data.get("include_latest_journal") is True:
+            latest_journal_entry = (
+                JournalEntry.objects.filter(user=request.user)
+                .order_by("-date", "-created_at")
+                .first()
+            )
+            if latest_journal_entry:
+                from apps.journal.feedback import strip_metadata
+
+                latest_journal_excerpt = strip_metadata(
+                    latest_journal_entry.get_content()
+                )[:1200]
 
         source_context = {
             "scripture_reference": passage.scripture_reference,
@@ -660,7 +627,7 @@ class DevotionalPassageViewSet(viewsets.ReadOnlyModelViewSet):
             "latest_journal_excerpt": latest_journal_excerpt,
         }
 
-        guide = get_study_guide_service().generate_study_guide(
+        guide = get_study_guide_service(request.user).generate_study_guide(
             source_type="devotional_passage",
             source_context=source_context,
             user_context=user_context,
@@ -714,58 +681,40 @@ class DevotionalPassageViewSet(viewsets.ReadOnlyModelViewSet):
         """Generate a devotional passage on-demand for a specific topic."""
         topic = request.data.get("topic", "")
         themes = request.data.get("themes", [])
-        request.data.get("scripture_reference", None)
 
-        if not topic:
+        if not topic or not isinstance(topic, str):
             return Response(
                 {"error": "Topic is required for on-demand generation"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+        if not isinstance(themes, list):
+            themes = []
 
-        try:
-            curator = DevotionalCurator()
+        curator = DevotionalCurator(user=request.user)
+        passages_data = curator.curate_passages(
+            intention=topic[:1000],
+            period_type="day",
+            themes=themes or curator.extract_themes(topic[:1000]),
+            num_passages=1,
+        )
 
-            # Generate a single devotional passage
-            passages_data = curator.curate_passages(
-                intention=topic,
-                period_type="day",
-                themes=themes or curator.extract_themes(topic),
-                num_passages=1,
+        if not passages_data:
+            raise AppError(
+                "None of the passages the AI suggested could be found in the Bible source.",
+                code="SCRIPTURE_UNAVAILABLE",
+                status_code=502,
+                suggestion="Try again, or rephrase the topic.",
             )
 
-            if not passages_data:
-                return Response(
-                    {"error": "Failed to generate devotional content"},
-                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                )
-
-            passage_data = passages_data[0]
-
-            # Create the passage without a focus intention (on-demand)
-            passage = DevotionalPassage.objects.create(
-                user=request.user,
-                focus_intention=None,  # No focus intention for on-demand
-                sequence_number=1,
-                scheduled_date=timezone.now().date(),
-                scripture_reference=passage_data.get("scripture_reference", "Unknown"),
-                scripture_text=passage_data.get("scripture_text", ""),
-                translation=passage_data.get("translation", "NIV"),
-                stylized_quote=passage_data.get("stylized_quote", ""),
-                context_note=passage_data.get("context_note", ""),
-                connection_to_focus=passage_data.get("connection_to_focus", ""),
-                reflection_prompts=passage_data.get("reflection_prompts", []),
-                application_suggestions=passage_data.get("application_suggestions", []),
-            )
-
-            serializer = DevotionalPassageSerializer(passage)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        except Exception as e:
-            logger.error(f"On-demand devotional generation failed: {e}")
-            return Response(
-                {"error": "Failed to generate devotional content"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            )
+        passage = create_devotional_passage(
+            user=request.user,
+            focus_intention=None,
+            sequence_number=1,
+            scheduled_date=timezone.now().date(),
+            data=passages_data[0],
+        )
+        serializer = DevotionalPassageSerializer(passage)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=["post"])
     def provide_feedback(self, request, pk=None):
@@ -1053,62 +1002,52 @@ class DashboardStatsView(APIView):
 
 class ThreadPromptPendingView(APIView):
     """
-    Get pending thread prompts for the current user.
+    Threads that are due a gentle check-in (at most two at a time).
     """
 
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        from django.utils import timezone
-
-        from shared.encryption import decrypt_field
-
-        user = request.user
         today = timezone.now().date()
 
-        # Get open threads that need follow-up
         threads = OpenThread.objects.filter(
-            user=user, status__in=["open", "following_up"]
-        ).select_related("source_reflection")
+            user=request.user, status__in=["open", "following_up"]
+        ).order_by("last_mentioned_at")
 
         prompts = []
         for thread in threads:
-            # Check if thread needs follow-up (at least 3 days old, not prompted today)
-            days_since = (today - thread.created_at.date()).days
-            if days_since < 3:
+            if not thread.needs_followup:
+                continue
+            if ThreadPrompt.objects.filter(
+                thread=thread, shown_at__date=today
+            ).exists():
                 continue
 
-            # Check if already prompted today
-            recent_prompt = ThreadPrompt.objects.filter(
-                thread=thread, created_at__date=today
-            ).exists()
-            if recent_prompt:
-                continue
-
-            # Decrypt summary
             try:
-                summary = decrypt_field(thread.encrypted_summary, user)
+                summary = thread.get_summary()
             except Exception:
+                logger.exception("Could not decrypt thread %s", thread.id)
                 summary = "A topic you mentioned earlier"
 
-            # Generate prompt text based on thread type
-            prompt_text = self._generate_prompt_text(thread.thread_type, days_since)
-
+            days_since = thread.days_since_mentioned
             prompts.append(
                 {
                     "id": str(thread.id),
                     "thread_id": str(thread.id),
                     "thread_type": thread.thread_type,
                     "summary": summary,
-                    "prompt_text": prompt_text,
+                    "prompt_text": self._generate_prompt_text(
+                        thread.thread_type, days_since
+                    ),
                     "life_area": thread.related_life_area,
                     "days_since": days_since,
                     "followup_count": thread.followup_count,
                 }
             )
+            if len(prompts) >= 2:
+                break
 
-        # Limit to 2 prompts per session
-        return Response(prompts[:2])
+        return Response(prompts)
 
     def _generate_prompt_text(self, thread_type: str, days_since: int) -> str:
         prompts = {
@@ -1126,85 +1065,54 @@ class ThreadPromptPendingView(APIView):
 
 class ThreadPromptRespondView(APIView):
     """
-    Respond to a thread prompt.
-    Supports both quick check-in format (better/same/worse/resolved) and legacy format.
+    Respond to a thread check-in.
+
+    Body: {"response": "better|same|worse|yes|no|resolved|skipped", "expanded_text": "..."}
+    The older {"action": "respond|resolved|skip"} form is still accepted.
     """
 
     permission_classes = [IsAuthenticated]
 
+    LEGACY_ACTIONS = {"respond": "same", "resolved": "resolved", "skip": "skipped"}
+    RESPONSES = {"better", "same", "worse", "yes", "no", "resolved", "skipped"}
+
     def post(self, request, thread_id):
-        from shared.encryption import encrypt_field
-
-        user = request.user
-        # Support both old format (action) and new format (response)
-        response_status = request.data.get("response")  # better, same, worse, resolved
-        expanded_text = request.data.get("expanded_text", "")
-        action = request.data.get("action")  # Legacy: respond, resolved, skip
-
         try:
-            thread = OpenThread.objects.get(id=thread_id, user=user)
+            thread = OpenThread.objects.get(id=thread_id, user=request.user)
         except OpenThread.DoesNotExist:
             return Response(
                 {"error": "Thread not found"}, status=status.HTTP_404_NOT_FOUND
             )
 
-        # Handle new format (response status)
-        if response_status in ["better", "same", "worse", "resolved"]:
-            # Create a thread prompt record with the response
-            ThreadPrompt.objects.create(
-                user=user,
-                thread=thread,
-                encrypted_prompt="Quick check-in",
-                encrypted_response=encrypt_field(
-                    (
-                        f"{response_status}: {expanded_text}"
-                        if expanded_text
-                        else response_status
-                    ),
-                    user,
-                ),
+        response_status = request.data.get("response")
+        expanded_text = request.data.get("expanded_text", "") or ""
+        action = request.data.get("action")
+
+        if action in self.LEGACY_ACTIONS and response_status not in self.RESPONSES:
+            if action == "respond" and isinstance(response_status, str):
+                expanded_text = expanded_text or response_status
+            response_status = self.LEGACY_ACTIONS[action]
+
+        if response_status not in self.RESPONSES:
+            raise AppError(
+                "“response” must be one of: better, same, worse, yes, no, resolved, skipped."
             )
+
+        prompt = ThreadPrompt.objects.create(
+            thread=thread,
+            prompt_text=ThreadPromptPendingView()._generate_prompt_text(
+                thread.thread_type, thread.days_since_mentioned
+            )[:200],
+        )
+        prompt.record_response(response_status, str(expanded_text)[:4000])
+
+        thread.refresh_from_db()
+        if response_status != "skipped":
             thread.followup_count += 1
             thread.last_followup_at = timezone.now()
-
-            if response_status == "resolved":
-                thread.status = "resolved"
-                thread.resolved_at = timezone.now()
-            elif response_status == "better":
-                thread.status = "progressing"
-            elif response_status in ["same", "worse"]:
+            if response_status in ("same", "worse", "yes", "no"):
                 thread.status = "following_up"
-
-            thread.save()
-            return Response({"status": "ok", "thread_status": thread.status})
-
-        # Handle legacy format (action)
-        if action == "respond":
-            response_text = request.data.get("response", "")
-            ThreadPrompt.objects.create(
-                user=user,
-                thread=thread,
-                encrypted_prompt="Follow-up prompt",
-                encrypted_response=(
-                    encrypt_field(response_text, user) if response_text else None
-                ),
-            )
-            thread.followup_count += 1
-            thread.status = "progressing"
-            thread.last_followup_at = timezone.now()
-            thread.save()
-
-        elif action == "resolved":
-            thread.status = "resolved"
-            thread.resolved_at = timezone.now()
-            thread.save()
-
-        elif action == "skip":
-            thread.skip_count += 1
-            thread.last_followup_at = timezone.now()
-            if thread.skip_count >= 3:
-                thread.status = "deferred"
-            thread.save()
+            thread.save(update_fields=["followup_count", "last_followup_at", "status"])
 
         return Response({"status": "ok", "thread_status": thread.status})
 
@@ -1602,3 +1510,46 @@ class ScriptureInsightView(APIView):
                 "insights": insights,
             }
         )
+
+
+def _review_to_dict(review) -> dict:
+    return {
+        "id": str(review.id),
+        "period_type": review.period_type,
+        "period_start": str(review.period_start),
+        "period_end": str(review.period_end),
+        "content": review.get_content(),
+        "provider": review.provider,
+        "model": review.model,
+        "created_at": review.created_at.isoformat(),
+    }
+
+
+class GrowthReviewListView(APIView):
+    """Stored weekly / monthly growth reviews, newest first."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        from shared.pagination import StandardPagination
+
+        from .models import GrowthReview
+
+        reviews = GrowthReview.objects.filter(user=request.user).select_related("user")
+        paginator = StandardPagination()
+        page = paginator.paginate_queryset(reviews, request, view=self)
+        return paginator.get_paginated_response([_review_to_dict(r) for r in page])
+
+
+class GrowthReviewGenerateView(APIView):
+    """Generate (or refresh) the review for the period ending today."""
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        from .reviews import generate_review
+
+        review = generate_review(
+            request.user, str(request.data.get("period_type", "week"))
+        )
+        return Response(_review_to_dict(review), status=status.HTTP_201_CREATED)

@@ -52,13 +52,17 @@ class JWTAuthentication(authentication.BaseAuthentication):
         except jwt.InvalidTokenError:
             raise exceptions.AuthenticationFailed("Invalid token")
 
+        # A refresh token (7 days) must not work as an access token (1 hour).
+        if payload.get("type") != "access":
+            raise exceptions.AuthenticationFailed("Invalid token type")
+
         jti = payload.get("jti")
         if jti and is_token_blacklisted(jti):
             raise exceptions.AuthenticationFailed("Token has been revoked")
 
         try:
-            user = User.objects.get(id=payload["user_id"])
-        except User.DoesNotExist:
+            user = User.objects.get(id=payload.get("user_id"))
+        except (User.DoesNotExist, ValueError, TypeError):
             raise exceptions.AuthenticationFailed("User not found")
 
         if not user.is_active:
@@ -119,9 +123,12 @@ def refresh_access_token(refresh_token: str) -> dict:
         raise exceptions.AuthenticationFailed("Refresh token has been revoked")
 
     try:
-        user = User.objects.get(id=payload["user_id"])
-    except User.DoesNotExist:
+        user = User.objects.get(id=payload.get("user_id"))
+    except (User.DoesNotExist, ValueError, TypeError):
         raise exceptions.AuthenticationFailed("User not found")
+
+    if not user.is_active:
+        raise exceptions.AuthenticationFailed("User is inactive")
 
     # Blacklist the old refresh token
     if old_jti:

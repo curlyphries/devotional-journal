@@ -1,9 +1,16 @@
 import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../context/AuthContext'
 import { updateProfile, testAIConnection } from '../api/auth'
-import { Save, User, Bot, Key, CheckCircle, XCircle, Loader2, Eye, EyeOff, Download, FileText } from 'lucide-react'
+import { Save, User, Bot, Key, CheckCircle, XCircle, Loader2, Eye, EyeOff, Download, FileText, ShieldCheck } from 'lucide-react'
 import client from '../api/client'
+import { setLanguage as applyLanguage } from '../i18n/language'
+import { ApiError, toApiError } from '../api/errors'
+import { AI_STATUS_QUERY_KEY, useAiStatus } from '../hooks/useAiStatus'
+import InlineError from '../components/InlineError'
+import { useToast } from '../components/Toast'
 
 const AI_PROVIDERS = [
   { value: 'none', label: 'None (Use System Default)', needsKey: false, needsUrl: false },
@@ -14,9 +21,31 @@ const AI_PROVIDERS = [
   { value: 'custom', label: 'Custom OpenAI-Compatible', needsKey: true, needsUrl: true, defaultModel: '' },
 ]
 
+/** First validation message the server sent for a field, if any. */
+function fieldMessage(details: ApiError['details'], field: string): string | null {
+  const value = details?.[field]
+  if (Array.isArray(value)) return value.map(String).join(' ') || null
+  if (typeof value === 'string') return value || null
+  return null
+}
+
+function FieldError({ id, message }: { id: string; message: string | null }) {
+  if (!message) return null
+  return (
+    <p id={id} role="alert" className="text-sm text-red-400 mt-1">
+      {message}
+    </p>
+  )
+}
+
 export default function SettingsPage() {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const { user, refreshUser } = useAuth()
+  const toast = useToast()
+  const queryClient = useQueryClient()
+  const location = useLocation()
+  const aiStatusQuery = useAiStatus()
+  const aiStatus = aiStatusQuery.data
 
   // Profile settings
   const [displayName, setDisplayName] = useState(user?.display_name || '')
@@ -33,7 +62,9 @@ export default function SettingsPage() {
   // Status
   const [isSaving, setIsSaving] = useState(false)
   const [isTesting, setIsTesting] = useState(false)
-  const [message, setMessage] = useState('')
+  const [saveError, setSaveError] = useState<ApiError | null>(null)
+  const [isSavingConsent, setIsSavingConsent] = useState(false)
+  const details = saveError?.details
   const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null)
 
   const selectedProvider = AI_PROVIDERS.find(p => p.value === aiProvider)
@@ -56,9 +87,29 @@ export default function SettingsPage() {
     }
   }, [aiProvider, selectedProvider, aiModel])
 
+  // Links such as /settings#ai-provider land on that section.
+  useEffect(() => {
+    if (!location.hash) return
+    document.getElementById(location.hash.slice(1))?.scrollIntoView?.({ block: 'start' })
+  }, [location.hash])
+
+  const handleConsentChange = async (allowed: boolean) => {
+    setIsSavingConsent(true)
+    try {
+      await updateProfile({ allow_server_cloud_ai: allowed })
+      await refreshUser()
+      await queryClient.invalidateQueries({ queryKey: AI_STATUS_QUERY_KEY })
+      toast.success(allowed ? t('settings.ai.consentOn') : t('settings.ai.consentOff'))
+    } catch (err) {
+      toast.fromError(err)
+    } finally {
+      setIsSavingConsent(false)
+    }
+  }
+
   const handleSave = async () => {
     setIsSaving(true)
-    setMessage('')
+    setSaveError(null)
 
     try {
       await updateProfile({
@@ -70,12 +121,15 @@ export default function SettingsPage() {
         ai_model: aiModel,
         ai_base_url: aiBaseUrl,
       })
-      i18n.changeLanguage(language === 'bilingual' ? 'en' : language)
+      // A single-language choice becomes this device's UI language; "bilingual" keeps the current one.
+      if (language !== 'bilingual') applyLanguage(language)
       await refreshUser()
-      setMessage('Settings saved successfully!')
+      void queryClient.invalidateQueries({ queryKey: AI_STATUS_QUERY_KEY })
+      toast.success(t('settings.saved'))
       setAiApiKey('') // Clear the key field after save
-    } catch {
-      setMessage('Failed to save settings.')
+    } catch (err) {
+      // Rendered next to the Save button, with per-field messages under the fields.
+      setSaveError(toApiError(err))
     } finally {
       setIsSaving(false)
     }
@@ -97,10 +151,10 @@ export default function SettingsPage() {
         message: result.success ? (result.message ?? '') : (result.error ?? '')
       })
     } catch (err: unknown) {
-      const apiErr = err as { response?: { data?: { error?: string } } }
+      const apiError = toApiError(err)
       setTestResult({
         success: false,
-        message: apiErr.response?.data?.error || 'Connection test failed'
+        message: [apiError.message, apiError.suggestion].filter(Boolean).join(' ')
       })
     } finally {
       setIsTesting(false)
@@ -138,7 +192,10 @@ export default function SettingsPage() {
               onChange={(e) => setDisplayName(e.target.value)}
               className="input w-full"
               placeholder="Your name"
+              aria-invalid={!!fieldMessage(details, 'display_name')}
+              aria-describedby="display-name-error"
             />
+            <FieldError id="display-name-error" message={fieldMessage(details, 'display_name')} />
           </div>
 
           <div>
@@ -172,12 +229,13 @@ export default function SettingsPage() {
               <option value="America/Mexico_City">Mexico City</option>
               <option value="UTC">UTC</option>
             </select>
+            <FieldError id="timezone-error" message={fieldMessage(details, 'timezone')} />
           </div>
         </div>
       </div>
 
       {/* AI Provider Settings */}
-      <div className="card">
+      <div className="card scroll-mt-4" id="ai-provider">
         <div className="flex items-center gap-3 mb-6 pb-4 border-b border-border">
           <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
             <Bot className="w-5 h-5 text-purple-400" />
@@ -187,6 +245,86 @@ export default function SettingsPage() {
             <p className="text-sm text-text-secondary">Connect your own AI for insights and summaries</p>
           </div>
         </div>
+
+        {/* AI & privacy: where the AI runs right now, and the one switch that sends text to a cloud. */}
+        <section aria-labelledby="ai-privacy-heading" className="mb-6 rounded-xl border border-border bg-bg-elevated p-4">
+          <h3 id="ai-privacy-heading" className="flex items-center gap-2 font-semibold text-text-primary">
+            <ShieldCheck className="w-5 h-5 text-accent-primary" aria-hidden="true" />
+            {t('settings.ai.heading')}
+          </h3>
+
+          <div className="mt-3 text-sm text-text-primary" aria-live="polite">
+            {aiStatusQuery.isLoading ? (
+              <p className="flex items-center gap-2 text-text-secondary">
+                <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
+                {t('settings.ai.checking')}
+              </p>
+            ) : aiStatusQuery.isError || !aiStatus ? (
+              <InlineError
+                error={aiStatusQuery.error}
+                title={t('settings.ai.statusFailed')}
+                onRetry={() => aiStatusQuery.refetch()}
+              />
+            ) : (
+              <>
+                <p>
+                  {aiStatus.local
+                    ? t('settings.ai.runsLocal', { backend: aiStatus.backend })
+                    : aiStatus.source === 'user'
+                      ? t('settings.ai.runsCloudUser', { backend: aiStatus.backend })
+                      : t('settings.ai.runsCloudServer', { backend: aiStatus.backend })}
+                  {aiStatus.model ? ` ${t('settings.ai.model', { model: aiStatus.model })}` : ''}
+                </p>
+                <p className="mt-1 text-text-secondary">
+                  {aiStatus.source === 'user' ? t('settings.ai.sourceUser') : t('settings.ai.sourceServer')}
+                </p>
+                {(!aiStatus.configured || !aiStatus.reachable || aiStatus.consent_required) && (
+                  <p className="mt-2 text-text-primary" role="status">
+                    {aiStatus.consent_required
+                      ? t('errors.ai.consentRequired')
+                      : !aiStatus.configured
+                        ? t('errors.ai.notConfigured')
+                        : t('errors.ai.unreachable', { backend: aiStatus.backend })}
+                    {aiStatus.suggestion ? ` ${aiStatus.suggestion}` : ''}
+                  </p>
+                )}
+              </>
+            )}
+          </div>
+
+          <label className="mt-4 flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              className="mt-1 h-4 w-4 shrink-0 accent-accent-primary"
+              checked={!!user?.allow_server_cloud_ai}
+              disabled={isSavingConsent}
+              onChange={(e) => handleConsentChange(e.target.checked)}
+              aria-describedby="cloud-ai-consent-help"
+            />
+            <span className="text-sm">
+              <span className="font-medium text-text-primary">{t('settings.ai.consentLabel')}</span>
+              <span id="cloud-ai-consent-help" className="block text-text-secondary mt-1">
+                {t('settings.ai.consentHelp', {
+                  provider:
+                    aiStatus && aiStatus.source === 'server' && !aiStatus.local
+                      ? aiStatus.backend
+                      : t('settings.ai.genericCloudProvider'),
+                })}
+              </span>
+            </span>
+          </label>
+
+          <p className="mt-4 text-sm text-text-secondary">
+            {t('settings.ai.auditIntro')}{' '}
+            <Link to="/audit" className="text-accent-primary hover:underline">
+              {t('settings.ai.auditLink')}
+            </Link>
+            {' · '}
+            <Link to="/help" className="text-accent-primary hover:underline">
+              {t('settings.ai.helpLink')}
+            </Link>
+          </p>
+        </section>
 
         <div className="space-y-6">
           <div>
@@ -235,6 +373,7 @@ export default function SettingsPage() {
                   {showApiKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
+              <FieldError id="ai-api-key-error" message={fieldMessage(details, 'ai_api_key')} />
               <p className="text-xs text-text-secondary mt-1">
                 Your API key is stored securely and never shared.
               </p>
@@ -252,7 +391,10 @@ export default function SettingsPage() {
                 onChange={(e) => setAiBaseUrl(e.target.value)}
                 className="input w-full"
                 placeholder={aiProvider === 'ollama' ? 'http://localhost:11434' : 'https://api.example.com/v1'}
+                aria-invalid={!!fieldMessage(details, 'ai_base_url')}
+                aria-describedby="ai-base-url-error"
               />
+              <FieldError id="ai-base-url-error" message={fieldMessage(details, 'ai_base_url')} />
             </div>
           )}
 
@@ -268,6 +410,7 @@ export default function SettingsPage() {
                 className="input w-full"
                 placeholder={selectedProvider?.defaultModel || 'Model name'}
               />
+              <FieldError id="ai-model-error" message={fieldMessage(details, 'ai_model')} />
               <p className="text-xs text-text-secondary mt-1">
                 {aiProvider === 'openai' && 'e.g., gpt-4o, gpt-4o-mini, gpt-3.5-turbo'}
                 {aiProvider === 'anthropic' && 'e.g., claude-3-opus-20240229, claude-3-sonnet-20240229'}
@@ -321,14 +464,8 @@ export default function SettingsPage() {
 
       {/* Save Button */}
       <div className="card">
-        {message && (
-          <p
-            className={`text-sm mb-4 ${
-              message.includes('success') ? 'text-success' : 'text-danger'
-            }`}
-          >
-            {message}
-          </p>
+        {saveError && (
+          <InlineError error={saveError} title={t('settings.saveFailed')} className="mb-4" />
         )}
 
         <button
@@ -400,11 +537,13 @@ function ExportButton({
   icon: React.ReactNode
 }) {
   const [isDownloading, setIsDownloading] = useState(false)
+  const toast = useToast()
+  const { t } = useTranslation()
 
   const handleDownload = async () => {
     setIsDownloading(true)
     try {
-      const response = await client.get(endpoint, { responseType: 'blob' })
+      const response = await client.get(endpoint, { responseType: 'blob', timeout: 120_000 })
       const url = window.URL.createObjectURL(new Blob([response.data]))
       const a = document.createElement('a')
       a.href = url
@@ -413,8 +552,8 @@ function ExportButton({
       a.click()
       a.remove()
       window.URL.revokeObjectURL(url)
-    } catch {
-      alert('Export failed. Please try again.')
+    } catch (err) {
+      toast.fromError(err, t('settings.exportFailed'))
     } finally {
       setIsDownloading(false)
     }

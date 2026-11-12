@@ -1,0 +1,104 @@
+# Private instance: https://journal.curlyphries.space — reachable only from the
+# mesh network (e.g. a Tailscale tailnet), AI on the local network only.
+#
+# Self-contained: its own Postgres and Redis, nothing shared with the public
+# deployment (docker-compose.prod.yml). Nothing here is published on a public
+# interface: the frontend listens on 127.0.0.1 and the host proxy in
+# deploy/mesh/ exposes it on the mesh address only.
+#
+#   cp .env.mesh.example .env.mesh   # fill it in
+#   docker compose -p dj-mesh -f docker-compose.mesh.yml up -d --build
+#
+# Full walkthrough: docs/MESH_DEPLOYMENT.md
+
+x-backend: &backend
+  build:
+    context: ./backend
+    dockerfile: Dockerfile
+  restart: unless-stopped
+  env_file:
+    - .env.mesh
+  environment:
+    DJANGO_SETTINGS_MODULE: config.settings.prod
+    DATABASE_URL: postgres://devotional:${MESH_POSTGRES_PASSWORD:?set MESH_POSTGRES_PASSWORD in .env.mesh}@mesh-db:5432/devotional
+    REDIS_URL: redis://mesh-redis:6379/1
+    CELERY_BROKER_URL: redis://mesh-redis:6379/0
+    CELERY_RESULT_BACKEND: redis://mesh-redis:6379/0
+    # The locks that make this instance private. Set here, not in .env.mesh,
+    # so they cannot be dropped by an incomplete env file.
+    MESH_ONLY: "true"
+    AI_LOCAL_ONLY: "true"
+    AI_ALLOW_PRIVATE_URLS: "true"
+    NUM_PROXIES: "2"
+    SECURE_SSL_REDIRECT: "false"
+  extra_hosts:
+    - "host.docker.internal:host-gateway"
+  depends_on:
+    mesh-db:
+      condition: service_healthy
+    mesh-redis:
+      condition: service_healthy
+
+services:
+  mesh-db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: devotional
+      POSTGRES_USER: devotional
+      POSTGRES_PASSWORD: ${MESH_POSTGRES_PASSWORD:?set MESH_POSTGRES_PASSWORD in .env.mesh}
+    volumes:
+      - mesh_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U devotional"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mesh-redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mesh-backend:
+    <<: *backend
+    command: >
+      sh -c "python manage.py migrate --noinput &&
+             python manage.py seed_life_areas &&
+             gunicorn --bind 0.0.0.0:8000 --workers 3 --timeout 180 config.wsgi:application"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/', timeout=4).status == 200 else 1)"]
+      interval: 30s
+      timeout: 6s
+      retries: 5
+      start_period: 40s
+
+  mesh-celery:
+    <<: *backend
+    command: celery -A config worker -l info --concurrency 2
+
+  mesh-celery-beat:
+    <<: *backend
+    command: celery -A config beat -l info
+
+  mesh-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_BASE_PATH=/
+        - VITE_API_URL=/api/v1
+        - NGINX_CONF=nginx.mesh.conf
+    restart: unless-stopped
+    ports:
+      # Loopback only. The host proxy (deploy/mesh/) puts it on the mesh address.
+      - "127.0.0.1:${MESH_FRONTEND_PORT:-3011}:80"
+    depends_on:
+      - mesh-backend
+
+volumes:
+  mesh_postgres:

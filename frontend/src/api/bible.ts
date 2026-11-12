@@ -142,7 +142,10 @@ export function parsePassageReference(ref: string): {
   verseEnd?: number
 } | null {
   // Handle formats: "Genesis 3:1-19", "NEH 1", "Psalm 23", "1 Samuel 15:17-23"
-  const match = ref.match(/^(\d?\s*[A-Za-z]+)\s*(\d+)(?::(\d+)(?:-(\d+))?)?$/)
+  // Book names may be several words ("Song of Solomon", "1 Samuel").
+  const match = ref
+    .trim()
+    .match(/^(\d?\s*[A-Za-z]+(?:\s+[A-Za-z]+)*)\s*(\d+)(?::(\d+)(?:\s*[-–]\s*(\d+))?)?$/)
   if (!match) return null
   
   return {

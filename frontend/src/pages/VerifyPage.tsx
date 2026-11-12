@@ -23,7 +23,7 @@ export default function VerifyPage() {
     const verify = async () => {
       try {
         const tokens = await verifyMagicLink(token)
-        login(tokens.access_token, tokens.refresh_token)
+        await login(tokens.access_token, tokens.refresh_token)
         navigate('/')
       } catch {
         setError('Verification failed. The link may have expired.')

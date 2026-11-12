@@ -2,7 +2,7 @@
 
 Devotional Journal is open-source software. This document describes how the **reference deployment and self-hosted instances** handle user data. If you use a fork or a third-party hosted instance, the operator of that instance is responsible for their own privacy policy.
 
-> **TL;DR.** Your journal is encrypted with a key only you can produce. We don't run analytics by default. You can export everything. You can delete everything. If you self-host with Ollama, your reflections never leave your network.
+> **TL;DR.** Your journal is encrypted at rest with a per-user key derived from a secret held by the server operator: a stolen database or backup alone cannot be read, but the operator of the server can decrypt it. It is not end-to-end encryption. We don't run analytics by default. You can export everything. You can delete everything. If you self-host with Ollama, your reflections never leave your network.
 
 ---
 
@@ -24,7 +24,7 @@ Devotional Journal is open-source software. This document describes how the **re
 
 ### Automatically collected (operational)
 
-- **Server logs** — minimal request logs (path, method, status, duration). No request bodies. No journal text.
+- **Server logs** — request ids, error codes, AI provider/model and timing. No request bodies, no journal text, no model output. Sign-in links are logged only on instances with no mail server configured, or where the operator sets `MAGIC_LINK_LOG=true`.
 - **Error logs** — Django exception traces. Configured to **not** include request body or user-provided content.
 
 ### What we do NOT collect
@@ -44,7 +44,10 @@ If a self-host operator chooses to add analytics (PostHog and Plausible are the 
 | Data                             | Storage                            | Encrypted?         |
 |----------------------------------|------------------------------------|--------------------|
 | Journal entry body               | PostgreSQL                         | ✅ Per-user AES    |
-| Journal mood notes               | PostgreSQL                         | ✅ Per-user AES    |
+| Journal feedback: themes, reflection, reasons, audit candidates | PostgreSQL            | ✅ Per-user AES    |
+| Growth reviews, thread summaries, daily reflection notes, focus text | PostgreSQL        | ✅ Per-user AES    |
+| Scripture reference + verse text shown with feedback; AI provider/model used | PostgreSQL | ❌ Plaintext (public text / metadata) |
+| Speak Your Mind input and results, journey goals, study-guide notes, AI insights on reflections | PostgreSQL | ❌ Plaintext |
 | BYOAI API key                    | PostgreSQL                         | ✅ At rest         |
 | Email, display name, settings    | PostgreSQL                         | ❌ Plaintext       |
 | Reading-plan progress, streaks   | PostgreSQL                         | ❌ Plaintext       |
@@ -57,10 +60,16 @@ If a self-host operator chooses to add analytics (PostHog and Plausible are the 
 
 ## What gets sent to AI providers
 
-When you trigger an AI feature (Speak Your Mind, plan generation, deep dive, thread detection), the relevant prompt is sent to the AI provider you configured:
+Every AI feature goes through one code path (`backend/shared/llm.py`) that decides where a prompt may go:
+
+1. **Your own provider**, if you set one in Settings → AI Provider.
+2. Otherwise **the server's default**. If that default is a cloud service, nothing is sent until you turn on the consent switch in Settings — until then AI features answer `AI_CONSENT_REQUIRED`.
+3. If the operator set `AI_LOCAL_ONLY`, cloud providers are refused for everyone.
 
 - **Ollama (local):** stays on the network where Ollama runs
 - **Anthropic / OpenAI / OpenRouter:** sent to their public API
+
+Settings shows which of these applies to you right now, and every piece of journal feedback records the provider and model that produced it (see the Audit log).
 
 What is sent depends on the feature:
 
@@ -69,7 +78,10 @@ What is sent depends on the feature:
 | Speak Your Mind          | The text you type in the prompt box                                     |
 | AI plan generation       | Your topic, duration, and language preference                           |
 | Deep-dive study guide    | The journal entry text you select (decrypted in memory, sent in prompt) |
-| Open-thread detection    | Recent journal/reflection text (decrypted in memory, sent in prompt)    |
+| Journal feedback         | The entry (first 4,000 characters), its mood, your current focus, themes and passage references from recent entries, and summaries of open threads. See [docs/HOW_FEEDBACK_WORKS.md](docs/HOW_FEEDBACK_WORKS.md) |
+| Growth review            | Excerpts of that period's entries and check-in notes, themes, thread summaries |
+| Scripture lookup         | Not an AI call. Only the reference (book, chapter) goes to `bolls.life`, and nothing at all if a translation is loaded locally |
+| Voice entry              | Not handled by this app's server. Chrome, Edge and Safari transcribe speech with the browser vendor's speech service; the app receives only the resulting text |
 | Reading-plan reflection  | The day's scripture passage and themes (no journal text)                |
 
 If you do not want any of your reflections to leave your network, configure **Ollama** as your provider (Settings → AI Provider).

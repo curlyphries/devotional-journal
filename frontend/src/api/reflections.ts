@@ -1,4 +1,11 @@
-import client from './client'
+import client, { AI_TIMEOUT_MS } from './client'
+import { unwrapList } from './pagination'
+
+/** GET a list endpoint and hand back a bare array whether or not the server paginates it. */
+const getList = <T>(url: string) =>
+  client.get<unknown>(url).then((res) => ({ ...res, data: unwrapList<T>(res.data) }))
+
+const aiRequest = { timeout: AI_TIMEOUT_MS }
 
 // Types
 export interface LifeArea {
@@ -115,13 +122,13 @@ export interface CrewHealth {
 
 // Life Areas API
 export const lifeAreasApi = {
-  list: () => client.get<LifeArea[]>('/life-areas/'),
+  list: () => getList<LifeArea>('/life-areas/'),
   get: (code: string) => client.get<LifeArea>(`/life-areas/${code}/`),
 }
 
 // Journeys API
 export const journeysApi = {
-  list: () => client.get<UserJourney[]>('/journeys/'),
+  list: () => getList<UserJourney>('/journeys/'),
   get: (id: string) => client.get<UserJourney>(`/journeys/${id}/`),
   create: (data: CreateJourneyData) => client.post<UserJourney>('/journeys/', data),
   getActive: () => client.get<UserJourney>('/journeys/active/'),
@@ -133,32 +140,32 @@ export const journeysApi = {
 
 // Reflections API
 export const reflectionsApi = {
-  list: () => client.get<DailyReflection[]>('/reflections/'),
+  list: () => getList<DailyReflection>('/reflections/'),
   get: (id: string) => client.get<DailyReflection>(`/reflections/${id}/`),
-  create: (data: CreateReflectionData) => client.post<DailyReflection>('/reflections/', data),
+  create: (data: CreateReflectionData) => client.post<DailyReflection>('/reflections/', data, aiRequest),
   update: (id: string, data: Partial<CreateReflectionData>) => 
     client.patch<DailyReflection>(`/reflections/${id}/`, data),
   getToday: () => client.get<TodayContext>('/reflections/today/'),
   getByDate: (date: string) => client.get<DailyReflection>(`/reflections/by-date/${date}/`),
   generateInsight: (id: string) => 
-    client.post<{ insight: string; provider: string }>(`/reflections/${id}/generate_insight/`),
+    client.post<{ insight: string; provider: string }>(`/reflections/${id}/generate_insight/`, undefined, aiRequest),
 }
 
 // Trends API
 export const trendsApi = {
-  list: () => client.get<AlignmentTrend[]>('/trends/'),
-  getWeekly: () => client.get<AlignmentTrend[]>('/trends/weekly/'),
-  getMonthly: () => client.get<AlignmentTrend[]>('/trends/monthly/'),
-  getByArea: (areaCode: string) => client.get<AlignmentTrend[]>(`/trends/by-area/${areaCode}/`),
+  list: () => getList<AlignmentTrend>('/trends/'),
+  getWeekly: () => getList<AlignmentTrend>('/trends/weekly/'),
+  getMonthly: () => getList<AlignmentTrend>('/trends/monthly/'),
+  getByArea: (areaCode: string) => getList<AlignmentTrend>(`/trends/by-area/${areaCode}/`),
 }
 
 // Threads API
 export const threadsApi = {
-  list: () => client.get<OpenThread[]>('/threads/'),
+  list: () => getList<OpenThread>('/threads/'),
   get: (id: string) => client.get<OpenThread>(`/threads/${id}/`),
   create: (data: { thread_type: string; summary: string; related_life_area?: string }) =>
     client.post<OpenThread>('/threads/', data),
-  getActive: () => client.get<OpenThread[]>('/threads/active/'),
+  getActive: () => getList<OpenThread>('/threads/active/'),
   getNeedingFollowup: () => client.get<{ prompts: ThreadPrompt[] }>('/threads/needing_followup/'),
   getStats: () => client.get<Record<string, number>>('/threads/stats/'),
   resolve: (id: string, resolution_note?: string) =>
@@ -173,12 +180,12 @@ export const threadsApi = {
 // AI Crew API
 export const crewApi = {
   health: () => client.get<CrewHealth>('/crew/health/'),
-  weeklyReview: () => client.post<{ review: string; type: string; provider: string }>('/crew/weekly-review/'),
-  monthlyRecap: () => client.post<{ recap: string; type: string; provider: string }>('/crew/monthly-recap/'),
+  weeklyReview: () => client.post<{ review: string; type: string; provider: string }>('/crew/weekly-review/', undefined, aiRequest),
+  monthlyRecap: () => client.post<{ recap: string; type: string; provider: string }>('/crew/monthly-recap/', undefined, aiRequest),
   askAgent: (agent: string, prompt: string, context?: Record<string, unknown>) =>
     client.post<{ response: string; agent: string; provider: string }>('/crew/ask-agent/', {
       agent,
       prompt,
       context,
-    }),
+    }, aiRequest),
 }

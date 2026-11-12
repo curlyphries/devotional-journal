@@ -89,7 +89,12 @@ def get_chapter(translation: str, book: str, chapter: int) -> Optional[list]:
     if cached:
         return cached
 
-    url = f"{BOLLS_API_BASE}/{translation}/{book}/{chapter}/"
+    # Bolls addresses books by number (1-66). Accept codes and names too.
+    from .books import find_book
+
+    resolved = find_book(book)
+    book_ref = resolved.number if resolved else book
+    url = f"{BOLLS_API_BASE}/{translation}/{book_ref}/{chapter}/"
 
     try:
         response = requests.get(url, timeout=10)

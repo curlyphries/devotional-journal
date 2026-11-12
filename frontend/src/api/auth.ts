@@ -1,4 +1,4 @@
-import client from './client'
+import client, { clearTokens } from './client'
 
 export interface User {
   id: string
@@ -10,6 +10,8 @@ export interface User {
   ai_api_key_set?: boolean
   ai_model?: string
   ai_base_url?: string
+  /** Lets the server's default cloud AI read journal text when the user has no provider of their own. */
+  allow_server_cloud_ai?: boolean
   created_at: string
   last_active_at: string | null
 }
@@ -63,7 +65,11 @@ export const testAIConnection = async (data: {
 
 export const logout = async (): Promise<void> => {
   const refreshToken = localStorage.getItem('refresh_token')
-  await client.post('/auth/logout/', { refresh_token: refreshToken })
-  localStorage.removeItem('access_token')
-  localStorage.removeItem('refresh_token')
+  try {
+    // Best effort: the server-side token is revoked when reachable.
+    if (refreshToken) await client.post('/auth/logout/', { refresh_token: refreshToken })
+  } finally {
+    // Signing out must always work locally, even offline or with an expired session.
+    clearTokens()
+  }
 }

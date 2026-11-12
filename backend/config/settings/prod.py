@@ -54,49 +54,15 @@ if _script_name:
     FORCE_SCRIPT_NAME = _script_name
 
 # Static files
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+    },
+}
 
 # Security headers
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
-
-# Logging — structured output to stdout for Docker log capture
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "[{asctime}] {levelname} {name} {message}",
-            "style": "{",
-        },
-    },
-    "handlers": {
-        "console": {
-            "class": "logging.StreamHandler",
-            "formatter": "verbose",
-        },
-    },
-    "root": {
-        "handlers": ["console"],
-        "level": "INFO",
-    },
-    "loggers": {
-        "django": {
-            "handlers": ["console"],
-            "level": "WARNING",
-            "propagate": False,
-        },
-        "django.request": {
-            "handlers": ["console"],
-            "level": "ERROR",
-            "propagate": False,
-        },
-        "apps": {
-            "handlers": ["console"],
-            "level": "INFO",
-            "propagate": False,
-        },
-    },
-}
 
 # Sentry
 if _sentry_available and os.environ.get("SENTRY_DSN"):
@@ -105,7 +71,16 @@ if _sentry_available and os.environ.get("SENTRY_DSN"):
         integrations=[DjangoIntegration()],
         traces_sample_rate=0.1,
         send_default_pii=False,
+        # Stack-frame locals and request bodies can hold decrypted journal
+        # text and API keys. Never ship them off the server.
+        include_local_variables=False,
+        max_request_body_size="never",
     )
+
+# Secrets are required in production: a missing SECRET_KEY would otherwise fall
+# back to a publicly known value and make every session token forgeable.
+if not os.environ.get("SECRET_KEY"):
+    raise ValueError("SECRET_KEY must be set in production")
 
 # Encryption key is required in production
 if not ENCRYPTION_ROOT_KEY:

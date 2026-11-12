@@ -11,10 +11,24 @@ export interface ReadingPlan {
   is_owned: boolean
 }
 
+/** A passage as stored on a plan day: a reference string, or a structured reference. */
+export type PlanPassage = string | { book: string; chapter: number; verses?: string }
+
 export interface ReadingPlanDay {
+  /** Present on plan detail; today's-reading responses may omit it. */
+  id?: string
   day_number: number
-  passages: string[]
+  passages: PlanPassage[]
   theme: string
+  /** Present on plan detail only. */
+  reflection_prompts_seed?: string | null
+}
+
+/** Human-readable reference for a plan passage, e.g. "Psalm 23:1-6". */
+export function formatPlanPassage(passage: PlanPassage): string {
+  if (typeof passage === 'string') return passage
+  const verses = passage.verses ? `:${passage.verses}` : ''
+  return `${passage.book || ''} ${passage.chapter || ''}${verses}`.trim()
 }
 
 export interface ReadingPlanDetail extends ReadingPlan {

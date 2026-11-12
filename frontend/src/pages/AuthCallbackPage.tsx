@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { Flame, Loader2 } from 'lucide-react'
@@ -9,7 +9,12 @@ export default function AuthCallbackPage() {
   const [searchParams] = useSearchParams()
   const { login } = useAuth()
 
+  // An OAuth code is single-use: never exchange it twice (StrictMode, re-renders).
+  const exchanged = useRef(false)
+
   useEffect(() => {
+    if (exchanged.current) return
+    exchanged.current = true
     const code = searchParams.get('code')
 
     if (!code) {
@@ -18,9 +23,9 @@ export default function AuthCallbackPage() {
     }
 
     apiClient.post('/auth/google/exchange/', { code })
-      .then((res) => {
+      .then(async (res) => {
         const { access_token, refresh_token, new_user } = res.data
-        login(access_token, refresh_token)
+        await login(access_token, refresh_token)
         if (new_user) {
           navigate('/settings', { replace: true })
         } else {

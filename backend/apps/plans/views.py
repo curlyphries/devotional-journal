@@ -19,6 +19,20 @@ from .serializers import (
 )
 
 
+def _int_param(value, name: str, default=None) -> int:
+    """Parse an integer request value, or answer 400 instead of crashing."""
+    from shared.errors import AppError
+
+    if value in (None, ""):
+        if default is None:
+            raise AppError(f"“{name}” is required.")
+        return default
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        raise AppError(f"“{name}” must be a whole number.")
+
+
 class PlanGenerateThrottle(UserRateThrottle):
     scope = "plan_generate"
     rate = "10/hour"
@@ -77,7 +91,12 @@ class EnrollView(APIView):
 
     def post(self, request, plan_id):
         try:
-            plan = ReadingPlan.objects.get(id=plan_id, is_active=True)
+            # Only public plans or the person's own private plans.
+            plan = ReadingPlan.objects.get(
+                Q(is_public=True) | Q(created_by=request.user),
+                id=plan_id,
+                is_active=True,
+            )
         except ReadingPlan.DoesNotExist:
             return Response(
                 {"error": "Plan not found"}, status=status.HTTP_404_NOT_FOUND
@@ -222,7 +241,9 @@ class PlanGenerateView(APIView):
                 {"error": "topic is required"}, status=status.HTTP_400_BAD_REQUEST
             )
 
-        duration_days = int(request.data.get("duration_days", 7))
+        duration_days = _int_param(
+            request.data.get("duration_days"), "duration_days", 7
+        )
         if duration_days < 3 or duration_days > 90:
             return Response(
                 {"error": "duration_days must be between 3 and 90"},
@@ -329,7 +350,9 @@ class PlanSaveView(APIView):
                 {"error": "days is required"}, status=status.HTTP_400_BAD_REQUEST
             )
 
-        duration_days = int(request.data.get("duration_days", len(days_data)))
+        duration_days = _int_param(
+            request.data.get("duration_days"), "duration_days", len(days_data)
+        )
         category = request.data.get("category", "general")
         is_public = bool(request.data.get("is_public", False))
         if is_public and not request.user.is_staff:

@@ -64,6 +64,7 @@ export function useCreateFocusIntention() {
 export function usePassageDeepDive() {
   return useMutation<StudyGuide, Error, { id: string; context?: string }>({
     mutationFn: ({ id, context }) => generatePassageDeepDive(id, context),
+    meta: { silent: true }, // the page renders the error next to the study guide
   })
 }
 

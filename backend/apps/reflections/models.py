@@ -520,7 +520,11 @@ class ThreadPrompt(models.Model):
         OpenThread, on_delete=models.CASCADE, related_name="prompts"
     )
     reflection = models.ForeignKey(
-        DailyReflection, on_delete=models.CASCADE, related_name="thread_prompts"
+        DailyReflection,
+        on_delete=models.CASCADE,
+        related_name="thread_prompts",
+        null=True,
+        blank=True,
     )
 
     prompt_text = models.CharField(max_length=200)
@@ -682,8 +686,13 @@ class DevotionalPassage(models.Model):
     """
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    # Null for passages generated on demand (not part of a focus period).
     focus_intention = models.ForeignKey(
-        FocusIntention, on_delete=models.CASCADE, related_name="passages"
+        FocusIntention,
+        on_delete=models.CASCADE,
+        related_name="passages",
+        null=True,
+        blank=True,
     )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -696,7 +705,7 @@ class DevotionalPassage(models.Model):
 
     scripture_reference = models.CharField(max_length=200)
     scripture_text = models.TextField()
-    translation = models.CharField(max_length=20, default="NIV")
+    translation = models.CharField(max_length=20, default="WEB")
 
     stylized_quote = models.TextField(help_text="Formatted quote for display")
     context_note = models.TextField(blank=True, help_text="Historical/cultural context")
@@ -1035,3 +1044,42 @@ class ScriptureInsight(models.Model):
         """Increment access count when insight is retrieved from cache."""
         self.access_count += 1
         self.save(update_fields=["access_count", "accessed_at"])
+
+
+class GrowthReview(models.Model):
+    """A stored weekly or monthly look-back generated from the person's entries."""
+
+    PERIOD_CHOICES = [("week", "Week"), ("month", "Month")]
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="growth_reviews",
+    )
+    period_type = models.CharField(max_length=10, choices=PERIOD_CHOICES)
+    period_start = models.DateField()
+    period_end = models.DateField()
+    encrypted_content = models.BinaryField()
+    provider = models.CharField(max_length=30, blank=True)
+    model = models.CharField(max_length=100, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "growth_reviews"
+        ordering = ["-period_end", "-created_at"]
+        unique_together = ["user", "period_type", "period_start"]
+
+    def __str__(self):
+        return f"GrowthReview({self.period_type} {self.period_start})"
+
+    def set_content(self, content: str):
+        self.encrypted_content = encrypt_content(content, self.user.encryption_key_salt)
+
+    def get_content(self) -> str:
+        if not self.encrypted_content:
+            return ""
+        return decrypt_content(
+            bytes(self.encrypted_content), self.user.encryption_key_salt
+        )

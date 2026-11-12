@@ -197,90 +197,58 @@ def compute_monthly_trends():
     }
 
 
+def _generate_reviews(period_type: str) -> dict:
+    """Generate and store a review for everyone who journaled in the period."""
+    from django.contrib.auth import get_user_model
+
+    from apps.journal.models import JournalEntry
+    from shared.errors import AppError
+
+    from .reviews import PERIOD_DAYS, generate_review
+
+    since = date.today() - timedelta(days=PERIOD_DAYS[period_type] - 1)
+    user_ids = (
+        JournalEntry.objects.filter(date__gte=since)
+        .values_list("user_id", flat=True)
+        .distinct()
+    )
+    generated = skipped = errors = 0
+    for user in get_user_model().objects.filter(id__in=list(user_ids), is_active=True):
+        try:
+            generate_review(user, period_type)
+            generated += 1
+        except AppError as exc:
+            # Expected: AI not available / not allowed for this person. The
+            # code says why; the person can generate it on demand later.
+            logger.info(
+                "Skipped %s review for user %s: %s", period_type, user.id, exc.code
+            )
+            skipped += 1
+        except Exception:
+            logger.exception(
+                "Failed to generate %s review for user %s", period_type, user.id
+            )
+            errors += 1
+    logger.info(
+        "%s reviews complete. Generated: %d, skipped: %d, errors: %d",
+        period_type,
+        generated,
+        skipped,
+        errors,
+    )
+    return {"reviews_generated": generated, "skipped": skipped, "errors": errors}
+
+
 @shared_task(name="reflections.generate_weekly_reviews")
 def generate_weekly_reviews():
-    """
-    Generate weekly reviews for all active users.
-    Runs every Sunday evening.
-    """
-    from .crew import get_crew
-    from .models import UserJourney
-
-    logger.info("Starting weekly review generation")
-
-    # Get users with active journeys
-    active_journeys = UserJourney.objects.filter(status="active").select_related("user")
-
-    reviews_generated = 0
-    errors = 0
-
-    for journey in active_journeys:
-        user = journey.user
-
-        try:
-            crew = get_crew(user)
-            review = crew.generate_weekly_review(user)
-
-            if review:
-                # Store the review (could be in a new model or notification)
-                # For now, we'll log it and could send as notification
-                logger.info(f"Generated weekly review for user {user.id}")
-                reviews_generated += 1
-
-                # TODO: Send notification or store in WeeklyReview model
-                # notification_service.send_weekly_review(user, review)
-            else:
-                logger.warning(f"Empty weekly review for user {user.id}")
-
-        except Exception as e:
-            logger.error(f"Failed to generate weekly review for user {user.id}: {e}")
-            errors += 1
-
-    logger.info(
-        f"Weekly review generation complete. Generated: {reviews_generated}, Errors: {errors}"
-    )
-    return {"reviews_generated": reviews_generated, "errors": errors}
+    """Generate and store weekly growth reviews. Runs every Sunday evening."""
+    return _generate_reviews("week")
 
 
 @shared_task(name="reflections.generate_monthly_recaps")
 def generate_monthly_recaps():
-    """
-    Generate monthly recaps for all active users.
-    Runs on the 1st of each month.
-    """
-    from .crew import get_crew
-    from .models import UserJourney
-
-    logger.info("Starting monthly recap generation")
-
-    active_journeys = UserJourney.objects.filter(status="active").select_related("user")
-
-    recaps_generated = 0
-    errors = 0
-
-    for journey in active_journeys:
-        user = journey.user
-
-        try:
-            crew = get_crew(user)
-            recap = crew.generate_monthly_recap(user)
-
-            if recap:
-                logger.info(f"Generated monthly recap for user {user.id}")
-                recaps_generated += 1
-
-                # TODO: Send notification or store in MonthlyRecap model
-            else:
-                logger.warning(f"Empty monthly recap for user {user.id}")
-
-        except Exception as e:
-            logger.error(f"Failed to generate monthly recap for user {user.id}: {e}")
-            errors += 1
-
-    logger.info(
-        f"Monthly recap generation complete. Generated: {recaps_generated}, Errors: {errors}"
-    )
-    return {"recaps_generated": recaps_generated, "errors": errors}
+    """Generate and store monthly growth reviews. Runs on the 1st of each month."""
+    return _generate_reviews("month")
 
 
 @shared_task(name="reflections.process_thread_followups")
@@ -450,183 +418,140 @@ def health_check():
 @shared_task(name="reflections.generate_daily_devotionals")
 def generate_daily_devotionals():
     """
-    Generate daily devotionals for users who have opted in to daily generation.
-    Runs every morning at 5 AM.
+    Make sure every active focus intention has a passage for today.
+    Runs every morning at 5 AM. Uses each person's own AI provider settings;
+    the verse text comes from the Bible source, never from the model.
     """
+    from shared.errors import AppError
+
     from .crew.agents import DevotionalCurator
     from .models import DevotionalPassage, FocusIntention
+    from .serializers import create_devotional_passage
 
     logger.info("Starting daily devotional generation")
 
     today = date.today()
-
-    # Get all active focus intentions that need devotionals for today
     active_intentions = FocusIntention.objects.filter(
         status="active", period_start__lte=today, period_end__gte=today
     ).select_related("user")
 
-    devotionals_generated = 0
-    errors = 0
-
-    curator = DevotionalCurator()
+    devotionals_generated = skipped = errors = 0
 
     for intention in active_intentions:
-        # Check if devotional already exists for today
-        existing = DevotionalPassage.objects.filter(
-            focus_intention=intention, scheduled_date=today
-        ).exists()
-
-        if existing:
+        existing = DevotionalPassage.objects.filter(focus_intention=intention)
+        if existing.filter(scheduled_date=today).exists():
             continue
 
         try:
-            # Generate devotional for today
-            passages_data = curator.curate_passages(
+            passages_data = DevotionalCurator(user=intention.user).curate_passages(
                 intention=intention.get_intention(),
                 period_type="day",
                 themes=intention.themes,
                 num_passages=1,
+                avoid=list(existing.values_list("scripture_reference", flat=True)),
             )
+            if not passages_data:
+                skipped += 1
+                continue
 
-            if passages_data:
-                passage_data = passages_data[0]
-
-                # Find the next sequence number
-                last_passage = (
-                    DevotionalPassage.objects.filter(focus_intention=intention)
-                    .order_by("-sequence_number")
-                    .first()
-                )
-
-                next_sequence = (
-                    (last_passage.sequence_number + 1) if last_passage else 1
-                )
-
-                DevotionalPassage.objects.create(
-                    focus_intention=intention,
-                    user=intention.user,
-                    sequence_number=next_sequence,
-                    scheduled_date=today,
-                    scripture_reference=passage_data.get(
-                        "scripture_reference", "Unknown"
-                    ),
-                    scripture_text=passage_data.get("scripture_text", ""),
-                    translation=passage_data.get("translation", "NIV"),
-                    stylized_quote=passage_data.get("stylized_quote", ""),
-                    context_note=passage_data.get("context_note", ""),
-                    connection_to_focus=passage_data.get("connection_to_focus", ""),
-                    reflection_prompts=passage_data.get("reflection_prompts", []),
-                    application_suggestions=passage_data.get(
-                        "application_suggestions", []
-                    ),
-                )
-
-                devotionals_generated += 1
-                logger.info(f"Generated daily devotional for user {intention.user.id}")
-
-        except Exception as e:
-            logger.error(
-                f"Failed to generate daily devotional for user {intention.user.id}: {e}"
+            last = existing.order_by("-sequence_number").first()
+            create_devotional_passage(
+                user=intention.user,
+                focus_intention=intention,
+                sequence_number=(last.sequence_number + 1) if last else 1,
+                scheduled_date=today,
+                data=passages_data[0],
+            )
+            if not intention.passages_generated:
+                intention.passages_generated = True
+                intention.save(update_fields=["passages_generated"])
+            devotionals_generated += 1
+        except AppError as exc:
+            logger.info(
+                "Skipped daily devotional for user %s: %s", intention.user_id, exc.code
+            )
+            skipped += 1
+        except Exception:
+            logger.exception(
+                "Failed to generate daily devotional for user %s", intention.user_id
             )
             errors += 1
 
     logger.info(
-        f"Daily devotional generation complete. Generated: {devotionals_generated}, Errors: {errors}"
+        "Daily devotional generation complete. Generated: %d, skipped: %d, errors: %d",
+        devotionals_generated,
+        skipped,
+        errors,
     )
-    return {"devotionals_generated": devotionals_generated, "errors": errors}
+    return {
+        "devotionals_generated": devotionals_generated,
+        "skipped": skipped,
+        "errors": errors,
+    }
 
 
 @shared_task(name="reflections.audit_devotional_accuracy")
 def audit_devotional_accuracy():
     """
-    Audit the accuracy of generated devotionals by verifying scripture references.
-    Runs daily at 11 PM.
-    """
-    import re
+    Re-check yesterday's devotional passages against the Bible source.
 
-    from ..bible.text_verifier import verify_verse
+    Passage text is fetched from that source when the passage is created, so
+    this is a safety net: it flags any stored passage whose text no longer
+    matches (or whose reference cannot be found at all).
+    """
+    from difflib import SequenceMatcher
+
+    from apps.bible.lookup import fetch_reference
+
     from .models import DevotionalAudit, DevotionalPassage
 
     logger.info("Starting devotional accuracy audit")
 
-    # Get devotionals from the past day that haven't been audited
     yesterday = date.today() - timedelta(days=1)
     passages_to_audit = DevotionalPassage.objects.filter(
-        created_at__date=yesterday
-    ).exclude(
-        audit__isnull=False  # Exclude already audited passages
-    )[
-        :100
-    ]  # Limit to 100 per run
+        created_at__date=yesterday, audit__isnull=True
+    )[:100]
 
-    audited = 0
-    issues_found = 0
+    audited = issues_found = 0
 
     for passage in passages_to_audit:
         try:
-            # Create or get audit record
-            audit, created = DevotionalAudit.objects.get_or_create(
+            audit, _created = DevotionalAudit.objects.get_or_create(
                 devotional_passage=passage
             )
-
-            # Parse scripture reference (e.g., "John 3:16" or "Romans 8:28-30")
-            ref_pattern = r"(\w+)\s+(\d+):(\d+)(?:-(\d+))?"
-            match = re.match(ref_pattern, passage.scripture_reference)
-
-            if not match:
-                logger.warning(
-                    f"Could not parse reference: {passage.scripture_reference}"
-                )
-                audit.scripture_warnings = ["Could not parse scripture reference"]
-                audit.audit_status = "flagged"
-                audit.save()
-                continue
-
-            book = match.group(1)
-            chapter = int(match.group(2))
-            verse_start = int(match.group(3))
-
-            # Verify the scripture text
-            verification = verify_verse(
-                translation=passage.translation,
-                book=book,
-                chapter=chapter,
-                verse=verse_start,
-                text=passage.scripture_text,
+            source = fetch_reference(
+                passage.scripture_reference, [passage.translation, "WEB", "KJV"]
             )
-
-            # Update audit record with verification results
-            audit.scripture_accuracy_score = verification["overall_confidence"]
-            audit.scripture_warnings = verification["warnings"]
-
-            if not verification["overall_verified"]:
-                issues_found += 1
+            if source is None:
+                audit.scripture_accuracy_score = 0.0
+                audit.scripture_warnings = [
+                    "Reference could not be found in the Bible source"
+                ]
                 audit.audit_status = "flagged"
-                logger.warning(
-                    f"Accuracy issue in passage {passage.id}: "
-                    f"{passage.scripture_reference} - "
-                    f"Confidence: {verification['overall_confidence']}"
-                )
+                issues_found += 1
             else:
-                audit.audit_status = "verified"
-
-            # Calculate relevance score based on themes matching
-            if passage.focus_intention and passage.focus_intention.themes:
-                theme_words = set(
-                    " ".join(passage.focus_intention.themes).lower().split()
-                )
-                content_words = set(passage.connection_to_focus.lower().split())
-                if theme_words and content_words:
-                    relevance = len(theme_words & content_words) / len(theme_words)
-                    audit.relevance_score = min(1.0, relevance * 2)  # Scale up
-
+                score = SequenceMatcher(
+                    None, passage.scripture_text.strip(), source.text.strip()
+                ).ratio()
+                audit.scripture_accuracy_score = round(score, 4)
+                if source.translation == passage.translation and score < 0.98:
+                    audit.scripture_warnings = [
+                        f"Stored text differs from {source.translation} "
+                        f"({score * 100:.1f}% match)"
+                    ]
+                    audit.audit_status = "flagged"
+                    issues_found += 1
+                else:
+                    audit.scripture_warnings = []
+                    audit.audit_status = "verified"
             audit.save()
             audited += 1
-
-        except Exception as e:
-            logger.error(f"Failed to audit passage {passage.id}: {e}")
+        except Exception:
+            logger.exception("Failed to audit passage %s", passage.id)
 
     logger.info(
-        f"Devotional accuracy audit complete. Audited: {audited}, Issues: {issues_found}"
+        "Devotional accuracy audit complete. Audited: %d, Issues: %d",
+        audited,
+        issues_found,
     )
     return {"audited": audited, "issues_found": issues_found}

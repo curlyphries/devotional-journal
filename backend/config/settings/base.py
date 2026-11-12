@@ -47,7 +47,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "shared.request_id.RequestIDMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "apps.users.middleware.MeshOnlyMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -117,6 +119,16 @@ REST_FRAMEWORK = {
         "magic_link": "5/hour",
         "plan_generate": "10/hour",
     },
+    "EXCEPTION_HANDLER": "shared.errors.exception_handler",
+    "DEFAULT_RENDERER_CLASSES": [
+        "shared.errors.EnvelopeJSONRenderer",
+    ],
+    # Number of reverse proxies in front of Django. Set it (NUM_PROXIES=2 for
+    # host nginx + the frontend container) so throttles key on the real client
+    # address and cannot be dodged with a forged X-Forwarded-For header.
+    "NUM_PROXIES": (
+        int(os.environ["NUM_PROXIES"]) if os.environ.get("NUM_PROXIES") else None
+    ),
     "DEFAULT_PAGINATION_CLASS": "shared.pagination.StandardPagination",
     "PAGE_SIZE": 20,
     "DEFAULT_FILTER_BACKENDS": [
@@ -144,8 +156,93 @@ OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "llama3.1:8b")
 ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY")
 ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-20250514")
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-LLM_FALLBACK_ENABLED = os.environ.get("LLM_FALLBACK_ENABLED", "false").lower() == "true"
-LLM_FALLBACK_BACKEND = os.environ.get("LLM_FALLBACK_BACKEND", "openai")
+
+
+def env_bool(name: str, default: bool = False) -> bool:
+    return os.environ.get(name, str(default)).strip().lower() in (
+        "1",
+        "true",
+        "yes",
+        "on",
+    )
+
+
+# Only allow AI that runs on this machine / private network. With this on, cloud
+# providers are refused for everyone, whatever a user selects in Settings.
+AI_LOCAL_ONLY = env_bool("AI_LOCAL_ONLY", False)
+# Let users point at an AI server on a private address (LAN / mesh). Needed for
+# self-hosted Ollama; leave off on a public multi-user instance (SSRF guard).
+AI_ALLOW_PRIVATE_URLS = env_bool("AI_ALLOW_PRIVATE_URLS", False)
+
+# Bible translations used for scripture shown with feedback, in order of
+# preference. Both defaults are public domain. Text comes from the local
+# database when loaded (manage.py load_translation WEB), else the Bolls API.
+SCRIPTURE_TRANSLATIONS = [
+    t.strip().upper()
+    for t in os.environ.get("SCRIPTURE_TRANSLATIONS", "WEB,KJV").split(",")
+    if t.strip()
+]
+
+# Mesh-only access (e.g. a Tailscale tailnet). When on, requests from outside
+# MESH_ALLOWED_CIDRS are refused. Bind the published ports to the mesh
+# interface as well — see docs/MESH_DEPLOYMENT.md.
+MESH_ONLY = env_bool("MESH_ONLY", False)
+MESH_ALLOWED_CIDRS = [
+    c.strip()
+    for c in os.environ.get(
+        "MESH_ALLOWED_CIDRS", "100.64.0.0/10,fd7a:115c:a1e0::/48,127.0.0.0/8,::1/128"
+    ).split(",")
+    if c.strip()
+]
+# Proxies whose X-Real-IP header is believed (the nginx containers).
+MESH_TRUSTED_PROXY_CIDRS = [
+    c.strip()
+    for c in os.environ.get(
+        "MESH_TRUSTED_PROXY_CIDRS", "172.16.0.0/12,127.0.0.0/8,::1/128"
+    ).split(",")
+    if c.strip()
+]
+
+# Print sign-in links to the server log. A sign-in link is a credential, so
+# this is off wherever a real mail server is configured. With no mail server
+# (EMAIL_HOST unset or a placeholder) the log is the only way to sign in, so it
+# defaults on there. Set MAGIC_LINK_LOG explicitly to override either way.
+_NO_MAIL_SERVER = os.environ.get("EMAIL_HOST", "localhost") in (
+    "",
+    "localhost",
+    "smtp.example.com",
+)
+MAGIC_LINK_LOG = env_bool("MAGIC_LINK_LOG", _NO_MAIL_SERVER)
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {"request_id": {"()": "shared.request_id.RequestIDLogFilter"}},
+    "formatters": {
+        "verbose": {
+            "format": "[{asctime}] {levelname} [{request_id}] {name}: {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+            "filters": ["request_id"],
+        },
+    },
+    "root": {"handlers": ["console"], "level": "INFO"},
+    "loggers": {
+        "django": {"handlers": ["console"], "level": "WARNING", "propagate": False},
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        # httpx logs full request URLs at INFO; keep them out of the log.
+        "httpx": {"handlers": ["console"], "level": "WARNING", "propagate": False},
+    },
+}
 
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

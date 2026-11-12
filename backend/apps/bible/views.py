@@ -17,6 +17,20 @@ from .serializers import (
 )
 
 
+def _int_param(value, name: str, default=None) -> int:
+    """Parse an integer request value, or answer 400 instead of crashing."""
+    from shared.errors import AppError
+
+    if value in (None, ""):
+        if default is None:
+            raise AppError(f"“{name}” is required.")
+        return default
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        raise AppError(f"“{name}” must be a whole number.")
+
+
 class TranslationListView(APIView):
     permission_classes = [AllowAny]
     """
@@ -208,7 +222,7 @@ class BollsSearchView(APIView):
     def get(self, request):
         translation = request.query_params.get("translation", "KJV")
         query = request.query_params.get("query", request.query_params.get("q"))
-        limit = int(request.query_params.get("limit", 20))
+        limit = _int_param(request.query_params.get("limit"), "limit", 20)
 
         if not query:
             return Response(

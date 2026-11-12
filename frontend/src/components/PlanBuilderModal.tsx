@@ -4,6 +4,11 @@ import {
   AlertTriangle, CheckCircle2, BookOpen, ArrowLeft
 } from 'lucide-react'
 import apiClient from '../api/client'
+import { toApiError } from '../api/errors'
+import { isAiUsable, useAiStatus } from '../hooks/useAiStatus'
+
+// A multi-day plan is several model calls; local models need minutes, not seconds.
+const PLAN_GENERATE_TIMEOUT_MS = 300_000
 
 interface DraftDay {
   day_number: number
@@ -48,12 +53,16 @@ const GENERATE_STEPS = [
   'Finalising plan…',
 ]
 
-type AIStatus = { configured: boolean; reachable: boolean; backend: string; model: string | null }
 
 export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBuilderModalProps) {
   const [mode, setMode] = useState<'ai' | 'manual'>('ai')
-  const [aiStatus, setAiStatus] = useState<AIStatus | null>(null)
-  const [aiStatusLoading, setAiStatusLoading] = useState(false)
+  // AI availability is (re)checked whenever the modal is open.
+  const aiStatusQuery = useAiStatus({ enabled: isOpen })
+  const aiStatusLoading = aiStatusQuery.isLoading
+  const aiStatus = aiStatusQuery.isError
+    ? { configured: false, reachable: false, backend: 'unknown', model: null, suggestion: toApiError(aiStatusQuery.error).suggestion }
+    : aiStatusQuery.data ?? null
+  const aiReady = isAiUsable(aiStatusQuery.data)
 
   // Form state
   const [topic, setTopic] = useState('')
@@ -72,15 +81,10 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
 
-  // Fetch AI status whenever modal opens
+  const refetchAiStatus = aiStatusQuery.refetch
   useEffect(() => {
-    if (!isOpen) return
-    setAiStatusLoading(true)
-    apiClient.get('/prompts/ai-status/')
-      .then(r => setAiStatus(r.data))
-      .catch(() => setAiStatus({ configured: false, reachable: false, backend: 'unknown', model: null }))
-      .finally(() => setAiStatusLoading(false))
-  }, [isOpen])
+    if (isOpen) void refetchAiStatus()
+  }, [isOpen, refetchAiStatus])
 
   if (!isOpen) return null
 
@@ -106,7 +110,7 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
         duration_days: durationDays,
         category,
         anchor_passages: anchors,
-      })
+      }, { timeout: PLAN_GENERATE_TIMEOUT_MS })
       clearInterval(interval)
       setDraft(res.data)
       setStep('preview')
@@ -119,8 +123,8 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
         setError(`AI generated ${data.days_returned} of ${durationDays} days. You can review and save what was generated.`)
         setStep('preview')
       } else {
-        const msg = data?.error || 'Generation failed. Please try again.'
-        setError(msg)
+        const apiError = toApiError(err)
+        setError([apiError.message, apiError.suggestion].filter(Boolean).join(' '))
         setStep('form')
       }
     }
@@ -139,10 +143,8 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
       onCreated()
       handleClose()
     } catch (err: unknown) {
-      const msg =
-        (err as { response?: { data?: { error?: string } } })?.response?.data?.error ||
-        'Save failed. Please try again.'
-      setError(msg)
+      const apiError = toApiError(err)
+      setError([apiError.message, apiError.suggestion].filter(Boolean).join(' '))
     } finally {
       setSaving(false)
     }
@@ -155,7 +157,7 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
     onClose()
   }
 
-  const aiUnavailable = mode === 'ai' && !aiStatusLoading && aiStatus && !aiStatus.reachable
+  const aiUnavailable = mode === 'ai' && !aiStatusLoading && aiStatus && !aiReady
 
   // ── GENERATING SCREEN ──────────────────────────────────────────────
   if (step === 'generating') {
@@ -402,7 +404,7 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
                   <Loader2 className="w-3 h-3 animate-spin" /> Checking AI availability…
                 </div>
               )}
-              {!aiStatusLoading && aiStatus && !aiStatus.reachable && (
+              {!aiStatusLoading && aiStatus && !aiReady && (
                 <div className="flex items-start gap-3 px-4 py-3 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
                   <AlertTriangle className="w-4 h-4 text-yellow-400 shrink-0 mt-0.5" />
                   <div>
@@ -410,12 +412,13 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
                     <p className="text-xs text-yellow-400/80 mt-0.5">
                       Backend: <span className="font-mono">{aiStatus.backend}</span>
                       {aiStatus.model ? ` · Model: ${aiStatus.model}` : ''}.
+                      {aiStatus.suggestion ? ` ${aiStatus.suggestion}` : ''}
                       {' '}Switch to Manual to create a plan without AI.
                     </p>
                   </div>
                 </div>
               )}
-              {!aiStatusLoading && aiStatus && aiStatus.reachable && (
+              {!aiStatusLoading && aiStatus && aiReady && (
                 <div className="flex items-center gap-2 px-3 py-2 bg-green-500/10 border border-green-500/20 rounded-xl">
                   <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
                   <p className="text-xs text-green-300">

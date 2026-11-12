@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import client from '../api/client'
 import { Trophy, Loader2, Check } from 'lucide-react'
 import ShareCard from './ShareCard'
+import InlineError from './InlineError'
 
 interface NextMilestone {
   id: string
@@ -54,10 +55,10 @@ function ProgressBar({ value, max, color = 'amber' }: { value: number; max: numb
 }
 
 export default function Milestones() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['milestones'],
     queryFn: async () => {
-      const response = await client.get('/reflections/milestones/')
+      const response = await client.get('/milestones/')
       return response.data as MilestonesData
     },
     staleTime: 300000,
@@ -70,6 +71,8 @@ export default function Milestones() {
       </div>
     )
   }
+
+  if (error) return <InlineError error={error} onRetry={() => refetch()} />
 
   if (!data) return null
 

@@ -31,9 +31,7 @@ export default function DailyPulseCard({ focus, todaysVerse, onComplete }: Daily
       queryClient.invalidateQueries({ queryKey: ['focus-today'] })
       if (onComplete) onComplete()
     },
-    onError: (error) => {
-      console.error('Failed to mark passage as read:', error)
-    },
+    // No onError here: the app-wide mutation handler shows the failure as a toast.
   })
 
   if (!todaysVerse) return null

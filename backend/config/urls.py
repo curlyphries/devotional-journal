@@ -9,7 +9,36 @@ from django.urls import include, path
 
 
 def health_check(request):
-    return JsonResponse({"status": "ok"})
+    """
+    Liveness/readiness probe: is the database reachable, is the cache
+    reachable. Unauthenticated, so it reports booleans only - no versions,
+    hosts or error text. (AI reachability is per person: /prompts/ai-status/.)
+    """
+    import logging
+
+    from django.core.cache import cache
+    from django.db import connection
+
+    logger = logging.getLogger("config.health")
+    checks = {"database": False, "cache": False}
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT 1")
+            cursor.fetchone()
+        checks["database"] = True
+    except Exception:
+        logger.exception("Health check: database unreachable")
+    try:
+        cache.set("health:ping", "1", 10)
+        checks["cache"] = cache.get("health:ping") == "1"
+    except Exception:
+        logger.exception("Health check: cache unreachable")
+
+    healthy = all(checks.values())
+    return JsonResponse(
+        {"status": "ok" if healthy else "degraded", "checks": checks},
+        status=200 if healthy else 503,
+    )
 
 
 urlpatterns = [

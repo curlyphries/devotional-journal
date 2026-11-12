@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { setLanguage } from '../i18n/language'
 import { useTranslation } from 'react-i18next'
 import { Navigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
@@ -64,7 +65,7 @@ export default function LoginPage() {
 
     try {
       const tokens = await devLogin(email || 'dev@homelab.local')
-      login(tokens.access_token, tokens.refresh_token)
+      await login(tokens.access_token, tokens.refresh_token)
     } catch {
       setError('Dev login failed. Is the backend running in DEBUG mode?')
     } finally {
@@ -74,7 +75,7 @@ export default function LoginPage() {
 
   const toggleLanguage = () => {
     const next = i18n.language === 'es' ? 'en' : 'es'
-    i18n.changeLanguage(next)
+    setLanguage(next)
   }
 
   return (

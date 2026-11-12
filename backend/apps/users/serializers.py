@@ -35,6 +35,7 @@ class UserSerializer(serializers.ModelSerializer):
             "ai_api_key_set",
             "ai_model",
             "ai_base_url",
+            "allow_server_cloud_ai",
             "created_at",
             "last_active_at",
         ]
@@ -61,7 +62,37 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             "ai_api_key",
             "ai_model",
             "ai_base_url",
+            "allow_server_cloud_ai",
         ]
+
+    def validate_ai_base_url(self, value):
+        from shared.errors import AppError
+        from shared.llm import validate_ai_base_url
+
+        try:
+            return validate_ai_base_url(value)
+        except AppError as exc:
+            message = exc.message
+            if exc.suggestion:
+                message = f"{message} {exc.suggestion}"
+            raise serializers.ValidationError(message)
+
+    def validate(self, attrs):
+        from django.conf import settings
+
+        provider = attrs.get("ai_provider")
+        if getattr(settings, "AI_LOCAL_ONLY", False) and provider in (
+            "openai",
+            "anthropic",
+            "openrouter",
+        ):
+            raise serializers.ValidationError(
+                {
+                    "ai_provider": "This server only allows AI that runs on its own "
+                    "network. Choose Ollama."
+                }
+            )
+        return attrs
 
     def update(self, instance, validated_data):
         ai_api_key = validated_data.pop("ai_api_key", None)

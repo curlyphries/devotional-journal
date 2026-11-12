@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAuth } from '../context/AuthContext'
-import client from '../api/client'
+import client, { AI_TIMEOUT_MS } from '../api/client'
 import confetti from 'canvas-confetti'
 import {
   Flame, BookOpen, ChevronRight, Target, Calendar,
@@ -16,6 +16,8 @@ import ShareCard from '../components/ShareCard'
 import StreakSaverModal from '../components/StreakSaverModal'
 import HeartPromptExplorer from '../components/HeartPromptExplorer'
 import OnboardingTour from '../components/OnboardingTour'
+import AiStatusBanner from '../components/AiStatusBanner'
+import InlineError from '../components/InlineError'
 
 interface DashboardStats {
   date: string
@@ -136,7 +138,7 @@ export default function DashboardPage() {
     { text: t('dashboard.wizard.suggestion4'), themes: ['Courage', 'Faith', 'Trust'] },
   ]
 
-  const { data: stats, isLoading, error } = useQuery({
+  const { data: stats, isLoading, error, refetch } = useQuery({
     queryKey: ['dashboard-stats'],
     queryFn: fetchDashboardStats,
     staleTime: 60000,
@@ -174,10 +176,11 @@ export default function DashboardPage() {
       const response = await client.post('/focus/', {
         intention_text: focus.text,
         themes: focus.themes,
-        period_type: 'weekly',
-      })
+        period_type: 'week',
+      }, { timeout: AI_TIMEOUT_MS }) // creating a focus also generates its passages
       return response.data
     },
+    // Failures surface as a toast through the app-wide mutation error handler.
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] })
       queryClient.invalidateQueries({ queryKey: ['activeFocus'] })
@@ -188,7 +191,10 @@ export default function DashboardPage() {
   const isNewUser = !stats?.focus && !stats?.reading_plan &&
     (stats?.stats.journal_streak === 0 || stats?.stats.journal_streak === undefined)
 
-  const showWizard = isNewUser && !wizardDismissed && wizardStep !== 'complete'
+  // Step 2 ("plan") must stay visible after the focus is created, even though
+  // having a focus means the user no longer counts as new.
+  const showWizard = !!stats && !wizardDismissed && wizardStep !== 'complete' &&
+    (isNewUser || wizardStep === 'plan')
 
   useEffect(() => {
     if (isNewUser && wizardStep === 'idle') {
@@ -196,15 +202,16 @@ export default function DashboardPage() {
     }
   }, [isNewUser, wizardStep])
 
-  // Auto-launch tour for new users once wizard is done or dismissed
+  // Auto-launch the tour for anyone who has not seen it, as soon as the wizard is
+  // out of the way: finished, skipped ("Skip for now"), or never shown.
   useEffect(() => {
-    if (!stats) return
+    if (!stats || showWizard) return
     const tourDone = localStorage.getItem('onboarding_tour_completed')
-    if (!tourDone && !isNewUser) {
+    if (!tourDone) {
       const timer = setTimeout(() => setShowTour(true), 800)
       return () => clearTimeout(timer)
     }
-  }, [stats, isNewUser])
+  }, [stats, showWizard])
 
   useEffect(() => {
     const dismissed = localStorage.getItem('streakSaverDismissed')
@@ -241,9 +248,7 @@ export default function DashboardPage() {
 
   if (error) {
     return (
-      <div className="text-center py-12">
-        <p className="text-red-400">{t('dashboard.loadFailed')}</p>
-      </div>
+      <InlineError error={error} title={t('dashboard.loadFailed')} onRetry={() => refetch()} />
     )
   }
 
@@ -404,6 +409,9 @@ export default function DashboardPage() {
         />
       )}
 
+      {/* Says why AI features will not work, when they will not */}
+      <AiStatusBanner />
+
       {/* Speak Your Mind */}
       <div data-tour-id="speak-your-mind">
         <HeartPromptExplorer />
@@ -548,7 +556,7 @@ export default function DashboardPage() {
               <TrendingUp className="w-5 h-5 text-green-500" />
               {t('dashboard.lifeAreaGrowth')}
             </h2>
-            <Link to="/reflections" className="text-sm text-amber-500 hover:text-amber-400">
+            <Link to="/reflection" className="text-sm text-amber-500 hover:text-amber-400">
               {t('dashboard.viewDetails')}
             </Link>
           </div>
@@ -624,7 +632,7 @@ export default function DashboardPage() {
           </div>
         </Link>
 
-        <Link to="/journal/new" className="card hover:border-green-500/50 transition-colors group">
+        <Link to="/journal/new" data-tour-id="new-entry" className="card hover:border-green-500/50 transition-colors group">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center group-hover:bg-green-500/30 transition-colors">
               <PenLine className="w-5 h-5 text-green-400" />

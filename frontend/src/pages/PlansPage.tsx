@@ -16,6 +16,10 @@ import {
   UserPlanEnrollment,
 } from '../api/plans'
 import ScriptureReader from '../components/ScriptureReader'
+import ConfirmDialog from '../components/ConfirmDialog'
+import InlineError from '../components/InlineError'
+import { useToast } from '../components/Toast'
+import { useTranslation } from 'react-i18next'
 
 const CATEGORIES = [
   { value: '', label: 'All Plans' },
@@ -49,13 +53,16 @@ interface ReadingContext {
 
 export default function PlansPage() {
   const queryClient = useQueryClient()
+  const { t } = useTranslation()
+  const toast = useToast()
+  const [planToDelete, setPlanToDelete] = useState<ReadingPlan | null>(null)
   const [selectedCategory, setSelectedCategory] = useState('')
   const [selectedPlan, setSelectedPlan] = useState<ReadingPlanDetail | null>(null)
   const [activeEnrollment, setActiveEnrollment] = useState<UserPlanEnrollment | null>(null)
   const [readingContext, setReadingContext] = useState<ReadingContext | null>(null)
   const [showBuilder, setShowBuilder] = useState(false)
 
-  const { data: rawPlans = [], isLoading: plansLoading } = useQuery({
+  const { data: rawPlans = [], isLoading: plansLoading, error: plansError, refetch: refetchPlans } = useQuery({
     queryKey: ['plans', selectedCategory === 'mine' ? '' : selectedCategory],
     queryFn: () => getPlans(selectedCategory === 'mine' ? undefined : selectedCategory || undefined),
   })
@@ -89,12 +96,19 @@ export default function PlansPage() {
     mutationFn: deletePlan,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['plans'] })
+      toast.success(t('plans.deleted'))
     },
+    // Close the dialog either way; a failure is toasted by the app-wide handler.
+    onSettled: () => setPlanToDelete(null),
   })
 
   const handleViewPlan = async (planId: string) => {
-    const detail = await getPlanDetail(planId)
-    setSelectedPlan(detail)
+    try {
+      const detail = await getPlanDetail(planId)
+      setSelectedPlan(detail)
+    } catch (err) {
+      toast.fromError(err)
+    }
   }
 
   const handleEnroll = (planId: string) => {
@@ -240,8 +254,21 @@ export default function PlansPage() {
       </div>
 
       {/* Plans Grid */}
+      <ConfirmDialog
+        open={planToDelete !== null}
+        title={t('plans.deleteTitle')}
+        message={t('plans.deleteBody', { title: planToDelete?.title ?? '' })}
+        confirmLabel={t('common.delete')}
+        destructive
+        busy={deleteMutation.isPending}
+        onConfirm={() => planToDelete && deleteMutation.mutate(planToDelete.id)}
+        onCancel={() => setPlanToDelete(null)}
+      />
+
       {plansLoading ? (
         <div className="text-center py-12 text-gray-400">Loading plans...</div>
+      ) : plansError ? (
+        <InlineError error={plansError} onRetry={() => refetchPlans()} />
       ) : plans.length === 0 ? (
         <div className="text-center py-16">
           <BookOpen className="w-12 h-12 text-gray-600 mx-auto mb-4" />
@@ -284,12 +311,11 @@ export default function PlansPage() {
                   <button
                     onClick={(e) => {
                       e.stopPropagation()
-                      if (confirm('Delete this plan? This cannot be undone.')) {
-                        deleteMutation.mutate(plan.id)
-                      }
+                      setPlanToDelete(plan)
                     }}
                     className="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors shrink-0 ml-2"
-                    title="Delete plan"
+                    title={t('plans.deleteTitle')}
+                    aria-label={t('plans.deleteTitle')}
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -449,16 +475,30 @@ function TodayReadingModal({
   onAdvance: () => void
   onReadPassage: (passage: string, day: { day_number: number; theme: string }) => void
 }) {
-  const { data: todayReading, isLoading } = useQuery({
+  const { data: todayReading, isLoading, error, refetch } = useQuery({
     queryKey: ['todayReading', enrollment.id],
     queryFn: () => getTodayReading(enrollment.id),
   })
+  const { t } = useTranslation()
 
   if (isLoading) {
     return (
       <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
         <div className="bg-gray-800 rounded-xl p-8 text-center">
           <div className="text-gray-400">Loading today's reading...</div>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
+        <div className="bg-bg-surface border border-border rounded-xl p-6 max-w-lg w-full space-y-4">
+          <InlineError error={error} onRetry={() => refetch()} />
+          <button onClick={onClose} className="btn-secondary w-full">
+            {t('common.close')}
+          </button>
         </div>
       </div>
     )
@@ -500,7 +540,7 @@ function TodayReadingModal({
           <div>
             <div className="text-sm text-gray-400 mb-2">Passages to Read</div>
             <div className="space-y-2">
-              {Array.isArray(day.passages) && (day as ReadingPlanDay).passages.map((passage: string, idx: number) => {
+              {Array.isArray(day.passages) && (day as ReadingPlanDay).passages.map((passage, idx: number) => {
                 const passageStr = formatPassage(passage)
                 return (
                   <button

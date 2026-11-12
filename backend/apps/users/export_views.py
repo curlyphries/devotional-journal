@@ -78,6 +78,44 @@ class FullDataExportView(APIView):
                 ),
             )
 
+            # Feedback + the record of why each scripture was chosen (audit log)
+            from apps.journal.feedback import feedback_to_dict
+            from apps.journal.models import JournalFeedback
+            from apps.reflections.models import GrowthReview
+
+            zf.writestr(
+                "journal-feedback.json",
+                json.dumps(
+                    [
+                        feedback_to_dict(f)
+                        for f in JournalFeedback.objects.filter(user=user)
+                        .select_related("entry", "user")
+                        .order_by("created_at")
+                    ],
+                    indent=2,
+                ),
+            )
+            zf.writestr(
+                "growth-reviews.json",
+                json.dumps(
+                    [
+                        {
+                            "period_type": r.period_type,
+                            "period_start": r.period_start.isoformat(),
+                            "period_end": r.period_end.isoformat(),
+                            "content": r.get_content(),
+                            "provider": r.provider,
+                            "model": r.model,
+                            "created_at": _iso(r.created_at),
+                        }
+                        for r in GrowthReview.objects.filter(user=user)
+                        .select_related("user")
+                        .order_by("period_start")
+                    ],
+                    indent=2,
+                ),
+            )
+
             # Highlights
             highlights = VerseHighlight.objects.filter(user=user).order_by("created_at")
             zf.writestr(

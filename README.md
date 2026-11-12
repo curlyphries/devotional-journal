@@ -2,7 +2,7 @@
 
 > **A bilingual Bible study companion built for men who want to be consistent in their faith — not just on Sunday.**
 
-Set a spiritual focus, follow AI-curated reading plans, and journal privately with end-to-end encryption. Built to be self-hosted, AGPL-licensed, and bring-your-own-AI from day one.
+Set a spiritual focus, follow AI-curated reading plans, and journal privately — by voice or text — with entries encrypted at rest. Each entry gets a response and a verified scripture passage, with a record of why it was chosen. Built to be self-hosted, AGPL-licensed, and bring-your-own-AI from day one.
 
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
 [![CI](https://github.com/curlyphries/devotional-journal/actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
@@ -55,7 +55,7 @@ The AI doesn't preach at you. It remembers what you've been wrestling with and a
 
 - **Men building daily Bible discipline** — fathers, leaders, men in recovery, men trying to grow up in their faith
 - **Bilingual believers** — English and Spanish are first-class, including code-switching support
-- **Privacy-conscious users** — your journal is encrypted at rest with a per-user key; even the database admin can't read it
+- **Privacy-conscious users** — your journal is encrypted at rest with a per-user key derived from a server-held secret; a stolen database or backup alone cannot be read
 - **Self-hosters and homelabbers** — runs on a Raspberry Pi or any Docker host with optional local-only AI via Ollama
 - **Small accountability groups** — group features are on the roadmap (backend models already in place)
 
@@ -64,6 +64,13 @@ If you've been let down by Bible apps that felt like social media or paywalled s
 ---
 
 ## Features
+
+### Journal → feedback → scripture
+- **Write or speak an entry** — dictation in the browser, or type
+- **Feedback on save** — a short reflection on what you wrote, pointing toward the character of Jesus, whether or not the entry was "spiritual"
+- **Verified scripture** — the AI suggests references; the verse text is always fetched from a Bible source (World English Bible, public domain), never written by the AI
+- **Why this scripture?** — every passage comes with why it was chosen, why it is worth meditating on, and a full decision record (the Audit log)
+- **Honest when AI is down** — you still get a passage, chosen by built-in rules and labelled as such, with the reason and how to fix it
 
 ### Daily rhythm
 - **AI-Curated Devotionals** — set a focus and get personalized scripture, reflection prompts, and study guides
@@ -267,6 +274,9 @@ devotional-journal/
 
 | Doc | What's in it |
 |-----|--------------|
+| [How feedback works](docs/HOW_FEEDBACK_WORKS.md) | Journal → reflection → verified scripture → audit record |
+| [Troubleshooting](docs/TROUBLESHOOTING.md) | Every error code, what it means, what to do |
+| [Private mesh deployment](docs/MESH_DEPLOYMENT.md) | Run it on your mesh network only, AI local only |
 | [Developer Handoff](docs/developer-handoff.md) | Architecture, full API reference, priorities, tech debt |
 | [Deployment Guide](docs/DEPLOYMENT.md) | Production server setup, Docker, Nginx, troubleshooting |
 | [Plan Builder Handoff](docs/plan-builder-handoff.md) | Reading plan data model and builder details |

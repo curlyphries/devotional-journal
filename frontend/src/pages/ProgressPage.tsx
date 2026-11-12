@@ -1,14 +1,17 @@
 import { useState } from 'react'
-import { Trophy, TrendingUp, MessageCircle, BookOpen, Target } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { Trophy, TrendingUp, MessageCircle, BookOpen, Target, ScrollText } from 'lucide-react'
 import Milestones from '../components/Milestones'
 import GrowthVisualization from '../components/GrowthVisualization'
 import ThreadPrompts from '../components/ThreadPrompts'
 import StudyTracker from '../components/StudyTracker'
+import GrowthReviews from '../components/GrowthReviews'
 import JourneyPage from './JourneyPage'
 
-type TabType = 'milestones' | 'growth' | 'threads' | 'studies' | 'journey'
+type TabType = 'milestones' | 'growth' | 'threads' | 'studies' | 'journey' | 'reviews'
 
 export default function ProgressPage() {
+  const { t } = useTranslation()
   const [activeTab, setActiveTab] = useState<TabType>('studies')
 
   const tabs = [
@@ -16,6 +19,7 @@ export default function ProgressPage() {
     { id: 'journey' as TabType, label: 'Journey', icon: Target },
     { id: 'milestones' as TabType, label: 'Achievements', icon: Trophy },
     { id: 'growth' as TabType, label: 'Growth', icon: TrendingUp },
+    { id: 'reviews' as TabType, label: t('progress.tabs.reviews'), icon: ScrollText },
     { id: 'threads' as TabType, label: 'Follow-ups', icon: MessageCircle },
   ]
 
@@ -27,14 +31,22 @@ export default function ProgressPage() {
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex gap-2 border-b border-gray-700 pb-2">
+      {/* One row that scrolls sideways on narrow screens instead of overflowing the page */}
+      <div
+        role="tablist"
+        aria-label={t('progress.tabs.label')}
+        className="flex gap-2 overflow-x-auto border-b border-border pb-2 -mx-4 px-4 sm:mx-0 sm:px-0"
+      >
         {tabs.map((tab) => {
           const Icon = tab.icon
           return (
             <button
               key={tab.id}
+              type="button"
+              role="tab"
+              aria-selected={activeTab === tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+              className={`flex shrink-0 items-center gap-2 px-4 py-2 rounded-lg whitespace-nowrap transition-colors ${
                 activeTab === tab.id
                   ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
                   : 'text-text-secondary hover:text-text-primary hover:bg-gray-800'
@@ -52,6 +64,7 @@ export default function ProgressPage() {
         {activeTab === 'studies' && <StudyTracker />}
         {activeTab === 'milestones' && <Milestones />}
         {activeTab === 'growth' && <GrowthVisualization />}
+        {activeTab === 'reviews' && <GrowthReviews />}
         {activeTab === 'journey' && <JourneyPage />}
         {activeTab === 'threads' && (
           <div className="space-y-4">

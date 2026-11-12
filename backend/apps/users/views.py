@@ -207,36 +207,16 @@ class ProfileView(APIView):
 
 
 def _validate_external_url(url: str) -> bool:
-    """
-    Validate a user-supplied URL to prevent SSRF.
-    Only permits http/https to non-private, non-loopback hosts.
-    """
-    import ipaddress
-    from urllib.parse import urlparse
+    """True if a user-supplied AI server URL may be contacted (SSRF guard)."""
+    from shared.errors import AppError
+    from shared.llm import validate_ai_base_url
 
     if not url:
         return False
-    parsed = urlparse(url)
-    if parsed.scheme not in ("http", "https"):
-        return False
-    host = parsed.hostname or ""
-    if not host:
-        return False
-    # Block loopback, link-local, private ranges, and cloud metadata
-    blocked_hosts = {"localhost", "169.254.169.254", "metadata.google.internal"}
-    if host in blocked_hosts:
-        return False
     try:
-        addr = ipaddress.ip_address(host)
-        if (
-            addr.is_loopback
-            or addr.is_private
-            or addr.is_link_local
-            or addr.is_reserved
-        ):
-            return False
-    except ValueError:
-        pass  # host is a domain name, not an IP
+        validate_ai_base_url(url)
+    except AppError:
+        return False
     return True
 
 
@@ -344,18 +324,33 @@ class TestAIConnectionView(APIView):
 
         except httpx.TimeoutException:
             return Response(
-                {"success": False, "error": "Connection timed out"},
-                status=status.HTTP_408_REQUEST_TIMEOUT,
+                {
+                    "success": False,
+                    "error": "The AI server did not answer in time.",
+                    "code": "AI_TIMEOUT",
+                },
+                status=status.HTTP_504_GATEWAY_TIMEOUT,
             )
-        except httpx.ConnectError as e:
+        except httpx.ConnectError:
             return Response(
-                {"success": False, "error": f"Connection failed: {str(e)}"},
+                {
+                    "success": False,
+                    "error": "Could not connect to the AI server.",
+                    "code": "AI_UNAVAILABLE",
+                    "suggestion": "Check the address and that the server is running "
+                    "and reachable from this machine.",
+                },
                 status=status.HTTP_503_SERVICE_UNAVAILABLE,
             )
-        except Exception as e:
+        except Exception:
+            logger.exception("AI connection test failed")
             return Response(
-                {"success": False, "error": str(e)},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                {
+                    "success": False,
+                    "error": "The connection test failed unexpectedly.",
+                    "code": "AI_UNAVAILABLE",
+                },
+                status=status.HTTP_503_SERVICE_UNAVAILABLE,
             )
 
 

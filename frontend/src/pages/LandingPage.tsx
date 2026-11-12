@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { setLanguage } from '../i18n/language'
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
@@ -30,7 +31,7 @@ export default function LandingPage() {
 
   const toggleLanguage = () => {
     const next = i18n.language === 'es' ? 'en' : 'es'
-    i18n.changeLanguage(next)
+    setLanguage(next)
   }
 
   return (

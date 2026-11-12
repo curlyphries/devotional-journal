@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import client from '../api/client'
+import { unwrapList } from '../api/pagination'
+import InlineError from './InlineError'
 import { 
   MessageCircle, X, Check, Clock, ChevronRight, 
   Loader2, AlertCircle, Heart, Lightbulb
@@ -45,18 +47,18 @@ export default function ThreadPrompts({ maxPrompts = 2, onClose }: ThreadPrompts
   const [expandedThread, setExpandedThread] = useState<string | null>(null)
   const [responseText, setResponseText] = useState('')
 
-  const { data: prompts, isLoading } = useQuery({
+  const { data: prompts, isLoading, error, refetch } = useQuery({
     queryKey: ['thread-prompts'],
     queryFn: async () => {
-      const response = await client.get('/reflections/thread-prompts/pending/')
-      return response.data as ThreadPrompt[]
+      const response = await client.get('/thread-prompts/pending/')
+      return unwrapList<ThreadPrompt>(response.data)
     },
     staleTime: 300000, // 5 minutes
   })
 
   const respondMutation = useMutation({
-    mutationFn: async ({ promptId, response, action }: { promptId: string; response?: string; action: 'respond' | 'skip' | 'resolved' }) => {
-      await client.post(`/reflections/thread-prompts/${promptId}/respond/`, {
+    mutationFn: async ({ threadId, response, action }: { threadId: string; response?: string; action: 'respond' | 'skip' | 'resolved' }) => {
+      await client.post(`/thread-prompts/${threadId}/respond/`, {
         response,
         action,
       })
@@ -76,6 +78,8 @@ export default function ThreadPrompts({ maxPrompts = 2, onClose }: ThreadPrompts
       </div>
     )
   }
+
+  if (error) return <InlineError error={error} onRetry={() => refetch()} />
 
   const visiblePrompts = prompts?.slice(0, maxPrompts) || []
 
@@ -149,7 +153,7 @@ export default function ThreadPrompts({ maxPrompts = 2, onClose }: ThreadPrompts
                 <div className="flex items-center gap-2 mt-3">
                   <button
                     onClick={() => respondMutation.mutate({ 
-                      promptId: prompt.id, 
+                      threadId: prompt.thread_id || prompt.id, 
                       response: responseText, 
                       action: 'respond' 
                     })}
@@ -168,7 +172,7 @@ export default function ThreadPrompts({ maxPrompts = 2, onClose }: ThreadPrompts
                   
                   <button
                     onClick={() => respondMutation.mutate({ 
-                      promptId: prompt.id, 
+                      threadId: prompt.thread_id || prompt.id, 
                       action: 'resolved' 
                     })}
                     disabled={respondMutation.isPending}
@@ -180,7 +184,7 @@ export default function ThreadPrompts({ maxPrompts = 2, onClose }: ThreadPrompts
                   
                   <button
                     onClick={() => respondMutation.mutate({ 
-                      promptId: prompt.id, 
+                      threadId: prompt.thread_id || prompt.id, 
                       action: 'skip' 
                     })}
                     disabled={respondMutation.isPending}

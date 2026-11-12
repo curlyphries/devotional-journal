@@ -5,6 +5,7 @@ Uses Fernet symmetric encryption with per-user derived keys.
 
 import base64
 import hashlib
+from functools import lru_cache
 from typing import Optional
 
 from cryptography.fernet import Fernet
@@ -14,15 +15,25 @@ from django.db import models
 PBKDF2_ITERATIONS = 600_000  # NIST SP 800-132 recommendation for SHA-256 (2023)
 
 
-def derive_user_key(user_salt: bytes) -> bytes:
-    """
-    Derive a user-specific encryption key from the root key and user salt.
-    """
-    root_key = settings.ENCRYPTION_ROOT_KEY.encode()
+@lru_cache(maxsize=512)
+def _derive(root_key: bytes, user_salt: bytes) -> bytes:
     derived = hashlib.pbkdf2_hmac(
         "sha256", root_key, user_salt, iterations=PBKDF2_ITERATIONS, dklen=32
     )
     return base64.urlsafe_b64encode(derived)
+
+
+def derive_user_key(user_salt: bytes) -> bytes:
+    """
+    Derive a user-specific encryption key from the root key and user salt.
+
+    The derivation is deliberately slow (600k PBKDF2 rounds, ~0.1s), so the
+    result is cached per process: without the cache every field decrypt paid
+    that cost and a page listing 20 entries took over two seconds. The cached
+    key adds no exposure — the root key it derives from is already in this
+    process's memory.
+    """
+    return _derive(settings.ENCRYPTION_ROOT_KEY.encode(), bytes(user_salt))
 
 
 def encrypt_content(content: str, user_salt: bytes) -> bytes:
