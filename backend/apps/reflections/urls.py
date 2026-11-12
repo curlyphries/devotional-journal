@@ -17,6 +17,8 @@ from .views import (
     DevotionalPassageViewSet,
     FocusIntentionViewSet,
     GrowthDataView,
+    GrowthReviewGenerateView,
+    GrowthReviewListView,
     LifeAreaViewSet,
     MilestonesView,
     OpenThreadViewSet,
@@ -41,7 +43,6 @@ router.register(r"study-sessions", StudyGuideSessionViewSet, basename="study-ses
 router.register(r"admin/audits", DevotionalAuditViewSet, basename="devotional-audit")
 
 urlpatterns = [
-    path("", include(router.urls)),
     # Dashboard
     path("dashboard/stats/", DashboardStatsView.as_view(), name="dashboard-stats"),
     # Thread prompts
@@ -87,4 +88,14 @@ urlpatterns = [
         DevotionalQualityReportView.as_view(),
         name="quality-report",
     ),
+    # Growth reviews
+    path("reviews/", GrowthReviewListView.as_view(), name="growth-reviews"),
+    path(
+        "reviews/generate/",
+        GrowthReviewGenerateView.as_view(),
+        name="growth-review-generate",
+    ),
+    # Router last: its detail routes (thread-prompts/<pk>/, trends/<pk>/) would
+    # otherwise swallow the explicit paths above.
+    path("", include(router.urls)),
 ]

@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added — journal feedback, audit log, voice, private deployment
+- **Journal feedback**: saving an entry returns a reflection, one scripture passage, why it was chosen, a meditation prompt and a Christlike next step (`POST /api/v1/journal/{id}/feedback/`)
+- **Verified scripture**: models suggest references only; verse text is fetched from a Bible source (local database, then Bolls API). Default translations: World English Bible, then KJV (`SCRIPTURE_TRANSLATIONS`)
+- **Audit log** (`/audit`, `GET /api/v1/journal/feedback/`): provider, model, inputs used, every candidate passage and its outcome, the selection rule; earlier records are kept when feedback is regenerated
+- **Voice entry** in the journal editor and quick capture (browser speech recognition)
+- **Growth tracking**: recurring themes feed the next prompt; threads are detected from entries; weekly/monthly reviews are stored and shown under Progress → Reviews
+- **One AI layer** (`backend/shared/llm.py`) for every AI feature: per-user provider, explicit consent before a server-configured cloud AI is used (`allow_server_cloud_ai`), `AI_LOCAL_ONLY`, validated AI server addresses
+- **Error envelope** on every API error (`error`, `code`, `suggestion`, `request_id`), request ids in logs and the `X-Request-ID` header, toasts / inline errors / error boundary in the UI, real health check
+- **Private mesh deployment** for `journal.curlyphries.space`: `docker-compose.mesh.yml`, `MESH_ONLY`, host nginx config, `docs/MESH_DEPLOYMENT.md`
+- Management commands: `load_translation`, `create_user`
+- Docs: `docs/HOW_FEEDBACK_WORKS.md`, `docs/TROUBLESHOOTING.md`, `docs/MESH_DEPLOYMENT.md`; rewritten in-app Help and onboarding tour
+- Tests: backend 80 → 189, frontend 2 → 81
+
+### Changed
+- `GET /api/v1/journal/` is paginated (`{count, next, previous, results}`)
+- Devotional passages use the fetched text of the cited passage (WEB) instead of model-written "NIV/ESV" text
+- Sign-in links are no longer written to the server log unless `MAGIC_LINK_LOG=true`
+- `SECRET_KEY` is required in production settings
+
+### Fixed
+- Refresh tokens were accepted as access tokens
+- A dozen reflections endpoints returned 500 (field-name drift, wrong call signatures, routes shadowed by the router)
+- Reading page was a mock that discarded what the user wrote; three Progress tabs called non-existent URLs; onboarding focus buttons always failed
+- A reflection, thread or focus could be attached to another user's journey; private plans could be enrolled in by id
+- Server-side requests to user-supplied AI addresses were not validated (SSRF)
+- Key derivation ran on every field decrypt (journal list of 20 entries: ~2s)
+
 ### Added — UX & marketing audit pass
 - Marketing-focused README with value proposition, badges, FAQ, and audience targeting
 - SEO meta tags, Open Graph tags, and Twitter Card metadata in `frontend/index.html`

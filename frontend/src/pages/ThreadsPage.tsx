@@ -17,6 +17,7 @@ import {
   useThreadActions
 } from '../hooks/useReflections'
 import { OpenThread } from '../api/reflections'
+import InlineError from '../components/InlineError'
 
 const THREAD_TYPE_ICONS: Record<string, React.ReactNode> = {
   struggle: <AlertTriangle className="w-5 h-5" />,
@@ -46,7 +47,7 @@ const STATUS_COLORS: Record<string, string> = {
 }
 
 export default function ThreadsPage() {
-  const { data: threads, isLoading } = useActiveThreads()
+  const { data: threads, isLoading, error, refetch } = useActiveThreads()
   const { data: stats } = useThreadStats()
   const [filter, setFilter] = useState<string>('all')
 
@@ -54,6 +55,14 @@ export default function ThreadsPage() {
     return (
       <div className="min-h-screen bg-bg-primary flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-accent-primary" />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-4xl mx-auto p-4 md:p-8">
+        <InlineError error={error} onRetry={() => refetch()} />
       </div>
     )
   }

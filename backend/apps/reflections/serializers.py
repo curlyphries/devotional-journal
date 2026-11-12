@@ -233,6 +233,13 @@ class DailyReflectionCreateSerializer(serializers.Serializer):
         queryset=UserJourney.objects.all(), required=False, allow_null=True
     )
     date = serializers.DateField()
+
+    def validate_journey(self, value):
+        # A reflection can only be attached to the person's own journey.
+        if value is not None and value.user_id != self.context["request"].user.id:
+            raise serializers.ValidationError("That journey was not found.")
+        return value
+
     scripture_reference = serializers.CharField(
         max_length=200, required=False, allow_blank=True
     )
@@ -367,6 +374,10 @@ class OpenThreadCreateSerializer(serializers.Serializer):
         )
 
         if journey_id:
+            if not UserJourney.objects.filter(id=journey_id, user=user).exists():
+                raise serializers.ValidationError(
+                    {"journey_id": "That journey was not found."}
+                )
             thread.journey_id = journey_id
 
         thread.set_summary(summary)
@@ -539,24 +550,24 @@ class FocusIntentionCreateSerializer(serializers.Serializer):
         )
 
         if journey_id:
+            if not UserJourney.objects.filter(id=journey_id, user=user).exists():
+                raise serializers.ValidationError(
+                    {"journey_id": "That journey was not found."}
+                )
             intention.journey_id = journey_id
 
         intention.set_intention(intention_text)
         intention.save()
 
-        # Use provided themes or extract with AI
-        curator = DevotionalCurator()
-        if provided_themes:
-            themes = provided_themes
-        else:
-            themes = curator.extract_themes(intention_text)
+        # Use provided themes or extract with AI (both degrade to safe defaults).
+        curator = DevotionalCurator(user=user)
+        themes = provided_themes or curator.extract_themes(intention_text)
         life_areas = curator.suggest_life_areas(intention_text, themes)
 
         intention.themes = themes
         intention.related_life_areas = life_areas
         intention.save()
 
-        # Generate devotional passages asynchronously (or sync for now)
         self._generate_passages(
             intention, curator, intention_text, period_type, themes, num_passages
         )
@@ -566,33 +577,66 @@ class FocusIntentionCreateSerializer(serializers.Serializer):
     def _generate_passages(
         self, intention, curator, intention_text, period_type, themes, num_passages
     ):
-        """Generate devotional passages for the intention."""
+        """
+        Generate the first passages for the intention (at most a week's worth;
+        the daily job adds each following day's passage).
+
+        If the AI cannot be used the focus is still saved; the reason is left
+        on `intention.generation_warning` for the view to return, and
+        `passages_generated` stays False so nothing claims otherwise.
+        """
         from datetime import timedelta
 
-        passages_data = curator.curate_passages(
-            intention_text, period_type, themes, num_passages
-        )
+        from shared.llm import LLMError
+
+        intention.generation_warning = None
+        try:
+            passages_data = curator.curate_passages(
+                intention_text, period_type, themes, num_passages
+            )
+        except LLMError as exc:
+            intention.generation_warning = exc.to_dict()
+            return
+
+        if not passages_data:
+            intention.generation_warning = {
+                "code": "SCRIPTURE_UNAVAILABLE",
+                "message": "No passages could be prepared yet.",
+                "suggestion": "They will be generated automatically; check back later.",
+            }
+            return
 
         for i, passage_data in enumerate(passages_data):
-            scheduled_date = intention.period_start + timedelta(days=i)
-
-            DevotionalPassage.objects.create(
-                focus_intention=intention,
+            create_devotional_passage(
                 user=intention.user,
+                focus_intention=intention,
                 sequence_number=i + 1,
-                scheduled_date=scheduled_date,
-                scripture_reference=passage_data.get("scripture_reference", "Unknown"),
-                scripture_text=passage_data.get("scripture_text", ""),
-                translation=passage_data.get("translation", "NIV"),
-                stylized_quote=passage_data.get("stylized_quote", ""),
-                context_note=passage_data.get("context_note", ""),
-                connection_to_focus=passage_data.get("connection_to_focus", ""),
-                reflection_prompts=passage_data.get("reflection_prompts", []),
-                application_suggestions=passage_data.get("application_suggestions", []),
+                scheduled_date=intention.period_start + timedelta(days=i),
+                data=passage_data,
             )
 
         intention.passages_generated = True
         intention.save(update_fields=["passages_generated"])
+
+
+def create_devotional_passage(
+    *, user, focus_intention, sequence_number, scheduled_date, data: dict
+) -> DevotionalPassage:
+    """Store a curated passage (its text already fetched from the Bible source)."""
+    return DevotionalPassage.objects.create(
+        focus_intention=focus_intention,
+        user=user,
+        sequence_number=sequence_number,
+        scheduled_date=scheduled_date,
+        scripture_reference=data["scripture_reference"],
+        scripture_text=data["scripture_text"],
+        translation=data["translation"],
+        stylized_quote=data.get("stylized_quote", ""),
+        context_note=data.get("context_note", ""),
+        connection_to_focus=data.get("connection_to_focus", ""),
+        reflection_prompts=data.get("reflection_prompts", []),
+        application_suggestions=data.get("application_suggestions", []),
+    )
 
 
 class DevotionalPassageSerializer(serializers.ModelSerializer):

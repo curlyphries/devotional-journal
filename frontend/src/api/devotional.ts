@@ -1,4 +1,5 @@
-import client from './client'
+import client, { AI_TIMEOUT_MS } from './client'
+import { unwrapList } from './pagination'
 
 // Types
 export interface FocusIntention {
@@ -82,12 +83,12 @@ export interface CreateFocusIntentionInput {
 // API Functions
 export const getFocusIntentions = async (): Promise<FocusIntention[]> => {
   const response = await client.get('/focus/')
-  return response.data
+  return unwrapList(response.data)
 }
 
 export const getActiveFocusIntentions = async (): Promise<FocusIntention[]> => {
   const response = await client.get('/focus/active/')
-  return response.data
+  return unwrapList(response.data)
 }
 
 export const getTodayDevotional = async (): Promise<TodayDevotional> => {
@@ -96,7 +97,8 @@ export const getTodayDevotional = async (): Promise<TodayDevotional> => {
 }
 
 export const createFocusIntention = async (data: CreateFocusIntentionInput): Promise<FocusIntention> => {
-  const response = await client.post('/focus/', data)
+  // Creating a focus also generates its passages with the AI.
+  const response = await client.post('/focus/', data, { timeout: AI_TIMEOUT_MS })
   return response.data
 }
 
@@ -107,22 +109,22 @@ export const completeFocusIntention = async (id: string): Promise<FocusIntention
 
 export const getFocusIntentionPassages = async (id: string): Promise<DevotionalPassage[]> => {
   const response = await client.get(`/focus/${id}/passages/`)
-  return response.data
+  return unwrapList(response.data)
 }
 
 export const getDevotionalPassages = async (): Promise<DevotionalPassage[]> => {
   const response = await client.get('/passages/')
-  return response.data
+  return unwrapList(response.data)
 }
 
 export const getTodayPassages = async (): Promise<DevotionalPassage[]> => {
   const response = await client.get('/passages/today/')
-  return response.data
+  return unwrapList(response.data)
 }
 
 export const getUpcomingPassages = async (): Promise<DevotionalPassage[]> => {
   const response = await client.get('/passages/upcoming/')
-  return response.data
+  return unwrapList(response.data)
 }
 
 export const markPassageRead = async (id: string): Promise<DevotionalPassage> => {
@@ -138,6 +140,6 @@ export const savePassageReflection = async (id: string, reflection: string): Pro
 export const generatePassageDeepDive = async (id: string, context?: string): Promise<StudyGuide> => {
   const response = await client.post(`/passages/${id}/deep_dive/`, {
     context: context || '',
-  })
+  }, { timeout: AI_TIMEOUT_MS })
   return response.data
 }

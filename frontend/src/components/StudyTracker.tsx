@@ -2,6 +2,7 @@ import { ChangeEvent, useMemo, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Archive, BookOpen, CheckCircle2, Loader2, PlayCircle, Sparkles } from 'lucide-react'
 import { getPassage, parsePassageReference } from '../api/bible'
+import InlineError from './InlineError'
 import {
   getStudySessionSummary,
   getStudySessions,
@@ -124,7 +125,7 @@ export default function StudyTracker() {
     staleTime: 60000,
   })
 
-  const { data: sessions = [], isLoading: isSessionsLoading } = useQuery({
+  const { data: sessions = [], isLoading: isSessionsLoading, error: sessionsError, refetch: refetchSessions } = useQuery({
     queryKey: ['studySessions', filter],
     queryFn: () => getStudySessions(filter === 'all' ? undefined : filter),
   })
@@ -162,6 +163,10 @@ export default function StudyTracker() {
       avg: summary?.average_progress_percentage ?? 0,
     }
   }, [summary])
+
+  if (sessionsError) {
+    return <InlineError error={sessionsError} onRetry={() => refetchSessions()} />
+  }
 
   if (isSummaryLoading || isSessionsLoading) {
     return (

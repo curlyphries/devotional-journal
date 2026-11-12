@@ -4,16 +4,21 @@ Views for journal entries.
 
 import json
 
+from django.db.models import Prefetch
 from django.utils import timezone
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.reflections.models import StudyGuideSession
 from apps.reflections.services import get_study_guide_service
+from shared.errors import AppError
+from shared.pagination import StandardPagination
 from shared.permissions import IsOwner
 
-from .models import JournalEntry
+from .feedback import feedback_to_dict, generate_feedback, theme_summary
+from .models import JournalEntry, JournalFeedback
 from .serializers import JournalEntryListSerializer, JournalEntrySerializer
 
 DJ_META_START = "<!-- DJ_META_START -->"
@@ -95,8 +100,18 @@ class JournalListCreateView(APIView):
         if mood:
             entries = entries.filter(mood_tag=mood)
 
-        serializer = JournalEntryListSerializer(entries, many=True)
-        return Response(serializer.data)
+        entries = entries.prefetch_related(
+            Prefetch(
+                "feedback_records",
+                queryset=JournalFeedback.objects.filter(is_current=True),
+                to_attr="current_feedback",
+            )
+        )
+
+        paginator = StandardPagination()
+        page = paginator.paginate_queryset(entries, request, view=self)
+        serializer = JournalEntryListSerializer(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
     def post(self, request):
         serializer = JournalEntrySerializer(
@@ -112,7 +127,7 @@ class JournalDetailView(APIView):
     Retrieve, update, or delete a journal entry.
     """
 
-    permission_classes = [IsOwner]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def get_object(self, entry_id, user):
         try:
@@ -213,7 +228,7 @@ class JournalEntryDeepDiveView(APIView):
     Generate a personalized deep-dive study guide from a journal entry.
     """
 
-    permission_classes = [IsOwner]
+    permission_classes = [IsAuthenticated, IsOwner]
 
     def post(self, request, entry_id):
         try:
@@ -259,7 +274,7 @@ class JournalEntryDeepDiveView(APIView):
             ),
         }
 
-        guide = get_study_guide_service().generate_study_guide(
+        guide = get_study_guide_service(request.user).generate_study_guide(
             source_type="journal_entry",
             source_context=source_context,
             user_context=user_context,
@@ -280,3 +295,93 @@ class JournalEntryDeepDiveView(APIView):
         }
 
         return Response(guide)
+
+
+def _get_entry(entry_id, user) -> JournalEntry:
+    try:
+        return JournalEntry.objects.select_related("user").get(id=entry_id, user=user)
+    except JournalEntry.DoesNotExist:
+        raise AppError(
+            "That journal entry was not found.", code="NOT_FOUND", status_code=404
+        )
+
+
+class JournalFeedbackView(APIView):
+    """
+    The feedback an entry received: reflection, a verified scripture passage,
+    why it was chosen, and the record of that decision.
+
+    GET  returns the current feedback (404 if none yet).
+    POST generates it; {"regenerate": true} replaces it (the old record is
+         kept in the audit log).
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, entry_id):
+        entry = _get_entry(entry_id, request.user)
+        feedback = (
+            JournalFeedback.objects.filter(entry=entry, is_current=True)
+            .select_related("entry", "user")
+            .first()
+        )
+        if not feedback:
+            raise AppError(
+                "No feedback has been generated for this entry yet.",
+                code="NOT_FOUND",
+                status_code=404,
+                suggestion="Choose “Get feedback” on the entry.",
+            )
+        return Response(feedback_to_dict(feedback))
+
+    def post(self, request, entry_id):
+        entry = _get_entry(entry_id, request.user)
+        regenerate = bool(request.data.get("regenerate", False))
+        feedback = generate_feedback(entry, regenerate=regenerate)
+        return Response(feedback_to_dict(feedback))
+
+
+class JournalFeedbackListView(APIView):
+    """The audit log: every scripture decision made for this person, newest first."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        records = JournalFeedback.objects.filter(user=request.user).select_related(
+            "entry", "user"
+        )
+        if request.query_params.get("current") in ("1", "true"):
+            records = records.filter(is_current=True)
+        paginator = StandardPagination()
+        page = paginator.paginate_queryset(records, request, view=self)
+        return paginator.get_paginated_response([feedback_to_dict(r) for r in page])
+
+
+class JournalFeedbackRateView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, feedback_id):
+        try:
+            feedback = JournalFeedback.objects.select_related("entry", "user").get(
+                id=feedback_id, user=request.user
+            )
+        except JournalFeedback.DoesNotExist:
+            raise AppError(
+                "That feedback was not found.", code="NOT_FOUND", status_code=404
+            )
+
+        helpful = request.data.get("helpful")
+        if helpful not in (True, False, None):
+            raise AppError("“helpful” must be true, false or null.")
+        feedback.helpful = helpful
+        feedback.save(update_fields=["helpful"])
+        return Response(feedback_to_dict(feedback))
+
+
+class JournalThemesView(APIView):
+    """Themes that recur across this person's entries."""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        return Response(theme_summary(request.user))

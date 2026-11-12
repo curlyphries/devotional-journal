@@ -89,3 +89,4 @@ backend/__pycache__/
 # Misc
 *.bak
 *.tmp
+.env.mesh

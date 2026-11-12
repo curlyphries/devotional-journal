@@ -18,10 +18,11 @@ import {
   useLifeAreas
 } from '../hooks/useReflections'
 import { UserJourney, LifeArea } from '../api/reflections'
+import InlineError from '../components/InlineError'
 
 export default function JourneyPage() {
   const { data: activeJourney, isLoading: activeLoading } = useActiveJourney()
-  const { data: journeys, isLoading: journeysLoading } = useJourneys()
+  const { data: journeys, isLoading: journeysLoading, error: journeysError, refetch: refetchJourneys } = useJourneys()
   const [showCreateForm, setShowCreateForm] = useState(false)
 
   if (activeLoading || journeysLoading) {
@@ -48,6 +49,10 @@ export default function JourneyPage() {
           )}
         </div>
 
+        {journeysError && (
+          <InlineError error={journeysError} onRetry={() => refetchJourneys()} className="mb-6" />
+        )}
+
         {showCreateForm && (
           <CreateJourneyForm 
             onCancel={() => setShowCreateForm(false)}
@@ -70,7 +75,7 @@ export default function JourneyPage() {
           </div>
         )}
 
-        {!activeJourney && !showCreateForm && (!journeys || journeys.length === 0) && (
+        {!activeJourney && !showCreateForm && !journeysError && (!journeys || journeys.length === 0) && (
           <div className="text-center py-16">
             <Target className="w-16 h-16 text-text-secondary mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-text-primary mb-2">
@@ -243,8 +248,8 @@ function CreateJourneyForm({
         duration_days: durationDays,
       })
       onSuccess()
-    } catch (error) {
-      console.error('Failed to create journey:', error)
+    } catch {
+      // The reason is rendered above the submit button (createJourney.error).
     }
   }
 
@@ -346,6 +351,8 @@ function CreateJourneyForm({
           </div>
         </div>
       </div>
+
+      {createJourney.isError && <InlineError error={createJourney.error} className="mt-6" />}
 
       <div className="flex gap-3 mt-8">
         <button

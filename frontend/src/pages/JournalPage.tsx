@@ -1,23 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams, useSearchParams, Link } from 'react-router-dom'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { ChevronLeft, Save, Trash2, Book, Lightbulb, Loader2, ExternalLink, Highlighter, Sparkles, MessageSquare, Target, X } from 'lucide-react'
-import { createJournalEntry, updateJournalEntry, deleteJournalEntry, getJournalEntry, generateJournalDeepDive } from '../api/journal'
+import {
+  ChevronLeft, Save, Trash2, Book, Lightbulb, Loader2, ExternalLink, Highlighter,
+  Sparkles, MessageSquare, Target, X,
+} from 'lucide-react'
+import {
+  createJournalEntry, updateJournalEntry, deleteJournalEntry, getJournalEntry, generateJournalDeepDive,
+  type CreateJournalEntry,
+} from '../api/journal'
 import { getHighlights, VerseHighlight } from '../api/highlights'
 import { getPassage, Verse } from '../api/bible'
 import { getActiveFocusIntentions } from '../api/devotional'
+import type { StudyGuide } from '../api/devotional'
 import client from '../api/client'
 import ThreadPromptCard from '../components/ThreadPromptCard'
-import type { StudyGuide } from '../api/devotional'
-
-const MOODS = [
-  { id: 'grateful', emoji: '🙏', label: 'Grateful' },
-  { id: 'struggling', emoji: '😔', label: 'Struggling' },
-  { id: 'convicted', emoji: '💭', label: 'Convicted' },
-  { id: 'peaceful', emoji: '😌', label: 'Peaceful' },
-  { id: 'fired_up', emoji: '🔥', label: 'Fired Up' },
-]
+import JournalFeedbackPanel from '../components/JournalFeedbackPanel'
+import DictationButton from '../components/DictationButton'
+import InlineError from '../components/InlineError'
+import ConfirmDialog from '../components/ConfirmDialog'
+import { useToast } from '../components/Toast'
+import { buildJournalContent, parseJournalContent, type JournalMeta } from '../lib/journalContent'
+import { MOODS, moodLabelKey } from '../lib/moods'
+import { formatDate, todayLocalISO } from '../lib/dates'
 
 const HIGHLIGHT_COLORS: Record<string, string> = {
   yellow: 'rgba(234, 179, 8, 0.3)',
@@ -29,161 +35,108 @@ const HIGHLIGHT_COLORS: Record<string, string> = {
 
 const PUBLIC_DOMAIN_TRANSLATIONS = ['KJV', 'ASV', 'WEB', 'YLT', 'DBY', 'WBT']
 
-const isPublicDomainTranslation = (code: string): boolean => {
-  return PUBLIC_DOMAIN_TRANSLATIONS.includes(code.toUpperCase())
-}
-
-// Unique delimiters that users won't accidentally type
-const DJ_META_START = '<!-- DJ_META_START -->'
-const DJ_META_END = '<!-- DJ_META_END -->'
-
-function parseJournalContent(content: string): {
-  planTitle?: string
-  dayNumber?: string
-  theme?: string
-  passage?: string
-  aiInsight?: string
-  userContent: string
-} {
-  // First, try to parse new format with HTML comment delimiters
-  const metaStartIdx = content.indexOf(DJ_META_START)
-  const metaEndIdx = content.indexOf(DJ_META_END)
-  
-  if (metaStartIdx !== -1 && metaEndIdx !== -1 && metaEndIdx > metaStartIdx) {
-    // New format: JSON metadata in HTML comments
-    const metaJson = content.slice(metaStartIdx + DJ_META_START.length, metaEndIdx).trim()
-    const userContent = content.slice(metaEndIdx + DJ_META_END.length).trim()
-    
-    try {
-      const meta = JSON.parse(metaJson)
-      return {
-        planTitle: meta.planTitle,
-        dayNumber: meta.dayNumber,
-        theme: meta.theme,
-        passage: meta.passage,
-        aiInsight: meta.aiInsight,
-        userContent,
-      }
-    } catch {
-      // JSON parse failed, fall through to legacy parsing
-    }
-  }
-
-  // Legacy format: Parse **Theme:** style markers (for backwards compatibility)
-  const lines = content.split('\n')
-  let planTitle: string | undefined
-  let dayNumber: string | undefined
-  let theme: string | undefined
-  let passage: string | undefined
-  let aiInsight: string | undefined
-  let contentStartIndex = 0
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim()
-    
-    // Only match at the very start of the content (first few lines)
-    // This prevents matching user-typed **Theme:** in the body
-    if (i > 10) break
-    
-    const planMatch = line.match(/^\*\*(.+?)\*\*\s*-\s*Day\s*(\d+)/)
-    if (planMatch) {
-      planTitle = planMatch[1]
-      dayNumber = planMatch[2]
-      contentStartIndex = i + 1
-      continue
-    }
-    
-    const themeMatch = line.match(/^\*\*Theme:\*\*\s*(.+)/)
-    if (themeMatch) {
-      theme = themeMatch[1]
-      contentStartIndex = i + 1
-      continue
-    }
-    
-    const passageMatch = line.match(/^\*\*Passage:\*\*\s*(.+)/)
-    if (passageMatch) {
-      passage = passageMatch[1]
-      contentStartIndex = i + 1
-      continue
-    }
-
-    const insightMatch = line.match(/^\*\*AI Insight:\*\*/)
-    if (insightMatch) {
-      const insightLines = []
-      for (let j = i + 1; j < lines.length; j++) {
-        if (lines[j].trim() === '---') {
-          contentStartIndex = j + 1
-          break
-        }
-        insightLines.push(lines[j])
-      }
-      aiInsight = insightLines.join('\n').trim()
-      continue
-    }
-    
-    if (line === '---') {
-      contentStartIndex = i + 1
-      continue
-    }
-    
-    if (line && !line.startsWith('**')) {
-      break
-    }
-  }
-
-  const userContent = lines.slice(contentStartIndex).join('\n').trim()
-  return { planTitle, dayNumber, theme, passage, aiInsight, userContent }
-}
+const isPublicDomainTranslation = (code: string): boolean =>
+  PUBLIC_DOMAIN_TRANSLATIONS.includes(code.toUpperCase())
 
 function parsePassageReference(ref: string): { book: string; chapter: number } | null {
   const match = ref.match(/^(\w+)\s*(\d+)/)
   if (match) {
-    return { book: match[1].toUpperCase(), chapter: parseInt(match[2]) }
+    return { book: match[1].toUpperCase(), chapter: parseInt(match[2], 10) }
   }
   return null
 }
 
+function metaText(meta: JournalMeta, key: string): string | undefined {
+  const value = meta[key]
+  if (typeof value === 'string' && value.trim()) return value
+  if (typeof value === 'number') return String(value)
+  return undefined
+}
+
+/**
+ * Write a new entry (`/journal/new`) or view and edit a saved one
+ * (`/journal/:entryId`). Saved entries show their feedback underneath;
+ * `?feedback=1` (set right after saving) generates it straight away.
+ */
 export default function JournalPage() {
-  const { t } = useTranslation()
+  const { entryId } = useParams()
+  // Both routes render this component; the key gives each entry fresh state.
+  return <JournalEditor key={entryId ?? 'new'} entryId={entryId} />
+}
+
+function JournalEditor({ entryId }: { entryId?: string }) {
+  const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const { entryId } = useParams()
+  const toast = useToast()
   const [searchParams] = useSearchParams()
   const isEditing = !!entryId
+  const dateId = useId()
+  const textId = useId()
+  const moodLabelId = useId()
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
-  const passageContext = {
-    passage: searchParams.get('passage'),
-    enrollmentId: searchParams.get('enrollmentId'),
-    theme: searchParams.get('theme'),
-    planTitle: searchParams.get('planTitle'),
-    dayNumber: searchParams.get('dayNumber'),
-    aiInsight: searchParams.get('aiInsight'),
-    translation: searchParams.get('translation') || 'KJV',
-  }
+  // Context handed over by the Bible reader / reading plan when starting a new entry.
+  const passageContext = useMemo(
+    () => ({
+      passage: searchParams.get('passage'),
+      theme: searchParams.get('theme'),
+      planTitle: searchParams.get('planTitle'),
+      dayNumber: searchParams.get('dayNumber'),
+      aiInsight: searchParams.get('aiInsight'),
+      translation: searchParams.get('translation') || 'KJV',
+    }),
+    [searchParams]
+  )
+  const autoGenerateFeedback = searchParams.get('feedback') === '1'
 
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0])
-  const [content, setContent] = useState('')
+  const [date, setDate] = useState(todayLocalISO())
+  const [text, setText] = useState('')
   const [selectedMood, setSelectedMood] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [parsedMeta, setParsedMeta] = useState<ReturnType<typeof parseJournalContent> | null>(null)
+  // Metadata stored with a saved entry — kept whole so nothing is dropped on re-save.
+  const [savedMeta, setSavedMeta] = useState<JournalMeta>({})
+  const [savedText, setSavedText] = useState('')
+  const [entryChanged, setEntryChanged] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
   const [highlightInsight, setHighlightInsight] = useState('')
+  const [highlightError, setHighlightError] = useState<unknown>(null)
   const [loadingHighlightInsight, setLoadingHighlightInsight] = useState(false)
   const [showDeepDive, setShowDeepDive] = useState(false)
-  const [deepDiveGuide, setDeepDiveGuide] = useState<StudyGuide | null>(null)
-  const [deepDiveError, setDeepDiveError] = useState('')
 
-  const parsedRef = passageContext.passage ? parsePassageReference(passageContext.passage) : null
-  
+  const entryQuery = useQuery({
+    queryKey: ['journalEntry', entryId],
+    queryFn: () => getJournalEntry(entryId!),
+    enabled: isEditing,
+    retry: false,
+  })
+
+  // Fill the editor once, when the entry first arrives. Later refetches must
+  // not overwrite what the user is typing.
+  const loadedRef = useRef(false)
+  useEffect(() => {
+    const entry = entryQuery.data
+    if (!entry || loadedRef.current) return
+    loadedRef.current = true
+    const parsed = parseJournalContent(entry.decrypted_content || '')
+    setDate(entry.date)
+    setText(parsed.userContent)
+    setSavedText(parsed.userContent)
+    setSavedMeta(parsed.meta)
+    setSelectedMood(entry.mood_tag || '')
+  }, [entryQuery.data])
+
+  const parsedRef = !isEditing && passageContext.passage ? parsePassageReference(passageContext.passage) : null
+
   const { data: highlights = [] } = useQuery({
     queryKey: ['highlights', parsedRef?.book, parsedRef?.chapter],
     queryFn: () => getHighlights({ book: parsedRef!.book, chapter: parsedRef!.chapter }),
-    enabled: !!parsedRef && !isEditing,
+    enabled: !!parsedRef,
   })
 
   const { data: passageData } = useQuery({
     queryKey: ['passage', parsedRef?.book, parsedRef?.chapter],
     queryFn: () => getPassage(parsedRef!.book, parsedRef!.chapter, 'KJV'),
-    enabled: !!parsedRef && !isEditing,
+    enabled: !!parsedRef,
   })
 
   const { data: activeFocus = [] } = useQuery({
@@ -192,16 +145,34 @@ export default function JournalPage() {
     staleTime: 5 * 60 * 1000,
   })
 
-  // Fetch pending thread prompts for quick check-in
   const { data: pendingPrompts = [] } = useQuery({
     queryKey: ['pendingThreadPrompts'],
     queryFn: async () => {
       const response = await client.get('/thread-prompts/pending/')
-      return response.data
+      const data = response.data
+      return Array.isArray(data) ? data : Array.isArray(data?.results) ? data.results : []
     },
     staleTime: 0,
     enabled: !isEditing,
   })
+
+  // What is shown in the context banners: stored metadata for a saved entry,
+  // the URL context for a new one.
+  const display = isEditing
+    ? {
+        planTitle: metaText(savedMeta, 'planTitle'),
+        dayNumber: metaText(savedMeta, 'dayNumber'),
+        theme: metaText(savedMeta, 'theme'),
+        passage: metaText(savedMeta, 'passage'),
+        aiInsight: metaText(savedMeta, 'aiInsight'),
+      }
+    : {
+        planTitle: passageContext.planTitle || undefined,
+        dayNumber: passageContext.dayNumber || undefined,
+        theme: passageContext.theme || undefined,
+        passage: passageContext.passage || undefined,
+        aiInsight: passageContext.aiInsight || undefined,
+      }
 
   const getVerseText = (verseNum: number): string => {
     if (!passageData?.verses) return ''
@@ -211,15 +182,16 @@ export default function JournalPage() {
 
   const generateHighlightInsight = async () => {
     if (highlights.length === 0 || !passageData) return
-    
+
     setLoadingHighlightInsight(true)
+    setHighlightError(null)
     try {
       const highlightContext = highlights.map((h: VerseHighlight) => {
         const verseText = getVerseText(h.verse_start)
         return `Verse ${h.verse_start}: "${verseText}"${h.note ? ` (User's note: "${h.note}")` : ''}`
       }).join('\n\n')
 
-      const focusContext = activeFocus.length > 0 
+      const focusContext = activeFocus.length > 0
         ? `\n\nIMPORTANT - The reader has set a personal spiritual focus: "${activeFocus[0].intention_text}". Their focus themes include: ${activeFocus[0].themes.join(', ')}. Please connect these highlighted verses to their personal focus.`
         : ''
 
@@ -235,60 +207,42 @@ ${highlightContext}
 
 ${passageContext.theme ? `Today's theme: "${passageContext.theme}"` : ''}${focusContext}`
 
-      const response = await client.post('/crew/ask-agent/', {
-        agent: 'scripture',
-        prompt,
-        context: { 
-          passage: passageContext.passage,
-          theme: passageContext.theme,
-          highlights: highlights.length,
-          userFocus: activeFocus.length > 0 ? activeFocus[0].intention_text : null,
-          focusThemes: activeFocus.length > 0 ? activeFocus[0].themes : [],
+      const response = await client.post(
+        '/crew/ask-agent/',
+        {
+          agent: 'scripture',
+          prompt,
+          context: {
+            passage: passageContext.passage,
+            theme: passageContext.theme,
+            highlights: highlights.length,
+            userFocus: activeFocus.length > 0 ? activeFocus[0].intention_text : null,
+            focusThemes: activeFocus.length > 0 ? activeFocus[0].themes : [],
+          },
         },
-      })
+        { timeout: 120_000 }
+      )
       setHighlightInsight(response.data.response)
     } catch (err) {
-      console.error('Failed to generate highlight insight:', err)
+      setHighlightError(err)
     } finally {
       setLoadingHighlightInsight(false)
     }
   }
 
-  useEffect(() => {
-    if (entryId) {
-      setIsLoading(true)
-      getJournalEntry(entryId)
-        .then((entry) => {
-          setDate(entry.date)
-          const fullContent = entry.decrypted_content || ''
-          setContent(fullContent)
-          setSelectedMood(entry.mood_tag || '')
-          setParsedMeta(parseJournalContent(fullContent))
-        })
-        .catch((err) => console.error('Failed to load entry:', err))
-        .finally(() => setIsLoading(false))
-    }
-  }, [entryId])
-
-  useEffect(() => {
-    if (passageContext.passage && !content && !entryId) {
-      setContent('')
-      setParsedMeta({
-        planTitle: passageContext.planTitle || undefined,
-        dayNumber: passageContext.dayNumber || undefined,
-        theme: passageContext.theme || undefined,
-        passage: passageContext.passage,
-        aiInsight: passageContext.aiInsight || undefined,
-        userContent: '',
-      })
-    }
-  }, [passageContext.passage, passageContext.aiInsight, passageContext.dayNumber, passageContext.planTitle, passageContext.theme, content, entryId])
+  const invalidateLists = () => {
+    queryClient.invalidateQueries({ queryKey: ['journalEntries'] })
+    queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] })
+    queryClient.invalidateQueries({ queryKey: ['profile'] })
+  }
 
   const createMutation = useMutation({
-    mutationFn: createJournalEntry,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['journalEntries'] })
-      navigate('/journal')
+    mutationFn: (data: CreateJournalEntry) => createJournalEntry(data),
+    onSuccess: (entry) => {
+      invalidateLists()
+      toast.success(t('journal.saved'))
+      // Stay with the entry so the user sees their feedback and scripture.
+      navigate(`/journal/${entry.id}?feedback=1`, { replace: true })
     },
   })
 
@@ -296,169 +250,163 @@ ${passageContext.theme ? `Today's theme: "${passageContext.theme}"` : ''}${focus
     mutationFn: ({ id, data }: { id: string; data: Parameters<typeof updateJournalEntry>[1] }) =>
       updateJournalEntry(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['journalEntries'] })
-      navigate('/journal')
+      invalidateLists()
+      queryClient.invalidateQueries({ queryKey: ['journalEntry', entryId] })
+      toast.success(t('journal.saved'))
+      if (text.trim() !== savedText.trim()) setEntryChanged(true)
+      setSavedText(text)
     },
   })
 
   const deleteMutation = useMutation({
-    mutationFn: deleteJournalEntry,
+    mutationFn: (id: string) => deleteJournalEntry(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['journalEntries'] })
-      navigate('/journal')
+      invalidateLists()
+      queryClient.removeQueries({ queryKey: ['journalEntry', entryId] })
+      toast.success(t('journal.deleted'))
+      navigate('/journal', { replace: true })
+    },
+    onError: (err) => {
+      setConfirmDelete(false)
+      toast.fromError(err, t('journal.deleteFailed'))
     },
   })
 
-  const deepDiveMutation = useMutation<StudyGuide, Error, void>({
-    mutationFn: () => {
-      if (!entryId) {
-        throw new Error('Journal entry must be saved before deep dive analysis')
-      }
-      return generateJournalDeepDive(entryId)
-    },
-    onSuccess: (guide: StudyGuide) => {
-      setDeepDiveGuide(guide)
-      setDeepDiveError('')
-    },
-    onError: () => {
-      setDeepDiveGuide(null)
-      setDeepDiveError('Failed to generate a deep-dive study guide. Please try again.')
-    },
+  const deepDiveMutation = useMutation<StudyGuide, unknown, void>({
+    mutationFn: () => generateJournalDeepDive(entryId!),
   })
+  const deepDiveGuide = deepDiveMutation.data ?? null
 
-  const handleSave = async () => {
-    let fullContent = content
-    
-    // Build content with new robust metadata format (HTML comments + JSON)
-    if (!isEditing && passageContext.passage) {
-      const metadata = {
-        planTitle: passageContext.planTitle || null,
-        dayNumber: passageContext.dayNumber || null,
-        theme: passageContext.theme || null,
-        passage: passageContext.passage,
-        aiInsight: passageContext.aiInsight || null,
-        highlights: highlights.map((h: VerseHighlight) => ({
-          verse: h.verse_start,
-          note: h.note || null,
-        })),
-      }
-      
-      // New format: JSON metadata in HTML comments (won't be accidentally typed by users)
-      const metaBlock = `${DJ_META_START}\n${JSON.stringify(metadata, null, 2)}\n${DJ_META_END}\n\n`
-      fullContent = metaBlock + content
-    }
+  const handleSave = () => {
+    if (!text.trim()) return
 
     if (isEditing && entryId) {
-      // When editing, preserve the metadata format
-      let editContent = parsedMeta?.userContent || content
-      
-      if (parsedMeta?.passage) {
-        const metadata = {
-          planTitle: parsedMeta.planTitle || null,
-          dayNumber: parsedMeta.dayNumber || null,
-          theme: parsedMeta.theme || null,
-          passage: parsedMeta.passage,
-          aiInsight: parsedMeta.aiInsight || null,
-        }
-        editContent = `${DJ_META_START}\n${JSON.stringify(metadata, null, 2)}\n${DJ_META_END}\n\n${parsedMeta.userContent || content}`
-      }
-      
       updateMutation.mutate({
         id: entryId,
         data: {
           date,
-          content: editContent,
+          // Whatever metadata the entry was saved with goes back unchanged.
+          content: buildJournalContent(savedMeta, text),
           mood_tag: selectedMood || undefined,
         },
       })
-    } else {
-      createMutation.mutate({
-        date,
-        content: fullContent,
-        mood_tag: selectedMood || undefined,
-      })
-    }
-  }
-
-  const handleDelete = () => {
-    if (entryId && window.confirm('Are you sure you want to delete this entry?')) {
-      deleteMutation.mutate(entryId)
-    }
-  }
-
-  const handleGenerateDeepDive = async () => {
-    if (!entryId) {
       return
     }
 
-    setShowDeepDive(true)
-    setDeepDiveGuide(null)
-    setDeepDiveError('')
+    const meta: JournalMeta = passageContext.passage
+      ? {
+          planTitle: passageContext.planTitle,
+          dayNumber: passageContext.dayNumber,
+          theme: passageContext.theme,
+          passage: passageContext.passage,
+          aiInsight: passageContext.aiInsight,
+          highlights: highlights.map((h: VerseHighlight) => ({ verse: h.verse_start, note: h.note || null })),
+        }
+      : {}
 
-    await deepDiveMutation.mutateAsync()
+    createMutation.mutate({
+      date,
+      content: buildJournalContent(meta, text),
+      mood_tag: selectedMood || undefined,
+    })
+  }
+
+  const openDeepDive = () => {
+    if (!entryId) return
+    setShowDeepDive(true)
+    deepDiveMutation.reset()
+    deepDiveMutation.mutate()
   }
 
   const closeDeepDive = () => {
     setShowDeepDive(false)
-    setDeepDiveGuide(null)
-    setDeepDiveError('')
+    deepDiveMutation.reset()
   }
+
+  // Esc closes the study-guide dialog.
+  useEffect(() => {
+    if (!showDeepDive) return
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setShowDeepDive(false)
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [showDeepDive])
 
   const isSaving = createMutation.isPending || updateMutation.isPending
+  const saveError = createMutation.error ?? updateMutation.error
+  const isDirty = isEditing && text !== savedText
 
-  const displayMeta = parsedMeta || {
-    planTitle: passageContext.planTitle,
-    dayNumber: passageContext.dayNumber,
-    theme: passageContext.theme,
-    passage: passageContext.passage,
-    aiInsight: passageContext.aiInsight,
+  const backButton = (
+    <button
+      type="button"
+      onClick={() => (isEditing ? navigate('/journal') : navigate(-1))}
+      className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors"
+    >
+      <ChevronLeft className="w-5 h-5" aria-hidden="true" />
+      {t('common.back')}
+    </button>
+  )
+
+  if (isEditing && entryQuery.isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]" role="status">
+        <Loader2 className="w-8 h-8 text-accent-primary animate-spin" aria-hidden="true" />
+        <span className="sr-only">{t('common.loading')}</span>
+      </div>
+    )
   }
 
-  if (isLoading) {
+  // A failed load must never fall through to an empty editor: saving that
+  // would overwrite the real entry.
+  if (isEditing && (entryQuery.isError || !entryQuery.data)) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 text-amber-500 animate-spin" />
+      <div className="space-y-6">
+        {backButton}
+        <InlineError
+          error={entryQuery.error ?? new Error(t('journal.loadFailed'))}
+          title={t('journal.loadFailed')}
+          onRetry={() => entryQuery.refetch()}
+        />
+        <p className="text-sm text-text-secondary">
+          <Link to="/journal" className="text-accent-primary hover:underline">{t('journal.backToHistory')}</Link>
+        </p>
       </div>
     )
   }
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <button
-          onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5" />
-          {t('common.back')}
-        </button>
+      <div className="flex items-center justify-between gap-3">
+        {backButton}
 
         {isEditing && (
           <button
-            onClick={handleDelete}
+            type="button"
+            onClick={() => setConfirmDelete(true)}
             disabled={deleteMutation.isPending}
-            className="flex items-center gap-2 text-danger hover:text-danger/80 transition-colors"
+            className="flex items-center gap-2 text-red-300 hover:text-red-200 transition-colors"
           >
-            <Trash2 className="w-5 h-5" />
-            {deleteMutation.isPending ? 'Deleting...' : t('common.delete')}
+            <Trash2 className="w-5 h-5" aria-hidden="true" />
+            {t('common.delete')}
           </button>
         )}
       </div>
 
-      {/* Active Focus Banner */}
+      {/* Active focus */}
       {!isEditing && activeFocus.length > 0 && (
-        <div className="bg-gradient-to-r from-purple-900/20 to-purple-800/10 border border-purple-700/30 rounded-xl p-4">
+        <div className="bg-bg-surface border border-border rounded-xl p-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-              <Target className="w-5 h-5 text-purple-400" />
+            <div className="w-10 h-10 bg-accent-primary/15 rounded-lg flex items-center justify-center flex-shrink-0">
+              <Target className="w-5 h-5 text-accent-primary" aria-hidden="true" />
             </div>
-            <div className="flex-1">
-              <p className="text-purple-400 text-xs font-medium uppercase tracking-wider mb-1">Your Spiritual Focus</p>
-              <p className="text-white font-medium">{activeFocus[0].intention_text}</p>
+            <div className="flex-1 min-w-0">
+              <p className="text-text-secondary text-xs font-medium uppercase tracking-wider mb-1">{t('journal.yourFocus')}</p>
+              <p className="text-text-primary font-medium">{activeFocus[0].intention_text}</p>
               {activeFocus[0].themes.length > 0 && (
-                <div className="flex gap-1.5 mt-2">
+                <div className="flex flex-wrap gap-1.5 mt-2">
                   {activeFocus[0].themes.slice(0, 4).map((theme: string) => (
-                    <span key={theme} className="px-2 py-0.5 bg-purple-500/20 text-purple-300 text-xs rounded">
+                    <span key={theme} className="px-2 py-0.5 bg-bg-elevated border border-border text-text-secondary text-xs rounded">
                       {theme}
                     </span>
                   ))}
@@ -469,35 +417,34 @@ ${passageContext.theme ? `Today's theme: "${passageContext.theme}"` : ''}${focus
         </div>
       )}
 
-      {/* Quick Check-In Thread Prompts */}
-      {!isEditing && pendingPrompts.length > 0 && (
-        <ThreadPromptCard prompts={pendingPrompts} />
-      )}
+      {/* Quick check-in on open threads */}
+      {!isEditing && pendingPrompts.length > 0 && <ThreadPromptCard prompts={pendingPrompts} />}
 
-      {/* Passage Context Banner */}
-      {displayMeta.passage && (
-        <div className="bg-gradient-to-r from-amber-900/30 to-amber-800/20 border border-amber-700/30 rounded-xl p-4">
+      {/* Passage this entry is about */}
+      {display.passage && (
+        <div className="bg-bg-surface border border-accent-secondary/60 rounded-xl p-4">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-              <Book className="w-5 h-5 text-amber-500" />
+            <div className="w-10 h-10 bg-accent-primary/15 rounded-lg flex items-center justify-center flex-shrink-0">
+              <Book className="w-5 h-5 text-accent-primary" aria-hidden="true" />
             </div>
-            <div className="flex-1">
-              {displayMeta.planTitle && (
-                <p className="text-amber-500/80 text-xs uppercase tracking-wider mb-1">
-                  {displayMeta.planTitle} • Day {displayMeta.dayNumber}
+            <div className="flex-1 min-w-0">
+              {display.planTitle && (
+                <p className="text-text-secondary text-xs uppercase tracking-wider mb-1">
+                  {display.planTitle}
+                  {display.dayNumber ? ` • ${t('journal.day', { day: display.dayNumber })}` : ''}
                 </p>
               )}
-              <Link 
-                to={`/bible?passage=${encodeURIComponent(displayMeta.passage!)}`}
-                className="text-white font-semibold hover:text-amber-400 transition-colors flex items-center gap-2"
+              <Link
+                to={`/bible?passage=${encodeURIComponent(display.passage)}`}
+                className="text-text-primary font-semibold hover:text-accent-primary transition-colors inline-flex items-center gap-2"
               >
-                {displayMeta.passage}
-                <ExternalLink className="w-4 h-4" />
+                {display.passage}
+                <ExternalLink className="w-4 h-4" aria-hidden="true" />
               </Link>
-              {displayMeta.theme && (
-                <p className="text-gray-400 text-sm mt-1 flex items-center gap-1">
-                  <Lightbulb className="w-3 h-3" />
-                  {displayMeta.theme}
+              {display.theme && (
+                <p className="text-text-secondary text-sm mt-1 flex items-center gap-1">
+                  <Lightbulb className="w-3 h-3" aria-hidden="true" />
+                  {display.theme}
                 </p>
               )}
             </div>
@@ -505,93 +452,106 @@ ${passageContext.theme ? `Today's theme: "${passageContext.theme}"` : ''}${focus
         </div>
       )}
 
-      {/* AI Insight Section */}
-      {(displayMeta.aiInsight || passageContext.aiInsight) && (
-        <div className="bg-gradient-to-br from-purple-900/20 to-purple-800/10 border border-purple-700/30 rounded-xl p-4">
+      {display.aiInsight && (
+        <div className="bg-bg-surface border border-border rounded-xl p-4">
           <div className="flex items-center gap-2 mb-3">
-            <Sparkles className="w-4 h-4 text-purple-400" />
-            <span className="text-purple-400 font-semibold text-sm">AI Insight</span>
+            <Sparkles className="w-4 h-4 text-accent-primary" aria-hidden="true" />
+            <span className="text-text-primary font-semibold text-sm">{t('journal.aiInsight')}</span>
           </div>
-          <p className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">
-            {displayMeta.aiInsight || passageContext.aiInsight}
-          </p>
+          <p className="text-text-secondary text-sm leading-relaxed whitespace-pre-wrap">{display.aiInsight}</p>
         </div>
       )}
 
-      {/* Highlights Section */}
+      {/* Highlights from the passage being journaled about */}
       {highlights.length > 0 && !isEditing && (
-        <div className="bg-gray-800/50 border border-amber-500/20 rounded-xl p-4">
-          <div className="flex items-center justify-between mb-3">
+        <div className="bg-bg-surface border border-border rounded-xl p-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
             <div className="flex items-center gap-2">
-              <Highlighter className="w-4 h-4 text-amber-400" />
-              <span className="text-amber-400 font-semibold text-sm">Your Highlights</span>
+              <Highlighter className="w-4 h-4 text-accent-primary" aria-hidden="true" />
+              <span className="text-text-primary font-semibold text-sm">{t('journal.highlights.title')}</span>
             </div>
             {isPublicDomainTranslation(passageContext.translation) ? (
               <button
+                type="button"
                 onClick={generateHighlightInsight}
                 disabled={loadingHighlightInsight || !passageData}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 rounded-lg text-purple-400 text-xs font-medium transition-colors disabled:opacity-50"
+                className="btn-secondary flex items-center gap-1.5 px-3 py-1.5 text-xs disabled:opacity-50"
               >
                 {loadingHighlightInsight ? (
-                  <Loader2 className="w-3 h-3 animate-spin" />
+                  <Loader2 className="w-3 h-3 animate-spin" aria-hidden="true" />
                 ) : (
-                  <Sparkles className="w-3 h-3" />
+                  <Sparkles className="w-3 h-3" aria-hidden="true" />
                 )}
-                {loadingHighlightInsight ? 'Generating...' : 'Get AI Insight'}
+                {loadingHighlightInsight ? t('journal.highlights.generating') : t('journal.highlights.getInsight')}
               </button>
             ) : (
-              <span className="text-xs text-gray-500" title="AI insights only available for public domain translations">
-                AI requires KJV/ASV/WEB
-              </span>
+              <span className="text-xs text-text-secondary">{t('journal.highlights.publicDomainOnly')}</span>
             )}
           </div>
           <div className="space-y-3">
             {highlights.map((h: VerseHighlight) => (
-              <div 
-                key={h.id} 
+              <div
+                key={h.id}
                 className="p-3 rounded-lg"
                 style={{ backgroundColor: HIGHLIGHT_COLORS[h.color] || HIGHLIGHT_COLORS.yellow }}
               >
-                <div className="flex items-start gap-2 mb-2">
-                  <span className="text-amber-500 font-bold text-sm flex-shrink-0">v{h.verse_start}</span>
-                  <p className="text-gray-200 text-sm font-serif leading-relaxed">
-                    {getVerseText(h.verse_start) || 'Loading...'}
+                <div className="flex items-start gap-2">
+                  <span className="text-text-primary font-bold text-sm flex-shrink-0">v{h.verse_start}</span>
+                  <p className="text-text-primary text-sm font-serif leading-relaxed">
+                    {getVerseText(h.verse_start) || t('common.loading')}
                   </p>
                 </div>
                 {h.note && (
                   <div className="flex items-start gap-1 mt-2 pt-2 border-t border-white/10">
-                    <MessageSquare className="w-3 h-3 text-amber-400 mt-0.5 flex-shrink-0" />
-                    <p className="text-amber-200 text-sm italic">{h.note}</p>
+                    <MessageSquare className="w-3 h-3 text-text-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
+                    <p className="text-text-primary text-sm italic">{h.note}</p>
                   </div>
                 )}
               </div>
             ))}
           </div>
 
+          {highlightError !== null && (
+            <InlineError
+              className="mt-4"
+              error={highlightError}
+              title={t('journal.highlights.failed')}
+              onRetry={generateHighlightInsight}
+            />
+          )}
+
           {highlightInsight && (
-            <div className="mt-4 pt-4 border-t border-gray-600">
+            <div className="mt-4 pt-4 border-t border-border">
               <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="w-4 h-4 text-purple-400" />
-                <span className="text-purple-400 font-semibold text-sm">AI Reflection on Your Highlights</span>
+                <Sparkles className="w-4 h-4 text-accent-primary" aria-hidden="true" />
+                <span className="text-text-primary font-semibold text-sm">{t('journal.highlights.reflection')}</span>
               </div>
-              <p className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">
-                {highlightInsight}
-              </p>
+              <p className="text-text-secondary text-sm leading-relaxed whitespace-pre-wrap">{highlightInsight}</p>
             </div>
           )}
         </div>
       )}
 
       <div className="card">
-        <h1 className="text-2xl font-bold text-text-primary mb-6">
-          {isEditing ? t('common.edit') : displayMeta.passage ? 'Journal Your Reflection' : t('journal.newEntry')}
+        <h1 className="text-2xl font-bold text-text-primary mb-1">
+          {isEditing
+            ? t('journal.yourEntry')
+            : display.passage
+              ? t('journal.reflectionTitle')
+              : t('journal.newEntry')}
         </h1>
+        <p className="text-sm text-text-secondary mb-6">
+          {isEditing
+            ? formatDate(date, i18n.language, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+            : t('journal.newEntryHint')}
+        </p>
 
         <div className="mb-6">
-          <label className="block text-sm font-medium text-text-primary mb-2">
-            Date
+          <label htmlFor={dateId} className="block text-sm font-medium text-text-primary mb-2">
+            {t('journal.date')}
           </label>
           <input
+            id={dateId}
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
@@ -600,38 +560,37 @@ ${passageContext.theme ? `Today's theme: "${passageContext.theme}"` : ''}${focus
         </div>
 
         <div className="mb-6">
-          <label className="block text-sm font-medium text-text-primary mb-2">
-            {displayMeta.passage ? 'Your Reflection' : t('reading.journalEntry')}
+          <label htmlFor={textId} className="block text-sm font-medium text-text-primary mb-2">
+            {display.passage ? t('journal.yourReflection') : t('journal.entryLabel')}
           </label>
-          {displayMeta.theme && !isEditing && (
-            <p className="text-gray-400 text-sm mb-3">
-              Consider: How does this passage connect to "{displayMeta.theme}"? What is God speaking to you today?
-            </p>
+          {display.theme && !isEditing && (
+            <p className="text-text-secondary text-sm mb-3">{t('journal.themeHint', { theme: display.theme })}</p>
           )}
           <textarea
-            value={isEditing ? (parsedMeta?.userContent || content) : content}
-            onChange={(e) => {
-              setContent(e.target.value)
-              if (parsedMeta) {
-                setParsedMeta({ ...parsedMeta, userContent: e.target.value })
-              }
-            }}
-            placeholder={displayMeta.passage 
-              ? `What stood out to you in ${displayMeta.passage}? How does it apply to your life?`
-              : "Write your thoughts, prayers, and reflections..."
+            id={textId}
+            ref={textareaRef}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder={
+              display.passage
+                ? t('journal.placeholderPassage', { passage: display.passage })
+                : t('journal.placeholder')
             }
-            className="input w-full h-64 resize-none font-serif"
+            className="input w-full h-64 resize-y font-serif"
           />
+          <DictationButton className="mt-3" value={text} onChange={setText} textareaRef={textareaRef} />
         </div>
 
         <div className="mb-6">
-          <label className="block text-sm font-medium text-text-primary mb-3">
-            How are you feeling?
-          </label>
-          <div className="flex flex-wrap gap-2">
+          <p id={moodLabelId} className="block text-sm font-medium text-text-primary mb-3">
+            {t('journal.moodQuestion')}
+          </p>
+          <div className="flex flex-wrap gap-2" role="group" aria-labelledby={moodLabelId}>
             {MOODS.map((mood) => (
               <button
                 key={mood.id}
+                type="button"
+                aria-pressed={selectedMood === mood.id}
                 onClick={() => setSelectedMood(selectedMood === mood.id ? '' : mood.id)}
                 className={`px-4 py-2 rounded-lg border transition-colors ${
                   selectedMood === mood.id
@@ -639,147 +598,171 @@ ${passageContext.theme ? `Today's theme: "${passageContext.theme}"` : ''}${focus
                     : 'border-border text-text-secondary hover:border-text-secondary'
                 }`}
               >
-                <span className="mr-2">{mood.emoji}</span>
-                {mood.label}
+                <span className="mr-2" aria-hidden="true">{mood.emoji}</span>
+                {t(moodLabelKey(mood.id))}
               </button>
             ))}
           </div>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={handleSave}
+            disabled={isSaving || !text.trim()}
+            className="btn-primary flex items-center gap-2 disabled:opacity-60"
+          >
+            {isSaving ? <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> : <Save className="w-4 h-4" aria-hidden="true" />}
+            {isSaving ? t('journal.saving') : isEditing ? t('journal.saveChanges') : t('journal.saveAndFeedback')}
+          </button>
           {isEditing && (
             <button
-              onClick={handleGenerateDeepDive}
+              type="button"
+              onClick={openDeepDive}
               disabled={deepDiveMutation.isPending}
-              className="px-4 py-2 bg-purple-500/20 text-purple-300 rounded-lg hover:bg-purple-500/30 transition-colors flex items-center gap-2 disabled:opacity-60"
+              className="btn-secondary flex items-center gap-2 disabled:opacity-60"
             >
-              {deepDiveMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
-              Deep Dive Study Guide
+              {deepDiveMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> : <Sparkles className="w-4 h-4" aria-hidden="true" />}
+              {t('journal.deepDive.button')}
             </button>
           )}
-          <button
-            onClick={handleSave}
-            disabled={isSaving || !(isEditing ? (parsedMeta?.userContent || content) : content).trim()}
-            className="btn-primary flex items-center gap-2"
-          >
-            {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-            {isSaving ? 'Saving...' : t('common.save')}
-          </button>
-          {displayMeta.passage && (
+          {display.passage && (
             <button
-              onClick={() => {
-                console.log('Back to Reading clicked, passage:', displayMeta.passage)
-                const parsed = parsePassageReference(displayMeta.passage!)
-                console.log('Parsed:', parsed)
-                if (parsed) {
-                  const url = `/bible?book=${parsed.book}&chapter=${parsed.chapter}`
-                  console.log('Navigating to:', url)
-                  navigate(url)
-                } else {
-                  console.log('Parse failed, going back')
-                  navigate(-1)
-                }
-              }}
-              className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
+              type="button"
+              onClick={() => navigate(`/bible?passage=${encodeURIComponent(display.passage!)}`)}
+              className="btn-secondary"
             >
-              Back to Reading
+              {t('journal.backToReading')}
             </button>
           )}
+          {isDirty && <span className="text-sm text-text-secondary">{t('journal.unsaved')}</span>}
         </div>
 
-        {(createMutation.isError || updateMutation.isError) && (
-          <p className="text-red-400 mt-4">Failed to save entry. Please try again.</p>
-        )}
+        {!isEditing && <p className="mt-3 text-xs text-text-secondary">{t('journal.afterSaveHint')}</p>}
+
+        {saveError && <InlineError className="mt-4" error={saveError} title={t('journal.saveFailed')} onRetry={handleSave} />}
       </div>
+
+      {isEditing && entryId && (
+        <JournalFeedbackPanel
+          entryId={entryId}
+          autoGenerate={autoGenerateFeedback}
+          entryChanged={entryChanged}
+          onGenerated={() => setEntryChanged(false)}
+        />
+      )}
+
+      <ConfirmDialog
+        open={confirmDelete}
+        title={t('journal.deleteTitle')}
+        message={t('journal.deleteMessage')}
+        confirmLabel={t('common.delete')}
+        destructive
+        busy={deleteMutation.isPending}
+        onConfirm={() => entryId && deleteMutation.mutate(entryId)}
+        onCancel={() => setConfirmDelete(false)}
+      />
 
       {showDeepDive && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4">
-          <div className="bg-gray-900 rounded-xl p-6 max-w-3xl w-full border border-gray-800 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-start justify-between mb-4">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="deep-dive-title"
+            className="bg-bg-surface rounded-xl p-6 max-w-3xl w-full border border-border max-h-[90vh] overflow-y-auto"
+          >
+            <div className="flex items-start justify-between gap-3 mb-4">
               <div>
-                <h2 className="text-xl font-semibold text-white">Journal Deep Dive</h2>
-                <p className="text-purple-300 mt-1">Personalized study guide from this entry</p>
+                <h2 id="deep-dive-title" className="text-xl font-semibold text-text-primary">{t('journal.deepDive.title')}</h2>
+                <p className="text-text-secondary mt-1">{t('journal.deepDive.subtitle')}</p>
               </div>
-              <button onClick={closeDeepDive} className="text-gray-400 hover:text-white">
-                <X className="w-4 h-4" />
+              <button
+                type="button"
+                onClick={closeDeepDive}
+                className="p-2 text-text-secondary hover:text-text-primary"
+                aria-label={t('common.close')}
+                autoFocus
+              >
+                <X className="w-4 h-4" aria-hidden="true" />
               </button>
             </div>
 
             {deepDiveMutation.isPending && (
-              <div className="py-12 text-center">
-                <Loader2 className="w-8 h-8 animate-spin text-purple-400 mx-auto" />
-                <p className="text-gray-400 mt-3">Analyzing your entry and generating a study guide...</p>
+              <div className="py-12 text-center" role="status">
+                <Loader2 className="w-8 h-8 animate-spin text-accent-primary mx-auto" aria-hidden="true" />
+                <p className="text-text-secondary mt-3">{t('journal.deepDive.loading')}</p>
               </div>
             )}
 
-            {deepDiveError && !deepDiveMutation.isPending && (
-              <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 text-red-300">
-                {deepDiveError}
-              </div>
+            {deepDiveMutation.isError && (
+              <InlineError
+                error={deepDiveMutation.error}
+                title={t('journal.deepDive.failed')}
+                onRetry={() => deepDiveMutation.mutate()}
+              />
             )}
 
             {deepDiveGuide && !deepDiveMutation.isPending && (
               <div className="space-y-6">
                 {deepDiveGuide.study_session_id && (
-                  <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4 flex flex-wrap items-center justify-between gap-3">
+                  <div className="bg-bg-elevated border border-border rounded-lg p-4 flex flex-wrap items-center justify-between gap-3">
                     <div>
-                      <p className="text-purple-300 text-sm font-medium">Study Tracking Enabled</p>
-                      <p className="text-gray-400 text-xs mt-1">
-                        Progress: {deepDiveGuide.study_progress?.progress_percentage ?? 0}% • Next Day: {deepDiveGuide.study_progress?.next_day ?? 'Complete'}
+                      <p className="text-text-primary text-sm font-medium">{t('journal.deepDive.tracking')}</p>
+                      <p className="text-text-secondary text-xs mt-1">
+                        {t('journal.deepDive.progress', {
+                          percent: deepDiveGuide.study_progress?.progress_percentage ?? 0,
+                        })}
                       </p>
                     </div>
-                    <button
-                      onClick={() => navigate('/progress')}
-                      className="px-3 py-1.5 bg-purple-500/20 text-purple-300 rounded-lg hover:bg-purple-500/30 text-sm"
-                    >
-                      Open Study Tracker
+                    <button type="button" onClick={() => navigate('/progress')} className="btn-secondary px-3 py-1.5 text-sm">
+                      {t('journal.deepDive.openTracker')}
                     </button>
                   </div>
                 )}
 
-                <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-4">
-                  <h3 className="text-purple-300 font-semibold mb-2">{deepDiveGuide.title}</h3>
-                  <p className="text-gray-200 text-sm leading-relaxed">{deepDiveGuide.insight_summary}</p>
+                <div className="bg-bg-elevated border border-border rounded-lg p-4">
+                  <h3 className="text-text-primary font-semibold mb-2">{deepDiveGuide.title}</h3>
+                  <p className="text-text-primary text-sm leading-relaxed">{deepDiveGuide.insight_summary}</p>
                 </div>
 
-                {deepDiveGuide.analytical_insights.length > 0 && (
+                {deepDiveGuide.analytical_insights?.length > 0 && (
                   <div>
-                    <h4 className="text-sm text-gray-400 font-medium mb-2">Analytical Insights</h4>
-                    <ul className="space-y-2">
+                    <h4 className="text-sm text-text-secondary font-medium mb-2">{t('journal.deepDive.insights')}</h4>
+                    <ul className="space-y-2 list-disc pl-5 text-text-primary text-sm">
                       {deepDiveGuide.analytical_insights.map((insight, index) => (
-                        <li key={index} className="text-gray-300 text-sm flex items-start gap-2">
-                          <span className="text-purple-400">•</span>
-                          <span>{insight}</span>
-                        </li>
+                        <li key={index}>{insight}</li>
                       ))}
                     </ul>
                   </div>
                 )}
 
-                {deepDiveGuide.heart_check_questions.length > 0 && (
+                {deepDiveGuide.heart_check_questions?.length > 0 && (
                   <div>
-                    <h4 className="text-sm text-gray-400 font-medium mb-2">Heart-Check Questions</h4>
-                    <ul className="space-y-2">
+                    <h4 className="text-sm text-text-secondary font-medium mb-2">{t('journal.deepDive.questions')}</h4>
+                    <ul className="space-y-2 list-disc pl-5 text-text-primary text-sm">
                       {deepDiveGuide.heart_check_questions.map((question, index) => (
-                        <li key={index} className="text-gray-300 text-sm flex items-start gap-2">
-                          <span className="text-amber-400">?</span>
-                          <span>{question}</span>
-                        </li>
+                        <li key={index}>{question}</li>
                       ))}
                     </ul>
                   </div>
                 )}
 
-                {deepDiveGuide.study_plan.length > 0 && (
+                {deepDiveGuide.study_plan?.length > 0 && (
                   <div>
-                    <h4 className="text-sm text-gray-400 font-medium mb-3">Study Plan</h4>
+                    <h4 className="text-sm text-text-secondary font-medium mb-3">{t('journal.deepDive.plan')}</h4>
                     <div className="space-y-3">
                       {deepDiveGuide.study_plan.map((day) => (
-                        <div key={day.day} className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
-                          <p className="text-purple-300 text-sm font-semibold">Day {day.day}: {day.focus}</p>
-                          <p className="text-gray-400 text-xs mt-1">Scripture: {day.scripture}</p>
-                          <p className="text-gray-300 text-sm mt-2"><span className="text-gray-400">Practice:</span> {day.practice}</p>
-                          <p className="text-gray-300 text-sm mt-1"><span className="text-gray-400">Journal:</span> {day.journal_prompt}</p>
+                        <div key={day.day} className="bg-bg-elevated border border-border rounded-lg p-4">
+                          <p className="text-text-primary text-sm font-semibold">
+                            {t('journal.day', { day: day.day })}: {day.focus}
+                          </p>
+                          <p className="text-text-secondary text-xs mt-1">{t('journal.deepDive.scripture')}: {day.scripture}</p>
+                          <p className="text-text-primary text-sm mt-2">
+                            <span className="text-text-secondary">{t('journal.deepDive.practice')}:</span> {day.practice}
+                          </p>
+                          <p className="text-text-primary text-sm mt-1">
+                            <span className="text-text-secondary">{t('journal.deepDive.journalPrompt')}:</span> {day.journal_prompt}
+                          </p>
                         </div>
                       ))}
                     </div>
@@ -787,13 +770,13 @@ ${passageContext.theme ? `Today's theme: "${passageContext.theme}"` : ''}${focus
                 )}
 
                 <div className="grid gap-3 sm:grid-cols-2">
-                  <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
-                    <h4 className="text-sm font-medium text-gray-400 mb-2">Prayer Focus</h4>
-                    <p className="text-gray-300 text-sm">{deepDiveGuide.prayer_focus}</p>
+                  <div className="bg-bg-elevated border border-border rounded-lg p-4">
+                    <h4 className="text-sm font-medium text-text-secondary mb-2">{t('journal.deepDive.prayer')}</h4>
+                    <p className="text-text-primary text-sm">{deepDiveGuide.prayer_focus}</p>
                   </div>
-                  <div className="bg-gray-800/50 border border-gray-700 rounded-lg p-4">
-                    <h4 className="text-sm font-medium text-gray-400 mb-2">Next Step</h4>
-                    <p className="text-gray-300 text-sm">{deepDiveGuide.next_step}</p>
+                  <div className="bg-bg-elevated border border-border rounded-lg p-4">
+                    <h4 className="text-sm font-medium text-text-secondary mb-2">{t('journal.deepDive.nextStep')}</h4>
+                    <p className="text-text-primary text-sm">{deepDiveGuide.next_step}</p>
                   </div>
                 </div>
               </div>

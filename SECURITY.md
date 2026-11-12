@@ -27,7 +27,7 @@ Until the project reaches 1.0, only the **`master`** branch receives security pa
 4. **Cross-site scripting (XSS)** — React escapes by default; we avoid `dangerouslySetInnerHTML` in user-provided content.
 5. **Cross-site request forgery (CSRF)** — same-site cookies and DRF's CSRF middleware on session endpoints.
 6. **Private plan disclosure** — a private user-created reading plan is visible only to its creator (verified at the queryset level).
-7. **Magic-link brute force** — magic-link requests are rate-limited per IP and per email.
+7. **Magic-link brute force** — magic-link requests are rate-limited per IP (set `NUM_PROXIES` so the real client address is used behind reverse proxies).
 8. **Encryption-key exfiltration via app errors** — `ENCRYPTION_ROOT_KEY` is read from environment, never logged, never echoed.
 
 ### What we do NOT protect against
@@ -45,7 +45,7 @@ Until the project reaches 1.0, only the **`master`** branch receives security pa
 
 - **Algorithm:** AES (Fernet, AES-128 in CBC mode with HMAC-SHA256 authentication)
 - **Key derivation:** per-user key derived from `ENCRYPTION_ROOT_KEY` + a per-user salt using PBKDF2-HMAC-SHA256
-- **What's encrypted:** journal entry body, journal entry mood notes
+- **What's encrypted:** journal entry body; journal feedback (themes, reflection, reasons); growth reviews; thread summaries; daily-reflection notes; focus text; stored AI API keys. The key is derived per user from the server-held `ENCRYPTION_ROOT_KEY`, so this protects a database-only leak, not a compromise of the server itself.
 - **What's NOT encrypted:** scripture references, plan progress metadata, life-area scores, streak counts, timestamps. These are needed for queries and aggregations.
 - **Key rotation:** not yet automated; planned for 1.0
 

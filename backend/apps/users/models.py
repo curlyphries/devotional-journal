@@ -73,6 +73,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     ai_api_key = models.CharField(max_length=500, blank=True)
     ai_model = models.CharField(max_length=100, blank=True)
     ai_base_url = models.CharField(max_length=500, blank=True)
+    # Consent for the *server's* default AI when that default is a cloud
+    # service. Off by default: journal text never leaves the network unless
+    # the person turns this on or configures a provider of their own.
+    allow_server_cloud_ai = models.BooleanField(default=False)
     encryption_key_salt = models.BinaryField(max_length=32, editable=False)
 
     is_active = models.BooleanField(default=True)
@@ -105,7 +109,15 @@ class User(AbstractBaseUser, PermissionsMixin):
                 self.ai_api_key.encode("latin-1"), self.encryption_key_salt
             )
         except Exception:
-            return self.ai_api_key
+            # Never hand back the stored (encrypted or legacy) value as if it
+            # were the key - it would be sent to the provider as a credential.
+            import logging
+
+            logging.getLogger(__name__).warning(
+                "Stored AI key for user %s could not be decrypted; re-enter it in Settings.",
+                self.id,
+            )
+            return ""
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

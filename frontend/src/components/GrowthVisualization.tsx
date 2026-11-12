@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import client from '../api/client'
 import { TrendingUp, TrendingDown, Minus, Loader2 } from 'lucide-react'
+import InlineError from './InlineError'
 
 interface LifeAreaTrend {
   area: string
@@ -58,10 +59,10 @@ function ProgressBar({ value, previousValue }: { value: number; previousValue?: 
 }
 
 export default function GrowthVisualization() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['growth-data'],
     queryFn: async () => {
-      const response = await client.get('/reflections/trends/growth/')
+      const response = await client.get('/trends/growth/')
       return response.data as GrowthData
     },
     staleTime: 300000,
@@ -74,6 +75,8 @@ export default function GrowthVisualization() {
       </div>
     )
   }
+
+  if (error) return <InlineError error={error} onRetry={() => refetch()} />
 
   if (!data) return null
 

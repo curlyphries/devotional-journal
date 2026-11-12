@@ -150,7 +150,9 @@ You MUST respond with valid JSON only, no markdown, no explanation outside the J
                     return json.loads(text[start:end])
                 except json.JSONDecodeError:
                     pass
-            logger.warning("AI explore response was not valid JSON: %s", text[:200])
+            logger.warning(
+                "AI explore response was not valid JSON (%d chars)", len(text)
+            )
             return {}
 
 
@@ -588,32 +590,23 @@ Format the output in clear sections with headers."""
 
 def get_prompt_service(user=None) -> PromptService:
     """
-    Factory function to get the configured prompt service.
-    Uses per-user AI settings when available, falling back to global config.
+    The prompt service for this person.
+
+    Provider choice, consent and URL checks all come from shared.llm, the same
+    path every other AI feature uses. Raises LLMError (with a code and a
+    suggestion) rather than silently falling back to a different provider.
     """
-    # Check per-user settings first
-    if user and hasattr(user, "ai_provider") and user.ai_provider not in ("", "none"):
-        provider = user.ai_provider
-        api_key = user.get_ai_api_key() if hasattr(user, "get_ai_api_key") else ""
-        model = user.ai_model or ""
-        base_url = user.ai_base_url or ""
+    from shared.llm import resolve_llm_config
 
-        if provider == "anthropic" and api_key:
-            return AnthropicPromptService(api_key=api_key, model=model)
-        elif provider == "ollama":
-            return OllamaPromptService(base_url=base_url, model=model)
-        elif provider in ("openai", "openrouter", "custom") and api_key:
-            return OpenAICompatiblePromptService(
-                api_key=api_key, model=model, base_url=base_url, provider=provider
-            )
-        # If user has a provider set but missing required key, fall through to global
+    config = resolve_llm_config(user)
 
-    # Fall back to global settings
-    backend = settings.LLM_BACKEND.lower()
-
-    if backend == "ollama":
-        return OllamaPromptService()
-    elif backend == "anthropic":
-        return AnthropicPromptService()
-    else:
-        return OllamaPromptService()
+    if config.provider == "ollama":
+        return OllamaPromptService(base_url=config.base_url, model=config.model)
+    if config.provider == "anthropic":
+        return AnthropicPromptService(api_key=config.api_key, model=config.model)
+    return OpenAICompatiblePromptService(
+        api_key=config.api_key,
+        model=config.model,
+        base_url=config.base_url,
+        provider=config.provider,
+    )

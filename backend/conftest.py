@@ -112,3 +112,114 @@ def reading_plan(db):
         )
 
     return plan
+
+
+# --------------------------------------------------------------------------
+# Fixtures for AI + scripture features. Tests never touch the network.
+# --------------------------------------------------------------------------
+
+
+@pytest.fixture(autouse=True)
+def no_network(monkeypatch):
+    """Fail fast (as "source unavailable") if anything tries the Bible API."""
+    from apps.bible import bolls_api
+
+    def _blocked(*args, **kwargs):
+        raise bolls_api.BollsAPIError("network disabled in tests")
+
+    monkeypatch.setattr(bolls_api, "get_chapter", _blocked)
+
+
+WEB_SAMPLE = {
+    ("PHP", "Philippians", 4): {
+        6: "In nothing be anxious, but in everything, by prayer and petition with thanksgiving, let your requests be made known to God.",
+        7: "And the peace of God, which surpasses all understanding, will guard your hearts and your thoughts in Christ Jesus.",
+    },
+    ("MAT", "Matthew", 11): {
+        28: "Come to me, all you who labor and are heavily burdened, and I will give you rest.",
+        29: "Take my yoke upon you and learn from me, for I am gentle and humble in heart; and you will find rest for your souls.",
+        30: "For my yoke is easy, and my burden is light.",
+    },
+    ("LAM", "Lamentations", 3): {
+        22: "It is because of Yahweh's loving kindnesses that we are not consumed, because his mercies don't fail.",
+        23: "They are new every morning. Great is your faithfulness.",
+    },
+    ("1CO", "1 Corinthians", 13): {
+        4: "Love is patient and is kind. Love doesn't envy. Love doesn't brag, is not proud,",
+        5: "doesn't behave itself inappropriately, doesn't seek its own way, is not provoked, takes no account of evil;",
+    },
+    ("JAS", "James", 1): {
+        5: "But if any of you lacks wisdom, let him ask of God, who gives to all liberally and without reproach, and it will be given to him.",
+    },
+}
+
+
+@pytest.fixture
+def web_bible(db):
+    """A handful of real World English Bible verses in the local database."""
+    from apps.bible.models import BibleTranslation, BibleVerse
+
+    translation = BibleTranslation.objects.create(
+        code="WEB", name="World English Bible", language="en", is_public_domain=True
+    )
+    for (code, name, chapter), verses in WEB_SAMPLE.items():
+        for verse, text in verses.items():
+            BibleVerse.objects.create(
+                translation=translation,
+                book=code,
+                book_name=name,
+                chapter=chapter,
+                verse=verse,
+                text=text,
+            )
+    return translation
+
+
+class FakeLLM:
+    """Stands in for shared.llm.LLMClient."""
+
+    def __init__(self, reply=None, error=None, text="A short encouraging reply."):
+        from shared.llm import LLMConfig
+
+        self.reply = reply
+        self.error = error
+        self.text = text
+        self.prompts = []
+        self.config = LLMConfig(
+            "ollama", "test-model", "http://ollama.test", "", "server", True
+        )
+
+    def complete_json(self, prompt, system="", **kwargs):
+        self.prompts.append(prompt)
+        if self.error:
+            raise self.error
+        return self.reply(prompt) if callable(self.reply) else self.reply
+
+    def complete(self, prompt, system="", **kwargs):
+        self.prompts.append(prompt)
+        if self.error:
+            raise self.error
+        return self.text
+
+
+@pytest.fixture
+def fake_llm(monkeypatch):
+    """
+    Install a FakeLLM everywhere the app obtains a model client.
+    Usage: llm = fake_llm(reply={...})  or  fake_llm(error=LLMUnavailable("down"))
+    """
+
+    def install(**kwargs):
+        llm = FakeLLM(**kwargs)
+        for target in (
+            "shared.llm.get_llm",
+            "apps.journal.feedback.get_llm",
+            "apps.reflections.crew.agents.get_llm",
+            "apps.reflections.crew.crew.get_llm",
+            "apps.reflections.services.get_llm",
+            "apps.reflections.reviews.get_llm",
+        ):
+            monkeypatch.setattr(target, lambda user=None, _llm=llm: _llm)
+        return llm
+
+    return install

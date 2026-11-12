@@ -1,5 +1,6 @@
 {
   "common": {
+    "confirm": "Confirmar",
     "loading": "Cargando...",
     "error": "Ocurrió un error",
     "save": "Guardar",
@@ -207,6 +208,27 @@
     }
   },
   "reading": {
+    "loading": "Cargando la lectura de hoy…",
+    "loadFailed": "No se pudo cargar la lectura de hoy",
+    "notFound": "No se encontró esta inscripción al plan de lectura.",
+    "browsePlans": "Ver planes de lectura",
+    "dayOf": "Día {{day}} de {{total}} · {{plan}}",
+    "planCompleted": "Ya completaste este plan.",
+    "noPassages": "Este día no tiene pasajes asignados.",
+    "openInReader": "Abrir en el lector de la Biblia",
+    "passageNotParsed": "Esta referencia no se puede mostrar aquí. Ábrela en el lector de la Biblia.",
+    "loadingPassage": "Cargando pasaje…",
+    "passageFailed": "No se pudo cargar el texto del pasaje",
+    "passageEmpty": "No se recibió texto para este pasaje.",
+    "promptWithTheme": "El tema de hoy es «{{theme}}». ¿En qué parte de tu vida te toca hoy?",
+    "promptGeneric": "¿Qué te llamó la atención de esta lectura y qué vas a hacer hoy al respecto?",
+    "journalHint": "Opcional. Si escribes algo, se guarda como una entrada de tu diario y recibes un comentario sobre ella. Déjalo vacío para solo marcar el día como completado.",
+    "journalPlaceholder": "Escribe tus pensamientos, oraciones y reflexiones…",
+    "saveAndComplete": "Guardar entrada y completar el día",
+    "markComplete": "Marcar el día como completado",
+    "savedToast": "Entrada guardada y día marcado como completado.",
+    "completedToast": "Día marcado como completado.",
+    "savedButNotAdvanced": "Tu entrada se guardó, pero no se pudo marcar el día como completado.",
     "reflectionPrompts": "Preguntas de reflexión",
     "journalEntry": "Entrada de diario",
     "saveEntry": "Guardar entrada",
@@ -224,9 +246,109 @@
     "newEntry": "Nueva entrada",
     "noEntries": "No se encontraron entradas",
     "filterByMood": "Filtrar por estado",
-    "allMoods": "Todos los estados"
+    "allMoods": "Todos los estados",
+    "moods": {
+      "grateful": "Agradecido",
+      "struggling": "Luchando",
+      "convicted": "Convencido",
+      "peaceful": "En paz",
+      "fired_up": "Animado"
+    },
+    "yourEntry": "Tu entrada",
+    "newEntryHint": "Escribe o di lo que tengas en mente. No tiene que ser sobre la fe.",
+    "reflectionTitle": "Escribe tu reflexión",
+    "date": "Fecha",
+    "entryLabel": "Tu entrada",
+    "yourReflection": "Tu reflexión",
+    "themeHint": "Piensa: ¿cómo se conecta este pasaje con «{{theme}}»? ¿Qué te está diciendo Dios hoy?",
+    "placeholder": "Escribe tus pensamientos, oraciones y reflexiones…",
+    "placeholderPassage": "¿Qué te llamó la atención en {{passage}}? ¿Cómo se aplica a tu vida?",
+    "moodQuestion": "¿Cómo te sientes?",
+    "saving": "Guardando…",
+    "saveChanges": "Guardar cambios",
+    "saveAndFeedback": "Guardar y recibir respuesta",
+    "afterSaveHint": "Al guardar, recibirás una respuesta breve y un pasaje bíblico elegido para esta entrada, con las razones por las que se eligió.",
+    "unsaved": "Tienes cambios sin guardar.",
+    "saved": "Entrada guardada.",
+    "saveFailed": "No se pudo guardar tu entrada",
+    "loadFailed": "No se pudo cargar esta entrada",
+    "backToHistory": "Volver al historial del diario",
+    "deleted": "Entrada eliminada.",
+    "deleteFailed": "No se pudo eliminar la entrada",
+    "deleteTitle": "¿Eliminar esta entrada?",
+    "deleteMessage": "La entrada y su respuesta se eliminarán de forma permanente. Esto no se puede deshacer.",
+    "backToReading": "Volver a la lectura",
+    "yourFocus": "Tu enfoque espiritual",
+    "aiInsight": "Comentario de la IA",
+    "day": "Día {{day}}",
+    "highlights": {
+      "title": "Tus versículos resaltados",
+      "getInsight": "Pedir comentario de la IA",
+      "generating": "Generando…",
+      "publicDomainOnly": "El comentario de la IA requiere una traducción de dominio público (KJV, ASV o WEB)",
+      "reflection": "Reflexión de la IA sobre lo que resaltaste",
+      "failed": "No se pudo generar el comentario de la IA"
+    },
+    "deepDive": {
+      "button": "Guía de estudio a fondo",
+      "title": "Estudio a fondo de tu entrada",
+      "subtitle": "Una guía de estudio personal basada en esta entrada",
+      "loading": "Leyendo tu entrada y preparando una guía de estudio… puede tardar un minuto.",
+      "failed": "No se pudo generar la guía de estudio",
+      "tracking": "El seguimiento del estudio está activado",
+      "progress": "Progreso: {{percent}} %",
+      "openTracker": "Abrir seguimiento de estudios",
+      "insights": "Observaciones",
+      "questions": "Preguntas para examinar el corazón",
+      "plan": "Plan de estudio",
+      "scripture": "Pasaje",
+      "practice": "Práctica",
+      "journalPrompt": "Para escribir",
+      "prayer": "Enfoque de oración",
+      "nextStep": "Siguiente paso"
+    },
+    "quick": {
+      "title": "Captura rápida",
+      "label": "¿Qué hay en tu corazón en este momento?",
+      "placeholder": "Escríbelo o usa el micrófono de abajo…",
+      "taggedWithFocus": "Etiquetada con tu enfoque",
+      "later": "Más tarde"
+    },
+    "showing": "Mostrando {{shown}} de {{total}}",
+    "listFailed": "No se pudo cargar tu diario",
+    "moreFailed": "No se pudieron cargar más entradas",
+    "loadMore": "Cargar más",
+    "emptyTitle": "Aún no hay entradas",
+    "emptyBody": "Escribe o dicta tu primera entrada. Recibirás una respuesta breve y un pasaje bíblico elegido para ella.",
+    "firstEntry": "Escribe tu primera entrada",
+    "noEntriesForMood": "No hay entradas con este estado de ánimo.",
+    "clearFilter": "Mostrar todas las entradas",
+    "noPreview": "(Sin texto)",
+    "hasFeedback": "Con respuesta"
   },
   "settings": {
+    "saved": "Configuración guardada.",
+    "saveFailed": "No se guardó tu configuración",
+    "exportFailed": "No se pudo descargar la exportación.",
+    "ai": {
+      "heading": "IA y privacidad",
+      "checking": "Comprobando dónde se ejecuta la IA en este momento…",
+      "statusFailed": "No se pudo comprobar el estado de la IA",
+      "runsLocal": "En este momento la IA se ejecuta de forma local en {{backend}}: el texto de tu diario se queda en este servidor y no se envía a ningún servicio en la nube.",
+      "runsCloudUser": "En este momento la IA usa {{backend}}, un servicio en la nube. El texto de tu diario se le envía cuando usas una función de IA.",
+      "runsCloudServer": "La IA predeterminada de este servidor es {{backend}}, un servicio en la nube.",
+      "model": "Modelo: {{model}}.",
+      "sourceUser": "Es el proveedor que configuraste abajo.",
+      "sourceServer": "Es el predeterminado del servidor; se usa porque no has configurado un proveedor propio.",
+      "consentLabel": "Permitir que la IA en la nube de este servidor lea el texto de mi diario",
+      "consentHelp": "El texto de tu diario se envía a {{provider}} solo si activas esta opción o configuras tu propio proveedor.",
+      "genericCloudProvider": "el proveedor de IA en la nube del servidor",
+      "consentOn": "IA en la nube autorizada. Puedes desactivarla aquí cuando quieras.",
+      "consentOff": "IA en la nube desactivada. El texto de tu diario no se enviará a la IA en la nube del servidor.",
+      "auditIntro": "Cada comentario de la IA deja registro de qué se envió y por qué se eligió un pasaje.",
+      "auditLink": "Abrir el registro de auditoría",
+      "helpLink": "Cómo funciona la IA aquí (Ayuda)"
+    },
     "title": "Configuración",
     "profile": "Perfil",
     "displayName": "Nombre",
@@ -240,6 +362,12 @@
     }
   },
   "nav": {
+    "reflection": "Reflexión diaria",
+    "threads": "Temas abiertos",
+    "more": "Más",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "homeLabel": "Inicio de Devotional Journal",
     "dashboard": "Inicio",
     "journal": "Diario",
     "plans": "Planes",
@@ -254,36 +382,423 @@
   "tour": {
     "stepLabel": "Paso {{current}} de {{total}}",
     "next": "Siguiente",
-    "back": "Volver",
-    "skip": "Omitir tour",
+    "back": "Atrás",
+    "skip": "Omitir el recorrido",
+    "close": "Cerrar el recorrido",
     "finish": "Entendido",
     "welcome": {
-      "title": "Bienvenido — hagamos un recorrido rápido",
-      "body": "Dos minutos para mostrarte todo. Puedes repetirlo en cualquier momento desde la página de Ayuda."
+      "title": "Te damos la bienvenida a tu Diario Devocional",
+      "body": "Escribe o habla sobre tu día y recibe una respuesta cuidadosa con un pasaje bíblico elegido para lo que escribiste. Este recorrido de un minuto te muestra dónde está cada cosa."
     },
-    "streak": {
-      "title": "Tu racha vive aquí",
-      "body": "Cada día que escribas en tu diario cuenta. A los 3 días aparece el botón de compartir, y hay confeti en cada hito."
+    "write": {
+      "title": "Empieza con una entrada",
+      "body": "Usa Nueva entrada, o este botón con el lápiz desde cualquier página, para escribir. ¿Prefieres hablar? Presiona Dictar y habla: tus palabras aparecerán como texto."
+    },
+    "feedback": {
+      "title": "Al guardar, recibes una respuesta",
+      "body": "Verás una reflexión breve sobre lo que escribiste y un pasaje. El texto del versículo siempre viene de la Biblia misma, y «¿Por qué este pasaje?» muestra exactamente cómo se eligió."
     },
     "speakYourMind": {
-      "title": "Habla tu mente",
-      "body": "Escribe lo que está en tu corazón. La IA encuentra escrituras relevantes y preguntas de reflexión en segundos."
+      "title": "Di lo que piensas",
+      "body": "¿Aún no quieres escribir en el diario? Escribe aquí lo que hay en tu corazón para encontrar pasajes relacionados y preguntas para reflexionar."
     },
-    "snapshot": {
-      "title": "Tu panorama diario",
-      "body": "Enfoque, el plan de lectura de hoy y la actividad de hoy — todo en una sola tarjeta."
+    "history": {
+      "title": "El historial de tu diario",
+      "body": "Todas tus entradas se guardan en Diario, junto con el pasaje que recibiste. Abre una para releerla o ver su respuesta."
     },
-    "fab": {
-      "title": "Captura rápida, siempre a un toque",
-      "body": "Usa este botón flotante para guardar un pensamiento desde cualquier parte de la app."
+    "devotional": {
+      "title": "Enfoque y planes de lectura",
+      "body": "Define un enfoque espiritual para recibir pasajes diarios sobre él, o sigue un plan de lectura por un libro de la Biblia en Planes."
     },
-    "language": {
-      "title": "Cambia de idioma en cualquier momento",
-      "body": "Alterna entre inglés y español. Tus planes de lectura, temas y preguntas están almacenados en ambos."
+    "progress": {
+      "title": "Mira cómo vas creciendo",
+      "body": "Progreso reúne tus estudios, logros, crecimiento a lo largo del tiempo y resúmenes de las últimas semanas."
+    },
+    "settings": {
+      "title": "Tú eliges dónde se ejecuta la IA",
+      "body": "En Ajustes, elige una IA en tu propia red (privada) o un proveedor en la nube, y decide qué se le puede enviar."
     },
     "help": {
-      "title": "¿Necesitas recordar algo?",
-      "body": "La página de Ayuda tiene un recorrido guiado de cada función, con enlaces directos."
+      "title": "¿Tienes dudas o algo salió mal?",
+      "body": "Ve a Ayuda. Ahí se explica cada función y cada mensaje de error, y puedes repetir este recorrido cuando quieras."
     }
+  },
+  "feedback": {
+    "title": "Respuesta a esta entrada",
+    "loading": "Buscando la respuesta…",
+    "loadFailed": "No se pudo cargar la respuesta",
+    "generateFailed": "No se pudo generar la respuesta",
+    "rateFailed": "No se pudo guardar tu valoración",
+    "emptyBody": "Todavía no hay una respuesta para esta entrada. Recibirás una respuesta breve a lo que escribiste y un pasaje bíblico elegido para ello.",
+    "get": "Recibir respuesta",
+    "progress": {
+      "reading": "Leyendo tu entrada…",
+      "choosing": "Eligiendo un pasaje…",
+      "checking": "Comprobando el texto con la Biblia…",
+      "patience": "Normalmente tarda unos segundos, y hasta uno o dos minutos cuando la IA funciona en tu propia red. Puedes quedarte en esta página."
+    },
+    "reflection": "Reflexión",
+    "themes": "Temas",
+    "everyday": "Las entradas sobre el día a día son bienvenidas: la Escritura también habla a los días comunes.",
+    "scripture": {
+      "heading": "Escritura",
+      "verified": "Verificado con {{translation}}",
+      "verifiedHelp": "El texto del versículo se obtiene de la fuente bíblica y se comprueba con la referencia. Nunca lo escribe la IA.",
+      "unverified": "No se pudo comprobar este texto con la fuente bíblica. Ábrelo en la Biblia para leerlo completo.",
+      "missing": "Esta vez no se pudo obtener el texto bíblico. Inténtalo de nuevo en un momento.",
+      "open": "Abrir en la Biblia"
+    },
+    "why": "Por qué este pasaje",
+    "meditate": "Por qué meditar en él",
+    "step": "Un paso para parecerte más a Cristo",
+    "growth": "Cómo se conecta con tu camino",
+    "fallback": {
+      "title": "La IA no estaba disponible, así que este pasaje se eligió con reglas integradas",
+      "body": "Tu entrada está guardada. El pasaje de abajo se relacionó con tus palabras mediante reglas sencillas de palabras clave, y su texto sigue viniendo directamente de la Biblia.",
+      "reason": "Qué pasó:",
+      "retry": "Intentar de nuevo con la IA",
+      "settings": "Revisar los ajustes de la IA"
+    },
+    "changed": "Editaste esta entrada después de que se escribió esta respuesta.",
+    "update": "Actualizar respuesta",
+    "helpful": {
+      "question": "¿Te fue útil?",
+      "yes": "Sí",
+      "no": "No",
+      "saved": "Gracias, guardado."
+    },
+    "regenerate": {
+      "button": "Generar de nuevo",
+      "confirm": "¿Reemplazar la respuesta actual por una nueva?",
+      "yes": "Reemplazar"
+    }
+  },
+  "voice": {
+    "start": "Dictar",
+    "stop": "Dejar de dictar",
+    "listening": "Escuchando… habla con naturalidad.",
+    "unsupportedLabel": "Dictado no disponible",
+    "unsupported": "Este navegador no puede convertir la voz en texto. El dictado funciona en Chrome, Edge y Safari; en Firefox, escribe con el teclado.",
+    "privacy": "En Chrome, Edge y Safari, el servicio de voz del propio navegador convierte tu voz en texto. Esta aplicación no graba ni guarda ningún audio, y el texto solo pasa a formar parte de tu diario cuando lo guardas.",
+    "errors": {
+      "notAllowed": "El permiso del micrófono está bloqueado. Permítelo en la configuración del sitio de tu navegador e inténtalo de nuevo.",
+      "noSpeech": "No se escuchó ninguna voz. Revisa que el micrófono no esté silenciado e inténtalo de nuevo.",
+      "network": "El dictado necesita conexión a internet: algunos navegadores envían el audio a su servicio de voz para transcribirlo. Revisa tu conexión e inténtalo de nuevo.",
+      "audioCapture": "No se encontró ningún micrófono. Conecta uno o revisa la configuración de sonido de tu sistema.",
+      "unsupported": "El dictado no está disponible para este idioma en este navegador.",
+      "unknown": "El dictado se detuvo de forma inesperada. Inténtalo de nuevo o escribe con el teclado."
+    }
+  },
+  "audit": {
+    "navLabel": "Registro de decisiones",
+    "title": "Por qué recibiste cada pasaje",
+    "intro": "Cada vez que la aplicación responde a una entrada, registra cómo se eligió el pasaje: qué IA se usó y dónde, qué información recibió, cada pasaje que sugirió y si cada uno se encontró realmente en la Biblia.",
+    "introPrivacy": "Este registro se guarda en este servidor junto con tu diario. Solo tú puedes verlo y nunca se envía a ningún otro lugar.",
+    "learnMore": "Cómo funcionan la respuesta y la Escritura",
+    "decisions": "Decisiones",
+    "failed": "No se pudo cargar el registro de decisiones",
+    "emptyTitle": "Aún no hay nada registrado",
+    "emptyBody": "Cuando guardes una entrada y recibas una respuesta, la decisión detrás de ella aparecerá aquí.",
+    "writeEntry": "Escribir una entrada",
+    "noScripture": "No se pudo obtener ningún pasaje",
+    "verified": "Verificado",
+    "viewEntry": "Ver la entrada",
+    "status": {
+      "ok": "IA",
+      "fallback": "Reglas integradas"
+    },
+    "noAi": "Sin IA: reglas integradas",
+    "onServer": "en este servidor",
+    "local": "en tu red",
+    "cloud": "en la nube",
+    "themes": {
+      "title": "Temas a lo largo del tiempo",
+      "subtitle_one": "Temas más frecuentes en {{count}} entrada con respuesta.",
+      "subtitle_other": "Temas más frecuentes en {{count}} entradas con respuesta.",
+      "empty": "Los temas aparecerán aquí cuando hayas recibido respuesta en algunas entradas.",
+      "failed": "No se pudieron cargar los temas",
+      "lastSeen": "Última vez: {{date}}",
+      "times": "veces:"
+    },
+    "inputs": {
+      "entry_text": "El texto de tu entrada",
+      "mood": "El estado de ánimo que elegiste",
+      "active_focus": "Tu enfoque actual",
+      "recent_themes": "Temas de tus entradas recientes",
+      "open_threads": "Tus temas abiertos",
+      "entry_date": "La fecha de la entrada",
+      "language": "Tu idioma"
+    },
+    "outcomes": {
+      "selected": "Seleccionado",
+      "not_found": "No se encontró en la Biblia",
+      "not_used": "No se usó",
+      "invalid": "Referencia no válida"
+    },
+    "record": {
+      "summary": "¿Por qué este pasaje? — registro de la decisión",
+      "where": "Dónde se ejecutó la IA",
+      "whereLocal": "La IA se ejecutó en tu propia red; tu entrada no salió de ella.",
+      "whereCloud": "La IA se ejecutó en un proveedor en la nube; el texto de tu entrada se le envió para escribir esta respuesta.",
+      "whereNoAi": "No se usó ninguna IA. Tu entrada no se envió a ningún lugar.",
+      "fallback": "Por qué no se usó la IA",
+      "inputs": "Qué se usó",
+      "none": "No hay nada registrado.",
+      "recentThemes": "Temas recientes que se consideraron",
+      "candidates": "Pasajes considerados",
+      "noCandidates": "No se registraron pasajes.",
+      "rule": "Cómo se seleccionó el pasaje",
+      "threads": "Temas detectados en esta entrada",
+      "duration": "Tiempo que tomó",
+      "seconds": "{{seconds}} s",
+      "promptVersion": "Versión del prompt",
+      "generatedAt": "Generado",
+      "seeAll": "Ver todas las decisiones"
+    }
+  },
+  "help": {
+    "title": "Ayuda y guía",
+    "intro": "Todo lo que hace esta aplicación, dónde encontrarlo y qué hacer cuando algo sale mal.",
+    "replayTour": "Repetir el recorrido",
+    "writeEntry": "Escribir una entrada",
+    "onThisPage": "En esta página",
+    "toc": {
+      "quick-start": "Inicio rápido",
+      "where": "Dónde está cada cosa",
+      "feedback": "Respuesta y Escritura",
+      "voice": "Entrada por voz",
+      "privacy": "Privacidad e IA",
+      "troubleshooting": "Solución de problemas"
+    },
+    "quickStart": {
+      "title": "Inicio rápido",
+      "step1": {
+        "title": "Abre una entrada nueva.",
+        "body": "Elige Diario y luego Nueva entrada, o presiona el botón redondo con el lápiz en la parte inferior de cualquier página."
+      },
+      "step2": {
+        "title": "Escribe o habla.",
+        "body": "Escribe lo que tengas en mente, o presiona Dictar y habla. No tiene que ser sobre la fe. Si quieres, elige un estado de ánimo."
+      },
+      "step3": {
+        "title": "Guarda.",
+        "body": "La aplicación lee tu entrada y, en unos segundos o hasta uno o dos minutos, muestra una reflexión y un pasaje bíblico."
+      },
+      "step4": {
+        "title": "Lee el porqué.",
+        "body": "Mira por qué se eligió ese pasaje y por qué vale la pena meditar en él. Abre «¿Por qué este pasaje?» para ver el registro completo de la decisión."
+      },
+      "step5": {
+        "title": "Vuelve.",
+        "body": "A medida que agregas entradas, las respuestas las conectan entre sí, y Progreso muestra tus temas y tu crecimiento con el tiempo."
+      }
+    },
+    "where": {
+      "title": "Dónde está cada cosa",
+      "intro": "Cada tarjeta abre esa parte de la aplicación.",
+      "dashboard": {
+        "name": "Inicio",
+        "body": "Tu racha, el enfoque y la lectura de hoy, Di lo que piensas y tu actividad reciente."
+      },
+      "journal": {
+        "name": "Diario — nueva entrada",
+        "body": "Escribe o dicta una entrada y recibe una respuesta con un pasaje bíblico."
+      },
+      "history": {
+        "name": "Historial del diario",
+        "body": "Todas tus entradas, de la más reciente a la más antigua. Filtra por estado de ánimo; cada una muestra el pasaje que recibió."
+      },
+      "devotional": {
+        "name": "Devocional (Enfoque)",
+        "body": "Define un enfoque espiritual y recibe pasajes diarios sobre él."
+      },
+      "plans": {
+        "name": "Planes",
+        "body": "Planes de lectura guiados. Empieza uno, lee el pasaje de cada día y escribe sobre él."
+      },
+      "bible": {
+        "name": "Biblia",
+        "body": "Lee un pasaje, cambia o compara traducciones, resalta versículos y agrega notas."
+      },
+      "progress": {
+        "name": "Progreso",
+        "body": "Estudios, logros, crecimiento a lo largo del tiempo, resúmenes de crecimiento y seguimientos."
+      },
+      "reflection": {
+        "name": "Reflexión diaria",
+        "body": "Una revisión guiada: el pasaje de hoy, una reflexión escrita y un repaso de las áreas de tu vida."
+      },
+      "threads": {
+        "name": "Temas abiertos",
+        "body": "Luchas, compromisos y preguntas detectados en tus entradas, con seguimiento a lo largo del tiempo."
+      },
+      "insights": {
+        "name": "Reflexiones",
+        "body": "El historial de tus reflexiones diarias y las observaciones guardadas con ellas."
+      },
+      "audit": {
+        "name": "Registro de decisiones",
+        "body": "Por qué recibiste cada pasaje: el registro completo de cada decisión."
+      },
+      "settings": {
+        "name": "Ajustes",
+        "body": "Perfil, idioma, proveedor de IA y privacidad, y exportación de tus datos."
+      }
+    },
+    "feedback": {
+      "title": "Cómo funcionan la respuesta y la Escritura",
+      "p1": "Cuando guardas una entrada, la IA la lee junto con tu estado de ánimo, tu enfoque actual y los temas de tus entradas recientes. Escribe una reflexión breve y sugiere referencias bíblicas que encajan.",
+      "p2": "La IA solo sugiere referencias. El texto del versículo siempre se obtiene de la fuente bíblica: la World English Bible, una traducción moderna de dominio público (en inglés), con la King James Version como respaldo sin conexión. Si una referencia sugerida no se encuentra en la Biblia, se descarta, así que nunca verás un versículo inventado por la IA. La insignia «Verificado» significa que el texto mostrado se comprobó con esa fuente.",
+      "p3": "Si no se puede contactar a la IA, igual recibes un pasaje: lo eligen unas reglas integradas de palabras clave, y un aviso te lo indica. Puedes intentarlo de nuevo con la IA más tarde.",
+      "p4": "Cada decisión queda registrada: qué IA se usó y dónde, qué recibió, cada pasaje que sugirió y qué pasó con él.",
+      "auditLink": "Abrir el registro de decisiones"
+    },
+    "voice": {
+      "title": "Entrada por voz",
+      "p1": "En una entrada nueva o en Captura rápida, presiona Dictar y habla. Tus palabras se agregan al cuadro de texto donde está el cursor; presiona Dejar de dictar cuando termines, corrige el texto si hace falta y guarda.",
+      "p2": "La entrada por voz funciona en Chrome, Edge y Safari. Firefox no tiene reconocimiento de voz, así que ahí el botón aparece desactivado. La primera vez, tu navegador te pedirá permiso para usar el micrófono."
+    },
+    "privacy": {
+      "title": "Privacidad y dónde se ejecuta la IA",
+      "local": "IA local (Ollama): la IA se ejecuta en tu propia computadora o red. Tus entradas nunca salen de ella.",
+      "cloud": "IA en la nube (un proveedor que eliges en Ajustes, con tu propia clave): el texto de la entrada se envía a ese proveedor para escribir la respuesta.",
+      "consent": "Si la IA predeterminada de este servidor es un proveedor en la nube, no se le envía nada hasta que actives el interruptor de consentimiento en Ajustes. Mientras tanto, las funciones de IA muestran AI_CONSENT_REQUIRED.",
+      "encrypted": "Las entradas de tu diario se guardan cifradas en el servidor.",
+      "export": "Puedes exportar tus datos desde Ajustes en cualquier momento.",
+      "settingsLink": "Abrir Ajustes"
+    },
+    "troubleshooting": {
+      "title": "Solución de problemas",
+      "intro": "Los mensajes de error muestran un código corto. Búscalo abajo para ver qué significa y qué hacer.",
+      "whatToDo": "Qué hacer:",
+      "refTitle": "¿Sigues sin poder resolverlo?",
+      "refBody": "Los mensajes de error también muestran un id de referencia (por ejemplo, a1b2c3d4). Menciónalo, junto con el código, cuando le pidas ayuda a quien administra este servidor: así podrá encontrar la solicitud exacta en el registro del servidor."
+    },
+    "codes": {
+      "NETWORK_ERROR": {
+        "meaning": "La aplicación no pudo conectarse con el servidor.",
+        "fix": "Revisa tu conexión a internet (y la VPN o red privada, si es un servidor privado) e inténtalo de nuevo."
+      },
+      "TIMEOUT": {
+        "meaning": "El servidor tardó demasiado en responder.",
+        "fix": "Inténtalo de nuevo. Las funciones de IA con un modelo local pueden tardar uno o dos minutos."
+      },
+      "NOT_AUTHENTICATED": {
+        "meaning": "Cerraste sesión o tu sesión venció.",
+        "fix": "Inicia sesión de nuevo. Es posible que debas volver a escribir lo que no habías guardado."
+      },
+      "PERMISSION_DENIED": {
+        "meaning": "Tu cuenta no tiene acceso a este elemento.",
+        "fix": "Regresa y ábrelo desde tu propio diario o tus planes."
+      },
+      "NOT_FOUND": {
+        "meaning": "El elemento no existe o fue eliminado.",
+        "fix": "Regresa y actualiza la lista."
+      },
+      "VALIDATION_ERROR": {
+        "meaning": "Falta algo o hay un dato no válido en lo que se envió; por ejemplo, una entrada vacía.",
+        "fix": "Lee el mensaje, corrige el campo que menciona e inténtalo de nuevo."
+      },
+      "RATE_LIMITED": {
+        "meaning": "Se hicieron demasiadas solicitudes en poco tiempo.",
+        "fix": "Espera unos minutos antes de intentarlo de nuevo."
+      },
+      "SERVER_ERROR": {
+        "meaning": "Algo falló en el servidor.",
+        "fix": "Inténtalo de nuevo. Si sigue pasando, repórtalo con el id de referencia."
+      },
+      "AI_UNAVAILABLE": {
+        "meaning": "No se pudo contactar al proveedor de IA. Tu entrada igual se guarda, y la respuesta usa las reglas integradas.",
+        "fix": "Si usas Ollama, asegúrate de que esté en ejecución y accesible. Revisa Ajustes → Proveedor de IA y luego usa «Intentar de nuevo con la IA»."
+      },
+      "AI_TIMEOUT": {
+        "meaning": "La IA tardó demasiado en responder.",
+        "fix": "Inténtalo de nuevo. Si pasa seguido, elige un modelo más pequeño o más rápido en Ajustes."
+      },
+      "AI_NOT_CONFIGURED": {
+        "meaning": "Hay un proveedor de IA seleccionado, pero falta su clave o su modelo.",
+        "fix": "Abre Ajustes → Proveedor de IA y completa la clave o el modelo que falta."
+      },
+      "AI_CONSENT_REQUIRED": {
+        "meaning": "La IA predeterminada de este servidor es un proveedor en la nube y no has permitido que se le envíen tus entradas.",
+        "fix": "Activa el interruptor de consentimiento en Ajustes → Proveedor de IA, o configura tu propio proveedor local."
+      },
+      "AI_BAD_RESPONSE": {
+        "meaning": "La IA respondió, pero su respuesta no se pudo usar.",
+        "fix": "Inténtalo de nuevo. Si sigue pasando, prueba otro modelo en Ajustes."
+      },
+      "AI_URL_NOT_ALLOWED": {
+        "meaning": "La dirección de la IA que se ingresó en Ajustes fue rechazada por seguridad.",
+        "fix": "Revisa la URL base en Ajustes → Proveedor de IA, o pregunta a quien administra este servidor qué direcciones están permitidas."
+      },
+      "SCRIPTURE_UNAVAILABLE": {
+        "meaning": "No se pudo contactar a la fuente del texto bíblico.",
+        "fix": "Inténtalo de nuevo en un momento. Cuando está disponible, se usa el texto integrado de la King James."
+      },
+      "CLIENT_ERROR": {
+        "meaning": "Ocurrió algo inesperado en la propia aplicación.",
+        "fix": "Recarga la página. Si sigue pasando, repórtalo indicando qué estabas haciendo."
+      }
+    }
+  },
+  "errors": {
+    "defaultTitle": "No se pudo cargar esto",
+    "retry": "Intentar de nuevo",
+    "reference": "ref. {{ref}}",
+    "boundaryTitle": "Esta página tuvo un problema",
+    "boundaryBody": "Algo inesperado impidió mostrar esta página. Lo que ya guardaste está a salvo. Recarga la página; si vuelve a pasar, en Ayuda se explica cómo reportarlo.",
+    "reload": "Recargar página",
+    "goHelp": "Abrir Ayuda",
+    "technicalDetails": "Detalles técnicos",
+    "notFoundTitle": "Página no encontrada",
+    "notFoundBody": "No hay nada en esta dirección. Puede que el enlace sea antiguo o esté mal escrito.",
+    "goHome": "Ir al inicio",
+    "ai": {
+      "consentRequired": "Las funciones de IA están desactivadas: este servidor usa una IA en la nube y no la has autorizado.",
+      "notConfigured": "Las funciones de IA están desactivadas: no hay un proveedor de IA configurado.",
+      "unreachable": "Las funciones de IA no están disponibles: el proveedor de IA ({{backend}}) no responde.",
+      "fallbackNote": "Puedes seguir escribiendo en tu diario; mientras tanto, el pasaje bíblico se elige con reglas integradas.",
+      "settingsLink": "Configuración → Proveedor de IA"
+    }
+  },
+  "progress": {
+    "tabs": {
+      "label": "Secciones de progreso",
+      "reviews": "Resúmenes"
+    },
+    "reviews": {
+      "heading": "Resúmenes de crecimiento",
+      "intro": "Una mirada breve a una semana de tu diario: temas que se repiten, qué cambió y algo para llevar contigo.",
+      "generate": "Generar el resumen de esta semana",
+      "generating": "Escribiendo tu resumen…",
+      "generatingHint": "Con un modelo local puede tardar uno o dos minutos. Puedes quedarte en esta página.",
+      "generated": "El resumen de esta semana está listo.",
+      "generateFailed": "No se pudo generar el resumen",
+      "loading": "Cargando tus resúmenes…",
+      "loadFailed": "No se pudieron cargar tus resúmenes",
+      "emptyTitle": "Aún no hay resúmenes",
+      "emptyBody": "Escribe algunas entradas en tu diario esta semana y luego genera tu primer resumen.",
+      "periodWeek": "Semana",
+      "periodMonth": "Mes",
+      "range": "{{start}} – {{end}}",
+      "generatedBy": "Generado por {{provider}} / {{model}}",
+      "unknownProvider": "proveedor desconocido",
+      "unknownModel": "modelo desconocido"
+    }
+  },
+  "insights": {
+    "feedbackLoadFailed": "No se pudieron cargar los comentarios de tu diario",
+    "feedbackEmptyTitle": "Aún no hay comentarios del diario",
+    "feedbackEmptyBody": "Cuando guardas una entrada en tu diario recibes una reflexión breve y un pasaje bíblico. Aparecen aquí.",
+    "writeEntry": "Escribir una entrada",
+    "noScripture": "Esta entrada no tiene pasaje bíblico",
+    "viewEntry": "Ver la entrada y el comentario",
+    "showingOf": "Se muestran los {{shown}} más recientes de {{total}}.",
+    "seeAll": "Ver todos en el registro de auditoría"
+  },
+  "plans": {
+    "deleteTitle": "Eliminar plan",
+    "deleteBody": "¿Eliminar «{{title}}»? El plan y sus días se borran definitivamente. Esta acción no se puede deshacer.",
+    "deleted": "Plan eliminado."
   }
 }

@@ -14,6 +14,9 @@ import {
   usePassageDeepDive,
 } from '../hooks/useDevotional'
 import type { DevotionalPassage, FocusIntention, StudyGuide } from '../api/devotional'
+import { toApiError } from '../api/errors'
+import AiStatusBanner from '../components/AiStatusBanner'
+import InlineError from '../components/InlineError'
 
 // Scripture references organized by theme - curated passages for self-study
 const THEME_SCRIPTURES: Record<string, { title: string; passages: { ref: string; summary: string }[] }> = {
@@ -171,7 +174,7 @@ export default function DevotionalPage() {
   const [deepDiveGuide, setDeepDiveGuide] = useState<StudyGuide | null>(null)
   const [deepDiveError, setDeepDiveError] = useState('')
 
-  const { data: todayData, isLoading } = useTodayDevotional()
+  const { data: todayData, isLoading, error: todayError, refetch: refetchToday } = useTodayDevotional()
   const { data: activeIntentions } = useActiveFocusIntentions()
   const createFocus = useCreateFocusIntention()
   const markRead = useMarkPassageRead()
@@ -181,11 +184,17 @@ export default function DevotionalPage() {
   const handleCreateFocus = async () => {
     if (!intentionText.trim()) return
     
-    await createFocus.mutateAsync({
-      period_type: selectedPeriod,
-      intention: intentionText.trim(),
-    })
-    
+    try {
+      await createFocus.mutateAsync({
+        period_type: selectedPeriod,
+        intention: intentionText.trim(),
+      })
+    } catch {
+      // Shown as a toast by the app-wide mutation error handler; the form stays
+      // open with the text intact so the user can try again.
+      return
+    }
+
     setIntentionText('')
     setShowNewFocus(false)
   }
@@ -193,11 +202,16 @@ export default function DevotionalPage() {
   const handleSaveReflection = async () => {
     if (!selectedPassage || !reflectionText.trim()) return
     
-    await saveReflection.mutateAsync({
-      id: selectedPassage.id,
-      reflection: reflectionText.trim(),
-    })
-    
+    try {
+      await saveReflection.mutateAsync({
+        id: selectedPassage.id,
+        reflection: reflectionText.trim(),
+      })
+    } catch {
+      // Shown as a toast by the app-wide mutation error handler; keep the text.
+      return
+    }
+
     setReflectionText('')
     setSelectedPassage(null)
   }
@@ -210,8 +224,9 @@ export default function DevotionalPage() {
     try {
       const guide = await passageDeepDive.mutateAsync({ id: passage.id })
       setDeepDiveGuide(guide)
-    } catch {
-      setDeepDiveError('Failed to generate a study guide. Please try again.')
+    } catch (err) {
+      const apiError = toApiError(err)
+      setDeepDiveError([apiError.message, apiError.suggestion].filter(Boolean).join(' '))
     }
   }
 
@@ -229,8 +244,18 @@ export default function DevotionalPage() {
     )
   }
 
+  if (todayError) {
+    return (
+      <div className="max-w-4xl mx-auto p-6">
+        <InlineError error={todayError} onRetry={() => refetchToday()} />
+      </div>
+    )
+  }
+
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
+      <AiStatusBanner />
+
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>

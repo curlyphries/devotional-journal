@@ -71,64 +71,46 @@ class HeartPromptGuidanceView(APIView):
                 status=status.HTTP_422_UNPROCESSABLE_ENTITY,
             )
 
-        # Hydrate AI-suggested passages with real verse text from the DB
-        from apps.bible.models import BibleTranslation, BibleVerse
+        # The model only suggests references. The words come from the Bible
+        # source; a suggestion that does not exist there is dropped.
+        from apps.bible.lookup import fetch_passage, preferred_translations
 
-        try:
-            translation = BibleTranslation.objects.get(code="KJV")
-        except BibleTranslation.DoesNotExist:
-            translation = None
-
+        translations = preferred_translations("es" if language == "es" else "en")
         hydrated_passages = []
         for p in ai_result.get("passages", []):
-            book = p.get("book", "")
-            chapter = p.get("chapter")
-            verse_start = p.get("verse_start")
-            verse_end = p.get("verse_end", verse_start)
-            reason = p.get("reason", "")
-
-            if not book or not chapter:
+            if not isinstance(p, dict):
                 continue
-
-            verse_text = ""
-            reference = f"{book} {chapter}"
-            if verse_start:
-                reference += f":{verse_start}"
-                if verse_end and verse_end != verse_start:
-                    reference += f"-{verse_end}"
-
-            if translation:
-                # AI returns full book names (e.g. "Romans"), DB stores abbreviations
-                # in `book` (e.g. "ROM") and full names in `book_name`
-                qs = BibleVerse.objects.filter(
-                    translation=translation,
-                    book_name__iexact=book,
-                    chapter=chapter,
-                )
-                if not qs.exists():
-                    # Fallback: try matching on abbreviation field
-                    qs = BibleVerse.objects.filter(
-                        translation=translation,
-                        book__iexact=book,
-                        chapter=chapter,
-                    )
-                if verse_start:
-                    qs = qs.filter(verse__gte=verse_start)
-                if verse_end:
-                    qs = qs.filter(verse__lte=verse_end)
-                qs = qs.order_by("verse")
-                verse_text = " ".join(v.text for v in qs)
-
+            passage = fetch_passage(
+                p.get("book"),
+                p.get("chapter"),
+                p.get("verse_start"),
+                p.get("verse_end") or p.get("verse_start"),
+                translations=translations,
+            )
+            if passage is None:
+                continue
             hydrated_passages.append(
                 {
-                    "reference": reference,
-                    "book": book,
-                    "chapter": chapter,
-                    "verse_start": verse_start,
-                    "verse_end": verse_end,
-                    "text": verse_text,
-                    "reason": reason,
+                    "reference": passage.reference,
+                    "book": passage.book,
+                    "chapter": passage.chapter,
+                    "verse_start": passage.verse_start,
+                    "verse_end": passage.verse_end,
+                    "text": passage.text,
+                    "translation": passage.translation,
+                    "reason": str(p.get("reason", ""))[:600],
                 }
+            )
+
+        if not hydrated_passages:
+            from shared.errors import AppError
+
+            raise AppError(
+                "None of the passages the AI suggested could be found in the Bible source.",
+                code="SCRIPTURE_UNAVAILABLE",
+                status_code=502,
+                suggestion="Try again or rephrase. If it keeps happening, the Bible "
+                "text source may be unreachable (see docs/TROUBLESHOOTING.md).",
             )
 
         # Fetch recommended plans
@@ -187,81 +169,15 @@ class HeartPromptGuidanceView(APIView):
 
 class AIStatusView(APIView):
     """
-    Returns whether the configured LLM backend is reachable and ready.
-    Used by the frontend to show/hide AI features and warn users.
+    Which AI would serve this person, whether it is reachable, where it runs
+    (on this network or in the cloud) and - if it cannot be used - why and
+    what to do about it.
     """
 
     def get(self, request):
-        import httpx
-        from django.conf import settings
+        from shared.llm import ai_status
 
-        # Check per-user AI settings first
-        user = request.user
-        user_provider = (
-            getattr(user, "ai_provider", "none") if user.is_authenticated else "none"
-        )
-        if user_provider not in ("", "none"):
-            backend = user_provider
-            model = getattr(user, "ai_model", "") or None
-            if backend in ("openai", "anthropic", "openrouter", "custom"):
-                api_key = (
-                    user.get_ai_api_key() if hasattr(user, "get_ai_api_key") else ""
-                )
-                reachable = bool(api_key and len(api_key) > 5)
-            elif backend == "ollama":
-                base_url = getattr(user, "ai_base_url", "") or settings.OLLAMA_BASE_URL
-                try:
-                    resp = httpx.get(f"{base_url}/api/tags", timeout=4.0)
-                    resp.raise_for_status()
-                    models = [m["name"] for m in resp.json().get("models", [])]
-                    reachable = (
-                        any((model or "") in m for m in models)
-                        if model
-                        else bool(models)
-                    )
-                except Exception:
-                    reachable = False
-            else:
-                reachable = False
-            return Response(
-                {
-                    "backend": backend,
-                    "model": model,
-                    "reachable": reachable,
-                    "configured": reachable,
-                }
-            )
-
-        # Fall back to global settings
-        backend = getattr(settings, "LLM_BACKEND", "ollama").lower()
-        reachable = False
-        model = None
-
-        try:
-            if backend == "anthropic":
-                api_key = getattr(settings, "ANTHROPIC_API_KEY", None)
-                reachable = bool(api_key and len(api_key) > 10)
-                model = getattr(settings, "ANTHROPIC_MODEL", None)
-            else:
-                base_url = getattr(
-                    settings, "OLLAMA_BASE_URL", "http://localhost:11434"
-                )
-                model = getattr(settings, "OLLAMA_MODEL", "llama3.1:8b")
-                resp = httpx.get(f"{base_url}/api/tags", timeout=4.0)
-                resp.raise_for_status()
-                models = [m["name"] for m in resp.json().get("models", [])]
-                reachable = any(model in m for m in models)
-        except Exception:
-            reachable = False
-
-        return Response(
-            {
-                "backend": backend,
-                "model": model,
-                "reachable": reachable,
-                "configured": reachable,
-            }
-        )
+        return Response(ai_status(request.user))
 
 
 class ExplorationHistoryListView(APIView):

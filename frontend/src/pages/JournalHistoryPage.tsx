@@ -1,195 +1,190 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { Plus, Filter, Loader2, Book, Lightbulb } from 'lucide-react'
-import { getJournalEntries } from '../api/journal'
-
-const MOOD_LABELS: Record<string, { emoji: string; label: string; color: string }> = {
-  grateful: { emoji: '🙏', label: 'Grateful', color: 'bg-success/20 text-success' },
-  struggling: { emoji: '😔', label: 'Struggling', color: 'bg-text-secondary/20 text-text-secondary' },
-  convicted: { emoji: '💭', label: 'Convicted', color: 'bg-accent-primary/20 text-accent-primary' },
-  peaceful: { emoji: '😌', label: 'Peaceful', color: 'bg-accent-secondary/20 text-accent-secondary' },
-  fired_up: { emoji: '🔥', label: 'Fired Up', color: 'bg-danger/20 text-danger' },
-}
-
-// Parse the journal content to extract metadata and actual content
-function parseJournalContent(content: string): {
-  planTitle?: string
-  dayNumber?: string
-  theme?: string
-  passage?: string
-  userContent: string
-} {
-  const lines = content.split('\n')
-  let planTitle: string | undefined
-  let dayNumber: string | undefined
-  let theme: string | undefined
-  let passage: string | undefined
-  let contentStartIndex = 0
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim()
-    
-    // Match **Plan Title** - Day X
-    const planMatch = line.match(/^\*\*(.+?)\*\*\s*-\s*Day\s*(\d+)/)
-    if (planMatch) {
-      planTitle = planMatch[1]
-      dayNumber = planMatch[2]
-      contentStartIndex = i + 1
-      continue
-    }
-    
-    // Match **Theme:** X
-    const themeMatch = line.match(/^\*\*Theme:\*\*\s*(.+)/)
-    if (themeMatch) {
-      theme = themeMatch[1]
-      contentStartIndex = i + 1
-      continue
-    }
-    
-    // Match **Passage:** X
-    const passageMatch = line.match(/^\*\*Passage:\*\*\s*(.+)/)
-    if (passageMatch) {
-      passage = passageMatch[1]
-      contentStartIndex = i + 1
-      continue
-    }
-    
-    // Skip separator lines
-    if (line === '---') {
-      contentStartIndex = i + 1
-      continue
-    }
-    
-    // If we hit actual content, stop parsing metadata
-    if (line && !line.startsWith('**')) {
-      break
-    }
-  }
-
-  const userContent = lines.slice(contentStartIndex).join('\n').trim()
-  
-  return { planTitle, dayNumber, theme, passage, userContent }
-}
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { Plus, Filter, Loader2, Book, BookOpen, Lightbulb, MessageSquareText, ScrollText } from 'lucide-react'
+import { getJournalEntriesPage } from '../api/journal'
+import InlineError from '../components/InlineError'
+import { parseJournalContent } from '../lib/journalContent'
+import { MOODS, getMood, moodLabelKey } from '../lib/moods'
+import { formatDate } from '../lib/dates'
 
 export default function JournalHistoryPage() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [filterMood, setFilterMood] = useState('')
+  const filterId = useId()
 
-  const { data: entries = [], isLoading, error } = useQuery({
-    queryKey: ['journalEntries', filterMood],
-    queryFn: () => getJournalEntries(filterMood ? { mood: filterMood } : undefined),
+  const query = useInfiniteQuery({
+    queryKey: ['journalEntries', 'history', filterMood],
+    queryFn: ({ pageParam }) =>
+      getJournalEntriesPage({ page: pageParam, ...(filterMood ? { mood: filterMood } : {}) }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => (lastPage.next ? allPages.length + 1 : undefined),
   })
+
+  const entries = query.data?.pages.flatMap((page) => page.results) ?? []
+  const total = query.data?.pages[0]?.count ?? 0
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-text-primary">
-          {t('journal.history')}
-        </h1>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-2xl font-bold text-text-primary">{t('journal.history')}</h1>
 
-        <Link to="/journal/new" className="btn-primary flex items-center gap-2">
-          <Plus className="w-4 h-4" />
-          {t('journal.newEntry')}
-        </Link>
+        <div className="flex flex-wrap items-center gap-3">
+          <Link to="/audit" className="btn-secondary flex items-center gap-2 text-sm">
+            <ScrollText className="w-4 h-4" aria-hidden="true" />
+            {t('audit.navLabel')}
+          </Link>
+          <Link to="/journal/new" className="btn-primary flex items-center gap-2">
+            <Plus className="w-4 h-4" aria-hidden="true" />
+            {t('journal.newEntry')}
+          </Link>
+        </div>
       </div>
 
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 text-text-secondary">
-          <Filter className="w-4 h-4" />
-          <span className="text-sm">{t('journal.filterByMood')}:</span>
-        </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <label htmlFor={filterId} className="flex items-center gap-2 text-text-secondary text-sm">
+          <Filter className="w-4 h-4" aria-hidden="true" />
+          {t('journal.filterByMood')}
+        </label>
         <select
+          id={filterId}
           value={filterMood}
           onChange={(e) => setFilterMood(e.target.value)}
           className="input py-1 px-3"
         >
           <option value="">{t('journal.allMoods')}</option>
-          {Object.entries(MOOD_LABELS).map(([id, { label }]) => (
-            <option key={id} value={id}>
-              {label}
+          {MOODS.map((mood) => (
+            <option key={mood.id} value={mood.id}>
+              {t(moodLabelKey(mood.id))}
             </option>
           ))}
         </select>
+        {query.isSuccess && total > 0 && (
+          <span className="text-sm text-text-secondary">{t('journal.showing', { shown: entries.length, total })}</span>
+        )}
       </div>
 
       <div className="space-y-4">
-        {isLoading ? (
-          <div className="flex items-center justify-center py-12">
-            <Loader2 className="w-8 h-8 text-amber-500 animate-spin" />
+        {query.isLoading ? (
+          <div className="flex items-center justify-center py-12" role="status">
+            <Loader2 className="w-8 h-8 text-accent-primary animate-spin" aria-hidden="true" />
+            <span className="sr-only">{t('common.loading')}</span>
           </div>
-        ) : error ? (
-          <div className="card text-center py-12">
-            <p className="text-red-400">Failed to load entries</p>
-          </div>
+        ) : query.isError && entries.length === 0 ? (
+          <InlineError error={query.error} title={t('journal.listFailed')} onRetry={() => query.refetch()} />
         ) : entries.length === 0 ? (
           <div className="card text-center py-12">
-            <p className="text-text-secondary">{t('journal.noEntries')}</p>
-            <Link to="/journal/new" className="btn-primary mt-4 inline-flex items-center gap-2">
-              <Plus className="w-4 h-4" />
-              Create Your First Entry
-            </Link>
+            <BookOpen className="w-10 h-10 text-text-secondary mx-auto mb-3" aria-hidden="true" />
+            <p className="text-text-primary font-medium">
+              {filterMood ? t('journal.noEntriesForMood') : t('journal.emptyTitle')}
+            </p>
+            {!filterMood && <p className="text-text-secondary mt-1 max-w-md mx-auto">{t('journal.emptyBody')}</p>}
+            {filterMood ? (
+              <button type="button" className="btn-secondary mt-4" onClick={() => setFilterMood('')}>
+                {t('journal.clearFilter')}
+              </button>
+            ) : (
+              <Link to="/journal/new" className="btn-primary mt-4 inline-flex items-center gap-2">
+                <Plus className="w-4 h-4" aria-hidden="true" />
+                {t('journal.firstEntry')}
+              </Link>
+            )}
           </div>
         ) : (
-          entries.map((entry) => {
-            const parsed = parseJournalContent(entry.content_preview || '')
-            
-            return (
-              <Link
-                key={entry.id}
-                to={`/journal/${entry.id}`}
-                className="card block hover:border-accent-secondary transition-colors"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <span className="text-sm text-text-secondary">
-                      {new Date(entry.date).toLocaleDateString('en-US', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                    </span>
-                    
-                    {/* Show plan/passage context if present */}
-                    {parsed.planTitle && (
-                      <div className="flex items-center gap-2 mt-1">
-                        <Book className="w-3 h-3 text-amber-500" />
-                        <span className="text-amber-500 text-xs">
-                          {parsed.planTitle} • Day {parsed.dayNumber}
+          <ul className="space-y-4">
+            {entries.map((entry) => {
+              // The server strips metadata from previews; parse anyway so an
+              // older server (or a legacy entry) never leaks a raw block.
+              const parsed = parseJournalContent(entry.content_preview || '')
+              const mood = getMood(entry.mood_tag)
+
+              return (
+                <li key={entry.id}>
+                  <Link
+                    to={`/journal/${entry.id}`}
+                    className="card block hover:border-accent-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary"
+                  >
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <div className="min-w-0">
+                        <span className="text-sm text-text-secondary">
+                          {formatDate(entry.date, i18n.language, {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          })}
                         </span>
-                        {parsed.passage && (
-                          <span className="text-gray-400 text-xs">• {parsed.passage}</span>
+
+                        {parsed.planTitle && (
+                          <div className="flex flex-wrap items-center gap-2 mt-1 text-xs">
+                            <Book className="w-3 h-3 text-accent-primary" aria-hidden="true" />
+                            <span className="text-accent-primary">
+                              {parsed.planTitle}
+                              {parsed.dayNumber ? ` • ${t('journal.day', { day: parsed.dayNumber })}` : ''}
+                            </span>
+                            {parsed.passage && <span className="text-text-secondary">• {parsed.passage}</span>}
+                          </div>
+                        )}
+
+                        {parsed.theme && (
+                          <div className="flex items-center gap-1 mt-1">
+                            <Lightbulb className="w-3 h-3 text-text-secondary" aria-hidden="true" />
+                            <span className="text-text-secondary text-xs italic">{parsed.theme}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {mood && (
+                        <span className={`text-xs px-2 py-1 rounded flex-shrink-0 ${mood.badgeClass}`}>
+                          <span aria-hidden="true">{mood.emoji}</span> {t(moodLabelKey(mood.id))}
+                        </span>
+                      )}
+                    </div>
+
+                    <p className="text-text-primary line-clamp-2 break-words">
+                      {parsed.userContent || t('journal.noPreview')}
+                    </p>
+
+                    {(entry.scripture_reference || entry.has_feedback) && (
+                      <div className="flex flex-wrap items-center gap-2 mt-3">
+                        {entry.scripture_reference && (
+                          <span className="inline-flex items-center gap-1.5 rounded-full border border-accent-secondary px-2.5 py-0.5 text-xs text-text-primary">
+                            <BookOpen className="w-3 h-3 text-accent-primary" aria-hidden="true" />
+                            {entry.scripture_reference}
+                          </span>
+                        )}
+                        {entry.has_feedback && (
+                          <span className="inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-0.5 text-xs text-text-secondary">
+                            <MessageSquareText className="w-3 h-3" aria-hidden="true" />
+                            {t('journal.hasFeedback')}
+                          </span>
                         )}
                       </div>
                     )}
-                    
-                    {parsed.theme && (
-                      <div className="flex items-center gap-1 mt-1">
-                        <Lightbulb className="w-3 h-3 text-amber-500/70" />
-                        <span className="text-gray-400 text-xs italic">{parsed.theme}</span>
-                      </div>
-                    )}
-                  </div>
-                  
-                  {entry.mood_tag && MOOD_LABELS[entry.mood_tag] && (
-                    <span
-                      className={`text-xs px-2 py-1 rounded flex-shrink-0 ${MOOD_LABELS[entry.mood_tag]?.color || ''}`}
-                    >
-                      {MOOD_LABELS[entry.mood_tag]?.emoji}{' '}
-                      {MOOD_LABELS[entry.mood_tag]?.label}
-                    </span>
-                  )}
-                </div>
-                
-                {/* Show actual user content, not the metadata */}
-                <p className="text-text-primary line-clamp-2">
-                  {parsed.userContent || entry.content_preview}
-                </p>
-              </Link>
-            )
-          })
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+        )}
+
+        {query.isError && entries.length > 0 && (
+          <InlineError error={query.error} title={t('journal.moreFailed')} onRetry={() => query.fetchNextPage()} />
+        )}
+
+        {query.hasNextPage && !query.isError && (
+          <div className="flex justify-center">
+            <button
+              type="button"
+              className="btn-secondary inline-flex items-center gap-2"
+              onClick={() => query.fetchNextPage()}
+              disabled={query.isFetchingNextPage}
+            >
+              {query.isFetchingNextPage && <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />}
+              {query.isFetchingNextPage ? t('common.loading') : t('journal.loadMore')}
+            </button>
+          </div>
         )}
       </div>
     </div>

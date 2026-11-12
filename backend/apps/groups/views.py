@@ -187,7 +187,13 @@ class SetGroupPlanView(APIView):
         from apps.plans.models import ReadingPlan
 
         try:
-            plan = ReadingPlan.objects.get(id=plan_id, is_active=True)
+            from django.db.models import Q
+
+            plan = ReadingPlan.objects.get(
+                Q(is_public=True) | Q(created_by=request.user),
+                id=plan_id,
+                is_active=True,
+            )
         except ReadingPlan.DoesNotExist:
             return Response(
                 {"error": "Plan not found"}, status=status.HTTP_404_NOT_FOUND

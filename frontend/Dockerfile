@@ -16,8 +16,12 @@ RUN npm run build:prod
 
 FROM nginx:alpine
 
+# nginx.conf serves the app under /devotional-journal/ (public deployment);
+# nginx.mesh.conf serves it at the root of its own host name (private mesh).
+ARG NGINX_CONF=nginx.conf
+
 COPY --from=builder /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY ${NGINX_CONF} /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 

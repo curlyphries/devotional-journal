@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { describe, it, expect, vi } from 'vitest'
-import { screen } from '@testing-library/react'
+import { screen, within } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { render } from '../test/utils'
 import Layout from './Layout'
 
@@ -30,8 +31,51 @@ describe('Layout', () => {
 
   it('renders navigation links', () => {
     render(<Layout />)
-    expect(screen.getByText('nav.dashboard')).toBeInTheDocument()
-    expect(screen.getByText('nav.journal')).toBeInTheDocument()
-    expect(screen.getByText('nav.settings')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'nav.dashboard' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'nav.journal' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'nav.settings' })).toBeInTheDocument()
+  })
+
+  it('keeps the tour targets in the bar on every screen size', () => {
+    const { container } = render(<Layout />)
+    for (const id of ['language', 'help', 'fab']) {
+      expect(container.querySelectorAll(`[data-tour-id="${id}"]`)).toHaveLength(1)
+    }
+  })
+
+  it('opens the "More" menu with the secondary pages and closes it on Escape', async () => {
+    render(<Layout />)
+    const more = screen.getByRole('button', { name: 'nav.more' })
+    expect(more).toHaveAttribute('aria-expanded', 'false')
+
+    await userEvent.click(more)
+    expect(more).toHaveAttribute('aria-expanded', 'true')
+    expect(screen.getByRole('link', { name: 'nav.reflection' })).toHaveAttribute('href', '/reflection')
+    expect(screen.getByRole('link', { name: 'nav.threads' })).toHaveAttribute('href', '/threads')
+
+    await userEvent.keyboard('{Escape}')
+    expect(more).toHaveAttribute('aria-expanded', 'false')
+    expect(screen.queryByRole('link', { name: 'nav.threads' })).not.toBeInTheDocument()
+    expect(more).toHaveFocus()
+  })
+
+  it('has a phone menu button that lists every page and sign-out', async () => {
+    render(<Layout />)
+    const toggle = screen.getByRole('button', { name: 'nav.openMenu' })
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+
+    await userEvent.click(toggle)
+
+    expect(screen.getByRole('button', { name: 'nav.closeMenu' })).toHaveAttribute('aria-expanded', 'true')
+    const menu = document.getElementById('nav-mobile-menu')!
+    const labels = within(menu).getAllByRole('link').map((link) => link.textContent)
+    expect(labels).toEqual([
+      'nav.dashboard', 'nav.journal', 'nav.plans', 'nav.focus', 'nav.progress',
+      'nav.reflection', 'nav.threads', 'nav.insights', 'audit.navLabel', 'nav.settings',
+    ])
+    expect(within(menu).getByRole('button', { name: 'auth.logout' })).toBeInTheDocument()
+
+    await userEvent.keyboard('{Escape}')
+    expect(document.getElementById('nav-mobile-menu')).toBeNull()
   })
 })

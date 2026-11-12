@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { format } from 'date-fns'
+import { format, isValid, parseISO } from 'date-fns'
 import { Link } from 'react-router-dom'
 import { 
   BookOpen, 
@@ -11,7 +11,11 @@ import {
   Loader2,
   Filter
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import client from '../api/client'
+import { unwrapList } from '../api/pagination'
+import { getFeedbackLog } from '../api/journal'
+import InlineError from '../components/InlineError'
 
 interface DailyReflection {
   id: string
@@ -22,53 +26,38 @@ interface DailyReflection {
   area_scores: Record<string, number>
 }
 
-interface JournalEntry {
-  id: string
-  date: string
-  plan_day?: {
-    passages: string
-    theme_en: string
-  }
-  decrypted_content: string
-}
-
 const fetchReflections = async (): Promise<DailyReflection[]> => {
   const response = await client.get('/reflections/')
-  return Array.isArray(response.data) ? response.data : response.data.results ?? []
+  return unwrapList<DailyReflection>(response.data)
 }
 
-const fetchJournalEntries = async (): Promise<JournalEntry[]> => {
-  const response = await client.get('/journal/')
-  return Array.isArray(response.data) ? response.data : response.data.results ?? []
+/** Format a YYYY-MM-DD date without the timezone shift `new Date('2026-11-12')` causes. */
+function formatDay(isoDate: string): string {
+  const parsed = parseISO(isoDate)
+  return isValid(parsed) ? format(parsed, 'MMMM d, yyyy') : isoDate
 }
 
 export default function InsightsHistoryPage() {
   const [viewMode, setViewMode] = useState<'reflections' | 'journal'>('reflections')
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null)
 
-  const { data: reflections = [], isLoading: reflectionsLoading } = useQuery({
+  const { t } = useTranslation()
+  const reflectionsQuery = useQuery({
     queryKey: ['reflections-history'],
     queryFn: fetchReflections,
     enabled: viewMode === 'reflections'
   })
 
-  const { data: journalEntries = [], isLoading: journalLoading } = useQuery({
-    queryKey: ['journal-history'],
-    queryFn: fetchJournalEntries,
+  const reflections = reflectionsQuery.data ?? []
+
+  // Feedback given on journal entries, newest first (first page of the audit log).
+  const feedbackQuery = useQuery({
+    queryKey: ['journal-feedback-log', 1],
+    queryFn: () => getFeedbackLog(1),
     enabled: viewMode === 'journal'
   })
-
-  // Extract AI insights from journal entries
-  const journalInsights = journalEntries
-    .map(entry => {
-      const content = entry.decrypted_content || ''
-      const aiInsightMatch = content.match(/<!-- AI_INSIGHT_START -->([\s\S]*?)<!-- AI_INSIGHT_END -->/)
-      return {
-        ...entry,
-        ai_insight: aiInsightMatch ? aiInsightMatch[1].trim() : null
-      }
-    })
-    .filter(entry => entry.ai_insight)
+  const feedbackItems = feedbackQuery.data?.results ?? []
+  const feedbackTotal = feedbackQuery.data?.count ?? 0
 
   // Get all unique themes
   const allThemes = Array.from(
@@ -82,7 +71,7 @@ export default function InsightsHistoryPage() {
     ? reflections.filter(r => r.scripture_themes?.includes(selectedTheme))
     : reflections
 
-  const isLoading = reflectionsLoading || journalLoading
+  const isLoading = viewMode === 'reflections' ? reflectionsQuery.isLoading : feedbackQuery.isLoading
 
   return (
     <div className="space-y-6">
@@ -90,7 +79,7 @@ export default function InsightsHistoryPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link
-            to="/dashboard"
+            to="/"
             className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -176,7 +165,10 @@ export default function InsightsHistoryPage() {
       )}
 
       {/* Reflections View */}
-      {viewMode === 'reflections' && !isLoading && (
+      {viewMode === 'reflections' && !isLoading && reflectionsQuery.isError && (
+        <InlineError error={reflectionsQuery.error} onRetry={() => reflectionsQuery.refetch()} />
+      )}
+      {viewMode === 'reflections' && !isLoading && !reflectionsQuery.isError && (
         <div className="space-y-4">
           {filteredReflections.length === 0 ? (
             <div className="card text-center py-12">
@@ -196,7 +188,7 @@ export default function InsightsHistoryPage() {
                     </div>
                     <div>
                       <p className="text-sm text-gray-400">
-                        {format(new Date(reflection.date), 'MMMM d, yyyy')}
+                        {formatDay(reflection.date)}
                       </p>
                       {reflection.scripture_reference && (
                         <Link
@@ -248,68 +240,69 @@ export default function InsightsHistoryPage() {
         </div>
       )}
 
-      {/* Journal Insights View */}
-      {viewMode === 'journal' && !isLoading && (
+      {/* Journal feedback view: one card per entry that has received feedback */}
+      {viewMode === 'journal' && !isLoading && feedbackQuery.isError && (
+        <InlineError
+          error={feedbackQuery.error}
+          title={t('insights.feedbackLoadFailed')}
+          onRetry={() => feedbackQuery.refetch()}
+        />
+      )}
+      {viewMode === 'journal' && !isLoading && !feedbackQuery.isError && (
         <div className="space-y-4">
-          {journalInsights.length === 0 ? (
+          {feedbackItems.length === 0 ? (
             <div className="card text-center py-12">
-              <Sparkles className="w-12 h-12 text-gray-500 mx-auto mb-4" />
-              <p className="text-gray-400">No journal insights yet</p>
-              <p className="text-sm text-gray-500 mt-2">
-                Journal entries with AI-generated insights will appear here
-              </p>
+              <Sparkles className="w-12 h-12 text-text-secondary mx-auto mb-4" aria-hidden="true" />
+              <p className="text-text-primary">{t('insights.feedbackEmptyTitle')}</p>
+              <p className="text-sm text-text-secondary mt-2">{t('insights.feedbackEmptyBody')}</p>
+              <Link to="/journal/new" className="btn-primary inline-block mt-4">
+                {t('insights.writeEntry')}
+              </Link>
             </div>
           ) : (
-            journalInsights.map(entry => (
-              <div key={entry.id} className="card hover:border-amber-500/30 transition-colors">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center">
-                      <Calendar className="w-5 h-5 text-amber-400" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">
-                        {format(new Date(entry.date), 'MMMM d, yyyy')}
-                      </p>
-                      {entry.plan_day?.passages && (
-                        <Link
-                          to={`/bible?passage=${encodeURIComponent(entry.plan_day.passages)}`}
-                          className="text-amber-400 hover:text-amber-300 font-medium flex items-center gap-1"
-                        >
-                          {entry.plan_day.passages}
-                          <ExternalLink className="w-3 h-3" />
-                        </Link>
-                      )}
-                    </div>
+            feedbackItems.map((item) => (
+              <div key={item.id} className="card">
+                <div className="flex items-start gap-3 mb-3">
+                  <div className="w-10 h-10 bg-bg-elevated rounded-lg flex items-center justify-center shrink-0">
+                    <Calendar className="w-5 h-5 text-accent-primary" aria-hidden="true" />
                   </div>
-                  {entry.plan_day?.theme_en && (
-                    <span className="px-2 py-0.5 bg-amber-500/20 text-amber-300 text-xs rounded">
-                      {entry.plan_day.theme_en}
-                    </span>
-                  )}
+                  <div className="min-w-0">
+                    <p className="text-sm text-text-secondary">{formatDay(item.entry_date)}</p>
+                    {item.scripture?.reference ? (
+                      <Link
+                        to={`/bible?passage=${encodeURIComponent(item.scripture.reference)}`}
+                        className="text-accent-primary hover:underline font-medium inline-flex items-center gap-1"
+                      >
+                        {item.scripture.reference}
+                        <ExternalLink className="w-3 h-3" aria-hidden="true" />
+                      </Link>
+                    ) : (
+                      <p className="text-text-secondary text-sm">{t('insights.noScripture')}</p>
+                    )}
+                  </div>
                 </div>
 
-                {entry.ai_insight && (
-                  <div className="mt-4 p-4 bg-gray-800/50 rounded-lg border border-amber-500/20">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Sparkles className="w-4 h-4 text-amber-400" />
-                      <span className="text-sm font-medium text-amber-400">Devotional Insight</span>
-                    </div>
-                    <div className="text-gray-300 text-sm whitespace-pre-wrap leading-relaxed">
-                      {entry.ai_insight}
-                    </div>
-                  </div>
+                {item.reflection && (
+                  <p className="text-text-primary text-sm leading-relaxed line-clamp-4">{item.reflection}</p>
                 )}
 
                 <Link
-                  to={`/journal/${entry.id}`}
-                  className="mt-4 text-amber-400 hover:text-amber-300 text-sm flex items-center gap-1"
+                  to={`/journal/${item.entry_id}`}
+                  className="mt-4 text-accent-primary hover:underline text-sm inline-flex items-center gap-1"
                 >
-                  View journal entry
-                  <ChevronLeft className="w-4 h-4 rotate-180" />
+                  {t('insights.viewEntry')}
+                  <ChevronLeft className="w-4 h-4 rotate-180" aria-hidden="true" />
                 </Link>
               </div>
             ))
+          )}
+          {feedbackTotal > feedbackItems.length && (
+            <p className="text-sm text-text-secondary text-center">
+              {t('insights.showingOf', { shown: feedbackItems.length, total: feedbackTotal })}{' '}
+              <Link to="/audit" className="text-accent-primary hover:underline">
+                {t('insights.seeAll')}
+              </Link>
+            </p>
           )}
         </div>
       )}

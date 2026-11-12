@@ -2,7 +2,10 @@ import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { Bookmark, BookOpen, ChevronDown, ChevronUp, Clock, Loader2, Sparkles, Target, Trash2 } from 'lucide-react'
-import client from '../api/client'
+import client, { AI_TIMEOUT_MS } from '../api/client'
+import { unwrapList } from '../api/pagination'
+import { useToast } from './Toast'
+import InlineError from './InlineError'
 import { useCreateFocusIntention } from '../hooks/useDevotional'
 
 interface ExplorePassage {
@@ -71,8 +74,9 @@ function timeAgo(dateStr: string): string {
 export default function HeartPromptExplorer() {
   const navigate = useNavigate()
   const createFocus = useCreateFocusIntention()
+  const toast = useToast()
   const [mindInput, setMindInput] = useState('')
-  const [focusError, setFocusError] = useState('')
+  const [historyError, setHistoryError] = useState<unknown>(null)
   const [guidance, setGuidance] = useState<ExploreResult | null>(null)
   const [history, setHistory] = useState<HistoryItem[]>([])
   const [showHistory, setShowHistory] = useState(false)
@@ -81,11 +85,13 @@ export default function HeartPromptExplorer() {
 
   const fetchHistory = useCallback(async () => {
     setLoadingHistory(true)
+    setHistoryError(null)
     try {
       const res = await client.get('/prompts/explorations/')
-      setHistory(res.data || [])
-    } catch {
-      // Silently fail — history is a convenience, not critical
+      setHistory(unwrapList<HistoryItem>(res.data))
+    } catch (err) {
+      // Rendered inline below the heading, with a retry.
+      setHistoryError(err)
     } finally {
       setLoadingHistory(false)
     }
@@ -95,21 +101,16 @@ export default function HeartPromptExplorer() {
     fetchHistory()
   }, [fetchHistory])
 
-  const guidanceMutation = useMutation<ExploreResult, Error, string>({
+  const guidanceMutation = useMutation<ExploreResult, unknown, string>({
     mutationFn: async (rawInput: string) => {
-      const input = rawInput.trim()
-      if (!input) {
-        throw new Error('Please share what is on your mind first.')
-      }
-
-      const response = await client.post('/prompts/explore/', { input })
-
-      if (response.data?.error) {
-        throw new Error(response.data.error)
-      }
-
+      const response = await client.post(
+        '/prompts/explore/',
+        { input: rawInput.trim() },
+        { timeout: AI_TIMEOUT_MS },
+      )
       return response.data as ExploreResult
     },
+    meta: { silent: true }, // the error is rendered inline under the form
     onSuccess: (data: ExploreResult) => {
       setGuidance(data)
       // Refresh history list to include the new entry
@@ -119,9 +120,9 @@ export default function HeartPromptExplorer() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault()
-    setFocusError('')
+    if (!mindInput.trim()) return
     setGuidance(null)
-    await guidanceMutation.mutateAsync(mindInput)
+    guidanceMutation.mutate(mindInput)
   }
 
   const handleRestore = async (explorationId: string) => {
@@ -132,8 +133,8 @@ export default function HeartPromptExplorer() {
       setGuidance(data)
       setMindInput(data.user_input || '')
       setShowHistory(false)
-    } catch {
-      // Ignore
+    } catch (err) {
+      toast.fromError(err)
     } finally {
       setLoadingRestore(null)
     }
@@ -153,8 +154,8 @@ export default function HeartPromptExplorer() {
       if (guidance?.id === explorationId) {
         setGuidance((prev: ExploreResult | null) => prev ? { ...prev, is_bookmarked: newBookmarked } : prev)
       }
-    } catch {
-      // Ignore
+    } catch (err) {
+      toast.fromError(err)
     }
   }
 
@@ -165,8 +166,8 @@ export default function HeartPromptExplorer() {
       if (guidance?.id === explorationId) {
         setGuidance(null)
       }
-    } catch {
-      // Ignore
+    } catch (err) {
+      toast.fromError(err)
     }
   }
 
@@ -174,7 +175,6 @@ export default function HeartPromptExplorer() {
     const intention = mindInput.trim()
     if (!intention) return
 
-    setFocusError('')
     try {
       await createFocus.mutateAsync({
         period_type: 'week',
@@ -182,7 +182,8 @@ export default function HeartPromptExplorer() {
       })
       navigate('/devotional')
     } catch {
-      setFocusError('Unable to create focus right now. You may already have an active weekly focus.')
+      // The server's reason (e.g. a weekly focus already exists) is shown as a
+      // toast by the app-wide mutation error handler.
     }
   }
 
@@ -205,6 +206,10 @@ export default function HeartPromptExplorer() {
           </button>
         )}
       </div>
+
+      {historyError != null && (
+        <InlineError error={historyError} onRetry={fetchHistory} className="mb-4" />
+      )}
 
       {showHistory && (
         <div className="mb-4 space-y-1.5 max-h-48 overflow-y-auto rounded-lg border border-gray-700 bg-gray-900/50 p-2">
@@ -317,8 +322,9 @@ export default function HeartPromptExplorer() {
         </div>
       </form>
 
-      {focusError && <p className="text-red-300 text-sm mt-3">{focusError}</p>}
-      {guidanceMutation.error && <p className="text-red-300 text-sm mt-3">{guidanceMutation.error.message}</p>}
+      {guidanceMutation.isError && (
+        <InlineError error={guidanceMutation.error} className="mt-3" />
+      )}
 
       {guidance && (
         <div className="mt-5 space-y-5">

@@ -19,6 +19,7 @@ import {
   useRespondToThread
 } from '../hooks/useReflections'
 import { ThreadPrompt } from '../api/reflections'
+import InlineError from '../components/InlineError'
 
 interface AreaScore {
   code: string
@@ -99,20 +100,26 @@ export default function ReflectionPage() {
 
       setCreatedReflectionId(reflection.id)
 
-      // Submit thread responses
+      // Submit thread responses. The reflection is already saved, so a failed
+      // follow-up must not block completion (resubmitting would duplicate it).
       for (const [threadId, response] of Object.entries(threadResponses)) {
         if (response && response !== 'skip') {
-          await respondToThread.mutateAsync({
-            thread_id: threadId,
-            response,
-            reflection_id: reflection.id,
-          })
+          try {
+            await respondToThread.mutateAsync({
+              thread_id: threadId,
+              response,
+              reflection_id: reflection.id,
+            })
+          } catch {
+            // Shown as a toast by the app-wide mutation error handler.
+          }
         }
       }
 
       setStep('complete')
-    } catch (error) {
-      console.error('Failed to create reflection:', error)
+    } catch {
+      // Saving failed: the app-wide mutation error handler shows the reason as a
+      // toast, and the user stays on this step with everything they wrote intact.
     }
   }
 
@@ -411,8 +418,8 @@ function CompleteStep({ reflectionId }: { reflectionId: string | null }) {
     try {
       const result = await generateInsight.mutateAsync()
       setInsight(result.insight)
-    } catch (error) {
-      console.error('Failed to generate insight:', error)
+    } catch {
+      // The reason is rendered below the button (generateInsight.error).
     }
   }
 
@@ -447,6 +454,10 @@ function CompleteStep({ reflectionId }: { reflectionId: string | null }) {
             </>
           )}
         </button>
+      )}
+
+      {!insight && generateInsight.isError && (
+        <InlineError error={generateInsight.error} className="text-left" />
       )}
 
       {insight && (

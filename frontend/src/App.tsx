@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
 import Layout from './components/Layout'
 import LandingPage from './pages/LandingPage'
@@ -19,6 +19,9 @@ import BiblePage from './pages/BiblePage'
 import ProgressPage from './pages/ProgressPage'
 import InsightsHistoryPage from './pages/InsightsHistoryPage'
 import HelpPage from './pages/HelpPage'
+import NotFoundPage from './pages/NotFoundPage'
+import ErrorBoundary from './components/ErrorBoundary'
+import AuditLogPage from './pages/AuditLogPage'
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth()
@@ -35,7 +38,11 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
 }
 
 function App() {
+  const location = useLocation()
   return (
+    // Outer safety net for the public pages and the layout itself; the Layout
+    // has its own boundary around page content so the nav stays usable.
+    <ErrorBoundary resetKey={location.pathname}>
     <Routes>
       <Route path="/welcome" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
@@ -64,9 +71,13 @@ function App() {
         <Route path="progress" element={<ProgressPage />} />
         <Route path="insights" element={<InsightsHistoryPage />} />
         <Route path="settings" element={<SettingsPage />} />
+        <Route path="audit" element={<AuditLogPage />} />
         <Route path="help" element={<HelpPage />} />
+        {/* Unknown URL: a "not found" page inside the normal layout */}
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
+    </ErrorBoundary>
   )
 }
 

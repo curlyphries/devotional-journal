@@ -1,5 +1,6 @@
 {
   "common": {
+    "confirm": "Confirm",
     "loading": "Loading...",
     "error": "An error occurred",
     "save": "Save",
@@ -207,6 +208,27 @@
     }
   },
   "reading": {
+    "loading": "Loading today's reading…",
+    "loadFailed": "Today's reading couldn't be loaded",
+    "notFound": "This reading plan enrollment was not found.",
+    "browsePlans": "Browse reading plans",
+    "dayOf": "Day {{day}} of {{total}} · {{plan}}",
+    "planCompleted": "You have completed this plan.",
+    "noPassages": "This day has no passages assigned.",
+    "openInReader": "Open in Bible reader",
+    "passageNotParsed": "This reference can't be shown here. Open it in the Bible reader instead.",
+    "loadingPassage": "Loading passage…",
+    "passageFailed": "The passage text couldn't be loaded",
+    "passageEmpty": "No text was returned for this passage.",
+    "promptWithTheme": "Today's theme is “{{theme}}”. Where does that meet your life right now?",
+    "promptGeneric": "What stood out to you in this reading, and what will you do about it today?",
+    "journalHint": "Optional. If you write something, it is saved as a journal entry and you get feedback on it. Leave it empty to just mark the day complete.",
+    "journalPlaceholder": "Write your thoughts, prayers, and reflections…",
+    "saveAndComplete": "Save entry and complete day",
+    "markComplete": "Mark day complete",
+    "savedToast": "Entry saved and day marked complete.",
+    "completedToast": "Day marked complete.",
+    "savedButNotAdvanced": "Your entry was saved, but the day could not be marked complete.",
     "reflectionPrompts": "Reflection Prompts",
     "journalEntry": "Journal Entry",
     "saveEntry": "Save Entry",
@@ -224,9 +246,109 @@
     "newEntry": "New Entry",
     "noEntries": "No entries found",
     "filterByMood": "Filter by mood",
-    "allMoods": "All moods"
+    "allMoods": "All moods",
+    "moods": {
+      "grateful": "Grateful",
+      "struggling": "Struggling",
+      "convicted": "Convicted",
+      "peaceful": "Peaceful",
+      "fired_up": "Fired up"
+    },
+    "yourEntry": "Your entry",
+    "newEntryHint": "Write or speak whatever is on your mind. It doesn't have to be about faith.",
+    "reflectionTitle": "Journal your reflection",
+    "date": "Date",
+    "entryLabel": "Your entry",
+    "yourReflection": "Your reflection",
+    "themeHint": "Consider: how does this passage connect to \"{{theme}}\"? What is God saying to you today?",
+    "placeholder": "Write your thoughts, prayers and reflections…",
+    "placeholderPassage": "What stood out to you in {{passage}}? How does it apply to your life?",
+    "moodQuestion": "How are you feeling?",
+    "saving": "Saving…",
+    "saveChanges": "Save changes",
+    "saveAndFeedback": "Save and get feedback",
+    "afterSaveHint": "After you save, you'll get a short response and a Bible passage chosen for this entry, with the reasons it was chosen.",
+    "unsaved": "You have unsaved changes.",
+    "saved": "Entry saved.",
+    "saveFailed": "Your entry could not be saved",
+    "loadFailed": "This entry could not be loaded",
+    "backToHistory": "Back to journal history",
+    "deleted": "Entry deleted.",
+    "deleteFailed": "The entry could not be deleted",
+    "deleteTitle": "Delete this entry?",
+    "deleteMessage": "The entry and its feedback will be permanently removed. This cannot be undone.",
+    "backToReading": "Back to reading",
+    "yourFocus": "Your spiritual focus",
+    "aiInsight": "AI insight",
+    "day": "Day {{day}}",
+    "highlights": {
+      "title": "Your highlights",
+      "getInsight": "Get AI insight",
+      "generating": "Generating…",
+      "publicDomainOnly": "AI insight needs a public-domain translation (KJV, ASV or WEB)",
+      "reflection": "AI reflection on your highlights",
+      "failed": "The AI insight could not be generated"
+    },
+    "deepDive": {
+      "button": "Deep-dive study guide",
+      "title": "Journal deep dive",
+      "subtitle": "A personal study guide based on this entry",
+      "loading": "Reading your entry and writing a study guide… this can take a minute.",
+      "failed": "The study guide could not be generated",
+      "tracking": "Study tracking is on",
+      "progress": "Progress: {{percent}}%",
+      "openTracker": "Open study tracker",
+      "insights": "Insights",
+      "questions": "Heart-check questions",
+      "plan": "Study plan",
+      "scripture": "Scripture",
+      "practice": "Practice",
+      "journalPrompt": "Journal",
+      "prayer": "Prayer focus",
+      "nextStep": "Next step"
+    },
+    "quick": {
+      "title": "Quick capture",
+      "label": "What's on your heart right now?",
+      "placeholder": "Type it, or use the microphone below…",
+      "taggedWithFocus": "Tagged with your focus",
+      "later": "Later"
+    },
+    "showing": "Showing {{shown}} of {{total}}",
+    "listFailed": "Your journal could not be loaded",
+    "moreFailed": "More entries could not be loaded",
+    "loadMore": "Load more",
+    "emptyTitle": "No entries yet",
+    "emptyBody": "Write or speak your first entry. You'll get a short response and a Bible passage chosen for it.",
+    "firstEntry": "Write your first entry",
+    "noEntriesForMood": "No entries with this mood.",
+    "clearFilter": "Show all entries",
+    "noPreview": "(No text)",
+    "hasFeedback": "Feedback"
   },
   "settings": {
+    "saved": "Settings saved.",
+    "saveFailed": "Your settings were not saved",
+    "exportFailed": "The export could not be downloaded.",
+    "ai": {
+      "heading": "AI & privacy",
+      "checking": "Checking where AI runs right now…",
+      "statusFailed": "Couldn't check the AI status",
+      "runsLocal": "Right now AI runs locally on {{backend}}: your journal text stays on this server and is not sent to a cloud service.",
+      "runsCloudUser": "Right now AI uses {{backend}}, a cloud service. Journal text is sent to it when you use an AI feature.",
+      "runsCloudServer": "This server's default AI is {{backend}}, a cloud service.",
+      "model": "Model: {{model}}.",
+      "sourceUser": "This is the provider you set up below.",
+      "sourceServer": "This is the server's default, used because you have not set up a provider of your own.",
+      "consentLabel": "Allow this server's cloud AI to read my journal text",
+      "consentHelp": "Your journal text is sent to {{provider}} only if you turn this on or configure your own provider.",
+      "genericCloudProvider": "the server's cloud AI provider",
+      "consentOn": "Cloud AI allowed. You can turn it off here at any time.",
+      "consentOff": "Cloud AI turned off. Your journal text will not be sent to the server's cloud AI.",
+      "auditIntro": "Every piece of AI feedback records what was sent and why a passage was chosen.",
+      "auditLink": "Open the audit log",
+      "helpLink": "How AI works here (Help)"
+    },
     "title": "Settings",
     "profile": "Profile",
     "displayName": "Display Name",
@@ -240,6 +362,12 @@
     }
   },
   "nav": {
+    "reflection": "Daily Reflection",
+    "threads": "Threads",
+    "more": "More",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "homeLabel": "Devotional Journal home",
     "dashboard": "Dashboard",
     "journal": "Journal",
     "plans": "Plans",
@@ -256,34 +384,421 @@
     "next": "Next",
     "back": "Back",
     "skip": "Skip tour",
+    "close": "Close tour",
     "finish": "Got it",
     "welcome": {
-      "title": "Welcome — let's take a quick tour",
-      "body": "Two minutes to show you around. You can replay this anytime from the Help page."
+      "title": "Welcome to your Devotional Journal",
+      "body": "Write or speak about your day, and get a thoughtful response with a Bible passage chosen for what you wrote. This one-minute tour shows you where things are."
     },
-    "streak": {
-      "title": "Your streak lives here",
-      "body": "Every day you journal counts. At 3 days the share button appears, and confetti pops at every milestone."
+    "write": {
+      "title": "Start with an entry",
+      "body": "Use New Journal Entry, or this pen button from any page, to write. Prefer talking? Press Dictate and speak — your words appear as text."
+    },
+    "feedback": {
+      "title": "After you save, you get feedback",
+      "body": "You'll see a short reflection on what you wrote and a scripture. The verse text always comes from the Bible itself, and \"Why this scripture?\" shows exactly how it was chosen."
     },
     "speakYourMind": {
-      "title": "Speak your mind",
-      "body": "Type whatever's on your heart. The AI finds relevant scripture and reflection prompts in seconds."
+      "title": "Speak Your Mind",
+      "body": "Not ready to journal? Type what's on your heart here to find related scripture and questions to think about."
     },
-    "snapshot": {
-      "title": "Your daily snapshot",
-      "body": "Focus, today's reading plan, and today's activity — all in one card."
+    "history": {
+      "title": "Your journal history",
+      "body": "Every entry is kept under Journal, with the scripture you received next to it. Open one to reread it or its feedback."
     },
-    "fab": {
-      "title": "Quick capture, always one tap away",
-      "body": "Use this floating button to save a thought from anywhere in the app."
+    "devotional": {
+      "title": "Focus and reading plans",
+      "body": "Set a spiritual focus to get daily passages around it, or follow a reading plan through a book of the Bible under Plans."
     },
-    "language": {
-      "title": "Switch languages anytime",
-      "body": "Toggle between English and Spanish. Your reading plans, themes, and prompts are stored in both."
+    "progress": {
+      "title": "See how you're growing",
+      "body": "Progress gathers your studies, milestones, growth over time and reviews of recent weeks."
+    },
+    "settings": {
+      "title": "You choose where the AI runs",
+      "body": "In Settings, pick an AI on your own network (private) or a cloud provider, and decide what may be sent to it."
     },
     "help": {
-      "title": "Need a refresher?",
-      "body": "The Help page has a guided tour of every feature, with deep links."
+      "title": "Questions, or something went wrong?",
+      "body": "Go to Help. It explains every feature and every error message, and you can replay this tour from there anytime."
     }
+  },
+  "feedback": {
+    "title": "Feedback on this entry",
+    "loading": "Looking for feedback…",
+    "loadFailed": "The feedback could not be loaded",
+    "generateFailed": "Feedback could not be generated",
+    "rateFailed": "Your rating could not be saved",
+    "emptyBody": "No feedback has been written for this entry yet. You'll get a short response to what you wrote and a Bible passage chosen for it.",
+    "get": "Get feedback",
+    "progress": {
+      "reading": "Reading your entry…",
+      "choosing": "Choosing a passage…",
+      "checking": "Checking the text against the Bible…",
+      "patience": "This usually takes a few seconds, and up to a minute or two when the AI runs on your own network. You can stay on this page."
+    },
+    "reflection": "Reflection",
+    "themes": "Themes",
+    "everyday": "Everyday entries are welcome here — Scripture speaks to ordinary days too.",
+    "scripture": {
+      "heading": "Scripture",
+      "verified": "Verified against {{translation}}",
+      "verifiedHelp": "The verse text is fetched from the Bible source and checked against the reference. It is never written by the AI.",
+      "unverified": "This text could not be checked against the Bible source. Open it in the Bible to read it in full.",
+      "missing": "The Bible text could not be retrieved this time. Try again in a moment.",
+      "open": "Open in Bible"
+    },
+    "why": "Why this passage",
+    "meditate": "Why meditate on it",
+    "step": "A step toward Christlikeness",
+    "growth": "How this connects to your journey",
+    "fallback": {
+      "title": "The AI was unavailable, so this passage was chosen by built-in rules",
+      "body": "Your entry is saved. The passage below was matched to your words by simple keyword rules, and its text still comes straight from the Bible.",
+      "reason": "What happened:",
+      "retry": "Try again with AI",
+      "settings": "Check AI settings"
+    },
+    "changed": "You've edited this entry since this feedback was written.",
+    "update": "Update feedback",
+    "helpful": {
+      "question": "Was this helpful?",
+      "yes": "Yes",
+      "no": "No",
+      "saved": "Thanks — saved."
+    },
+    "regenerate": {
+      "button": "Regenerate",
+      "confirm": "Replace the current feedback with a new one?",
+      "yes": "Replace"
+    }
+  },
+  "voice": {
+    "start": "Dictate",
+    "stop": "Stop dictating",
+    "listening": "Listening… speak naturally.",
+    "unsupportedLabel": "Dictation unavailable",
+    "unsupported": "This browser can't turn speech into text. Voice entry works in Chrome, Edge and Safari; in Firefox, please type instead.",
+    "privacy": "In Chrome, Edge and Safari your speech is turned into text by the browser's own speech service. This app does not record or store any audio, and the text only becomes part of your journal when you save.",
+    "errors": {
+      "notAllowed": "Microphone permission was blocked — allow it in your browser's site settings, then try again.",
+      "noSpeech": "No speech was heard. Check that your microphone isn't muted and try again.",
+      "network": "Dictation needs an internet connection: some browsers send audio to their speech service to transcribe it. Check your connection and try again.",
+      "audioCapture": "No microphone was found. Plug one in or check your system's sound settings.",
+      "unsupported": "Dictation isn't available for this language in this browser.",
+      "unknown": "Dictation stopped unexpectedly. Try again, or type instead."
+    }
+  },
+  "audit": {
+    "navLabel": "Audit log",
+    "title": "Why you received each scripture",
+    "intro": "Every time the app responds to an entry, it records how the passage was chosen: which AI ran and where, what information it was given, every passage it suggested, and whether each one was actually found in the Bible.",
+    "introPrivacy": "This record is stored on this server alongside your journal. It is only visible to you and is never sent anywhere else.",
+    "learnMore": "How feedback and scripture work",
+    "decisions": "Decisions",
+    "failed": "The audit log could not be loaded",
+    "emptyTitle": "Nothing recorded yet",
+    "emptyBody": "Once you save an entry and receive feedback, the decision behind it will appear here.",
+    "writeEntry": "Write an entry",
+    "noScripture": "No passage could be retrieved",
+    "verified": "Verified",
+    "viewEntry": "View the entry",
+    "status": {
+      "ok": "AI",
+      "fallback": "Built-in rules"
+    },
+    "noAi": "No AI — built-in rules",
+    "onServer": "on this server",
+    "local": "on your network",
+    "cloud": "cloud",
+    "themes": {
+      "title": "Themes over time",
+      "subtitle_one": "Most frequent themes across {{count}} entry with feedback.",
+      "subtitle_other": "Most frequent themes across {{count}} entries with feedback.",
+      "empty": "Themes will appear here after you receive feedback on a few entries.",
+      "failed": "Themes could not be loaded",
+      "lastSeen": "Last seen {{date}}",
+      "times": "times:"
+    },
+    "inputs": {
+      "entry_text": "The text of your entry",
+      "mood": "The mood you chose",
+      "active_focus": "Your current focus",
+      "recent_themes": "Themes from recent entries",
+      "open_threads": "Your open threads",
+      "entry_date": "The entry's date",
+      "language": "Your language"
+    },
+    "outcomes": {
+      "selected": "Selected",
+      "not_found": "Not found in the Bible",
+      "not_used": "Not used",
+      "invalid": "Invalid reference"
+    },
+    "record": {
+      "summary": "Why this scripture? — decision record",
+      "where": "Where the AI ran",
+      "whereLocal": "The AI ran on your own network; your entry did not leave it.",
+      "whereCloud": "The AI ran at a cloud provider; your entry text was sent to it to write this response.",
+      "whereNoAi": "No AI was involved. Your entry was not sent anywhere.",
+      "fallback": "Why the AI was not used",
+      "inputs": "What was used",
+      "none": "Nothing recorded.",
+      "recentThemes": "Recent themes considered",
+      "candidates": "Passages considered",
+      "noCandidates": "No passages were recorded.",
+      "rule": "How the passage was selected",
+      "threads": "Threads noticed in this entry",
+      "duration": "Time taken",
+      "seconds": "{{seconds}} s",
+      "promptVersion": "Prompt version",
+      "generatedAt": "Generated",
+      "seeAll": "See all decisions"
+    }
+  },
+  "help": {
+    "title": "Help & Guide",
+    "intro": "Everything this app does, where to find it, and what to do when something goes wrong.",
+    "replayTour": "Replay the tour",
+    "writeEntry": "Write an entry",
+    "onThisPage": "On this page",
+    "toc": {
+      "quick-start": "Quick start",
+      "where": "Where things are",
+      "feedback": "Feedback and scripture",
+      "voice": "Voice entry",
+      "privacy": "Privacy and AI",
+      "troubleshooting": "Troubleshooting"
+    },
+    "quickStart": {
+      "title": "Quick start",
+      "step1": {
+        "title": "Open a new entry.",
+        "body": "Choose Journal, then New Entry — or press the round pen button at the bottom of any page."
+      },
+      "step2": {
+        "title": "Write or speak.",
+        "body": "Type what's on your mind, or press Dictate and talk. It doesn't have to be about faith. Pick a mood if you like."
+      },
+      "step3": {
+        "title": "Save.",
+        "body": "The app reads your entry and, within a few seconds to a minute or two, shows a reflection and a Bible passage."
+      },
+      "step4": {
+        "title": "Read why.",
+        "body": "See why that passage was chosen and why it is worth meditating on. Open \"Why this scripture?\" for the full decision record."
+      },
+      "step5": {
+        "title": "Come back.",
+        "body": "As you add entries, the feedback connects them, and Progress shows your themes and growth over time."
+      }
+    },
+    "where": {
+      "title": "Where things are",
+      "intro": "Each card opens that part of the app.",
+      "dashboard": {
+        "name": "Dashboard",
+        "body": "Your streak, today's focus and reading, Speak Your Mind, and recent activity."
+      },
+      "journal": {
+        "name": "Journal — new entry",
+        "body": "Write or dictate an entry and receive feedback with a scripture."
+      },
+      "history": {
+        "name": "Journal history",
+        "body": "All your entries, newest first. Filter by mood; each shows the scripture it received."
+      },
+      "devotional": {
+        "name": "Devotional (Focus)",
+        "body": "Set a spiritual focus and receive daily passages around it."
+      },
+      "plans": {
+        "name": "Plans",
+        "body": "Guided reading plans. Start one, read each day's passage and journal about it."
+      },
+      "bible": {
+        "name": "Bible",
+        "body": "Read a passage, switch or compare translations, highlight verses and add notes."
+      },
+      "progress": {
+        "name": "Progress",
+        "body": "Studies, milestones, growth over time, growth reviews and follow-ups."
+      },
+      "reflection": {
+        "name": "Daily Reflection",
+        "body": "A guided check-in: today's scripture, a written reflection and a life-area check."
+      },
+      "threads": {
+        "name": "Threads",
+        "body": "Struggles, commitments and questions noticed in your entries, followed up over time."
+      },
+      "insights": {
+        "name": "Insights",
+        "body": "The history of your daily reflections and the insights saved with them."
+      },
+      "audit": {
+        "name": "Audit log",
+        "body": "Why you received each scripture: the full record of every decision."
+      },
+      "settings": {
+        "name": "Settings",
+        "body": "Profile, language, AI provider and privacy, and export of your data."
+      }
+    },
+    "feedback": {
+      "title": "How feedback and scripture work",
+      "p1": "When you save an entry, the AI reads it together with your mood, your current focus and themes from recent entries. It writes a short reflection and suggests Bible references that fit.",
+      "p2": "The AI only suggests references. The verse text itself is always fetched from the Bible source — the World English Bible, a modern public-domain translation, with the King James Version as an offline fallback. A suggested reference that cannot be found in the Bible is discarded, so you never see a verse the AI made up. A \"Verified\" badge means the text shown was checked against that source.",
+      "p3": "If the AI can't be reached, you still get a passage: built-in keyword rules pick one, and a notice says so. You can try again with the AI later.",
+      "p4": "Every decision is recorded: which AI ran and where, what it was given, each passage it suggested and what happened to it.",
+      "auditLink": "Open the Audit log"
+    },
+    "voice": {
+      "title": "Voice entry",
+      "p1": "On a new entry or in Quick capture, press Dictate and speak. Your words are added to the text box where the cursor is; press Stop dictating when you're done, then edit the text if needed and save.",
+      "p2": "Voice entry works in Chrome, Edge and Safari. Firefox has no speech recognition, so the button is shown but disabled there. The first time, your browser asks for permission to use the microphone."
+    },
+    "privacy": {
+      "title": "Privacy and where the AI runs",
+      "local": "Local AI (Ollama): the AI runs on your own computer or network. Your entries never leave it.",
+      "cloud": "Cloud AI (a provider you choose in Settings, with your own key): the text of an entry is sent to that provider to write the feedback.",
+      "consent": "If this server's default AI is a cloud provider, nothing is sent to it until you turn on the consent switch in Settings. Until then, AI features show AI_CONSENT_REQUIRED.",
+      "encrypted": "Your journal entries are encrypted at rest on the server.",
+      "export": "You can export your data from Settings at any time.",
+      "settingsLink": "Open Settings"
+    },
+    "troubleshooting": {
+      "title": "Troubleshooting",
+      "intro": "Error messages show a short code. Find it below to see what it means and what to do.",
+      "whatToDo": "What to do:",
+      "refTitle": "Still stuck?",
+      "refBody": "Error messages also show a reference id (for example a1b2c3d4). Quote it, with the code, when you ask the person who runs this server for help — it lets them find the exact request in the server log."
+    },
+    "codes": {
+      "NETWORK_ERROR": {
+        "meaning": "The app could not reach the server.",
+        "fix": "Check your internet connection (and the VPN or mesh network, if this is a private server), then try again."
+      },
+      "TIMEOUT": {
+        "meaning": "The server took too long to answer.",
+        "fix": "Try again. AI features on a local model can take a minute or two."
+      },
+      "NOT_AUTHENTICATED": {
+        "meaning": "You are signed out, or your session has expired.",
+        "fix": "Sign in again. Anything you had typed but not saved may need to be re-entered."
+      },
+      "PERMISSION_DENIED": {
+        "meaning": "Your account does not have access to this item.",
+        "fix": "Go back and open it from your own journal or plans."
+      },
+      "NOT_FOUND": {
+        "meaning": "The item does not exist, or was deleted.",
+        "fix": "Go back and refresh the list."
+      },
+      "VALIDATION_ERROR": {
+        "meaning": "Something in what was submitted is missing or not valid — for example an empty entry.",
+        "fix": "Read the message, correct the field it names, and try again."
+      },
+      "RATE_LIMITED": {
+        "meaning": "Too many requests were made in a short time.",
+        "fix": "Wait a few minutes before trying again."
+      },
+      "SERVER_ERROR": {
+        "meaning": "Something failed on the server.",
+        "fix": "Try again. If it keeps happening, report it with the reference id."
+      },
+      "AI_UNAVAILABLE": {
+        "meaning": "The AI provider could not be reached. Your entry is still saved, and feedback falls back to built-in rules.",
+        "fix": "If you use Ollama, make sure it is running and reachable. Check Settings → AI Provider, then use \"Try again with AI\"."
+      },
+      "AI_TIMEOUT": {
+        "meaning": "The AI took too long to respond.",
+        "fix": "Try again. If it happens often, choose a smaller or faster model in Settings."
+      },
+      "AI_NOT_CONFIGURED": {
+        "meaning": "An AI provider is selected but its key or model is missing.",
+        "fix": "Open Settings → AI Provider and fill in the missing key or model."
+      },
+      "AI_CONSENT_REQUIRED": {
+        "meaning": "This server's default AI is a cloud provider, and you have not allowed your entries to be sent to it.",
+        "fix": "Turn on the consent switch in Settings → AI Provider, or set up your own local provider instead."
+      },
+      "AI_BAD_RESPONSE": {
+        "meaning": "The AI answered, but its answer could not be used.",
+        "fix": "Try again. If it keeps happening, try a different model in Settings."
+      },
+      "AI_URL_NOT_ALLOWED": {
+        "meaning": "The AI address entered in Settings was rejected for safety.",
+        "fix": "Check the base URL in Settings → AI Provider, or ask the person who runs this server which addresses are allowed."
+      },
+      "SCRIPTURE_UNAVAILABLE": {
+        "meaning": "The Bible text source could not be reached.",
+        "fix": "Try again in a moment. The built-in King James text is used when it is available."
+      },
+      "CLIENT_ERROR": {
+        "meaning": "Something unexpected happened in the app itself.",
+        "fix": "Reload the page. If it keeps happening, report it with what you were doing."
+      }
+    }
+  },
+  "errors": {
+    "defaultTitle": "This couldn't be loaded",
+    "retry": "Try again",
+    "reference": "ref {{ref}}",
+    "boundaryTitle": "This page ran into a problem",
+    "boundaryBody": "Something unexpected stopped this page from showing. Anything you already saved is safe. Reload the page; if it happens again, the Help page explains how to report it.",
+    "reload": "Reload page",
+    "goHelp": "Open Help",
+    "technicalDetails": "Technical details",
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "There is nothing at this address. The link may be old or mistyped.",
+    "goHome": "Go to the dashboard",
+    "ai": {
+      "consentRequired": "AI features are off: this server uses a cloud AI and you have not allowed it.",
+      "notConfigured": "AI features are off: no AI provider is set up.",
+      "unreachable": "AI features are unavailable: the AI provider ({{backend}}) is not responding.",
+      "fallbackNote": "Journaling still works, and scripture is chosen by built-in rules until AI is back.",
+      "settingsLink": "Settings → AI Provider"
+    }
+  },
+  "progress": {
+    "tabs": {
+      "label": "Progress sections",
+      "reviews": "Reviews"
+    },
+    "reviews": {
+      "heading": "Growth reviews",
+      "intro": "A short look back over a week of your journal: recurring themes, what changed, and one thing to carry forward.",
+      "generate": "Generate this week's review",
+      "generating": "Writing your review…",
+      "generatingHint": "This can take a minute or two on a local model. You can stay on this page.",
+      "generated": "This week's review is ready.",
+      "generateFailed": "The review couldn't be generated",
+      "loading": "Loading your reviews…",
+      "loadFailed": "Your reviews couldn't be loaded",
+      "emptyTitle": "No reviews yet",
+      "emptyBody": "Write a few journal entries this week, then generate your first review.",
+      "periodWeek": "Week",
+      "periodMonth": "Month",
+      "range": "{{start}} – {{end}}",
+      "generatedBy": "Generated by {{provider}} / {{model}}",
+      "unknownProvider": "unknown provider",
+      "unknownModel": "unknown model"
+    }
+  },
+  "insights": {
+    "feedbackLoadFailed": "Your journal feedback couldn't be loaded",
+    "feedbackEmptyTitle": "No journal feedback yet",
+    "feedbackEmptyBody": "When you save a journal entry you get a short reflection and a scripture passage. They are listed here.",
+    "writeEntry": "Write an entry",
+    "noScripture": "No scripture passage for this entry",
+    "viewEntry": "View entry and feedback",
+    "showingOf": "Showing the latest {{shown}} of {{total}}.",
+    "seeAll": "See all in the audit log"
+  },
+  "plans": {
+    "deleteTitle": "Delete plan",
+    "deleteBody": "Delete “{{title}}”? The plan and its days are removed for good. This cannot be undone.",
+    "deleted": "Plan deleted."
   }
 }

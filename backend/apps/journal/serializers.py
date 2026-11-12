@@ -36,6 +36,12 @@ class JournalEntrySerializer(serializers.ModelSerializer):
     def get_decrypted_content(self, obj):
         return obj.get_content()
 
+    def validate_plan_enrollment(self, value):
+        # A related object must belong to the person making the request.
+        if value is not None and value.user_id != self.context["request"].user.id:
+            raise serializers.ValidationError("That plan enrollment is not yours.")
+        return value
+
     def create(self, validated_data):
         from django.utils import timezone
 
@@ -78,6 +84,8 @@ class JournalEntrySerializer(serializers.ModelSerializer):
 
 class JournalEntryListSerializer(serializers.ModelSerializer):
     content_preview = serializers.SerializerMethodField()
+    has_feedback = serializers.SerializerMethodField()
+    scripture_reference = serializers.SerializerMethodField()
 
     class Meta:
         model = JournalEntry
@@ -87,11 +95,30 @@ class JournalEntryListSerializer(serializers.ModelSerializer):
             "mood_tag",
             "focus_themes",
             "content_preview",
+            "has_feedback",
+            "scripture_reference",
             "created_at",
         ]
 
     def get_content_preview(self, obj):
-        content = obj.get_content()
+        from .feedback import strip_metadata
+
+        # Never leak the embedded metadata block into a preview.
+        content = strip_metadata(obj.get_content())
         if len(content) > 300:
             return content[:300] + "..."
         return content
+
+    def _current_feedback(self, obj):
+        # The list view prefetches this as `current_feedback`.
+        records = getattr(obj, "current_feedback", None)
+        if records is None:
+            records = list(obj.feedback_records.filter(is_current=True)[:1])
+        return records[0] if records else None
+
+    def get_has_feedback(self, obj):
+        return self._current_feedback(obj) is not None
+
+    def get_scripture_reference(self, obj):
+        feedback = self._current_feedback(obj)
+        return (feedback.scripture_reference or None) if feedback else None

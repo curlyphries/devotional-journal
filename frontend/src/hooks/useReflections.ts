@@ -47,6 +47,7 @@ export function useCreateJourney() {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: (data: CreateJourneyData) => journeysApi.create(data).then((res) => res.data),
+    meta: { silent: true }, // the form renders the error inline
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['journeys'] })
     },
@@ -145,6 +146,7 @@ export function useGenerateInsight(id: string) {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: () => reflectionsApi.generateInsight(id).then((res) => res.data),
+    meta: { silent: true }, // the page renders the error inline
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['reflections', id] })
     },

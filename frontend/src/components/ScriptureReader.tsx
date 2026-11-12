@@ -5,7 +5,8 @@ import { Book, ChevronDown, Loader2, RefreshCw, Sparkles, Columns, AlignLeft, Pe
 import { getPassage, getTranslations, parsePassageReference, PassageResponse, Verse } from '../api/bible'
 import { getHighlights, createHighlight, updateHighlight, deleteHighlight, VerseHighlight } from '../api/highlights'
 import { getActiveFocusIntentions } from '../api/devotional'
-import client from '../api/client'
+import client, { AI_TIMEOUT_MS } from '../api/client'
+import { useToast } from './Toast'
 
 interface PlanContext {
   planId?: string
@@ -136,6 +137,7 @@ export default function ScriptureReader({
 }: ScriptureReaderProps) {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const toast = useToast()
   const [selectedTranslation, setSelectedTranslation] = useState(defaultTranslation)
   const [showTranslationPicker, setShowTranslationPicker] = useState(false)
   const [comparisonMode, setComparisonMode] = useState(false)
@@ -327,7 +329,7 @@ Write with depth, nuance, and intellectual rigor while remaining accessible. Avo
           userFocus: activeFocus.length > 0 ? activeFocus[0].intention_text : null,
           focusThemes: activeFocus.length > 0 ? activeFocus[0].themes : [],
         },
-      })
+      }, { timeout: AI_TIMEOUT_MS })
       const generatedInsight = response.data.response
       setThemeInsights(generatedInsight)
       
@@ -339,9 +341,11 @@ Write with depth, nuance, and intellectual rigor while remaining accessible. Avo
         focus_intention: activeFocus.length > 0 ? activeFocus[0].intention_text : '',
         focus_themes: activeFocus.length > 0 ? activeFocus[0].themes : [],
         insight: generatedInsight,
-      }).catch(err => console.error('Failed to cache insight:', err))
+      }).catch(() => {
+        // Caching is an optimisation; the insight is already on screen.
+      })
     } catch (err) {
-      console.error('Failed to generate theme insights:', err)
+      toast.fromError(err)
     } finally {
       setLoadingThemeInsights(false)
     }
@@ -355,10 +359,10 @@ Write with depth, nuance, and intellectual rigor while remaining accessible. Avo
         agent: 'scripture',
         prompt: `Compare these translations of ${reference}:\n\n${selectedTranslation}: "${passage.full_text}"\n\n${comparisonData.map(c => `${c.translation.code}: "${c.full_text}"`).join('\n\n')}\n\nProvide insights on key differences and original meaning.`,
         context: { reference },
-      })
+      }, { timeout: AI_TIMEOUT_MS })
       setAiInsights(response.data.response)
     } catch (err) {
-      console.error('Failed to generate insights:', err)
+      toast.fromError(err)
     } finally {
       setLoadingInsights(false)
     }

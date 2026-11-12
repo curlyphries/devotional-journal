@@ -47,6 +47,10 @@ try:
 except ImportError:
     pass
 
+# Local development talks to an Ollama on localhost / the LAN, and has no mail server.
+AI_ALLOW_PRIVATE_URLS = env_bool("AI_ALLOW_PRIVATE_URLS", True)
+MAGIC_LINK_LOG = env_bool("MAGIC_LINK_LOG", True)
+
 # Email - console backend for development
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
@@ -59,12 +63,3 @@ if not ENCRYPTION_ROOT_KEY:
         stacklevel=2,
     )
     ENCRYPTION_ROOT_KEY = "dev-encryption-key-32-bytes-long!"
-
-# Tailscale-only access - disabled for public OAuth access
-TAILSCALE_ONLY = False
-
-# Add Tailscale middleware (disabled for public access)
-# MIDDLEWARE.append('apps.users.middleware.TailscaleOnlyMiddleware')
-
-# Frontend URL for magic links
-FRONTEND_URL = "http://localhost:3001"

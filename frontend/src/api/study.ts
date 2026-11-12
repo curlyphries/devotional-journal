@@ -1,4 +1,5 @@
 import client from './client'
+import { unwrapList } from './pagination'
 import type { StudyGuide } from './devotional'
 
 export type StudySessionStatus = 'active' | 'completed' | 'archived'
@@ -34,7 +35,7 @@ export interface StudySessionSummary {
 export const getStudySessions = async (status?: StudySessionStatus): Promise<StudyGuideSession[]> => {
   const params = status ? { status } : {}
   const response = await client.get('/study-sessions/', { params })
-  return response.data
+  return unwrapList(response.data)
 }
 
 export const getStudySessionSummary = async (): Promise<StudySessionSummary> => {
