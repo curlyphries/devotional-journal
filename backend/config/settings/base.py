@@ -203,9 +203,16 @@ MESH_TRUSTED_PROXY_CIDRS = [
     if c.strip()
 ]
 
-# Print sign-in links to the server log. Handy on a private instance with no
-# mail server; anyone who can read the log can sign in, so keep it off elsewhere.
-MAGIC_LINK_LOG = env_bool("MAGIC_LINK_LOG", False)
+# Print sign-in links to the server log. A sign-in link is a credential, so
+# this is off wherever a real mail server is configured. With no mail server
+# (EMAIL_HOST unset or a placeholder) the log is the only way to sign in, so it
+# defaults on there. Set MAGIC_LINK_LOG explicitly to override either way.
+_NO_MAIL_SERVER = os.environ.get("EMAIL_HOST", "localhost") in (
+    "",
+    "localhost",
+    "smtp.example.com",
+)
+MAGIC_LINK_LOG = env_bool("MAGIC_LINK_LOG", _NO_MAIL_SERVER)
 
 LOGGING = {
     "version": 1,

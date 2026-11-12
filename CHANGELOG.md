@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - `GET /api/v1/journal/` is paginated (`{count, next, previous, results}`)
 - Devotional passages use the fetched text of the cited passage (WEB) instead of model-written "NIV/ESV" text
-- Sign-in links are no longer written to the server log unless `MAGIC_LINK_LOG=true`
+- Sign-in links are no longer written to the server log when a mail server is configured (override with `MAGIC_LINK_LOG`)
 - `SECRET_KEY` is required in production settings
 
 ### Fixed

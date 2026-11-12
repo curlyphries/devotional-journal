@@ -24,7 +24,7 @@ Devotional Journal is open-source software. This document describes how the **re
 
 ### Automatically collected (operational)
 
-- **Server logs** — request ids, error codes, AI provider/model and timing. No request bodies, no journal text, no model output. Sign-in links are not logged unless the operator sets `MAGIC_LINK_LOG=true` (private instances without a mail server).
+- **Server logs** — request ids, error codes, AI provider/model and timing. No request bodies, no journal text, no model output. Sign-in links are logged only on instances with no mail server configured, or where the operator sets `MAGIC_LINK_LOG=true`.
 - **Error logs** — Django exception traces. Configured to **not** include request body or user-provided content.
 
 ### What we do NOT collect
