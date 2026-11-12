@@ -180,7 +180,9 @@ jobs:
               sleep 15
               MESH_BIND=$(sed -n 's/^MESH_FRONTEND_BIND=//p' .env.mesh | tail -1)
               MESH_PORT=$(sed -n 's/^MESH_FRONTEND_PORT=//p' .env.mesh | tail -1)
-              curl -sf "http://${MESH_BIND:-127.0.0.1}:${MESH_PORT:-3011}/api/v1/health/" \
+              MESH_HOST=$(sed -n 's/^ALLOWED_HOSTS=//p' .env.mesh | tail -1 | cut -d, -f1)
+              curl -sf -H "Host: ${MESH_HOST:-localhost}" \
+                "http://${MESH_BIND:-127.0.0.1}:${MESH_PORT:-3011}/api/v1/health/" \
                 || { echo "ERROR: mesh instance health check failed"; exit 1; }
             else
               echo "--- No .env.mesh on this server; skipping private mesh instance ---"
