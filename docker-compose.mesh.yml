@@ -74,7 +74,9 @@ services:
              python manage.py seed_life_areas &&
              gunicorn --bind 0.0.0.0:8000 --workers 3 --timeout 180 config.wsgi:application"
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/', timeout=4).status == 200 else 1)"]
+      # Django only answers for the names in ALLOWED_HOSTS, so the probe
+      # presents the first of them as its Host header.
+      test: ["CMD", "python", "-c", "import os,sys,urllib.request; h=(os.environ.get('ALLOWED_HOSTS','').split(',')[0] or 'localhost'); r=urllib.request.Request('http://127.0.0.1:8000/api/v1/health/', headers={'Host': h}); sys.exit(0 if urllib.request.urlopen(r, timeout=4).status == 200 else 1)"]
       interval: 30s
       timeout: 6s
       retries: 5
