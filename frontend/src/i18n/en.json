@@ -32,8 +32,23 @@
     "magicLinkExplainer": "We'll email you a one-tap sign-in link. No password to remember.",
     "checkEmailHeading": "Check your email",
     "useAnotherEmail": "Use a different email",
+    "magicLinkExplainerLog": "This server has no mail server, so the sign-in link goes to the administrator instead of your inbox.",
+    "sent": {
+      "emailBody": "If {{email}} has an account here, a sign-in link is on its way. It works once and expires in 15 minutes.",
+      "tipWait": "It can take a minute or two to arrive.",
+      "tipSpam": "Look in your spam or junk folder.",
+      "tipNoAccount": "Still nothing? There may be no account for that address yet. Ask whoever runs this server to create one.",
+      "tipTypo": "Still nothing? Check the address for a typo and try again.",
+      "logHeading": "Ask your administrator for the link",
+      "logBody": "This server has no mail server, so nothing was emailed. If the address has an account, a one-time sign-in link was written to the server log.",
+      "logAdmin": "Whoever runs this server can read it there, or create a fresh link with:"
+    },
+    "noMail": {
+      "log": "This server does not send email. Sign-in links are written to the server log for the administrator to pass on.",
+      "unavailable": "Email sign-in is not set up on this server. Ask the administrator to configure a mail server or to create a sign-in link for you."
+    },
     "trust": {
-      "encrypted": "End-to-end encrypted journal",
+      "encrypted": "Journal encrypted at rest",
       "bilingual": "Bilingual EN / ES",
       "byoai": "Bring your own AI"
     },
@@ -56,13 +71,13 @@
         "part1": "Build a daily Bible rhythm",
         "part2": "that actually sticks."
       },
-      "sub": "A bilingual (EN/ES) Bible study companion for men who want consistency. Set a focus, follow AI-curated reading plans, and journal privately — encrypted end-to-end.",
+      "sub": "A bilingual (EN/ES) Bible study companion for men who want consistency. Set a focus, follow AI-curated reading plans, and journal privately — encrypted at rest.",
       "ctaPrimary": "Get started — free",
       "ctaSecondary": "Self-host on GitHub",
       "screenshotAlt": "Devotional Journal dashboard preview"
     },
     "trust": {
-      "encrypted": "End-to-end encrypted",
+      "encrypted": "Encrypted at rest",
       "bilingual": "EN / ES bilingual",
       "selfHost": "Self-host friendly",
       "byoai": "Bring your own AI"

@@ -40,6 +40,41 @@ class AuthThrottle(AnonRateThrottle):
     scope = "auth"
 
 
+def signin_delivery() -> str:
+    """
+    How this server gets a sign-in link to a person:
+      "email"       - a mail server is configured,
+      "log"         - no mail server; links are written to the server log,
+      "unavailable" - neither, so email sign-in cannot work here.
+    The same for every address, so it reveals nothing about any account.
+    """
+    if settings.EMAIL_CONFIGURED:
+        return "email"
+    if settings.MAGIC_LINK_LOG or settings.EMAIL_BACKEND.endswith(
+        ("console.EmailBackend", "locmem.EmailBackend")
+    ):
+        return "log"
+    return "unavailable"
+
+
+class AuthMethodsView(APIView):
+    """Which ways of signing in this server offers (shown on the sign-in page)."""
+
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        return Response(
+            {
+                "email": {"delivery": signin_delivery()},
+                "google": bool(
+                    settings.GOOGLE_CLIENT_ID and settings.GOOGLE_CLIENT_SECRET
+                ),
+                "signup": bool(settings.ALLOW_EMAIL_SIGNUP),
+                "dev_login": bool(settings.DEBUG),
+            }
+        )
+
+
 class MagicLinkRequestView(APIView):
     """
     Request a magic link for passwordless authentication.
@@ -53,22 +88,63 @@ class MagicLinkRequestView(APIView):
         serializer.is_valid(raise_exception=True)
 
         email = serializer.validated_data["email"]
+        delivery = signin_delivery()
+        if delivery == "unavailable":
+            from shared.errors import AppError
 
-        # Do NOT create accounts here — silently succeed for unknown emails
-        # to prevent account enumeration and unsolicited magic link spam.
-        try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            return Response(
-                {"message": "Magic link sent to your email"}, status=status.HTTP_200_OK
+            raise AppError(
+                "This server cannot send sign-in links: no mail server is set up.",
+                code="SIGNIN_EMAIL_NOT_CONFIGURED",
+                status_code=503,
+                suggestion=(
+                    "Ask the administrator to configure the mail server (EMAIL_HOST…), "
+                    "or to create a sign-in link for you with "
+                    "`python manage.py signin_link <your email>`."
+                ),
             )
+        # The same answer whether or not the address has an account.
+        answer = Response(
+            {
+                "message": "If that address has an account, a sign-in link is on its way.",
+                "delivery": delivery,
+            },
+            status=status.HTTP_200_OK,
+        )
+
+        user = User.objects.filter(email__iexact=email).first()
+        if user is None:
+            if not settings.ALLOW_EMAIL_SIGNUP:
+                # No account is created here: that would let anyone register
+                # anyone, and would reveal which addresses have accounts.
+                logger.info("Sign-in link requested for an address with no account.")
+                return answer
+            user = User.objects.create_user(email=User.objects.normalize_email(email))
+            logger.info("Account created by email sign-up: user %s", user.id)
+        if not user.is_active:
+            return answer
 
         token_obj, raw_token = MagicLinkToken.create_for_user(user)
-        send_magic_link_email.delay(user.id, raw_token)
+        try:
+            # retry=False: if the queue is down, find out now rather than after
+            # several reconnection attempts.
+            send_magic_link_email.apply_async(
+                args=[str(user.id), raw_token], retry=False
+            )
+        except Exception:
+            # The task queue is unreachable (Redis or the worker is down). Do
+            # not leave the person waiting for a message that will never be
+            # queued: deliver it from this request instead.
+            logger.warning(
+                "Task queue unavailable; delivering the sign-in link directly."
+            )
+            from .tasks import deliver_signin_link
 
-        return Response(
-            {"message": "Magic link sent to your email"}, status=status.HTTP_200_OK
-        )
+            try:
+                deliver_signin_link(user, raw_token)
+            except Exception:
+                # Already logged with its cause by deliver_signin_link.
+                pass
+        return answer
 
 
 class MagicLinkVerifyView(APIView):

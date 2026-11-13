@@ -37,6 +37,7 @@ The same guidance is in the app under **Help → Troubleshooting**.
 | `AI_LOCAL_ONLY` | This server only allows AI on its own network. | Choose Ollama in Settings → AI Provider. |
 | `AI_BAD_RESPONSE` | The model answered with something unusable (small models do this sometimes). | Retry. If frequent, use a larger model. |
 | `AI_URL_NOT_ALLOWED` | The AI server address was rejected (not http/https, unknown host, or a private address on a server that does not allow them). | Use your AI server's real address. Self-hosters: set `AI_ALLOW_PRIVATE_URLS=true`. |
+| `SIGNIN_EMAIL_NOT_CONFIGURED` | The server has no mail server and is not writing sign-in links to its log, so it cannot deliver one. | Administrator: set `EMAIL_HOST` …, or run `python manage.py signin_link <email>`. See [SIGNING_IN.md](SIGNING_IN.md). |
 | `SCRIPTURE_UNAVAILABLE` | Bible text could not be retrieved, or none of the suggested passages exist. No verse is shown rather than risk a wrong one. | Retry. Administrators: load a translation locally (below). |
 
 ## For administrators
@@ -77,10 +78,16 @@ docker compose -f docker-compose.prod.yml exec dj-backend python manage.py load_
 
 ### Nobody receives the sign-in email
 
-The backend log says `Sign-in email could not be sent … Check EMAIL_* settings`.
-Fix the `EMAIL_*` values, or on a private instance set `MAGIC_LINK_LOG=true`
-and read the link from the worker log. Do not enable that on an instance where
-other people can read the logs: a sign-in link is a credential.
+Run the test command; it prints the mail settings in use and names the cause:
+
+```bash
+docker compose -f docker-compose.prod.yml exec dj-backend python manage.py send_test_email you@example.com
+```
+
+The three usual causes are: no mail server configured (the sign-in page then
+says "Ask your administrator for the link"), no account for that address, and
+the mail server refusing the message. The full checklist, every `MAIL_…` code,
+and the ways to sign in without a mail server are in [SIGNING_IN.md](SIGNING_IN.md).
 
 ### Entries show "unable to decrypt"
 
