@@ -156,19 +156,27 @@ jobs:
             echo "--- Pulling latest code ---"
             git pull --ff-only origin master
 
+            # The server has Compose v2 only (the v1 "docker-compose" binary is
+            # gone). COMPOSE_COMPATIBILITY keeps the existing "_" container names
+            # so the systemd unit that starts this stack at boot adopts them.
+            export COMPOSE_COMPATIBILITY=true
+            PROD="docker compose -f docker-compose.prod.yml"
+
             echo "--- Rebuilding changed images ---"
-            docker-compose -f docker-compose.prod.yml build
+            $PROD build
 
             echo "--- Restarting services ---"
-            docker-compose -f docker-compose.prod.yml down
-            docker-compose -f docker-compose.prod.yml up -d
+            $PROD down
+            $PROD up -d
 
             echo "--- Running migrations ---"
-            docker-compose -f docker-compose.prod.yml run --rm dj-backend python manage.py migrate --no-input
+            $PROD run --rm dj-backend python manage.py migrate --no-input
 
             echo "--- Health check ---"
             sleep 5
-            curl -sf http://127.0.0.1:8010/api/v1/health/ || echo "WARNING: health check failed"
+            PROD_HOST=$(sed -n 's/^ALLOWED_HOSTS=//p' .env.prod | tail -1 | cut -d, -f1)
+            curl -sf -H "Host: ${PROD_HOST:-localhost}" http://127.0.0.1:8010/api/v1/health/ \
+              || echo "WARNING: health check failed"
 
             # Private mesh-only instance (devotional-journal.curlyphries.space). Deployed
             # only once it has been set up on the server (.env.mesh exists);
