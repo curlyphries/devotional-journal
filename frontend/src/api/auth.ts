@@ -29,8 +29,32 @@ export interface AITestResult {
   status_code?: number
 }
 
-export const requestMagicLink = async (email: string): Promise<void> => {
-  await client.post('/auth/magic-link/request/', { email })
+/**
+ * How this server gets a sign-in link to a person:
+ *  - "email": a mail server is configured;
+ *  - "log": no mail server — the link is written to the server log for the administrator;
+ *  - "unavailable": neither, so email sign-in cannot work here.
+ */
+export type SigninDelivery = 'email' | 'log' | 'unavailable'
+
+export interface AuthMethods {
+  email: { delivery: SigninDelivery }
+  /** Google sign-in is configured on this server. */
+  google: boolean
+  /** Asking for a link with a new address creates an account. */
+  signup: boolean
+}
+
+/** Which ways of signing in this server offers. */
+export const getAuthMethods = async (): Promise<AuthMethods> => {
+  const response = await client.get('/auth/methods/')
+  return response.data
+}
+
+/** Ask for a sign-in link. Resolves to how the link is being delivered. */
+export const requestMagicLink = async (email: string): Promise<SigninDelivery> => {
+  const response = await client.post('/auth/magic-link/request/', { email })
+  return response.data?.delivery ?? 'email'
 }
 
 export const devLogin = async (email?: string): Promise<AuthTokens> => {

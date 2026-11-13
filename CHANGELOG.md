@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed — sign-in email
+- The sign-in page said "Check your email" even on a server with no mail server. It now says how the link is really delivered, and shows the actual reason when one cannot be sent
+- `manage.py send_test_email <address>` prints the mail settings in use and explains any failure (rejected login, relay denied, TLS/port mismatch, host not found, timeout…) with what to change; failed sends are logged with the same codes
+- Mail settings now support port 465 (`EMAIL_USE_SSL`), a connection timeout (`EMAIL_TIMEOUT`), and are retried on brief outages; if the task queue is down the link is delivered from the request
+- Signing in without a mail server: `manage.py signin_link <address>` creates a one-time link; the log option remains
+- `ALLOW_EMAIL_SIGNUP` lets people register by email on instances that want it; Google is only offered where it is configured
+- The private-instance template is set up for the curlyphries.space mail server
+- Sign-in and landing pages no longer claim end-to-end encryption
+- `docs/SIGNING_IN.md`
+
 ### Changed — reading-plan categories
 - Reading-plan categories expanded from 6 to 47, in six groups (Faith, Through the Bible, Heart and Mind, Relationships and Family, Calling and Character, Seasons of Life and the Year), in English and Spanish. The original six keep their keys, so existing plans are unaffected
 - One shared list (`backend/apps/plans/categories.py`) now feeds the plan builder, the plans filter, validation and the AI's category suggestion; `GET /api/v1/plans/categories/` serves it with per-category plan counts

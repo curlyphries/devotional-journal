@@ -142,6 +142,16 @@ CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379/
 CELERY_RESULT_BACKEND = os.environ.get(
     "CELERY_RESULT_BACKEND", "redis://localhost:6379/0"
 )
+# Give up quickly on an unreachable broker so a web request that queues a task
+# is never left hanging (the caller then does the work itself or reports it).
+CELERY_BROKER_TRANSPORT_OPTIONS = {
+    "socket_connect_timeout": 3,
+    "socket_timeout": 5,
+    "max_retries": 1,
+    "interval_start": 0,
+    "interval_step": 0.2,
+    "interval_max": 0.5,
+}
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
@@ -204,16 +214,43 @@ MESH_TRUSTED_PROXY_CIDRS = [
     if c.strip()
 ]
 
+# --------------------------------------------------------------------------
+# Sign-in email
+# --------------------------------------------------------------------------
+# Point these at your own mail server. Typical setups:
+#   port 587 + STARTTLS  -> EMAIL_PORT=587  (EMAIL_USE_TLS defaults on)
+#   port 465 + TLS       -> EMAIL_PORT=465  (EMAIL_USE_SSL defaults on)
+#   port 25, no login    -> EMAIL_PORT=25 EMAIL_USE_TLS=false, user/password blank
+# Check them with:  python manage.py send_test_email you@example.com
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "").strip()
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT") or 587)
+EMAIL_USE_SSL = env_bool("EMAIL_USE_SSL", EMAIL_PORT == 465)
+# STARTTLS and implicit TLS are mutually exclusive; implicit TLS wins.
+EMAIL_USE_TLS = (not EMAIL_USE_SSL) and env_bool("EMAIL_USE_TLS", True)
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+# Never hang a sign-in request (or a worker) on an unreachable mail server.
+EMAIL_TIMEOUT = int(os.environ.get("EMAIL_TIMEOUT") or 15)
+DEFAULT_FROM_EMAIL = os.environ.get(
+    "DEFAULT_FROM_EMAIL", "noreply@devotionaljournal.com"
+)
+
+# A mail server counts as configured once EMAIL_HOST names one. Empty,
+# "localhost" (which inside a container is the container itself) and the
+# template's placeholder do not count.
+EMAIL_CONFIGURED = EMAIL_HOST.lower() not in ("", "localhost", "smtp.example.com")
+
 # Print sign-in links to the server log. A sign-in link is a credential, so
 # this is off wherever a real mail server is configured. With no mail server
-# (EMAIL_HOST unset or a placeholder) the log is the only way to sign in, so it
-# defaults on there. Set MAGIC_LINK_LOG explicitly to override either way.
-_NO_MAIL_SERVER = os.environ.get("EMAIL_HOST", "localhost") in (
-    "",
-    "localhost",
-    "smtp.example.com",
-)
-MAGIC_LINK_LOG = env_bool("MAGIC_LINK_LOG", _NO_MAIL_SERVER)
+# the log is one of the ways to sign in, so it defaults on there. Set
+# MAGIC_LINK_LOG explicitly to override either way.
+MAGIC_LINK_LOG = env_bool("MAGIC_LINK_LOG", not EMAIL_CONFIGURED)
+
+# Let someone create an account just by asking for a sign-in link with a new
+# email address (they still have to open the link). Off by default: accounts
+# are then created with `manage.py create_user`, or by Google sign-in.
+ALLOW_EMAIL_SIGNUP = env_bool("ALLOW_EMAIL_SIGNUP", False)
 
 LOGGING = {
     "version": 1,
@@ -244,17 +281,6 @@ LOGGING = {
         "httpx": {"handlers": ["console"], "level": "WARNING", "propagate": False},
     },
 }
-
-# Email
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = os.environ.get("EMAIL_HOST", "localhost")
-EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 587))
-EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "true").lower() == "true"
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
-DEFAULT_FROM_EMAIL = os.environ.get(
-    "DEFAULT_FROM_EMAIL", "noreply@devotionaljournal.com"
-)
 
 # Magic Link
 MAGIC_LINK_EXPIRY_MINUTES = 15

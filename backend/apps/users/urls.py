@@ -6,6 +6,7 @@ from django.conf import settings
 from django.urls import path
 
 from .views import (
+    AuthMethodsView,
     DevLoginView,
     GoogleOAuthCallbackView,
     GoogleOAuthInitView,
@@ -20,6 +21,7 @@ from .views import (
 )
 
 urlpatterns = [
+    path("methods/", AuthMethodsView.as_view(), name="auth-methods"),
     path(
         "magic-link/request/", MagicLinkRequestView.as_view(), name="magic-link-request"
     ),
