@@ -9,6 +9,8 @@ import DashboardPage from './pages/DashboardPage'
 import ReadingPage from './pages/ReadingPage'
 import JournalPage from './pages/JournalPage'
 import JournalHistoryPage from './pages/JournalHistoryPage'
+import StudyHubPage from './pages/StudyHubPage'
+import StudyPage from './pages/StudyPage'
 import SettingsPage from './pages/SettingsPage'
 import ReflectionPage from './pages/ReflectionPage'
 import JourneyPage from './pages/JourneyPage'
@@ -61,6 +63,8 @@ function App() {
         <Route path="journal/new" element={<JournalPage />} />
         <Route path="journal/:entryId" element={<JournalPage />} />
         <Route path="journal" element={<JournalHistoryPage />} />
+        <Route path="study" element={<StudyHubPage />} />
+        <Route path="study/:studyId" element={<StudyPage />} />
         <Route path="reflection" element={<ReflectionPage />} />
         <Route path="reflection/:id" element={<ReflectionPage />} />
         <Route path="journey" element={<JourneyPage />} />

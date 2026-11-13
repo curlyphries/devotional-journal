@@ -7,7 +7,7 @@ import { getActiveFocusIntentions } from '../api/devotional'
 import {
   Home, BookOpen, Settings, LogOut, Flame, Book, Calendar, Trophy,
   PenLine, Lightbulb, HelpCircle, Languages, Menu, X, MoreHorizontal, ChevronDown,
-  Sunrise, MessageCircle, ClipboardList,
+  Sunrise, MessageCircle, ClipboardList, Library, Sprout, UserRound,
 } from 'lucide-react'
 import { setLanguage } from '../i18n/language'
 import ErrorBoundary from './ErrorBoundary'
@@ -39,12 +39,16 @@ export default function Layout() {
   const primaryItems = [
     { path: '/', tourId: 'nav-dashboard', icon: Home, label: t('nav.dashboard') },
     { path: '/journal', tourId: 'nav-journal', icon: BookOpen, label: t('nav.journal') },
-    { path: '/plans', tourId: 'nav-plans', icon: Calendar, label: t('nav.plans') },
+    { path: '/study', tourId: 'nav-study', icon: Library, label: t('nav.study') },
     { path: '/devotional', tourId: 'nav-devotional', icon: Book, label: t('nav.focus') },
     { path: '/progress', tourId: 'nav-progress', icon: Trophy, label: t('nav.progress') },
   ]
   // Under "More" on desktop; listed in full in the mobile menu.
+  // Reading plans moved here to make room for Study in the row.
   const secondaryItems = [
+    { path: '/profile', tourId: 'nav-profile', icon: UserRound, label: t('nav.profile') },
+    { path: '/growth', tourId: 'nav-growth', icon: Sprout, label: t('nav.growth') },
+    { path: '/plans', tourId: 'nav-plans', icon: Calendar, label: t('nav.readingPlans') },
     { path: '/reflection', tourId: 'nav-reflection', icon: Sunrise, label: t('nav.reflection') },
     { path: '/threads', tourId: 'nav-threads', icon: MessageCircle, label: t('nav.threads') },
     { path: '/insights', tourId: 'nav-insights', icon: Lightbulb, label: t('nav.insights') },

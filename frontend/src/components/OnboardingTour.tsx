@@ -65,6 +65,8 @@ export const TOUR_STEPS: TourStep[] = [
   { key: 'tour.welcome', targets: [] },
   { key: 'tour.write', targets: [tourId('new-entry'), tourId('fab')] },
   { key: 'tour.feedback', targets: [] },
+  // Desktop: the Study link in the bar. Phone (link is inside the closed menu): the dashboard's study card.
+  { key: 'tour.study', targets: [tourId('nav-study'), navLink('/study'), tourId('study-card')] },
   { key: 'tour.speakYourMind', targets: [tourId('speak-your-mind')] },
   { key: 'tour.history', targets: [tourId('nav-journal'), navLink('/journal')] },
   { key: 'tour.devotional', targets: [tourId('nav-devotional'), navLink('/devotional'), tourId('snapshot')] },

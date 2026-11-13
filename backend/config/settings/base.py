@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "apps.streaks",
     "apps.groups",
     "apps.reflections",
+    "apps.guides",
 ]
 
 MIDDLEWARE = [

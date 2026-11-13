@@ -46,6 +46,8 @@ If a self-host operator chooses to add analytics (PostHog and Plausible are the 
 | Journal entry body               | PostgreSQL                         | ✅ Per-user AES    |
 | Journal feedback: themes, reflection, reasons, audit candidates | PostgreSQL            | ✅ Per-user AES    |
 | Growth reviews, thread summaries, daily reflection notes, focus text | PostgreSQL        | ✅ Per-user AES    |
+| Study answers and replies, personalised explanations, growth-profile "about me", assessment answers, AI observations, growth-plan reasons, goal titles and check-in notes | PostgreSQL | ✅ Per-user AES |
+| Which studies you started, life stage, walks of life, chosen topics and characteristics, 1-5 lesson and check-in ratings | PostgreSQL | ❌ Plaintext (needed for queries) |
 | Scripture reference + verse text shown with feedback; AI provider/model used | PostgreSQL | ❌ Plaintext (public text / metadata) |
 | Speak Your Mind input and results, journey goals, study-guide notes, AI insights on reflections | PostgreSQL | ❌ Plaintext |
 | BYOAI API key                    | PostgreSQL                         | ✅ At rest         |
@@ -80,6 +82,10 @@ What is sent depends on the feature:
 | Deep-dive study guide    | The journal entry text you select (decrypted in memory, sent in prompt) |
 | Journal feedback         | The entry (first 4,000 characters), its mood, your current focus, themes and passage references from recent entries, and summaries of open threads. See [docs/HOW_FEEDBACK_WORKS.md](docs/HOW_FEEDBACK_WORKS.md) |
 | Growth review            | Excerpts of that period's entries and check-in notes, themes, thread summaries |
+| Study: "Make it personal" | The lesson's meaning, your life stage, walks of life, faith background, chosen characteristics, recent journal themes, and your "about me" text |
+| Study: reply to your answers | The passage reference and meaning, and what you wrote for that lesson. Never sent for the "child" life stage |
+| Growth profile: "What the app notices" | Your profile, assessment answers, recent lesson answers, journal theme labels and moods, growth plans and check-in notes. Never built for the "child" life stage. See [docs/STUDY_GUIDES.md](docs/STUDY_GUIDES.md) |
+| Growth plan: tailored goals | The characteristic, why it matters to you, your life stage and walks of life |
 | Scripture lookup         | Not an AI call. Only the reference (book, chapter) goes to `bolls.life`, and nothing at all if a translation is loaded locally |
 | Voice entry              | Not handled by this app's server. Chrome, Edge and Safari transcribe speech with the browser vendor's speech service; the app receives only the resulting text |
 | Reading-plan reflection  | The day's scripture passage and themes (no journal text)                |

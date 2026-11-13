@@ -33,6 +33,7 @@ describe('Layout', () => {
     render(<Layout />)
     expect(screen.getByRole('link', { name: 'nav.dashboard' })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'nav.journal' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'nav.study' })).toHaveAttribute('href', '/study')
     expect(screen.getByRole('link', { name: 'nav.settings' })).toBeInTheDocument()
   })
 
@@ -40,6 +41,21 @@ describe('Layout', () => {
     const { container } = render(<Layout />)
     for (const id of ['language', 'help', 'fab']) {
       expect(container.querySelectorAll(`[data-tour-id="${id}"]`)).toHaveLength(1)
+    }
+  })
+
+  it('gives Study, My profile and Growth plans their tour ids, on desktop and in the phone menu', async () => {
+    const { container } = render(<Layout />)
+    expect(container.querySelectorAll('[data-tour-id="nav-study"]')).toHaveLength(1)
+
+    await userEvent.click(screen.getByRole('button', { name: 'nav.more' }))
+    expect(container.querySelector('#nav-more-menu [data-tour-id="nav-profile"]')).toHaveAttribute('href', '/profile')
+    expect(container.querySelector('#nav-more-menu [data-tour-id="nav-growth"]')).toHaveAttribute('href', '/growth')
+    await userEvent.keyboard('{Escape}')
+
+    await userEvent.click(screen.getByRole('button', { name: 'nav.openMenu' }))
+    for (const id of ['nav-study', 'nav-profile', 'nav-growth']) {
+      expect(container.querySelector(`#nav-mobile-menu [data-tour-id="${id}"]`)).not.toBeNull()
     }
   })
 
@@ -52,6 +68,9 @@ describe('Layout', () => {
     expect(more).toHaveAttribute('aria-expanded', 'true')
     expect(screen.getByRole('link', { name: 'nav.reflection' })).toHaveAttribute('href', '/reflection')
     expect(screen.getByRole('link', { name: 'nav.threads' })).toHaveAttribute('href', '/threads')
+    expect(screen.getByRole('link', { name: 'nav.profile' })).toHaveAttribute('href', '/profile')
+    expect(screen.getByRole('link', { name: 'nav.growth' })).toHaveAttribute('href', '/growth')
+    expect(screen.getByRole('link', { name: 'nav.readingPlans' })).toHaveAttribute('href', '/plans')
 
     await userEvent.keyboard('{Escape}')
     expect(more).toHaveAttribute('aria-expanded', 'false')
@@ -70,7 +89,8 @@ describe('Layout', () => {
     const menu = document.getElementById('nav-mobile-menu')!
     const labels = within(menu).getAllByRole('link').map((link) => link.textContent)
     expect(labels).toEqual([
-      'nav.dashboard', 'nav.journal', 'nav.plans', 'nav.focus', 'nav.progress',
+      'nav.dashboard', 'nav.journal', 'nav.study', 'nav.focus', 'nav.progress',
+      'nav.profile', 'nav.growth', 'nav.readingPlans',
       'nav.reflection', 'nav.threads', 'nav.insights', 'audit.navLabel', 'nav.settings',
     ])
     expect(within(menu).getByRole('button', { name: 'auth.logout' })).toBeInTheDocument()

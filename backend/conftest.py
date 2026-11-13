@@ -218,6 +218,9 @@ def fake_llm(monkeypatch):
             "apps.reflections.crew.crew.get_llm",
             "apps.reflections.services.get_llm",
             "apps.reflections.reviews.get_llm",
+            "apps.guides.study.get_llm",
+            "apps.guides.profile.get_llm",
+            "apps.guides.plans.get_llm",
         ):
             monkeypatch.setattr(target, lambda user=None, _llm=llm: _llm)
         return llm

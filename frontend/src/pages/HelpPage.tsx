@@ -2,15 +2,16 @@ import { useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import {
-  Book, BookOpen, Calendar, HelpCircle, Home, LifeBuoy, Lightbulb, ListChecks, Map as MapIcon, MessagesSquare,
-  Mic, PenLine, ScrollText, Settings, ShieldCheck, Sparkles, Sunrise, Trophy, Wrench,
+  Book, BookOpen, Calendar, HelpCircle, Home, Library, LifeBuoy, Lightbulb, ListChecks, Map as MapIcon,
+  MessagesSquare, Mic, PenLine, ScrollText, Settings, ShieldCheck, Sparkles, Sprout, Sunrise, Trophy, UserRound,
+  Wrench,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { requestTourRestart } from '../components/OnboardingTour'
 
 /**
  * Help & Guide. Section ids are stable deep-link targets:
- * #quick-start, #where, #feedback, #voice, #privacy, #troubleshooting.
+ * #quick-start, #where, #feedback, #study, #voice, #privacy, #troubleshooting.
  */
 
 const QUICK_START_STEPS = ['1', '2', '3', '4', '5']
@@ -19,6 +20,9 @@ const DESTINATIONS: { key: string; to: string; icon: LucideIcon }[] = [
   { key: 'dashboard', to: '/', icon: Home },
   { key: 'journal', to: '/journal/new', icon: PenLine },
   { key: 'history', to: '/journal', icon: BookOpen },
+  { key: 'study', to: '/study', icon: Library },
+  { key: 'profile', to: '/profile', icon: UserRound },
+  { key: 'growth', to: '/growth', icon: Sprout },
   { key: 'devotional', to: '/devotional', icon: Book },
   { key: 'plans', to: '/plans', icon: Calendar },
   { key: 'bible', to: '/bible', icon: BookOpen },
@@ -50,7 +54,7 @@ const ERROR_CODES = [
   'CLIENT_ERROR',
 ]
 
-const TOC = ['quick-start', 'where', 'feedback', 'voice', 'privacy', 'troubleshooting']
+const TOC = ['quick-start', 'where', 'feedback', 'study', 'voice', 'privacy', 'troubleshooting']
 
 function Section({
   id,
@@ -161,6 +165,43 @@ export default function HelpPage() {
         <p>
           <Link to="/audit" className="text-accent-primary underline-offset-2 hover:underline">
             {t('help.feedback.auditLink')}
+          </Link>
+        </p>
+      </Section>
+
+      <Section id="study" icon={Library} title={t('help.study.title')}>
+        <h3 className="font-semibold text-text-primary">{t('help.study.studiesTitle')}</h3>
+        <p>{t('help.study.studies1')}</p>
+        <p>{t('help.study.studies2')}</p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>{t('help.study.suggestions')}</li>
+          <li>{t('help.study.stages')}</li>
+          <li>{t('help.study.simpler')}</li>
+          <li>{t('help.study.personal')}</li>
+          <li>{t('help.study.care')}</li>
+        </ul>
+        <p>
+          <Link to="/study" className="text-accent-primary underline-offset-2 hover:underline">
+            {t('help.study.studyLink')}
+          </Link>
+        </p>
+
+        <h3 className="pt-2 font-semibold text-text-primary">{t('help.study.profileTitle')}</h3>
+        <p>{t('help.study.profile1')}</p>
+        <p>{t('help.study.profile2')}</p>
+        <p>{t('help.study.profile3')}</p>
+        <p>
+          <Link to="/profile" className="text-accent-primary underline-offset-2 hover:underline">
+            {t('help.study.profileLink')}
+          </Link>
+        </p>
+
+        <h3 className="pt-2 font-semibold text-text-primary">{t('help.study.growthTitle')}</h3>
+        <p>{t('help.study.growth1')}</p>
+        <p>{t('help.study.growth2')}</p>
+        <p>
+          <Link to="/growth" className="text-accent-primary underline-offset-2 hover:underline">
+            {t('help.study.growthLink')}
           </Link>
         </p>
       </Section>
