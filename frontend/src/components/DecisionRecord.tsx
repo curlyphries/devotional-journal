@@ -4,7 +4,10 @@ import { ChevronRight, Cloud, HardDrive, ListChecks } from 'lucide-react'
 import type { JournalFeedback } from '../api/journal'
 import { formatDateTime } from '../lib/dates'
 
-const KNOWN_INPUTS = ['entry_text', 'mood', 'active_focus', 'recent_themes', 'open_threads', 'entry_date', 'language']
+const KNOWN_INPUTS = [
+  'entry_text', 'mood', 'active_focus', 'recent_themes', 'open_threads', 'recent_passages',
+  'life_stage', 'growth_focus', 'entry_date', 'language',
+]
 const KNOWN_OUTCOMES = ['selected', 'not_found', 'not_used', 'invalid']
 
 const OUTCOME_CLASS: Record<string, string> = {

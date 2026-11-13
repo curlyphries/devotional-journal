@@ -545,6 +545,9 @@
       "active_focus": "Tu enfoque actual",
       "recent_themes": "Temas de tus entradas recientes",
       "open_threads": "Tus temas abiertos",
+      "recent_passages": "Pasajes que recibiste hace poco",
+      "life_stage": "Tu etapa de la vida",
+      "growth_focus": "Características en las que elegiste crecer",
       "entry_date": "La fecha de la entrada",
       "language": "Tu idioma"
     },

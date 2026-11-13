@@ -52,7 +52,7 @@ class Signals:
     themes: Counter = field(default_factory=Counter)  # from journal feedback
     moods: Counter = field(default_factory=Counter)  # mood tags, last 30 entries
     recent_moods: list = field(default_factory=list)  # last 14 days, newest first
-    entry_texts: list = field(default_factory=list)  # recent entries without feedback
+    entry_texts: list = field(default_factory=list)  # last 10 entries, lowercased
     entries_considered: int = 0
     entries_with_feedback: int = 0
     responses: list = field(
@@ -133,8 +133,8 @@ def gather(user) -> Signals:
         except Exception:  # noqa: BLE001
             continue
         scanned.append(text)
-        if entry.id not in with_feedback and text:
-            signals.entry_texts.append(text[:1500])
+        if text:
+            signals.entry_texts.append(text[:1500].lower())
 
     signals.enrollments = list(StudyEnrollment.objects.filter(user=user))
     signals.responses = list(

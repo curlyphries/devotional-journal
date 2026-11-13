@@ -545,6 +545,9 @@
       "active_focus": "Your current focus",
       "recent_themes": "Themes from recent entries",
       "open_threads": "Your open threads",
+      "recent_passages": "Passages you were given recently",
+      "life_stage": "Your stage of life",
+      "growth_focus": "Characteristics you chose to grow in",
       "entry_date": "The entry's date",
       "language": "Your language"
     },

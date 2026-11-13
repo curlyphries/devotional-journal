@@ -73,8 +73,12 @@ R = {
         "Tus entradas recientes mencionan «{theme}» ({count}×).",
     ),
     "words": L(
-        "Your recent entries use words like “{word}”.",
-        "Tus entradas recientes usan palabras como «{word}».",
+        "A recent entry uses words like “{word}”.",
+        "Una entrada reciente usa palabras como «{word}».",
+    ),
+    "words_many": L(
+        "{count} of your recent entries use words like “{word}”.",
+        "{count} de tus entradas recientes usan palabras como «{word}».",
     ),
     "situation": L(
         "It is written with this in mind: {situation}.",
@@ -112,7 +116,6 @@ def recommend(signals: Signals, lang: str, limit: int = 6) -> list:
             for key in trait["topics"]:
                 plan_topics.setdefault(key, tr(trait["title"], lang))
     done_or_doing = signals.completed_topics | signals.active_topics
-    entry_blob = "\n".join(signals.entry_texts).lower()
 
     results = []
     for key, topic in library.topics().items():
@@ -154,15 +157,24 @@ def recommend(signals: Signals, lang: str, limit: int = 6) -> list:
             score += min(40, 12 * count)
             reasons.append(tr(R["theme"], lang).format(theme=theme, count=count))
 
-        if not theme_hits and entry_blob:
+        # The person's own words: how many recent entries use this topic's vocabulary.
+        word, mentions = None, 0
+        for text in signals.entry_texts:
             for keyword in topic["keywords"]:
                 found = re.search(
-                    rf"(?<![a-záéíóúñ]){re.escape(keyword)}[a-záéíóúñ]*", entry_blob
+                    rf"(?<![a-záéíóúñ]){re.escape(keyword)}[a-záéíóúñ]*", text
                 )
                 if found:
-                    score += 14
-                    reasons.append(tr(R["words"], lang).format(word=found.group(0)))
+                    word = word or found.group(0)
+                    mentions += 1
                     break
+        if mentions:
+            score += 14 + 6 * min(mentions - 1, 3)
+            reasons.append(
+                tr(R["words_many" if mentions > 1 else "words"], lang).format(
+                    word=word, count=mentions
+                )
+            )
 
         if profile:
             shared = [s for s in (profile.situations or []) if s in topic["situations"]]
@@ -202,14 +214,18 @@ def recommend(signals: Signals, lang: str, limit: int = 6) -> list:
             results.append({"key": key, "score": score, "reasons": reasons[:3]})
 
     results.sort(key=lambda r: -r["score"])
-    if not results:
+    # Never leave someone with one lonely suggestion: fill up with good first studies.
+    if len(results) < 3:
+        chosen = {r["key"] for r in results}
         for key in STARTERS:
             topic = library.get_topic(key)
-            if not topic or key in done_or_doing:
+            if not topic or key in done_or_doing or key in chosen:
                 continue
             if stage and stage not in topic["stages"]:
                 continue
             results.append(
                 {"key": key, "score": 1, "reasons": [tr(R["starter"], lang)]}
             )
+            if len(results) >= 4:
+                break
     return results[:limit]

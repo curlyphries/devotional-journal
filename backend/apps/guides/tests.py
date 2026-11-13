@@ -313,9 +313,17 @@ class TestCatalogAndRecommendations:
         entry = JournalEntry(user=user, date=timezone.localdate())
         entry.set_content("I am exhausted and have nothing left.")
         entry.save()
+        results = client.get("/api/v1/guides/recommendations/").json()["results"]
+        assert results[0]["topic"]["key"] == "rest"
+        assert results[0]["reasons"] == ["A recent entry uses words like “exhausted”."]
+        assert len(results) >= 3  # padded with good first studies, each with a reason
+        assert all(r["reasons"] for r in results)
+
+        again = JournalEntry(user=user, date=timezone.localdate())
+        again.set_content("Still so tired.")
+        again.save()
         top = client.get("/api/v1/guides/recommendations/").json()["results"][0]
-        assert top["topic"]["key"] == "rest"
-        assert "exhausted" in top["reasons"][0]
+        assert top["reasons"] == ["2 of your recent entries use words like “tired”."]
 
     def test_needs_traits_situations_and_assessment_all_count(self, client):
         set_stage(
