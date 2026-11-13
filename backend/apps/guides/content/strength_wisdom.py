@@ -18,11 +18,36 @@ TOPICS = [
             "propia carrera.",
         ),
         "keywords": [
-            "persever", "endur", "quit", "weary", "exhaust", "discourag", "give up", "keep going",
-            "burnout", "perseverancia", "rendir", "agota", "desanim", "aguant", "constancia",
-            "seguir adelante", "ya no puedo",
+            "persever",
+            "endur",
+            "quitting",
+            "want to quit",
+            "weary",
+            "exhaust",
+            "discourag",
+            "give up",
+            "giving up",
+            "keep going",
+            "burnout",
+            "rendir",
+            "rendirme",
+            "agota",
+            "desanim",
+            "aguant",
+            "constancia",
+            "seguir adelante",
+            "ya no puedo",
+            "tirar la toalla",
         ],
-        "situations": ["caregiver", "student", "job_seeking", "parent", "recovery", "ill", "leader"],
+        "situations": [
+            "caregiver",
+            "student",
+            "job_seeking",
+            "parent",
+            "recovery",
+            "ill",
+            "leader",
+        ],
         "traits": ["perseverance", "hope", "faithfulness"],
         "stages": ["child", "teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -56,7 +81,9 @@ TOPICS = [
             {
                 "key": "perseverance-1",
                 "ref": "Galatians 6:9-10",
-                "title": L("When doing good wears you out", "Cuando hacer el bien cansa"),
+                "title": L(
+                    "When doing good wears you out", "Cuando hacer el bien cansa"
+                ),
                 "truth": L(
                     "Paul assumes something we rarely admit: doing good wears people out. He does not "
                     "scold the tiredness. He gives a reason to continue: good done now is like seed in "
@@ -105,7 +132,9 @@ TOPICS = [
             {
                 "key": "perseverance-2",
                 "ref": "Isaiah 40:28-31",
-                "title": L("Strength that is not your own", "Una fuerza que no es tuya"),
+                "title": L(
+                    "Strength that is not your own", "Una fuerza que no es tuya"
+                ),
                 "truth": L(
                     "Isaiah speaks to people worn down by years of hardship, who had begun to think "
                     "God had lost track of them. His answer starts with who God is: the Creator who "
@@ -158,7 +187,10 @@ TOPICS = [
             {
                 "key": "perseverance-3",
                 "ref": "James 1:2-4",
-                "title": L("What the hard road is building", "Lo que el camino difícil va formando"),
+                "title": L(
+                    "What the hard road is building",
+                    "Lo que el camino difícil va formando",
+                ),
                 "truth": L(
                     "James is not telling you to feel happy about pain or to call a bad thing good. He "
                     "is saying that trials are not wasted. When faith is tested and holds, it produces "
@@ -208,7 +240,9 @@ TOPICS = [
             {
                 "key": "perseverance-4",
                 "ref": "Hebrews 12:1-3",
-                "title": L("Eyes on the one who finished", "La mirada en quien llegó a la meta"),
+                "title": L(
+                    "Eyes on the one who finished", "La mirada en quien llegó a la meta"
+                ),
                 "truth": L(
                     "The writer pictures faith as a long-distance race, not a sprint. Two instructions "
                     "come with it. Drop what slows you down, both the plain wrongs and the extra "
@@ -268,10 +302,31 @@ TOPICS = [
             "que estuvo con ellas.",
         ),
         "keywords": [
-            "courag", "brave", "afraid", "scared", "coward", "bold", "intimidat", "stand up",
-            "speak up", "valor", "valiente", "valentía", "cobard", "atrev", "enfrentar", "me da miedo",
+            "courag",
+            "brave",
+            "afraid",
+            "scared",
+            "coward",
+            "intimidat",
+            "stand up",
+            "speak up",
+            "valiente",
+            "valentía",
+            "cobard",
+            "atrev",
+            "enfrentar",
+            "me da miedo",
+            "tengo miedo",
+            "no me animo",
         ],
-        "situations": ["student", "leader", "military", "moving", "new_believer", "working"],
+        "situations": [
+            "student",
+            "leader",
+            "military",
+            "moving",
+            "new_believer",
+            "working",
+        ],
         "traits": ["courage", "trust", "faithfulness"],
         "stages": ["child", "teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -411,12 +466,12 @@ TOPICS = [
                 "ref": "Daniel 3:16-18",
                 "title": L("Even if he does not", "Y aunque no lo haga"),
                 "truth": L(
-                    "Three young men are ordered to bow to a king's statue or die. Their answer has "
+                    "Three friends of Daniel are ordered to bow to a king's statue or die. Their answer has "
                     "two parts, and both matter. First: our God is able to rescue us. Second: even if "
                     "he does not, we still will not bow. Their courage does not rest on knowing how "
                     "the story ends. It rests on knowing who God is. This is the deepest kind of "
                     "courage: faithfulness that is not a bargain for a good outcome.",
-                    "A tres jóvenes se les ordena inclinarse ante la estatua de un rey o morir. Su "
+                    "A tres amigos de Daniel se les ordena inclinarse ante la estatua de un rey o morir. Su "
                     "respuesta tiene dos partes, y las dos importan. Primera: nuestro Dios puede "
                     "rescatarnos. Segunda: y aunque no lo haga, tampoco nos inclinaremos. Su valor no "
                     "depende de saber cómo termina la historia. Depende de saber quién es Dios. Este "
@@ -510,7 +565,10 @@ TOPICS = [
             {
                 "key": "courage-5",
                 "ref": "Matthew 14:25-31",
-                "title": L("When courage runs out halfway", "Cuando el valor se acaba a medio camino"),
+                "title": L(
+                    "When courage runs out halfway",
+                    "Cuando el valor se acaba a medio camino",
+                ),
                 "truth": L(
                     "Peter does a brave thing: he steps out of the boat toward Jesus. Then he notices "
                     "the wind, fear takes over, and he starts to sink. He has just enough left for a "
@@ -561,7 +619,9 @@ TOPICS = [
     {
         "key": "temptation",
         "category": "strength",
-        "title": L("Temptation: when you are pulled", "Tentación: cuando algo te arrastra"),
+        "title": L(
+            "Temptation: when you are pulled", "Tentación: cuando algo te arrastra"
+        ),
         "summary": L(
             "For when you want what you know will harm you or someone else. Four readings on how "
             "temptation works, the way out God provides, and the help Jesus gives to people who are "
@@ -571,10 +631,34 @@ TOPICS = [
             "quien está luchando.",
         ),
         "keywords": [
-            "tempt", "resist", "urge", "crav", "lust", "gave in", "giving in", "slipped", "weakness",
-            "tenta", "impuls", "deseo", "caí", "recaer", "debilidad", "ceder", "cedí",
+            "tempt",
+            "resist",
+            "urges",
+            "the urge",
+            "crav",
+            "lust",
+            "gave in",
+            "giving in",
+            "slipped",
+            "weakness",
+            "tenta",
+            "impuls",
+            "malos deseos",
+            "lujuria",
+            "volví a caer",
+            "debilidad",
+            "ceder",
+            "cedí",
         ],
-        "situations": ["student", "single", "dating", "married", "working", "new_believer", "recovery"],
+        "situations": [
+            "student",
+            "single",
+            "dating",
+            "married",
+            "working",
+            "new_believer",
+            "recovery",
+        ],
         "traits": ["self_control", "purity", "faithfulness"],
         "stages": ["child", "teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -614,8 +698,10 @@ TOPICS = [
             {
                 "key": "temptation-1",
                 "ref": "1 Corinthians 10:12-13",
-                "title": L("You are not the only one, and there is a way out",
-                           "No eres la única persona, y hay una salida"),
+                "title": L(
+                    "You are not the only one, and there is a way out",
+                    "No eres la única persona, y hay una salida",
+                ),
                 "truth": L(
                     "Two lies make temptation stronger: no one else struggles with this, and I have no "
                     "choice. Paul answers both. What pulls at you is common to people everywhere. And "
@@ -668,7 +754,9 @@ TOPICS = [
             {
                 "key": "temptation-2",
                 "ref": "James 1:13-15",
-                "title": L("How a pull becomes a fall", "Cómo un deseo se vuelve caída"),
+                "title": L(
+                    "How a pull becomes a fall", "Cómo un deseo se vuelve caída"
+                ),
                 "truth": L(
                     "James clears up two things. God is never the one tempting you; he does not set "
                     "traps. And being tempted is not yet sin. The trouble begins inside, when a desire "
@@ -724,21 +812,21 @@ TOPICS = [
                 "truth": L(
                     "Jesus is hungry and alone after forty days in the wilderness when the temptations "
                     "come. They often arrive when we are depleted. Each one offers something good by a "
-                    "wrong road: bread, safety, power, all without trusting the Father. Each time "
+                    "wrong road: bread, protection, power, all without trusting the Father. Each time "
                     "Jesus answers with a truth from Scripture he already knew by heart. He does not "
                     "argue at length or lean on willpower. He stands on what God has said. And the "
                     "tempter, in the end, leaves.",
                     "Jesús tiene hambre y está solo tras cuarenta días en el desierto cuando llegan "
                     "las tentaciones. Suelen llegar cuando estamos sin fuerzas. Cada una ofrece algo "
-                    "bueno por un camino equivocado: pan, seguridad, poder, todo sin confiar en el "
+                    "bueno por un camino equivocado: pan, protección, poder, todo sin confiar en el "
                     "Padre. Cada vez Jesús responde con una verdad de la Escritura que ya sabía de "
                     "memoria. No discute largamente ni se apoya en su fuerza de voluntad. Se afirma en "
                     "lo que Dios ha dicho. Y el tentador, al final, se va.",
                 ),
                 "simple": L(
-                    "Jesus was hungry and tired, and he was tempted to do wrong. He remembered what "
+                    "Jesus was very hungry, and he was tempted to do wrong. He remembered what "
                     "God says and said no. Jesus knows how it feels.",
-                    "Jesús tenía hambre y cansancio, y fue tentado a hacer lo malo. Recordó lo que "
+                    "Jesús tenía mucha hambre, y fue tentado a hacer lo malo. Recordó lo que "
                     "Dios dice y dijo que no. Jesús sabe cómo se siente.",
                 ),
                 "ask": L(
@@ -771,7 +859,9 @@ TOPICS = [
             {
                 "key": "temptation-4",
                 "ref": "Hebrews 4:14-16",
-                "title": L("Where to go, before and after", "A dónde ir, antes y después"),
+                "title": L(
+                    "Where to go, before and after", "A dónde ir, antes y después"
+                ),
                 "truth": L(
                     "After a failure, the instinct is to hide from God until you feel cleaner. This "
                     "passage says the opposite. Jesus is able to sympathize with our weaknesses, "
@@ -838,9 +928,28 @@ TOPICS = [
             "volver a casa, pedir ayuda y empezar de nuevo tras una caída.",
         ),
         "keywords": [
-            "addict", "relaps", "sober", "sobriety", "alcohol", "drinking", "drunk", "drug", "porn",
-            "gambl", "rehab", "can't stop", "adic", "recaí", "recaída", "sobrio", "sobriedad",
-            "borrach", "droga", "apuest", "vicio", "no puedo dejar",
+            "addict",
+            "relaps",
+            "sober",
+            "sobriety",
+            "alcohol",
+            "drinking",
+            "drunk",
+            "drug",
+            "porn",
+            "gambl",
+            "rehab",
+            "can't stop",
+            "adicci",
+            "adict",
+            "recaí",
+            "sobrio",
+            "sobriedad",
+            "borrach",
+            "droga",
+            "apuest",
+            "vicio",
+            "no puedo dejar",
         ],
         "situations": ["recovery"],
         "traits": ["self_control", "honesty", "hope"],
@@ -849,7 +958,7 @@ TOPICS = [
             "teen": L(
                 "If a screen, a substance or a secret has more hold on you than you want to admit, "
                 "you are not bad and you are not alone. Tell an adult you trust.",
-                "Si una pantalla, una sustancia o un secreto te tiene más atrapado de lo que "
+                "Si una pantalla, una sustancia o un secreto tiene más control sobre ti de lo que "
                 "quisieras admitir, no eres mala persona ni estás a solas. Cuéntaselo a un adulto de "
                 "confianza.",
             ),
@@ -910,7 +1019,7 @@ TOPICS = [
                     "Write one honest sentence that names what has a hold on you and for how long. "
                     "Then choose one person, a trusted friend, a pastor, a doctor or a counselor, and "
                     "read it to them this week.",
-                    "Escribe una frase honesta que nombre lo que te tiene atrapado y desde cuándo. "
+                    "Escribe una frase honesta que nombre lo que te domina y desde cuándo. "
                     "Luego elige a una persona, un amigo de confianza, un pastor, un médico o un "
                     "consejero, y léesela esta semana.",
                 ),
@@ -940,7 +1049,7 @@ TOPICS = [
                     "God is like toward people who come back. Shame says: clean yourself up first. The "
                     "father runs before anything has been fixed.",
                     "El hijo de esta historia lo ha malgastado todo y ha terminado con hambre entre "
-                    "cerdos. Ensaya un discurso sobre que ya no es digno y emprende el regreso "
+                    "cerdos. Ensaya un discurso en el que admite que ya no es digno y emprende el regreso "
                     "esperando, cuando mucho, un lugar de jornalero. Pero su padre lo ve cuando "
                     "todavía está lejos, se conmueve, corre hacia él y lo abraza antes de que diga una "
                     "palabra. Luego vienen la ropa, el anillo y la fiesta. Jesús cuenta esta historia "
@@ -1040,7 +1149,9 @@ TOPICS = [
             {
                 "key": "addiction-4",
                 "ref": "Psalm 40:1-3",
-                "title": L("Out of the pit, one step at a time", "Fuera del pozo, paso a paso"),
+                "title": L(
+                    "Out of the pit, one step at a time", "Fuera del pozo, paso a paso"
+                ),
                 "truth": L(
                     "David remembers being stuck in a pit of mud with nothing solid under his feet. He "
                     "cried out, and he waited, and God bent down and heard him, lifted him out, set "
@@ -1160,9 +1271,26 @@ TOPICS = [
             "suma el entrenamiento pequeño de cada día.",
         ),
         "keywords": [
-            "self-control", "disciplin", "habits", "impulsive", "procrastin", "lazy", "willpower",
-            "overeat", "binge", "screen time", "scrolling", "dominio propio", "hábito", "impulsiv",
-            "pereza", "fuerza de voluntad", "antojo", "pantalla", "celular", "autocontrol",
+            "self-control",
+            "disciplin",
+            "habits",
+            "impulsive",
+            "procrastin",
+            "lazy",
+            "willpower",
+            "overeat",
+            "binge",
+            "screen time",
+            "scrolling",
+            "dominio propio",
+            "hábito",
+            "impulsiv",
+            "pereza",
+            "fuerza de voluntad",
+            "antojo",
+            "pantalla",
+            "redes sociales",
+            "autocontrol",
         ],
         "situations": ["student", "working", "parent", "recovery"],
         "traits": ["self_control", "patience", "perseverance"],
@@ -1258,7 +1386,9 @@ TOPICS = [
             {
                 "key": "self_control-2",
                 "ref": "Galatians 5:22-25",
-                "title": L("Fruit, not just willpower", "Fruto, no solo fuerza de voluntad"),
+                "title": L(
+                    "Fruit, not just willpower", "Fruto, no solo fuerza de voluntad"
+                ),
                 "truth": L(
                     "Self-control comes at the end of a list Paul calls the fruit of the Spirit, "
                     "alongside love, joy, peace and patience. Fruit is not manufactured by gritting "
@@ -1429,9 +1559,29 @@ TOPICS = [
             "convierta en daño.",
         ),
         "keywords": [
-            "anger", "angry", "furious", "rage", "temper", "resent", "grudge", "bitter", "yell",
-            "irritat", "lost it", "snapped", "enoj", "rabia", "furi", "rencor", "amarg", "grité",
-            "gritar", "irrit", "exploté",
+            "anger",
+            "angry",
+            "furious",
+            "rage",
+            "my temper",
+            "short temper",
+            "resent",
+            "grudge",
+            "bitter",
+            "yelled",
+            "yelling",
+            "irritat",
+            "snapped",
+            "enoj",
+            "rabia",
+            "furi",
+            "rencor",
+            "amarg",
+            "grité",
+            "gritar",
+            "irritad",
+            "irritab",
+            "exploté",
         ],
         "situations": ["parent", "married", "working", "caregiver", "divorced"],
         "traits": ["patience", "gentleness", "self_control"],
@@ -1526,7 +1676,10 @@ TOPICS = [
             {
                 "key": "anger-2",
                 "ref": "Genesis 4:3-7",
-                "title": L("God's question to an angry man", "La pregunta de Dios a un hombre enojado"),
+                "title": L(
+                    "God's question to an angry man",
+                    "La pregunta de Dios a un hombre enojado",
+                ),
                 "truth": L(
                     "Cain is furious because his brother's offering was accepted and his was not. "
                     "Before anything worse happens, God comes to him and asks what his anger is about. "
@@ -1684,7 +1837,9 @@ TOPICS = [
             {
                 "key": "anger-5",
                 "ref": "Romans 12:17-21",
-                "title": L("Laying down the right to get even", "Soltar el derecho al desquite"),
+                "title": L(
+                    "Laying down the right to get even", "Soltar el derecho al desquite"
+                ),
                 "truth": L(
                     "Resentment is anger that has moved in. Paul speaks to people who have truly been "
                     "wronged, and he does not say it did not matter. He says: do not pay back evil "
@@ -1756,11 +1911,35 @@ TOPICS = [
             "sin fórmulas mágicas.",
         ),
         "keywords": [
-            "decision", "decid", "choice", "choos", "guidance", "direction", "crossroad", "unsure",
-            "confus", "god's will", "what should i do", "decisi", "elegir", "elecci", "rumbo",
-            "indecis", "encrucijada", "voluntad de dios", "no sé qué hacer",
+            "decision",
+            "decid",
+            "choice",
+            "choos",
+            "guidance",
+            "direction",
+            "crossroad",
+            "unsure",
+            "confus",
+            "god's will",
+            "what should i do",
+            "decisi",
+            "elegir",
+            "elecci",
+            "rumbo",
+            "indecis",
+            "encrucijada",
+            "voluntad de dios",
+            "no sé qué hacer",
         ],
-        "situations": ["student", "job_seeking", "moving", "dating", "single", "leader", "working"],
+        "situations": [
+            "student",
+            "job_seeking",
+            "moving",
+            "dating",
+            "single",
+            "leader",
+            "working",
+        ],
         "traits": ["wisdom", "trust", "prayerfulness"],
         "stages": ["teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -1898,7 +2077,10 @@ TOPICS = [
             {
                 "key": "decisions-3",
                 "ref": "Romans 12:1-2",
-                "title": L("First, who you are becoming", "Primero, en quién te estás convirtiendo"),
+                "title": L(
+                    "First, who you are becoming",
+                    "Primero, en quién te estás convirtiendo",
+                ),
                 "truth": L(
                     "We tend to ask which option God wants. Paul begins somewhere else. Offer your "
                     "whole self to God, stop letting the world around you press you into its shape, "
@@ -1921,9 +2103,9 @@ TOPICS = [
                     "honesto y que ama. Cuando creces así, eliges cada vez mejor.",
                 ),
                 "ask": L(
-                    "Set aside which option for a moment. Which choice would make you more loving, "
+                    "Set aside the question of which option for a moment. Which choice would make you more loving, "
                     "more honest, more free to serve?",
-                    "Deja a un lado por un momento cuál opción. ¿Qué elección te haría amar más, vivir "
+                    "Deja a un lado por un momento la pregunta de cuál opción. ¿Qué elección te haría amar más, vivir "
                     "con más honestidad, tener más libertad para servir?",
                 ),
                 "kid_ask": L(
@@ -2069,11 +2251,41 @@ TOPICS = [
             "quién es y por qué tu valor no depende de él.",
         ),
         "keywords": [
-            "work", "job", "career", "boss", "coworker", "unemploy", "laid off", "fired", "calling",
-            "vocation", "homework", "exam", "trabaj", "empleo", "desemple", "despid", "jefe",
-            "vocaci", "carrera", "estudi", "examen", "oficina",
+            "at work",
+            "my work",
+            "workplace",
+            "overwork",
+            "job",
+            "career",
+            "boss",
+            "coworker",
+            "unemploy",
+            "laid off",
+            "fired",
+            "my calling",
+            "vocation",
+            "homework",
+            "exams",
+            "studying",
+            "trabaj",
+            "empleo",
+            "desemple",
+            "despid",
+            "jefe",
+            "vocaci",
+            "carrera",
+            "estudi",
+            "examen",
+            "oficina",
         ],
-        "situations": ["working", "job_seeking", "student", "retired", "parent", "leader"],
+        "situations": [
+            "working",
+            "job_seeking",
+            "student",
+            "retired",
+            "parent",
+            "leader",
+        ],
         "traits": ["faithfulness", "servanthood", "perseverance"],
         "stages": ["teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -2106,7 +2318,10 @@ TOPICS = [
             {
                 "key": "work-1",
                 "ref": "Genesis 2:15",
-                "title": L("Work was there from the start", "El trabajo estuvo desde el principio"),
+                "title": L(
+                    "Work was there from the start",
+                    "El trabajo estuvo desde el principio",
+                ),
                 "truth": L(
                     "Before anything had gone wrong in the world, God placed the first human in a "
                     "garden with a job: to work it and take care of it. So work is not a punishment or "
@@ -2213,7 +2428,9 @@ TOPICS = [
             {
                 "key": "work-3",
                 "ref": "Colossians 3:23-24",
-                "title": L("Who you are really working for", "Para quién trabajas en realidad"),
+                "title": L(
+                    "Who you are really working for", "Para quién trabajas en realidad"
+                ),
                 "truth": L(
                     "Paul first wrote these words to household servants, people with little say over "
                     "their tasks and little recognition. He tells them to put their heart into "
@@ -2266,7 +2483,10 @@ TOPICS = [
             {
                 "key": "work-4",
                 "ref": "Luke 3:21-22",
-                "title": L("Loved before the work begins", "Un amor que llega antes que el trabajo"),
+                "title": L(
+                    "Loved before the work begins",
+                    "Un amor que llega antes que el trabajo",
+                ),
                 "truth": L(
                     "At his baptism, before his public work has begun, before any sermon, healing or "
                     "follower, Jesus hears the Father call him the beloved Son and say he is pleased "
@@ -2322,7 +2542,10 @@ TOPICS = [
             {
                 "key": "work-5",
                 "ref": "Ephesians 2:8-10",
-                "title": L("Calling is bigger than a job", "La vocación es más grande que un empleo"),
+                "title": L(
+                    "Calling is bigger than a job",
+                    "La vocación es más grande que un empleo",
+                ),
                 "truth": L(
                     "Paul puts two things in careful order. First, we are saved by grace as a gift, "
                     "not by anything we have done, so no one can boast. Then: we are God's own "
@@ -2388,11 +2611,37 @@ TOPICS = [
             "las deudas y la libertad de dar.",
         ),
         "keywords": [
-            "money", "debt", "bills", "afford", "budget", "salary", "paycheck", "loan", "financ",
-            "spending", "greed", "dinero", "deuda", "sueldo", "gasto", "presupuesto", "ahorr",
-            "préstamo", "no me alcanza", "pagar la renta", "codicia",
+            "money",
+            "debt",
+            "bills",
+            "afford",
+            "budget",
+            "salary",
+            "paycheck",
+            "loan",
+            "financ",
+            "spending",
+            "greed",
+            "dinero",
+            "deuda",
+            "sueldo",
+            "gasto",
+            "presupuesto",
+            "ahorr",
+            "préstamo",
+            "no me alcanza",
+            "pagar la renta",
+            "codicia",
         ],
-        "situations": ["working", "job_seeking", "parent", "single_parent", "married", "retired", "student"],
+        "situations": [
+            "working",
+            "job_seeking",
+            "parent",
+            "single_parent",
+            "married",
+            "retired",
+            "student",
+        ],
         "traits": ["contentment", "generosity", "trust"],
         "stages": ["teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -2692,7 +2941,9 @@ TOPICS = [
     {
         "key": "words",
         "category": "wisdom",
-        "title": L("Words: what we say and post", "Palabras: lo que decimos y publicamos"),
+        "title": L(
+            "Words: what we say and post", "Palabras: lo que decimos y publicamos"
+        ),
         "summary": L(
             "For anyone who has said something they regret, passed on what was not theirs to share, "
             "or wants their words to do more good. Four readings on where words come from and how to "
@@ -2702,9 +2953,29 @@ TOPICS = [
             "palabras y cómo usarlas para sanar.",
         ),
         "keywords": [
-            "words", "gossip", "lied", "lying", "rumor", "insult", "complain", "posted", "tongue",
-            "said something", "sarcas", "palabra", "chisme", "mentir", "mentira", "mentí", "quej",
-            "grosería", "lengua", "publiqu", "dije algo",
+            "my words",
+            "harsh words",
+            "hurtful",
+            "gossip",
+            "lied",
+            "lying",
+            "rumor",
+            "insult",
+            "complain",
+            "posted",
+            "tongue",
+            "said something",
+            "sarcas",
+            "mis palabras",
+            "hirient",
+            "chisme",
+            "mentir",
+            "mentí",
+            "quej",
+            "grosería",
+            "lengua",
+            "publiqu",
+            "dije algo",
         ],
         "situations": ["student", "parent", "married", "working", "leader"],
         "traits": ["honesty", "kindness", "self_control"],
@@ -2745,7 +3016,9 @@ TOPICS = [
             {
                 "key": "words-1",
                 "ref": "Luke 6:43-45",
-                "title": L("Words come from somewhere", "Las palabras salen de algún lugar"),
+                "title": L(
+                    "Words come from somewhere", "Las palabras salen de algún lugar"
+                ),
                 "truth": L(
                     "Jesus uses a picture anyone can check: a tree is known by its fruit. Then he "
                     "applies it to speech. What comes out of the mouth is the overflow of what fills "
@@ -2799,7 +3072,10 @@ TOPICS = [
             {
                 "key": "words-2",
                 "ref": "Proverbs 12:17-19",
-                "title": L("True words, healing words", "Palabras verdaderas, palabras que sanan"),
+                "title": L(
+                    "True words, healing words",
+                    "Palabras verdaderas, palabras que sanan",
+                ),
                 "truth": L(
                     "These three proverbs set two kinds of speech side by side. There are words that "
                     "tell the truth and words that deceive. There are reckless words that stab like a "
@@ -2846,7 +3122,7 @@ TOPICS = [
                 "pray": L(
                     "God of truth, I have bent the truth to protect myself. Make me honest, and make "
                     "my honesty gentle.",
-                    "Dios de verdad, he torcido la verdad para protegerme. Dame honestidad, y que mi "
+                    "Dios de la verdad, he torcido la verdad para protegerme. Dame honestidad, y que mi "
                     "honestidad sea amable.",
                 ),
             },
@@ -2966,7 +3242,10 @@ TOPICS = [
     {
         "key": "priorities",
         "category": "wisdom",
-        "title": L("Priorities: time and what matters", "Prioridades: el tiempo y lo que importa"),
+        "title": L(
+            "Priorities: time and what matters",
+            "Prioridades: el tiempo y lo que importa",
+        ),
         "summary": L(
             "For full calendars and the feeling that the important things keep getting pushed to "
             "later. Four readings on what matters most, how Jesus handled demands on his time, and "
@@ -2976,11 +3255,35 @@ TOPICS = [
             "tiempo y cómo contar tus días.",
         ),
         "keywords": [
-            "busy", "priorit", "schedule", "rushed", "hurry", "overcommit", "distract", "balance",
-            "calendar", "no time", "too much to do", "ocupad", "prisa", "agenda", "distra",
-            "ajetre", "equilibrio", "no tengo tiempo", "no me da tiempo", "pendientes",
+            "busy",
+            "priorit",
+            "schedule",
+            "rushed",
+            "hurry",
+            "overcommit",
+            "distract",
+            "balance",
+            "calendar",
+            "no time",
+            "too much to do",
+            "ocupad",
+            "prisa",
+            "agenda",
+            "distra",
+            "ajetre",
+            "equilibrio",
+            "no tengo tiempo",
+            "no me da tiempo",
+            "pendientes",
         ],
-        "situations": ["working", "parent", "single_parent", "student", "leader", "caregiver"],
+        "situations": [
+            "working",
+            "parent",
+            "single_parent",
+            "student",
+            "leader",
+            "caregiver",
+        ],
         "traits": ["wisdom", "peace", "prayerfulness"],
         "stages": ["teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -3066,7 +3369,9 @@ TOPICS = [
             {
                 "key": "priorities-2",
                 "ref": "Luke 10:38-42",
-                "title": L("Distracted by good things", "La distracción de las cosas buenas"),
+                "title": L(
+                    "Distracted by good things", "La distracción de las cosas buenas"
+                ),
                 "truth": L(
                     "Martha welcomes Jesus into her home and then gets pulled in many directions by "
                     "the work of hosting. What she is doing is good. But she ends up anxious, "
@@ -3238,9 +3543,26 @@ TOPICS = [
             "estar por encima de nadie.",
         ),
         "keywords": [
-            "pride", "proud", "humbl", "humility", "arrogan", "ego", "compare", "comparing",
-            "comparison", "jealous", "envy", "envious", "show off", "orgull", "humild", "soberbi",
-            "arrogan", "compara", "envidi", "presum", "celos",
+            "pride",
+            "proud",
+            "humbl",
+            "humility",
+            "arrogan",
+            "ego",
+            "compare",
+            "comparing",
+            "comparison",
+            "jealous",
+            "envy",
+            "envious",
+            "show off",
+            "orgull",
+            "humild",
+            "soberbi",
+            "compara",
+            "envidi",
+            "presum",
+            "celos",
         ],
         "situations": ["leader", "student", "working", "new_believer"],
         "traits": ["humility", "servanthood", "contentment"],

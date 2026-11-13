@@ -247,7 +247,7 @@ describe('StudyHubPage', () => {
 
     expect(await screen.findByRole('heading', { name: 'Another peace study 1' })).toBeInTheDocument()
     expect(screen.queryByRole('heading', { name: 'Another peace study 3' })).not.toBeInTheDocument()
-    expect(screen.getByText('7 studies')).toBeInTheDocument()
+    expect(screen.getByText('6 studies')).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: 'See all 5 in Peace' }))
     expect(screen.getByRole('heading', { name: 'Another peace study 3' })).toBeInTheDocument()

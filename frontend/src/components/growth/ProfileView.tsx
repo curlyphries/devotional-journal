@@ -660,7 +660,7 @@ function OverTimeCard({
             <tbody>
               {history.map((point, index) => (
                 <tr key={`${point.taken_at}-${index}`} className="border-b border-border last:border-0">
-                  <th scope="row" className="py-2 pr-3 font-normal text-text-primary">
+                  <th scope="row" className="whitespace-nowrap py-2 pr-3 font-normal text-text-primary">
                     {formatDate(point.taken_at, i18n.language, { year: 'numeric', month: 'short', day: 'numeric' })}
                   </th>
                   <td className="px-3 py-2 text-text-primary">{average(point.practices_avg)}</td>

@@ -85,7 +85,8 @@ export default function GrowthPlansPage() {
   const desired = (profile.data?.desired_traits ?? [])
     .map((key) => traits.find((item) => item.key === key))
     .filter((item): item is NonNullable<typeof item> => !!item)
-    .filter((item) => !list.some((plan) => plan.trait.key === item.key && plan.status === 'active'))
+    // Not for something already under way (or paused): that plan is in the list above.
+    .filter((item) => !list.some((plan) => plan.trait.key === item.key && plan.status !== 'completed'))
 
   const choose = (key: string) => {
     setTrait(key)
