@@ -236,6 +236,33 @@ describe('StudyHubPage', () => {
     expect(screen.getByText('4 studies')).toBeInTheDocument()
   })
 
+  it('previews a few studies per category while browsing, and opens the whole category on request', async () => {
+    const extra = [1, 2, 3].map((n) => topic({ key: `peace-${n}`, title: `Another peace study ${n}` }))
+    api.getCatalog.mockResolvedValue({
+      ...catalog,
+      categories: [{ ...catalog.categories[0], topics: [anxiety, rest, ...extra] }, catalog.categories[1]],
+    })
+    const user = userEvent.setup()
+    renderHub()
+
+    expect(await screen.findByRole('heading', { name: 'Another peace study 1' })).toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'Another peace study 3' })).not.toBeInTheDocument()
+    expect(screen.getByText('7 studies')).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: 'See all 5 in Peace' }))
+    expect(screen.getByRole('heading', { name: 'Another peace study 3' })).toBeInTheDocument()
+    expect(within(screen.getByRole('group', { name: 'I need…' })).getByRole('button', { name: 'Peace' })).toHaveAttribute(
+      'aria-pressed',
+      'true'
+    )
+    expect(screen.queryByRole('heading', { name: grief.title })).not.toBeInTheDocument()
+
+    // Searching looks through everything, not just the previews.
+    await user.click(screen.getByRole('button', { name: 'Everything' }))
+    await user.type(screen.getByRole('searchbox', { name: 'Search studies' }), 'peace study 3')
+    expect(screen.getByRole('heading', { name: 'Another peace study 3' })).toBeInTheDocument()
+  })
+
   it('starts a study and opens it', async () => {
     api.startStudy.mockResolvedValue({ ...activeStudy, id: 's-9', topic: { ...activeStudy.topic, key: 'rest', title: rest.title } })
     const user = userEvent.setup()

@@ -21,6 +21,9 @@ import TopicCardView from '../components/study/TopicCardView'
 import { useStartStudy } from '../components/study/useStartStudy'
 import { formatDate } from '../lib/dates'
 
+/** Cards shown per category while browsing everything; choosing a category or searching shows all. */
+const PREVIEW_PER_CATEGORY = 3
+
 /** Lower-case and strip accents, so "oracion" finds "oración". */
 function fold(value: string): string {
   return value
@@ -215,6 +218,13 @@ export default function StudyHubPage() {
   }, [catalog.data, category, search, filterByStage, lifeStage])
 
   const matchCount = groups.reduce((sum, group) => sum + group.topics.length, 0)
+  // Browsing everything: a few per category, so 48 cards are not one endless column on a phone.
+  const browsing = !category && !search.trim()
+  const openCategory = (key: string) => {
+    setCategory(key)
+    const top = document.getElementById('study-find')
+    if (top && typeof top.scrollIntoView === 'function') top.scrollIntoView({ block: 'start' })
+  }
   const selectedCategory = catalog.data?.categories.find((group) => group.key === category) ?? null
   const activeStudies = (studies.data ?? []).filter((study) => study.status === 'active')
   const completedStudies = (studies.data ?? []).filter((study) => study.status === 'completed')
@@ -510,7 +520,7 @@ export default function StudyHubPage() {
                 </h3>
                 <p className="mb-3 mt-0.5 text-sm text-text-secondary">{group.summary}</p>
                 <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {group.topics.map((topic) => (
+                  {(browsing ? group.topics.slice(0, PREVIEW_PER_CATEGORY) : group.topics).map((topic) => (
                     <TopicCardView
                       key={topic.key}
                       topic={topic}
@@ -521,6 +531,16 @@ export default function StudyHubPage() {
                     />
                   ))}
                 </div>
+                {browsing && group.topics.length > PREVIEW_PER_CATEGORY && (
+                  <button
+                    type="button"
+                    onClick={() => openCategory(group.key)}
+                    className="mt-3 inline-flex items-center gap-1 rounded text-sm text-accent-primary underline-offset-2 hover:underline focus:outline-none focus:ring-2 focus:ring-accent-primary"
+                  >
+                    {t('study.hub.seeAll', { count: group.topics.length, category: group.title })}
+                    <ChevronRight className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                )}
               </section>
             ))}
           </div>

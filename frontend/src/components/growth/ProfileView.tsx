@@ -165,6 +165,7 @@ function AboutCard({
       setEditing(false)
       toast.success(t('profile.about.saved'))
     },
+    meta: { silent: true }, // the error is rendered inline in the form
   })
 
   const saveAboutMe = useMutation({
@@ -174,6 +175,7 @@ function AboutCard({
       setAboutMe(updated.about_me ?? '')
       toast.success(t('profile.aboutMe.saved'))
     },
+    meta: { silent: true }, // the error is rendered inline under the box
   })
 
   const allTopics = catalog.categories.flatMap((category) => category.topics)
@@ -559,6 +561,7 @@ function OverTimeCard({
       onClose()
       toast.success(t('profile.overTime.saved'))
     },
+    meta: { silent: true }, // the error is rendered inline in the form
   })
 
   const open = () => {

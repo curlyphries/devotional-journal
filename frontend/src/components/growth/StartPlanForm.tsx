@@ -45,6 +45,7 @@ export default function StartPlanForm({ traits, trait, onTraitChange, plans }: S
       // Carried along in case a later read of the plan no longer includes it.
       navigate(`/growth/${plan.id}`, { state: { personalizeError: plan.personalize_error ?? null } })
     },
+    meta: { silent: true }, // the error is rendered inline above the button
   })
 
   const submit = (event: React.FormEvent) => {

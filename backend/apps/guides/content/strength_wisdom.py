@@ -2963,5 +2963,539 @@ TOPICS = [
             },
         ],
     },
-    # @@NEXT@@
+    {
+        "key": "priorities",
+        "category": "wisdom",
+        "title": L("Priorities: time and what matters", "Prioridades: el tiempo y lo que importa"),
+        "summary": L(
+            "For full calendars and the feeling that the important things keep getting pushed to "
+            "later. Four readings on what matters most, how Jesus handled demands on his time, and "
+            "how to count your days.",
+            "Para agendas llenas y la sensación de que lo importante siempre queda para después. "
+            "Cuatro lecturas sobre lo que más importa, cómo manejó Jesús las exigencias sobre su "
+            "tiempo y cómo contar tus días.",
+        ),
+        "keywords": [
+            "busy", "priorit", "schedule", "rushed", "hurry", "overcommit", "distract", "balance",
+            "calendar", "no time", "too much to do", "ocupad", "prisa", "agenda", "distra",
+            "ajetre", "equilibrio", "no tengo tiempo", "no me da tiempo", "pendientes",
+        ],
+        "situations": ["working", "parent", "single_parent", "student", "leader", "caregiver"],
+        "traits": ["wisdom", "peace", "prayerfulness"],
+        "stages": ["teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "teen": L(
+                "School, activities, friends, your phone. Learning now what to say yes to will serve "
+                "you for life.",
+                "Escuela, actividades, amigos, el teléfono. Aprender desde ahora a qué decir que sí "
+                "te servirá toda la vida.",
+            ),
+            "young_adult": L(
+                "Everything seems possible and urgent at once. Here is help choosing what to build "
+                "your days around.",
+                "Todo parece posible y urgente a la vez. Aquí hay ayuda para elegir alrededor de qué "
+                "construir tus días.",
+            ),
+            "adult": L(
+                "For the years when everyone needs something from you, and the things you care about "
+                "most get what is left over.",
+                "Para los años en que todos necesitan algo de ti y lo que más te importa recibe lo "
+                "que sobra.",
+            ),
+            "senior": L(
+                "With more of life behind than ahead, the question sharpens: what is worth the days "
+                "you have been given?",
+                "Con más vida detrás que delante, la pregunta se afila: ¿qué merece los días que se "
+                "te han dado?",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "priorities-1",
+                "ref": "Mark 12:28-31",
+                "title": L("What matters most", "Lo que más importa"),
+                "truth": L(
+                    "A teacher of the law asks Jesus which commandment is the most important of all. "
+                    "Out of all the commandments, Jesus names two, and both are about love. Love God "
+                    "with everything you are: heart, soul, mind and strength. And love your neighbor "
+                    "as yourself. This is Jesus' own answer to the question of priorities. It does not "
+                    "tell you exactly how to fill your week, but it gives the test for every week: did "
+                    "the way I spent my time serve love for God and love for the people near me?",
+                    "Un maestro de la ley le pregunta a Jesús cuál es el mandamiento más importante de "
+                    "todos. De entre todos los mandamientos, Jesús nombra dos, y los dos tratan del "
+                    "amor. Ama a Dios con todo lo que eres: corazón, alma, mente y fuerzas. Y ama a tu "
+                    "prójimo como a ti mismo. Esta es la respuesta del propio Jesús a la pregunta de "
+                    "las prioridades. No te dice exactamente cómo llenar tu semana, pero da la prueba "
+                    "para cada semana: ¿la manera en que usé mi tiempo sirvió al amor a Dios y al amor "
+                    "a las personas que tengo cerca?",
+                ),
+                "simple": L(
+                    "Jesus said the two most important things are to love God and to love other "
+                    "people. Everything else comes after that.",
+                    "Jesús dijo que las dos cosas más importantes son amar a Dios y amar a las demás "
+                    "personas. Todo lo demás viene después.",
+                ),
+                "ask": L(
+                    "Looking at last week's calendar, where did love for God and love for people "
+                    "actually get your time, and where were they crowded out?",
+                    "Al mirar tu agenda de la semana pasada, ¿dónde recibieron tiempo de verdad el "
+                    "amor a Dios y a las personas, y dónde quedaron desplazados?",
+                ),
+                "kid_ask": L(
+                    "Who are the people you love most? How do you show them?",
+                    "¿Quiénes son las personas que más quieres? ¿Cómo se lo demuestras?",
+                ),
+                "do": L(
+                    "Write your three most important relationships, starting with God. Next to each, "
+                    "put one specific time this week that belongs to it, and protect that time.",
+                    "Escribe tus tres relaciones más importantes, empezando por Dios. Junto a cada una "
+                    "anota un momento concreto de esta semana que le pertenezca, y protégelo.",
+                ),
+                "kid_do": L(
+                    "Spend ten minutes today doing something with someone you love, with no screens.",
+                    "Pasa hoy diez minutos haciendo algo con alguien que quieres, sin pantallas.",
+                ),
+                "pray": L(
+                    "Lord, you have told me what matters most. My week does not always show it. "
+                    "Reorder my days around loving you and the people you have given me.",
+                    "Señor, tú me has dicho qué es lo que más importa. Mi semana no siempre lo "
+                    "refleja. Reordena mis días en torno a amarte a ti y a las personas que me diste.",
+                ),
+            },
+            {
+                "key": "priorities-2",
+                "ref": "Luke 10:38-42",
+                "title": L("Distracted by good things", "La distracción de las cosas buenas"),
+                "truth": L(
+                    "Martha welcomes Jesus into her home and then gets pulled in many directions by "
+                    "the work of hosting. What she is doing is good. But she ends up anxious, "
+                    "resentful of her sister, and even annoyed with Jesus. He answers her gently, "
+                    "saying her name twice. She is worried about many things; only one is needed, and "
+                    "Mary has chosen it by sitting and listening to him. Jesus is not belittling work "
+                    "or service. He is showing her that even good work, cut off from being with him, "
+                    "turns into worry and complaint.",
+                    "Marta recibe a Jesús en su casa y luego se dispersa en muchas direcciones por el "
+                    "trabajo de atenderlo. Lo que hace es bueno. Pero termina ansiosa, resentida con "
+                    "su hermana y hasta molesta con Jesús. Él le responde con ternura, diciendo su "
+                    "nombre dos veces. Ella se preocupa por muchas cosas; solo una es necesaria, y "
+                    "María la eligió al sentarse a escucharlo. Jesús no desprecia el trabajo ni el "
+                    "servicio. Le muestra que hasta el trabajo bueno, separado de estar con él, se "
+                    "convierte en preocupación y queja.",
+                ),
+                "simple": L(
+                    "Martha was so busy that she got upset. Jesus told her kindly that the best thing "
+                    "was to stop and be with him.",
+                    "Marta estaba tan ocupada que se molestó. Jesús le dijo con cariño que lo mejor "
+                    "era detenerse y estar con él.",
+                ),
+                "ask": L(
+                    "What good work has been making you anxious or resentful lately? What might that "
+                    "be telling you about what is missing?",
+                    "¿Qué trabajo bueno te ha traído últimamente ansiedad o resentimiento? ¿Qué podría "
+                    "estar diciéndote eso sobre lo que falta?",
+                ),
+                "kid_ask": L(
+                    "When do you feel too busy? What helps you slow down?",
+                    "¿Cuándo sientes que tienes demasiadas cosas? ¿Qué te ayuda a ir más despacio?",
+                ),
+                "do": L(
+                    "Before the busiest part of tomorrow, sit still for ten minutes with this passage. "
+                    "Do nothing useful. Let the work wait while you listen.",
+                    "Mañana, antes de la parte más ocupada del día, siéntate en quietud diez minutos "
+                    "con este pasaje. No hagas nada útil. Deja que el trabajo espere mientras escuchas.",
+                ),
+                "kid_do": L(
+                    "Sit quietly for one minute with a grown-up and tell Jesus one thing about your day.",
+                    "Siéntate en silencio un minuto con un adulto y cuéntale a Jesús una cosa de tu día.",
+                ),
+                "pray": L(
+                    "Jesus, I am worried and upset about many things. Say my name. Teach me to sit "
+                    "with you first, and to work from there.",
+                    "Jesús, me preocupan y me alteran muchas cosas. Di mi nombre. Enséñame a sentarme "
+                    "primero contigo y a trabajar desde ahí.",
+                ),
+            },
+            {
+                "key": "priorities-3",
+                "ref": "Mark 1:35-38",
+                "title": L("The freedom to say no", "La libertad de decir que no"),
+                "truth": L(
+                    "After a day of healing crowds, Jesus gets up while it is still dark and goes to a "
+                    "deserted place to pray. His disciples track him down with news that sounds like "
+                    "success: the whole town is asking for him. His answer is surprising. They will go "
+                    "on to the other towns, because that is what he came to do. He leaves real needs "
+                    "unmet in one place because he is clear about his purpose, and he had just been "
+                    "praying. Not every demand on you is a call from God. Saying no to something good "
+                    "is sometimes how you say yes to what you are here for.",
+                    "Tras un día sanando multitudes, Jesús se levanta cuando aún está oscuro y va a un "
+                    "lugar solitario a orar. Sus discípulos lo encuentran con una noticia que suena a "
+                    "éxito: todo el pueblo pregunta por él. Su respuesta sorprende. Irán a los otros "
+                    "pueblos, porque para eso vino. Deja necesidades reales sin atender en un lugar "
+                    "porque tiene claro su propósito, y acababa de orar. No toda exigencia que recibes "
+                    "es un llamado de Dios. A veces decir que no a algo bueno es la manera de decir "
+                    "que sí a aquello para lo que estás aquí.",
+                ),
+                "simple": L(
+                    "Jesus got up early to talk with God. Then he knew what to do that day. Talking "
+                    "with God helps us choose the most important things.",
+                    "Jesús se levantó temprano para hablar con Dios. Luego supo qué hacer ese día. "
+                    "Hablar con Dios nos ayuda a elegir lo más importante.",
+                ),
+                "ask": L(
+                    "What are you saying yes to mainly because people expect it? What would you need "
+                    "to be clear about in order to say a kind no?",
+                    "¿A qué le dices que sí sobre todo porque la gente lo espera? ¿Qué necesitarías "
+                    "tener claro para decir un no amable?",
+                ),
+                "kid_ask": L(
+                    "When is a good time for you to talk with God each day?",
+                    "¿Cuál es un buen momento del día para que hables con Dios?",
+                ),
+                "do": L(
+                    "Identify one commitment that is good but not yours to carry right now. This week, "
+                    "decline it or hand it on, politely and without a long apology.",
+                    "Identifica un compromiso que es bueno pero que no te toca cargar ahora. Esta "
+                    "semana recházalo o pásalo a alguien más, con amabilidad y sin largas disculpas.",
+                ),
+                "kid_do": L(
+                    "Tomorrow morning, before anything else, say: Good morning, God. Help me with today.",
+                    "Mañana por la mañana, antes que nada, di: Buenos días, Dios. Ayúdame con este día.",
+                ),
+                "pray": L(
+                    "Father, many people want something from me. Meet me before the day starts. Show "
+                    "me what I am here for today, and what I can leave.",
+                    "Padre, mucha gente quiere algo de mí. Encuéntrame antes de que empiece el día. "
+                    "Muéstrame para qué estoy aquí hoy, y qué puedo dejar.",
+                ),
+            },
+            {
+                "key": "priorities-4",
+                "ref": "Psalm 90:12",
+                "title": L("Counting your days", "Contar tus días"),
+                "truth": L(
+                    "This prayer, handed down as a prayer of Moses, asks God for one skill: to number "
+                    "our days, so that we gain a heart of wisdom. It is not meant to be gloomy. A "
+                    "person who knows their time is limited stops assuming there will always be a "
+                    "later, and starts treating today as something given and unrepeatable. Counting "
+                    "your days does not mean cramming more in. It means choosing: this conversation, "
+                    "this child's bedtime, this act of obedience, while it is still today. Wisdom "
+                    "begins with accepting that you cannot do everything, and were never asked to.",
+                    "Esta oración, transmitida como oración de Moisés, le pide a Dios una sola "
+                    "habilidad: contar nuestros días, para adquirir un corazón sabio. No busca "
+                    "entristecer. Quien sabe que su tiempo es limitado deja de suponer que siempre "
+                    "habrá un después y empieza a tratar el día de hoy como algo regalado e "
+                    "irrepetible. Contar tus días no es meterles más cosas. Es elegir: esta "
+                    "conversación, la hora de dormir de este niño, este acto de obediencia, mientras "
+                    "todavía es hoy. La sabiduría empieza por aceptar que no puedes hacerlo todo, y "
+                    "que nunca se te pidió.",
+                ),
+                "simple": L(
+                    "Every day is a gift from God. We can ask him to help us use each day for things "
+                    "that really matter, like loving people.",
+                    "Cada día es un regalo de Dios. Podemos pedirle que nos ayude a usar cada día en "
+                    "lo que de verdad importa, como amar a las personas.",
+                ),
+                "ask": L(
+                    "If you knew you had one year, what would you stop doing, and what would you "
+                    "start? What keeps you from making one of those changes now?",
+                    "Si supieras que te queda un año, ¿qué dejarías de hacer y qué empezarías? ¿Qué te "
+                    "impide hacer ahora uno de esos cambios?",
+                ),
+                "kid_ask": L(
+                    "What was the best part of your day today?",
+                    "¿Cuál fue la mejor parte de tu día hoy?",
+                ),
+                "do": L(
+                    "Tonight, look back over the day and name the one hour that mattered most. "
+                    "Tomorrow, plan for one more like it.",
+                    "Esta noche repasa el día y nombra la hora que más importó. Mañana, planea una más "
+                    "como esa.",
+                ),
+                "kid_do": L(
+                    "At bedtime, tell God thank you for one thing from today.",
+                    "A la hora de dormir, dale gracias a Dios por una cosa de hoy.",
+                ),
+                "pray": L(
+                    "Lord, teach me to count my days. I cannot do everything, and I do not have "
+                    "forever. Give me a wise heart for the day in front of me.",
+                    "Señor, enséñame a contar mis días. No puedo hacerlo todo ni tengo todo el tiempo. "
+                    "Dame un corazón sabio para el día que tengo delante.",
+                ),
+            },
+        ],
+    },
+    {
+        "key": "humility",
+        "category": "wisdom",
+        "title": L("Humility: seeing yourself rightly", "Humildad: verte como eres"),
+        "summary": L(
+            "For pride, comparison, and the opposite trouble of thinking you are worth nothing. Four "
+            "readings on seeing yourself truthfully before God, and the freedom of not having to be "
+            "the greatest.",
+            "Para el orgullo, la comparación y el problema contrario de pensar que no vales nada. "
+            "Cuatro lecturas sobre verte con verdad delante de Dios y la libertad de no tener que "
+            "estar por encima de nadie.",
+        ),
+        "keywords": [
+            "pride", "proud", "humbl", "humility", "arrogan", "ego", "compare", "comparing",
+            "comparison", "jealous", "envy", "envious", "show off", "orgull", "humild", "soberbi",
+            "arrogan", "compara", "envidi", "presum", "celos",
+        ],
+        "situations": ["leader", "student", "working", "new_believer"],
+        "traits": ["humility", "servanthood", "contentment"],
+        "stages": ["child", "teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "child": L(
+                "You do not have to be the best at everything. God loves you, and he loves the other "
+                "kids too.",
+                "No tienes que ganar en todo ni ser quien más sabe. Dios te ama, y también ama a los "
+                "demás niños.",
+            ),
+            "teen": L(
+                "For the constant measuring: looks, grades, followers, who is in and who is out. "
+                "There is a way off that scale.",
+                "Para la medición constante: apariencia, notas, seguidores, quién está dentro y quién "
+                "fuera. Hay una manera de bajarte de esa báscula.",
+            ),
+            "young_adult": L(
+                "For proving yourself, and for the fear that you are behind everyone else. A true "
+                "view of yourself is steadier than either.",
+                "Para el afán de demostrar lo que vales y el temor de ir detrás de todos. Una visión "
+                "verdadera de ti es más firme que cualquiera de los dos.",
+            ),
+            "adult": L(
+                "For success that has gone to your head, or failure that has gone to your heart. "
+                "Humility deals with both.",
+                "Para el éxito que se te subió a la cabeza o el fracaso que se te metió en el "
+                "corazón. La humildad atiende los dos.",
+            ),
+            "senior": L(
+                "For receiving help gracefully, letting others lead, and holding a lifetime of "
+                "experience without needing to be right.",
+                "Para recibir ayuda con gracia, dejar que otros dirijan y llevar toda una vida de "
+                "experiencia sin necesidad de tener la razón.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "humility-1",
+                "ref": "Luke 18:9-14",
+                "title": L("The trouble with comparing", "El problema de compararse"),
+                "truth": L(
+                    "Jesus tells this story to people who were sure of their own goodness and looked "
+                    "down on everyone else. Two men pray. One thanks God that he is not like other "
+                    "people and lists his achievements. The other stands at a distance, cannot even "
+                    "look up, and asks only for mercy as a sinner. Jesus says it was the second man "
+                    "who went home right with God. Pride works by comparison; it always needs someone "
+                    "to be above. Humility stops looking sideways and looks at God, and finds mercy there.",
+                    "Jesús cuenta esta historia a personas que estaban seguras de su propia bondad y "
+                    "miraban a los demás por encima del hombro. Dos hombres oran. Uno da gracias a "
+                    "Dios por no ser como los demás y enumera sus logros. El otro se queda a "
+                    "distancia, no se atreve ni a levantar la vista y solo pide misericordia como "
+                    "pecador. Jesús dice que fue el segundo quien volvió a casa en paz con Dios. El "
+                    "orgullo funciona comparando; siempre necesita a alguien por debajo. La humildad "
+                    "deja de mirar a los lados, mira a Dios y allí encuentra misericordia.",
+                ),
+                "simple": L(
+                    "One man bragged to God about how good he was. Another man said: God, I have done "
+                    "wrong; please be kind to me. God was pleased with the second man.",
+                    "Un hombre presumió ante Dios de lo bueno que era. Otro dijo: Dios, hice cosas "
+                    "malas; ten compasión de mí. A Dios le agradó el segundo hombre.",
+                ),
+                "ask": L(
+                    "Who do you compare yourself with to feel better, or to feel worse? What happens "
+                    "to that comparison when you stand before God instead?",
+                    "¿Con quién te comparas para sentirte mejor, o para sentirte peor? ¿Qué pasa con "
+                    "esa comparación cuando te pones delante de Dios?",
+                ),
+                "kid_ask": L(
+                    "Do you ever feel like you have to be better than someone else? When?",
+                    "¿Alguna vez sientes que tienes que ser mejor que alguien? ¿Cuándo?",
+                ),
+                "do": L(
+                    "Catch one comparison today, in person or on a screen. When you notice it, pray "
+                    "the second man's prayer in your own words, and then ask a blessing on the person "
+                    "you compared yourself with.",
+                    "Atrapa hoy una comparación, en persona o en una pantalla. Cuando la notes, haz "
+                    "con tus palabras la oración del segundo hombre, y luego pide una bendición para "
+                    "la persona con quien te comparaste.",
+                ),
+                "kid_do": L(
+                    "Tell someone today: you are really good at that. Mean it.",
+                    "Dile hoy a alguien: eso te sale muy bien. Y dilo de corazón.",
+                ),
+                "pray": L(
+                    "God, have mercy on me. I keep measuring myself against other people. Turn my eyes "
+                    "to you, where I do not need to win.",
+                    "Dios, ten misericordia de mí. Vivo midiéndome con los demás. Vuelve mis ojos "
+                    "hacia ti, donde no necesito ganar.",
+                ),
+            },
+            {
+                "key": "humility-2",
+                "ref": "Romans 12:3-5",
+                "title": L("Neither too high nor too low", "Ni muy alto ni muy bajo"),
+                "truth": L(
+                    "Paul's instruction is precise: do not think of yourself more highly than you "
+                    "should, but think with sober judgment. Sober means accurate. Humility is not "
+                    "pretending to be worthless or denying what you do well; that is just another way "
+                    "of being absorbed in yourself. It is seeing yourself truthfully. Then he gives "
+                    "the picture that makes it possible: one body with many parts, each different, "
+                    "each belonging to the others. You are not everything, and you are not nothing. "
+                    "You are a part, with something real to give and a real need of the rest.",
+                    "La indicación de Pablo es precisa: no pienses de ti más alto de lo que debes, "
+                    "sino con juicio sobrio. Sobrio quiere decir exacto. La humildad no es fingir que "
+                    "no vales nada ni negar lo que haces bien; esa es solo otra forma de vivir "
+                    "pendiente de ti. Es verte con verdad. Luego da la imagen que lo hace posible: un "
+                    "solo cuerpo con muchas partes, cada una distinta, cada una perteneciente a las "
+                    "demás. No lo eres todo, pero tampoco eres poca cosa. Eres una parte, con algo "
+                    "real que dar y una necesidad real de los demás.",
+                ),
+                "simple": L(
+                    "You are not the most important person, and you are not unimportant either. You "
+                    "are one special part of God's big family, and so is everyone else.",
+                    "No eres la persona más importante, y tampoco eres poco importante. Eres una parte "
+                    "especial de la gran familia de Dios, y los demás también.",
+                ),
+                "ask": L(
+                    "Do you tend to think too highly of yourself, or too little? What would a sober, "
+                    "accurate sentence about your gifts and limits sound like?",
+                    "¿Tiendes a pensar demasiado alto de ti, o demasiado poco? ¿Cómo sonaría una frase "
+                    "sobria y exacta sobre tus dones y tus límites?",
+                ),
+                "kid_ask": L(
+                    "What is something you are good at? What is something a friend is good at?",
+                    "¿Qué cosa te sale bien a ti? ¿Qué cosa le sale bien a un amigo tuyo?",
+                ),
+                "do": L(
+                    "Write two honest lists of three: things you do well, and things you need others "
+                    "for. Thank God for the first, and thank one person from the second.",
+                    "Escribe dos listas honestas de tres: cosas que haces bien y cosas para las que "
+                    "necesitas a otros. Da gracias a Dios por la primera, y dale las gracias a una "
+                    "persona de la segunda.",
+                ),
+                "kid_do": L(
+                    "Ask a friend or family member to teach you something they are good at.",
+                    "Pídele a un amigo o familiar que te enseñe algo que le sale bien.",
+                ),
+                "pray": L(
+                    "Lord, give me a true view of myself: no bigger and no smaller than I am. Thank "
+                    "you for what you have given me and for the people I need.",
+                    "Señor, dame una visión verdadera de mí: ni más grande ni más pequeña de lo que "
+                    "soy. Gracias por lo que me diste y por las personas que necesito.",
+                ),
+            },
+            {
+                "key": "humility-3",
+                "ref": "Philippians 2:3-8",
+                "title": L("The mind of Christ", "La manera de pensar de Cristo"),
+                "truth": L(
+                    "Paul asks for something hard: do nothing out of rivalry or vanity, treat others "
+                    "as more important than yourself, and look out for their interests as well as your "
+                    "own. Then he shows where that comes from. Christ Jesus, who was equal with God, "
+                    "did not cling to his position. He emptied himself, took the form of a servant, "
+                    "became human, and went down as far as death on a cross. Humility, then, is not a "
+                    "small person staying small. It is someone with everything choosing to go lower "
+                    "for the sake of others. That is the pattern we are invited into.",
+                    "Pablo pide algo difícil: no hagas nada por rivalidad ni por vanidad, trata a los "
+                    "demás como más importantes que tú, y cuida sus intereses además de los tuyos. "
+                    "Luego muestra de dónde sale eso. Cristo Jesús, siendo igual a Dios, no se aferró "
+                    "a su posición. Se despojó a sí mismo, tomó forma de siervo, se hizo humano y "
+                    "descendió hasta la muerte en una cruz. La humildad, entonces, no es una persona "
+                    "pequeña que se queda pequeña. Es alguien que lo tiene todo y elige bajar por amor "
+                    "a otros. Ese es el modelo al que se nos invita.",
+                ),
+                "simple": L(
+                    "Jesus is the King of everything, but he came to help and serve us. Being humble "
+                    "means caring about what other people need, like Jesus did.",
+                    "Jesús es el Rey de todo, pero vino a ayudarnos y servirnos. Ser humilde es "
+                    "interesarse por lo que otros necesitan, como hizo Jesús.",
+                ),
+                "ask": L(
+                    "Where are you holding on to a position, a right or being seen? What would it look "
+                    "like to go one step lower there for someone else's good?",
+                    "¿Dónde te aferras a una posición, a un derecho o a que te vean? ¿Cómo sería bajar "
+                    "un escalón ahí por el bien de otra persona?",
+                ),
+                "kid_ask": L(
+                    "How could you let someone else go first today?",
+                    "¿Cómo podrías dejar que otra persona vaya primero hoy?",
+                ),
+                "do": L(
+                    "Today, in one conversation, ask about the other person's concerns before "
+                    "mentioning yours. Then do one task that is beneath your role without pointing it out.",
+                    "Hoy, en una conversación, pregunta por las preocupaciones de la otra persona "
+                    "antes de mencionar las tuyas. Luego haz una tarea que esté por debajo de tu "
+                    "puesto sin hacerlo notar.",
+                ),
+                "kid_do": L(
+                    "Let someone else choose the game or go first today, and do it with a smile.",
+                    "Deja hoy que otra persona elija el juego o vaya primero, y hazlo con una sonrisa.",
+                ),
+                "pray": L(
+                    "Lord Jesus, you had every right and laid it down for me. Give me your way of "
+                    "thinking. Show me where to go lower today.",
+                    "Señor Jesús, tenías todo el derecho y lo dejaste por mí. Dame tu manera de "
+                    "pensar. Muéstrame dónde bajar hoy.",
+                ),
+            },
+            {
+                "key": "humility-4",
+                "ref": "1 Peter 5:5-7",
+                "title": L("Humility is a relief", "La humildad es un descanso"),
+                "truth": L(
+                    "Peter tells everyone to put on humility toward one another like a piece of "
+                    "clothing, because God resists the proud and gives grace to the humble. Then he "
+                    "connects humility with something unexpected: handing over your worries. To humble "
+                    "yourself under God's strong hand is to stop acting as if everything depends on "
+                    "you, and to throw your anxieties onto him, because he cares for you. Pride is "
+                    "exhausting. It has to manage every impression and control every outcome. Humility "
+                    "lets God be God, and lets you rest in being cared for.",
+                    "Pedro les dice a todos que se vistan de humildad unos con otros, como quien se "
+                    "pone una prenda, porque Dios se opone a los orgullosos y da gracia a los "
+                    "humildes. Luego une la humildad con algo inesperado: entregar tus preocupaciones. "
+                    "Hacerte humilde bajo la mano poderosa de Dios es dejar de actuar como si todo "
+                    "dependiera de ti y echar sobre él tus ansiedades, porque él cuida de ti. El "
+                    "orgullo agota. Tiene que manejar cada impresión y controlar cada resultado. La "
+                    "humildad deja que Dios sea Dios y te deja descansar en que alguien te cuida.",
+                ),
+                "simple": L(
+                    "You do not have to be the boss of everything. God is big and strong, and he takes "
+                    "care of you. You can give your worries to him.",
+                    "No tienes que mandar en todo. Dios es grande y fuerte, y te cuida. Puedes darle "
+                    "tus preocupaciones.",
+                ),
+                "ask": L(
+                    "What are you trying to control that is not yours to control? What would it feel "
+                    "like to put it in stronger hands?",
+                    "¿Qué estás tratando de controlar que no te toca controlar? ¿Cómo se sentiría "
+                    "ponerlo en manos más fuertes?",
+                ),
+                "kid_ask": L(
+                    "What is something you worry about that you could give to God?",
+                    "¿Qué cosa te preocupa que podrías darle a Dios?",
+                ),
+                "do": L(
+                    "Name one outcome you have been straining to control. Open your hands and tell God "
+                    "it is his. Then ask one person for help with something you usually insist on "
+                    "doing alone.",
+                    "Nombra un resultado que has estado esforzándote por controlar. Abre las manos y "
+                    "dile a Dios que es suyo. Luego pídele ayuda a una persona con algo que sueles "
+                    "insistir en hacer por tu cuenta.",
+                ),
+                "kid_do": L(
+                    "Ask for help with one thing today instead of saying: I can do it all by myself.",
+                    "Pide ayuda hoy con una cosa, en vez de decir: yo puedo sin ayuda de nadie.",
+                ),
+                "pray": L(
+                    "God, I am tired of holding everything together. You are strong, and you care for "
+                    "me. I put myself, and this worry, under your hand.",
+                    "Dios, me cansé de sostenerlo todo. Tú eres fuerte y cuidas de mí. Me pongo, con "
+                    "esta preocupación, bajo tu mano.",
+                ),
+            },
+        ],
+    },
 ]

@@ -309,7 +309,7 @@ TOPICS = [
             "Cinco lecturas sobre la bondad, el prójimo, la persona difícil y el enemigo.",
         ),
         "keywords": [
-            "neighbor", "kind", "difficult person", "annoy", "enemy", "selfish", "compassion",
+            "neighbor", "kindness", "unkind", "difficult person", "annoy", "enemy", "selfish", "compassion",
             "prójimo", "vecin", "amab", "bondad", "enemig", "egoís", "compasi", "me cae mal",
         ],
         "situations": [],
@@ -324,8 +324,8 @@ TOPICS = [
             "teen": L(
                 "The kid nobody sits with, the person who mocks you, the sibling who drives you up the wall: "
                 "this is where love gets tested.",
-                "El que se sienta sin compañía, quien se burla de ti, el hermano que te saca de quicio: ahí "
-                "es donde el amor se pone a prueba.",
+                "El chico con quien nadie se sienta, quien se burla de ti, el hermano que te saca de quicio: "
+                "ahí es donde el amor se pone a prueba.",
             ),
             "young_adult": L(
                 "Roommates, coworkers, strangers online. This is about love as something you practice, not "
@@ -408,9 +408,9 @@ TOPICS = [
                     "is what holds all the rest together.",
                     "Pablo describe el amor como ropa que uno se pone. La compasión, la bondad, la humildad, "
                     "la mansedumbre y la paciencia no son estados de ánimo que llegan solos. Se eligen cada "
-                    "mañana, como al vestirse. Y él parte de lo que ya eres: alguien escogido y muy amado por "
-                    "Dios. No practicas la bondad para llegar a ser amado. La practicas porque ya lo eres, y "
-                    "el amor es lo que mantiene unido todo lo demás.",
+                    "mañana, como al vestirse. Y él parte de lo que ya eres: una persona escogida y muy amada "
+                    "por Dios. No practicas la bondad para ganarte ese amor. La practicas porque ya lo "
+                    "tienes, y el amor es lo que mantiene unido todo lo demás.",
                 ),
                 "simple": L(
                     "Each morning you put on clothes. You can also choose to put on kindness and patience, "
@@ -577,7 +577,7 @@ TOPICS = [
                     "Turn one caring sentence into an action this week: bring the meal, send the money, make "
                     "the visit, give the ride.",
                     "Esta semana convierte una frase de cariño en una acción: lleva la comida, manda el "
-                    "dinero, haz la visita, ofrece el aventón.",
+                    "dinero, haz la visita, ofrece llevar a alguien adonde necesita ir.",
                 ),
                 "kid_do": L(
                     "Share something of yours with someone today.",
@@ -633,8 +633,8 @@ TOPICS = [
             "adult": L(
                 "For wounds with years on them: a marriage, a parent, a church, yourself. Honest about how "
                 "long this can take.",
-                "Para heridas que ya tienen años: un matrimonio, un padre, una iglesia, tú mismo. Con "
-                "honestidad sobre lo que esto puede tardar.",
+                "Para heridas que ya tienen años: las de un matrimonio, un padre, una iglesia, o las que te "
+                "hiciste tú. Con honestidad sobre lo que esto puede tardar.",
             ),
             "senior": L(
                 "Some things have been carried for decades. It is not too late to be forgiven, or to let a "
@@ -723,7 +723,7 @@ TOPICS = [
                 ),
                 "ask": L(
                     "What are you tired of hiding, from God or from someone you have wronged?",
-                    "¿Qué estás cansado de esconder, de Dios o de alguien a quien le fallaste?",
+                    "¿Qué te has cansado de esconder, de Dios o de alguien a quien le fallaste?",
                 ),
                 "kid_ask": L(
                     "How does it feel inside when you hide something you did wrong?",
@@ -781,7 +781,7 @@ TOPICS = [
                 ),
                 "kid_ask": L(
                     "Is there someone you are still upset with?",
-                    "¿Hay alguien con quien sigues molesto?",
+                    "¿Hay alguien con quien todavía sientes enojo?",
                 ),
                 "do": L(
                     "On paper, finish this sentence about one person: what they owe me is … Then pray, as a "
@@ -1326,7 +1326,7 @@ TOPICS = [
                     "sentados en casa, andando por el camino, al acostarse, al levantarse. La fe se "
                     "transmite menos con sermones que con una vida vivida a la vista. Los hijos notan qué "
                     "haces cuando algo te preocupa, cómo hablas de la gente, si pides perdón. No puedes dar "
-                    "lo que no tienes, y no necesitas ser perfecto. Necesitas ser auténtico.",
+                    "lo que no tienes, y no necesitas una vida perfecta. Necesitas una vida auténtica.",
                 ),
                 "simple": L(
                     "Families can talk about God anywhere: at the table, in the car and at bedtime.",
@@ -1463,8 +1463,8 @@ TOPICS = [
                 "pray": L(
                     "Jesus, you welcomed the children. I bring … to you today. Take them in your arms and "
                     "bless them, and do not let me stand in the way.",
-                    "Jesús, tú recibiste a los niños. Hoy te traigo a … Tómalo en tus brazos y bendícelo, "
-                    "y no permitas que yo sea un estorbo.",
+                    "Jesús, tú recibiste a los niños. Hoy te traigo a … Dale tu abrazo y tu bendición, y no "
+                    "permitas que yo sea un estorbo.",
                 ),
             },
             {
@@ -1517,8 +1517,8 @@ TOPICS = [
                 "pray": L(
                     "Father, you know what it is to watch the road. … is yours even more than mine. Go "
                     "where I cannot go. Keep my heart soft and my door open.",
-                    "Padre, tú sabes lo que es quedarse mirando el camino. … es tuyo aún más que mío. Ve "
-                    "adonde yo no puedo ir. Mantén tierno mi corazón y abierta mi puerta.",
+                    "Padre, tú sabes lo que es quedarse mirando el camino. … te pertenece a ti aún más que a "
+                    "mí. Ve adonde yo no puedo ir. Mantén tierno mi corazón y abierta mi puerta.",
                 ),
             },
         ],
@@ -2184,8 +2184,8 @@ TOPICS = [
             "adult": L(
                 "For the standoff at home or at work that has gone on too long, and the conversation you "
                 "keep putting off.",
-                "Para ese pulso en casa o en el trabajo que ya duró demasiado, y la conversación que sigues "
-                "posponiendo.",
+                "Para ese conflicto en casa o en el trabajo que ya se alargó demasiado, y la conversación "
+                "que sigues posponiendo.",
             ),
             "senior": L(
                 "Long family disputes and old estrangements. As far as it depends on you, there may still "
@@ -2228,7 +2228,7 @@ TOPICS = [
                 ),
                 "kid_ask": L(
                     "Is it hard for you to listen when you are upset? Why?",
-                    "¿Te cuesta escuchar cuando estás molesto? ¿Por qué?",
+                    "¿Te cuesta escuchar cuando sientes enojo? ¿Por qué?",
                 ),
                 "do": L(
                     "In your next disagreement, before you give your side, say back what you heard (what I "
@@ -2343,7 +2343,7 @@ TOPICS = [
                 ),
                 "kid_do": L(
                     "Practice saying in a calm voice, \"I feel upset because…\"",
-                    "Practica decir con voz tranquila: \"Me siento molesto porque…\"",
+                    "Practica decir con voz tranquila: \"Me siento mal porque…\"",
                 ),
                 "pray": L(
                     "God, put gentleness in my mouth. When I am provoked, help me answer in a way that "
@@ -2669,14 +2669,16 @@ TOPICS = [
                 "ref": "Matthew 25:34-40",
                 "title": L("The face behind the need", "El rostro detrás de la necesidad"),
                 "truth": L(
-                    "Jesus describes a day when the King thanks people for feeding him, welcoming him, "
-                    "clothing him and visiting him when he was sick and in prison. They are puzzled; they "
-                    "do not remember doing any of it. He answers that whatever they did for the least of "
+                    "Jesus describes a day when the King welcomes people and tells them that they fed him, "
+                    "took him in, clothed him and visited him when he was sick and in prison. They are "
+                    "puzzled; they do not remember doing any of it. He answers that whatever they did for "
+                    "the least of "
                     "his brothers and sisters, they did for him. The acts he lists are small and within "
                     "anyone's reach: a meal, a drink, a visit. Jesus identifies so closely with people in "
                     "need that serving them is serving him.",
-                    "Jesús describe un día en que el Rey les agradece a unas personas por darle de comer, "
-                    "recibirlo, vestirlo y visitarlo cuando estuvo enfermo y en la cárcel. Ellas se "
+                    "Jesús describe un día en que el Rey recibe a unas personas y les dice que le dieron de "
+                    "comer, lo hospedaron, lo vistieron y lo visitaron cuando estuvo enfermo y en la "
+                    "cárcel. Ellas se "
                     "extrañan; no recuerdan haber hecho nada de eso. Él responde que todo lo que hicieron "
                     "por el más pequeño de sus hermanos, lo hicieron por él. Los actos que menciona son "
                     "pequeños y están al alcance de cualquiera: una comida, un vaso de agua, una visita. "
@@ -2765,10 +2767,10 @@ TOPICS = [
                     "Siéntate hoy un minuto en silencio y dile a Jesús que te alegra estar con él.",
                 ),
                 "pray": L(
-                    "Lord, I am anxious and troubled about many things: … Let me sit with you first. Then "
-                    "show me what is mine to do, and what is not.",
-                    "Señor, estoy inquieto y preocupado por muchas cosas: … Déjame sentarme contigo "
-                    "primero. Luego muéstrame qué me toca hacer, y qué no.",
+                    "Lord, my mind is pulled in many directions: … Let me sit with you first. Then show me "
+                    "what is mine to do, and what is not.",
+                    "Señor, mi mente va en muchas direcciones a la vez: … Déjame sentarme contigo primero. "
+                    "Luego muéstrame qué me toca hacer, y qué no.",
                 ),
             },
         ],
@@ -2789,7 +2791,7 @@ TOPICS = [
             "que en Cristo no eres la mitad de nada.",
         ),
         "keywords": [
-            "single", "unmarried", "never married", "divorc", "widow", "still alone",
+            "singleness", "being single", "still single", "unmarried", "never married", "divorc", "widow",
             "solter", "sin pareja", "no me he casado", "divorci", "viud", "soledad",
         ],
         "situations": ["single", "divorced", "widowed", "single_parent"],
@@ -2823,15 +2825,16 @@ TOPICS = [
                 "title": L("Not second best", "No es un segundo lugar"),
                 "truth": L(
                     "In a world where nearly everyone was expected to marry, Paul, who was unmarried "
-                    "himself, says something surprising: the single life is good. An unmarried person, he "
-                    "says, can give undivided attention to the Lord. He is careful to add that he is not "
+                    "himself, says something surprising: there is a real advantage in being single. An "
+                    "unmarried person, he says, can give undivided attention to the Lord. He is careful to "
+                    "add that he is not "
                     "laying down a restriction, and elsewhere he honors marriage too. But singleness is "
                     "not the lesser path or a problem to be solved. Jesus lived a full human life without "
                     "marrying. Whether this season is chosen, unwanted or temporary, it is a real life, "
                     "with its own freedom to give.",
                     "En un mundo donde se esperaba que casi todos se casaran, Pablo, que no estaba casado, "
-                    "dice algo sorprendente: la vida de soltero es buena. Una persona sin casarse, dice, "
-                    "puede darle al Señor una atención sin divisiones. Tiene cuidado de aclarar que no "
+                    "dice algo sorprendente: la soltería tiene una ventaja real. Una persona sin casarse, "
+                    "dice, puede darle al Señor una atención sin divisiones. Tiene cuidado de aclarar que no "
                     "está imponiendo una restricción, y en otros lugares también honra el matrimonio. Pero "
                     "la soltería no es el camino menor ni un problema por resolver. Jesús vivió una vida "
                     "humana plena sin casarse. Sea esta etapa elegida, no deseada o pasajera, es una vida "
@@ -2896,7 +2899,7 @@ TOPICS = [
                     "You are a whole person, and Jesus loves you just as you are. You do not need someone "
                     "else to make you complete.",
                     "Tú eres una persona completa, y Jesús te ama tal como eres. No necesitas a nadie más "
-                    "para estar completo.",
+                    "para serlo.",
                 ),
                 "ask": L(
                     "What have you been expecting another person to supply that this passage says you "
@@ -2912,7 +2915,7 @@ TOPICS = [
                     "Each morning this week, before you look at your phone, say once: in Christ I am not "
                     "missing anything I need to be whole.",
                     "Cada mañana de esta semana, antes de mirar el teléfono, di una vez: en Cristo no me "
-                    "falta nada de lo que necesito para estar completo.",
+                    "falta nada para ser una persona completa.",
                 ),
                 "kid_do": L(
                     "Look in the mirror and say, \"God made me, and God loves me.\"",
@@ -2962,7 +2965,7 @@ TOPICS = [
                     "Set a timer for ten minutes and pour it out to God, spoken or written, with no "
                     "editing. End with one sentence: you are my refuge. This week, also tell one trusted "
                     "friend how you really are.",
-                    "Pon un reloj por diez minutos y derrama todo delante de Dios, hablado o escrito, sin "
+                    "Pon una alarma de diez minutos y derrama todo delante de Dios, hablado o escrito, sin "
                     "corregir nada. Termina con una frase: tú eres mi refugio. Esta semana cuéntale "
                     "también a una amistad de confianza cómo estás de verdad.",
                 ),
@@ -3120,7 +3123,7 @@ TOPICS = [
             {
                 "key": "aging-1",
                 "ref": "Isaiah 46:3-4",
-                "title": L("Carried all the way", "Sostenido hasta el final"),
+                "title": L("Carried all the way", "Dios te sostiene hasta el final"),
                 "truth": L(
                     "God speaks to his people as one who has carried them since before they were born. "
                     "Then he looks ahead: even to your old age, even when your hair is gray, he is the "
@@ -3569,7 +3572,7 @@ TOPICS = [
                 "do": L(
                     "Before you walk into the new thing this week (the office, the classroom, the empty "
                     "house), stop at the door and say: you are already here.",
-                    "Esta semana, antes de entrar a lo nuevo (la oficina, el salón, la casa vacía), "
+                    "Esta semana, antes de entrar a lo nuevo (la oficina, el aula, la casa vacía), "
                     "detente en la puerta y di: tú ya estás aquí.",
                 ),
                 "kid_do": L(
@@ -3754,7 +3757,7 @@ TOPICS = [
                     "resucitar a Lázaro, así que sus lágrimas no son desesperanza. Muestran que la muerte "
                     "es un enemigo, que el duelo es justo y que Dios no está lejos de él. Si le tienes "
                     "miedo a la muerte, o la muerte de alguien te ha quebrado, no has fallado en la fe. "
-                    "Estás parado donde estuvo Jesús.",
+                    "Estás donde estuvo Jesús.",
                 ),
                 "simple": L(
                     "When Jesus' friend died, Jesus cried. It is okay to cry when someone dies. Jesus "
@@ -3954,7 +3957,7 @@ TOPICS = [
                 "pray": L(
                     "Father, I miss … so much. Thank you for their life. I place them in your hands, and "
                     "myself too, until the day you make all things right.",
-                    "Padre, extraño muchísimo a … Gracias por su vida. Lo pongo en tus manos, y a mí "
+                    "Padre, extraño muchísimo a … Gracias por su vida. Pongo su vida en tus manos, y la mía "
                     "también, hasta el día en que lo hagas todo nuevo.",
                 ),
             },

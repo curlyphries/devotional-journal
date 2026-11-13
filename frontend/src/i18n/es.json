@@ -840,6 +840,7 @@
       "noMatchBody": "Prueba con otra palabra o borra la búsqueda y los filtros.",
       "noMatchBodyStage": "Prueba con otra palabra o muestra estudios para todas las edades.",
       "clearFilters": "Borrar búsqueda y filtros",
+      "seeAll": "Ver los {{count}} de {{category}}",
       "completedTitle": "Estudios terminados ({{count}})",
       "completedOn": "Terminado el {{date}}"
     },

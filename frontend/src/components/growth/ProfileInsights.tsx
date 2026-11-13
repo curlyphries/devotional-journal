@@ -41,6 +41,8 @@ export default function ProfileInsights({ profile }: { profile: GrowthProfile })
   const generate = useMutation({
     mutationFn: generateProfileInsights,
     onSuccess: (updated) => applyProfile(updated),
+    // Shown inline below (as guidance or as an error); no global error toast on top.
+    meta: { silent: true },
   })
 
   const feedback = useMutation({

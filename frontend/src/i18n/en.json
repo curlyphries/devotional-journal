@@ -840,6 +840,7 @@
       "noMatchBody": "Try a different word, or clear the search and filters.",
       "noMatchBodyStage": "Try a different word, or show studies for every age.",
       "clearFilters": "Clear search and filters",
+      "seeAll": "See all {{count}} in {{category}}",
       "completedTitle": "Completed studies ({{count}})",
       "completedOn": "Completed {{date}}"
     },
