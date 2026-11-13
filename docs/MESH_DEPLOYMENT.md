@@ -161,21 +161,41 @@ If the download fails, fetch the file on another machine and pass it with
 `--file`. Without this step the app fetches each chapter from `bolls.life` on
 demand (only the reference is sent, never anything a user wrote).
 
-### 8. Create accounts and sign in
+### 8. Sign-in email and accounts
 
-Requesting a sign-in link never creates an account by itself:
+Sign-in links are sent through the curlyphries.space mail server. In
+`.env.mesh`, fill in `EMAIL_HOST_PASSWORD` (and correct `EMAIL_HOST`,
+`EMAIL_PORT` or `EMAIL_HOST_USER` if your mail server differs), then recreate
+the two containers that send mail and test it:
+
+```bash
+docker compose --env-file .env.mesh -p dj-mesh -f docker-compose.mesh.yml up -d mesh-backend mesh-celery
+```
+
+```bash
+docker compose --env-file .env.mesh -p dj-mesh -f docker-compose.mesh.yml exec mesh-backend python manage.py send_test_email you@curlyphries.space
+```
+
+The command prints the settings in use and, if the message cannot be sent,
+what went wrong and what to change. When the test message arrives, set
+`MAGIC_LINK_LOG=false` in `.env.mesh` and recreate the two containers again.
+
+With `ALLOW_EMAIL_SIGNUP=true` (the template's default for this private
+instance) anyone on the mesh can register by entering their email address on
+the sign-in page. Set it to `false` to create each account yourself:
 
 ```bash
 docker compose --env-file .env.mesh -p dj-mesh -f docker-compose.mesh.yml exec mesh-backend python manage.py create_user you@example.com --name "Your Name"
 ```
 
-Open `https://devotional-journal.curlyphries.space` from a device on the mesh, enter that
-email, then follow the emailed link, or read it from the worker log (with
-`MAGIC_LINK_LOG=true`, or when no mail server is configured):
+Need to get in before mail works? Create a one-time link directly:
 
 ```bash
-docker compose --env-file .env.mesh -p dj-mesh -f docker-compose.mesh.yml logs --since 2m mesh-celery
+docker compose --env-file .env.mesh -p dj-mesh -f docker-compose.mesh.yml exec mesh-backend python manage.py signin_link you@example.com --create
 ```
+
+Every way of signing in, and a checklist for "I never got the email", is in
+[SIGNING_IN.md](SIGNING_IN.md).
 
 ## Check that it really is private
 
@@ -227,7 +247,7 @@ See [TROUBLESHOOTING.md](TROUBLESHOOTING.md). Mesh-specific:
 | Browser: site can't be reached | Device not on the mesh, or DNS not pointing at the mesh address | Connect the mesh app; `dig +short devotional-journal.curlyphries.space` should print `100.x.y.z`. |
 | 403 from nginx | Client address outside the `allow` ranges | Your mesh uses another subnet: update the `allow` lines and `MESH_ALLOWED_CIDRS`. |
 | 403 JSON with `"code": "MESH_ONLY"` | The proxy let it through but Django saw a non-mesh address | The TLS proxy is not sending `X-Real-IP`, or `MESH_ALLOWED_CIDRS` is wrong. |
-| Sign-in mail never arrives | The mail server rejected the container's `EHLO` or refuses to relay | Set `MESH_HOSTNAME` to a fully qualified name; use an address the server delivers locally. The link is also in the worker log while `MAGIC_LINK_LOG=true`. |
+| Sign-in mail never arrives | Usually: no mail server configured, no account for that address, or the mail server refused the message | Run `send_test_email` (step 8). It names the cause and the fix. Full checklist: [SIGNING_IN.md](SIGNING_IN.md). |
 | nginx fails at boot: `cannot assign requested address` | nginx started before the mesh interface | Add the `After=tailscaled.service` override (step 5). |
 | Voice button says the microphone is blocked | Page loaded over `http://` | Use `https://`; finish step 4. |
 | Feedback always says "AI unavailable" | Ollama not reachable from the container | `docker compose ... exec mesh-backend python -c "import httpx;print(httpx.get('http://host.docker.internal:11434/api/tags').status_code)"` should print 200. |

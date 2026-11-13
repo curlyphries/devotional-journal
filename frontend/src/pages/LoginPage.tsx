@@ -3,8 +3,9 @@ import { setLanguage } from '../i18n/language'
 import { useTranslation } from 'react-i18next'
 import { Navigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { requestMagicLink, devLogin } from '../api/auth'
-import { Flame, Mail, Zap, Lock, Languages, Sparkles, Github } from 'lucide-react'
+import { requestMagicLink, devLogin, getAuthMethods, type AuthMethods, type SigninDelivery } from '../api/auth'
+import { toApiError } from '../api/errors'
+import { Flame, Mail, Zap, Lock, Languages, Sparkles, Github, Terminal } from 'lucide-react'
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://devotionaljournal.net/api/v1'
 
@@ -15,8 +16,24 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isSent, setIsSent] = useState(false)
+  const [delivery, setDelivery] = useState<SigninDelivery>('email')
   const [error, setError] = useState('')
+  const [errorHelp, setErrorHelp] = useState('')
   const [showEmailForm, setShowEmailForm] = useState(false)
+  // What this server offers. Until it answers (or if it cannot), assume everything.
+  const [methods, setMethods] = useState<AuthMethods | null>(null)
+
+  useEffect(() => {
+    let active = true
+    getAuthMethods()
+      .then((result) => { if (active) setMethods(result) })
+      .catch(() => { /* older server or offline: keep both options visible */ })
+    return () => { active = false }
+  }, [])
+
+  const googleOffered = methods ? methods.google : true
+  const noMailServer = methods?.email.delivery === 'log'
+  const emailUnavailable = methods?.email.delivery === 'unavailable'
 
   // Handle Google OAuth errors from redirect
   useEffect(() => {
@@ -49,11 +66,15 @@ export default function LoginPage() {
     setIsLoading(true)
     setError('')
 
+    setErrorHelp('')
     try {
-      await requestMagicLink(email)
+      setDelivery(await requestMagicLink(email))
       setIsSent(true)
-    } catch {
-      setError('Failed to send magic link. Please try again.')
+    } catch (err) {
+      // Say what actually went wrong (no mail server, too many tries, offline…).
+      const apiError = toApiError(err)
+      setError(apiError.message)
+      setErrorHelp(apiError.suggestion ?? '')
     } finally {
       setIsLoading(false)
     }
@@ -105,17 +126,38 @@ export default function LoginPage() {
 
         <div className="card">
           {isSent ? (
-            <div className="text-center py-8">
-              <Mail className="w-12 h-12 text-success mx-auto mb-4" />
-              <h2 className="text-xl font-semibold text-text-primary mb-2">
-                {t('login.checkEmailHeading', 'Check your email')}
-              </h2>
-              <p className="text-text-secondary">
-                {t('auth.magicLinkSent')}
-              </p>
+            <div className="text-center py-8" role="status">
+              {delivery === 'log' ? (
+                <>
+                  <Terminal className="w-12 h-12 text-accent-primary mx-auto mb-4" aria-hidden="true" />
+                  <h2 className="text-xl font-semibold text-text-primary mb-2">
+                    {t('login.sent.logHeading')}
+                  </h2>
+                  <p className="text-text-secondary">{t('login.sent.logBody')}</p>
+                  <p className="mt-4 text-sm text-text-secondary">{t('login.sent.logAdmin')}</p>
+                  <code className="mt-2 block break-all rounded-lg border border-border bg-bg-elevated px-3 py-2 text-left text-xs text-text-primary">
+                    python manage.py signin_link {email || 'you@example.com'}
+                  </code>
+                </>
+              ) : (
+                <>
+                  <Mail className="w-12 h-12 text-success mx-auto mb-4" aria-hidden="true" />
+                  <h2 className="text-xl font-semibold text-text-primary mb-2">
+                    {t('login.checkEmailHeading', 'Check your email')}
+                  </h2>
+                  <p className="text-text-secondary">{t('login.sent.emailBody', { email })}</p>
+                  <ul className="mt-4 space-y-1 text-left text-sm text-text-secondary list-disc pl-5">
+                    <li>{t('login.sent.tipWait')}</li>
+                    <li>{t('login.sent.tipSpam')}</li>
+                    <li>
+                      {methods?.signup ? t('login.sent.tipTypo') : t('login.sent.tipNoAccount')}
+                    </li>
+                  </ul>
+                </>
+              )}
               <button
                 type="button"
-                onClick={() => { setIsSent(false); setEmail(''); setError('') }}
+                onClick={() => { setIsSent(false); setEmail(''); setError(''); setErrorHelp('') }}
                 className="text-sm text-accent-primary hover:underline mt-4"
               >
                 {t('login.useAnotherEmail', 'Use a different email')}
@@ -123,7 +165,9 @@ export default function LoginPage() {
             </div>
           ) : (
             <div className="space-y-4">
-              {/* Google — primary method */}
+              {/* Google — offered only when this server has it configured */}
+              {googleOffered && (
+              <>
               <button
                 type="button"
                 onClick={handleGoogleLogin}
@@ -147,9 +191,17 @@ export default function LoginPage() {
                   <span className="px-2 bg-bg-secondary text-text-secondary">{t('login.or', 'or')}</span>
                 </div>
               </div>
+              </>
+              )}
+
+              {(noMailServer || emailUnavailable) && (
+                <p role="note" className="rounded-lg border border-border bg-bg-elevated px-3 py-2 text-xs leading-relaxed text-text-secondary">
+                  {emailUnavailable ? t('login.noMail.unavailable') : t('login.noMail.log')}
+                </p>
+              )}
 
               {/* Magic link — secondary */}
-              {!showEmailForm ? (
+              {!showEmailForm && googleOffered ? (
                 <button
                   type="button"
                   onClick={() => setShowEmailForm(true)}
@@ -183,13 +235,18 @@ export default function LoginPage() {
                   </button>
 
                   <p className="text-xs text-text-secondary text-center">
-                    {t('login.magicLinkExplainer', "We'll email you a one-tap sign-in link. No password to remember.")}
+                    {noMailServer
+                      ? t('login.magicLinkExplainerLog')
+                      : t('login.magicLinkExplainer', "We'll email you a one-tap sign-in link. No password to remember.")}
                   </p>
                 </form>
               )}
 
               {error && (
-                <p className="text-danger text-sm text-center">{error}</p>
+                <div role="alert" className="text-sm text-center">
+                  <p className="text-danger">{error}</p>
+                  {errorHelp && <p className="mt-1 text-text-secondary">{errorHelp}</p>}
+                </div>
               )}
 
               {import.meta.env.DEV && (
@@ -223,7 +280,7 @@ export default function LoginPage() {
           <div className="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border/60">
             <Lock className="w-5 h-5 text-accent-primary" aria-hidden="true" />
             <span className="text-xs text-text-secondary leading-tight">
-              {t('login.trust.encrypted', 'End-to-end encrypted journal')}
+              {t('login.trust.encrypted', 'Journal encrypted at rest')}
             </span>
           </div>
           <div className="flex flex-col items-center gap-1.5 p-3 rounded-lg border border-border/60">

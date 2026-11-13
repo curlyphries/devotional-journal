@@ -86,7 +86,7 @@ export default function LandingPage() {
           <p className="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10">
             {t(
               'landing.hero.sub',
-              'A bilingual (EN/ES) Bible study companion for men who want consistency. Set a focus, follow AI-curated reading plans, and journal privately — encrypted end-to-end.'
+              'A bilingual (EN/ES) Bible study companion for men who want consistency. Set a focus, follow AI-curated reading plans, and journal privately — encrypted at rest.'
             )}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-12">
@@ -110,7 +110,7 @@ export default function LandingPage() {
 
           {/* Trust badges */}
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-text-secondary">
-            <span className="inline-flex items-center gap-1.5"><Lock className="w-4 h-4 text-accent-primary" aria-hidden="true" /> {t('landing.trust.encrypted', 'End-to-end encrypted')}</span>
+            <span className="inline-flex items-center gap-1.5"><Lock className="w-4 h-4 text-accent-primary" aria-hidden="true" /> {t('landing.trust.encrypted', 'Encrypted at rest')}</span>
             <span className="inline-flex items-center gap-1.5"><Languages className="w-4 h-4 text-accent-primary" aria-hidden="true" /> {t('landing.trust.bilingual', 'EN / ES bilingual')}</span>
             <span className="inline-flex items-center gap-1.5"><Server className="w-4 h-4 text-accent-primary" aria-hidden="true" /> {t('landing.trust.selfHost', 'Self-host friendly')}</span>
             <span className="inline-flex items-center gap-1.5"><Zap className="w-4 h-4 text-accent-primary" aria-hidden="true" /> {t('landing.trust.byoai', 'Bring your own AI')}</span>
