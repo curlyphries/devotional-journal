@@ -127,6 +127,16 @@ def diagnose(exc: BaseException) -> MailProblem:
             if isinstance(exc.smtp_error, bytes)
             else exc.smtp_error
         )
+        if any(word in detail.upper() for word in ("DMARC", "SPF", "DKIM")):
+            return MailProblem(
+                "MAIL_SENDER_NOT_AUTHENTICATED",
+                f"The mail server at {where} would not accept mail from "
+                f"“{settings.DEFAULT_FROM_EMAIL}” sent from this machine "
+                f"({exc.smtp_code}: {detail}).",
+                "The From domain only allows its own mail servers to send for it. Log in "
+                "to a mailbox on that domain's server (EMAIL_HOST_USER / EMAIL_HOST_PASSWORD, "
+                "port 587 or 465) instead of handing the mail to its inbound (port 25) server.",
+            )
         return MailProblem(
             "MAIL_REJECTED",
             f"The mail server at {where} answered {exc.smtp_code}: {detail}",

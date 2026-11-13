@@ -282,6 +282,11 @@ class TestFailures:
                 "MAIL_REJECTED",
                 "mailbox full",
             ),
+            (
+                smtplib.SMTPDataError(550, b"5.7.1 Email rejected per DMARC policy."),
+                "MAIL_SENDER_NOT_AUTHENTICATED",
+                "EMAIL_HOST_USER",
+            ),
             (OSError("Network is unreachable"), "MAIL_NETWORK_ERROR", "network"),
             (ValueError("odd"), "MAIL_FAILED", "send_test_email"),
         ],

@@ -101,6 +101,7 @@ Work down the list; the first match is almost always the answer.
 | `MAIL_HOST_NOT_FOUND` | The mail server name does not resolve. | Fix `EMAIL_HOST`; check DNS from inside the container. |
 | `MAIL_CONNECTION_REFUSED` | Nothing is listening there. | Check host and port. Inside a container, `localhost` is the container itself — use the server's real name or `host.docker.internal`. |
 | `MAIL_TIMEOUT` | No answer in `EMAIL_TIMEOUT` seconds. | A firewall is dropping the connection, or the port is wrong. |
+| `MAIL_SENDER_NOT_AUTHENTICATED` | The server refused mail from your From domain sent by this machine (its answer names DMARC, SPF or DKIM). This is what an unauthenticated relay to the domain's inbound server (port 25) gets. | Log in to a mailbox on that domain's server on 587 or 465 (`EMAIL_HOST_USER` / `EMAIL_HOST_PASSWORD`). |
 | `MAIL_REJECTED` | The server answered with its own error, shown verbatim. | Read it; the mail server's log has more. |
 
 5. **The command says the server accepted the message, but nothing arrives.**
