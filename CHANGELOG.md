@@ -15,7 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Growth tracking**: recurring themes feed the next prompt; threads are detected from entries; weekly/monthly reviews are stored and shown under Progress → Reviews
 - **One AI layer** (`backend/shared/llm.py`) for every AI feature: per-user provider, explicit consent before a server-configured cloud AI is used (`allow_server_cloud_ai`), `AI_LOCAL_ONLY`, validated AI server addresses
 - **Error envelope** on every API error (`error`, `code`, `suggestion`, `request_id`), request ids in logs and the `X-Request-ID` header, toasts / inline errors / error boundary in the UI, real health check
-- **Private mesh deployment** for `journal.curlyphries.space`: `docker-compose.mesh.yml`, `MESH_ONLY`, host nginx config, `docs/MESH_DEPLOYMENT.md`
+- **Private mesh deployment** for `devotional-journal.curlyphries.space`: `docker-compose.mesh.yml`, `MESH_ONLY`, host nginx config, `docs/MESH_DEPLOYMENT.md`
+- Private instance: `MESH_FRONTEND_BIND` (publish the frontend on the mesh address for a TLS proxy on another node) and `MESH_HOSTNAME` (SMTP EHLO name); deploy job pulls `--ff-only` and health-checks the configured address
 - Management commands: `load_translation`, `create_user`
 - Docs: `docs/HOW_FEEDBACK_WORKS.md`, `docs/TROUBLESHOOTING.md`, `docs/MESH_DEPLOYMENT.md`; rewritten in-app Help and onboarding tour
 - Tests: backend 80 → 189, frontend 2 → 81

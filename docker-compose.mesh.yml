@@ -1,10 +1,10 @@
-# Private instance: https://journal.curlyphries.space — reachable only from the
+# Private instance: https://devotional-journal.curlyphries.space — reachable only from the
 # mesh network (e.g. a Tailscale tailnet), AI on the local network only.
 #
 # Self-contained: its own Postgres and Redis, nothing shared with the public
 # deployment (docker-compose.prod.yml). Nothing here is published on a public
-# interface: the frontend listens on 127.0.0.1 and the host proxy in
-# deploy/mesh/ exposes it on the mesh address only.
+# interface: the frontend listens on 127.0.0.1 (or the mesh address) and a
+# TLS proxy on the mesh terminates HTTPS (deploy/mesh/ or an existing proxy).
 #
 #   cp .env.mesh.example .env.mesh   # fill it in
 #   docker compose -p dj-mesh -f docker-compose.mesh.yml up -d --build
@@ -33,6 +33,9 @@ x-backend: &backend
     SECURE_SSL_REDIRECT: "false"
   extra_hosts:
     - "host.docker.internal:host-gateway"
+  # The name the backend announces to a mail server (SMTP EHLO). Some servers
+  # refuse a bare container id; give it a fully qualified name.
+  hostname: ${MESH_HOSTNAME:-devotional-journal.local}
   depends_on:
     mesh-db:
       condition: service_healthy
@@ -71,7 +74,9 @@ services:
              python manage.py seed_life_areas &&
              gunicorn --bind 0.0.0.0:8000 --workers 3 --timeout 180 config.wsgi:application"
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/', timeout=4).status == 200 else 1)"]
+      # Django only answers for the names in ALLOWED_HOSTS, so the probe
+      # presents the first of them as its Host header.
+      test: ["CMD", "python", "-c", "import os,sys,urllib.request; h=(os.environ.get('ALLOWED_HOSTS','').split(',')[0] or 'localhost'); r=urllib.request.Request('http://127.0.0.1:8000/api/v1/health/', headers={'Host': h}); sys.exit(0 if urllib.request.urlopen(r, timeout=4).status == 200 else 1)"]
       interval: 30s
       timeout: 6s
       retries: 5
@@ -95,8 +100,10 @@ services:
         - NGINX_CONF=nginx.mesh.conf
     restart: unless-stopped
     ports:
-      # Loopback only. The host proxy (deploy/mesh/) puts it on the mesh address.
-      - "127.0.0.1:${MESH_FRONTEND_PORT:-3011}:80"
+      # Never a public address. Default: loopback, for a host proxy on this
+      # machine (deploy/mesh/). Set MESH_FRONTEND_BIND to this host's mesh
+      # address when the TLS proxy runs on another mesh node.
+      - "${MESH_FRONTEND_BIND:-127.0.0.1}:${MESH_FRONTEND_PORT:-3011}:80"
     depends_on:
       - mesh-backend
 
