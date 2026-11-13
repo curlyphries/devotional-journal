@@ -1380,8 +1380,7 @@
       "continue": "Continuar",
       "continueNamed": "Continuar el estudio «{{title}}»",
       "review": "Repasar",
-      "reviewNamed": "Repasar el estudio «{{title}}»",
-      "startFailed": "No se pudo comenzar el estudio."
+      "reviewNamed": "Repasar el estudio «{{title}}»"
     }
   }
 }

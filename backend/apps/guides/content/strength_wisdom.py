@@ -2375,5 +2375,593 @@ TOPICS = [
             },
         ],
     },
+    {
+        "key": "money",
+        "category": "wisdom",
+        "title": L("Money, debt and enough", "Dinero, deudas y lo suficiente"),
+        "summary": L(
+            "For when money is tight, when it is plentiful, or when it takes up more of your mind "
+            "than you want. Five readings on where your heart is, what is enough, the weight of debt, "
+            "and the freedom of giving.",
+            "Para cuando el dinero escasea, cuando abunda o cuando ocupa más espacio en tu mente del "
+            "que quisieras. Cinco lecturas sobre dónde está tu corazón, qué es suficiente, el peso de "
+            "las deudas y la libertad de dar.",
+        ),
+        "keywords": [
+            "money", "debt", "bills", "afford", "budget", "salary", "paycheck", "loan", "financ",
+            "spending", "greed", "dinero", "deuda", "sueldo", "gasto", "presupuesto", "ahorr",
+            "préstamo", "no me alcanza", "pagar la renta", "codicia",
+        ],
+        "situations": ["working", "job_seeking", "parent", "single_parent", "married", "retired", "student"],
+        "traits": ["contentment", "generosity", "trust"],
+        "stages": ["teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "teen": L(
+                "Your first money, and the pull to have what others have. The habits you form now "
+                "with small amounts will follow you.",
+                "Tu primer dinero, y las ganas de tener lo que otros tienen. Los hábitos que formes "
+                "ahora con cantidades pequeñas te acompañarán.",
+            ),
+            "young_adult": L(
+                "Loans, rent, first salary, comparison. Here is a way to think about money before it "
+                "starts thinking for you.",
+                "Préstamos, renta, primer sueldo, comparación. Aquí hay una manera de pensar en el "
+                "dinero antes de que él empiece a pensar por ti.",
+            ),
+            "adult": L(
+                "For bills, debt, providing for others, and the question of how much is enough when "
+                "there never seems to be quite enough.",
+                "Para las cuentas, las deudas, el sostén de otros y la pregunta de cuánto es "
+                "suficiente cuando nunca parece alcanzar.",
+            ),
+            "senior": L(
+                "For living on a fixed income, fearing it will run out, and deciding what to give and "
+                "what to leave behind.",
+                "Para vivir con un ingreso fijo, temer que no alcance y decidir qué dar y qué dejar.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "money-1",
+                "ref": "Matthew 6:19-21",
+                "title": L("Where your heart follows", "A dónde va tu corazón"),
+                "truth": L(
+                    "Jesus does not say money is evil. He says that things stored up on earth do not "
+                    "last: they wear out, lose value or get taken. And he states a law of the heart: "
+                    "wherever you put your treasure, your heart goes after it. That works in both "
+                    "directions. What you spend on shows what you love, and what you choose to invest "
+                    "in, you will come to love. So he urges a kind of treasure that cannot be lost: "
+                    "what is given to God and done for others.",
+                    "Jesús no dice que el dinero sea malo. Dice que lo que se acumula en la tierra no "
+                    "dura: se desgasta, pierde valor o se lo llevan. Y enuncia una ley del corazón: "
+                    "donde pongas tu tesoro, allá irá tu corazón. Funciona en los dos sentidos. En qué "
+                    "gastas muestra lo que amas, y aquello en lo que decides invertir, llegarás a "
+                    "amarlo. Por eso anima a buscar un tesoro que no se puede perder: lo que se "
+                    "entrega a Dios y se hace por los demás.",
+                ),
+                "simple": L(
+                    "Toys and things can break or get lost. Love for God and for people lasts forever. "
+                    "That is the best treasure.",
+                    "Los juguetes y las cosas se rompen o se pierden. El amor a Dios y a las personas "
+                    "dura para siempre. Ese es el mejor tesoro.",
+                ),
+                "ask": L(
+                    "If someone read only your last month of spending, what would they say you "
+                    "treasure? Is it what you would say?",
+                    "Si alguien leyera solo tus gastos del último mes, ¿qué diría que atesoras? ¿Es lo "
+                    "mismo que dirías tú?",
+                ),
+                "kid_ask": L(
+                    "What is your favorite thing you own? What do you love that is not a thing?",
+                    "¿Cuál es tu cosa favorita? ¿Qué amas que no sea una cosa?",
+                ),
+                "do": L(
+                    "Look over your last month of spending. Mark one item that reflects what you love "
+                    "and one you would like to change. Change that one this month.",
+                    "Revisa tus gastos del último mes. Marca uno que refleje lo que amas y uno que te "
+                    "gustaría cambiar. Cambia ese este mes.",
+                ),
+                "kid_do": L(
+                    "Share one of your toys or treats with someone today.",
+                    "Comparte hoy uno de tus juguetes o dulces con alguien.",
+                ),
+                "pray": L(
+                    "Jesus, my heart goes where my money goes. Show me honestly where that is, and "
+                    "teach me to treasure what lasts.",
+                    "Jesús, mi corazón va a donde va mi dinero. Muéstrame con honestidad dónde está, y "
+                    "enséñame a atesorar lo que perdura.",
+                ),
+            },
+            {
+                "key": "money-2",
+                "ref": "1 Timothy 6:6-10",
+                "title": L("The trap of wanting more", "La trampa de querer más"),
+                "truth": L(
+                    "Paul says that devotion to God together with contentment is great gain, and he "
+                    "grounds it in a plain fact: we brought nothing into the world and will take "
+                    "nothing out. With food and clothing, he says, we can be content. Then comes a "
+                    "warning, not against having money but against the craving to be rich. That "
+                    "craving is a trap that has pulled many people into ruin and left them full of "
+                    "grief. Notice exactly what he says: it is the love of money, not money, that is a "
+                    "root of all kinds of evil.",
+                    "Pablo dice que la devoción a Dios acompañada de contentamiento es una gran "
+                    "ganancia, y lo apoya en un hecho sencillo: nada trajimos al mundo y nada nos "
+                    "llevaremos. Teniendo alimento y abrigo, dice, podemos estar contentos. Luego "
+                    "viene una advertencia, no contra tener dinero sino contra el afán de hacerse "
+                    "rico. Ese afán es una trampa que ha arrastrado a muchos a la ruina y los ha "
+                    "llenado de dolores. Fíjate en lo que dice exactamente: es el amor al dinero, no "
+                    "el dinero, la raíz de toda clase de males.",
+                ),
+                "simple": L(
+                    "We came into the world with nothing, and everything we have is a gift. Always "
+                    "wanting more makes us unhappy. Being thankful makes us glad.",
+                    "Llegamos al mundo sin nada, y todo lo que tenemos es un regalo. Querer siempre "
+                    "más nos hace infelices. Dar gracias nos alegra.",
+                ),
+                "ask": L(
+                    "What is the thing you believe would finally make you feel you had enough? How "
+                    "long has that target been moving?",
+                    "¿Qué es eso que crees que por fin te haría sentir que tienes suficiente? ¿Desde "
+                    "cuándo se viene moviendo esa meta?",
+                ),
+                "kid_ask": L(
+                    "What is something you already have that you are thankful for?",
+                    "¿Qué cosa que ya tienes agradeces?",
+                ),
+                "do": L(
+                    "For one week, each time you want to buy something you had not planned, wait a day "
+                    "first. Note how many of those wants are still there.",
+                    "Durante una semana, cada vez que quieras comprar algo que no habías planeado, "
+                    "espera un día. Anota cuántos de esos deseos siguen ahí.",
+                ),
+                "kid_do": L(
+                    "Name five things you have, and say thank you to God for each one.",
+                    "Nombra cinco cosas que tienes y dale gracias a Dios por cada una.",
+                ),
+                "pray": L(
+                    "God, I came with nothing and I will leave with nothing. Free me from the craving "
+                    "for more, and teach me to be content with what you have given today.",
+                    "Dios, llegué sin nada y me iré sin nada. Líbrame del afán de tener más y enséñame "
+                    "a contentarme con lo que me has dado hoy.",
+                ),
+            },
+            {
+                "key": "money-3",
+                "ref": "Proverbs 30:7-9",
+                "title": L("The prayer for enough", "La oración por lo suficiente"),
+                "truth": L(
+                    "This is one of the most honest prayers about money in the Bible. The writer asks "
+                    "for two things: to be kept from lies, and to be given neither poverty nor riches, "
+                    "only the food he needs. He knows himself. With too much, he might forget God and "
+                    "feel he needs no one. With too little, he might steal and dishonor God. Scripture "
+                    "does not pretend poverty is holy or harmless; it is a real danger, as wealth is. "
+                    "The wise request is for enough, and for a heart that knows when it has it.",
+                    "Esta es una de las oraciones más honestas sobre el dinero en la Biblia. El autor "
+                    "pide dos cosas: que lo aleje de la mentira, y que no le dé pobreza ni riqueza, "
+                    "solo el pan que necesita. Se conoce bien. Con demasiado, podría olvidarse de Dios "
+                    "y sentir que no necesita a nadie. Con muy poco, podría robar y deshonrar a Dios. "
+                    "La Escritura no finge que la pobreza sea santa o inofensiva; es un peligro real, "
+                    "igual que la riqueza. La petición sabia es tener lo suficiente, y un corazón que "
+                    "sepa reconocerlo.",
+                ),
+                "simple": L(
+                    "A wise man prayed: God, please give me just what I need, not too much and not too "
+                    "little. We can ask God for what we need each day.",
+                    "Un hombre sabio oró: Dios, dame solo lo que necesito, ni demasiado ni muy poco. "
+                    "Podemos pedirle a Dios lo que necesitamos cada día.",
+                ),
+                "ask": L(
+                    "Have you ever defined enough for yourself, as a number or as a way of living? "
+                    "What would it be?",
+                    "¿Alguna vez has definido qué es suficiente para ti, en una cifra o en una forma "
+                    "de vivir? ¿Cuál sería?",
+                ),
+                "kid_ask": L(
+                    "What are things you really need? What are things you just want?",
+                    "¿Qué cosas necesitas de verdad? ¿Qué cosas solo quieres?",
+                ),
+                "do": L(
+                    "Write down what enough would look like for your household this year. If you do "
+                    "not have enough right now, tell someone you trust, such as a pastor or a local "
+                    "aid organization. Asking for help is not a failure.",
+                    "Escribe cómo se vería lo suficiente para tu hogar este año. Si ahora mismo no te "
+                    "alcanza, cuéntaselo a alguien de confianza, como un pastor o una organización de "
+                    "ayuda local. Pedir ayuda no es un fracaso.",
+                ),
+                "kid_do": L(
+                    "With a grown-up, make two short lists: things we need and things we want.",
+                    "Con un adulto, haz dos listas cortas: cosas que necesitamos y cosas que queremos.",
+                ),
+                "pray": L(
+                    "God, give me neither too much nor too little. Give me today's bread, and a heart "
+                    "that recognizes enough.",
+                    "Dios, no me des ni demasiado ni muy poco. Dame el pan de hoy y un corazón que "
+                    "sepa reconocer lo suficiente.",
+                ),
+            },
+            {
+                "key": "money-4",
+                "ref": "Proverbs 22:7",
+                "title": L("The weight of debt", "El peso de las deudas"),
+                "truth": L(
+                    "This proverb does not scold; it describes. The one who borrows becomes a servant "
+                    "to the one who lends. Anyone in debt knows the feeling: decisions made for you, a "
+                    "future already spent, a weight that wakes you at night. Scripture names that "
+                    "weight honestly, so you do not have to pretend it is not there. Debt has many "
+                    "causes, and some are not your fault. It is a kind of bondage all the same, and it "
+                    "is good to want out. The way out nearly always begins by looking at the whole "
+                    "truth of it, with someone beside you.",
+                    "Este proverbio no regaña; describe. Quien pide prestado se vuelve siervo de quien "
+                    "le presta. Cualquiera con deudas conoce la sensación: decisiones que ya tomaron "
+                    "por ti, un futuro ya gastado, un peso que te despierta de noche. La Escritura "
+                    "nombra ese peso con honestidad, así que no tienes que fingir que no existe. Las "
+                    "deudas tienen muchas causas, y algunas no son culpa tuya. Con todo, son una forma "
+                    "de atadura, y es bueno querer salir. La salida casi siempre empieza por mirar "
+                    "toda la verdad de frente, con alguien a tu lado.",
+                ),
+                "simple": L(
+                    "When we borrow something, we have to give it back. It is wise to be careful about "
+                    "borrowing and to return what we borrow.",
+                    "Cuando pedimos algo prestado, hay que devolverlo. Es sabio tener cuidado al pedir "
+                    "prestado y devolver lo que nos prestan.",
+                ),
+                "ask": L(
+                    "Do you know the exact total of what you owe? What feeling has kept you from looking?",
+                    "¿Sabes el total exacto de lo que debes? ¿Qué sentimiento te ha impedido mirarlo?",
+                ),
+                "kid_ask": L(
+                    "Have you ever borrowed something? How did you take care of it?",
+                    "¿Alguna vez pediste algo prestado? ¿Cómo lo cuidaste?",
+                ),
+                "do": L(
+                    "Write every debt on one page: who, how much, what interest. Then show the page to "
+                    "one trustworthy person, such as a wise friend or a nonprofit credit counselor, "
+                    "and make a first plan together.",
+                    "Escribe todas tus deudas en una hoja: a quién, cuánto, con qué interés. Luego "
+                    "muéstrasela a una persona confiable, como un amigo sensato o un asesor financiero "
+                    "sin fines de lucro, y hagan juntos un primer plan.",
+                ),
+                "kid_do": L(
+                    "If you have borrowed something from someone, give it back today and say thank you.",
+                    "Si le pediste algo prestado a alguien, devuélveselo hoy y dale las gracias.",
+                ),
+                "pray": L(
+                    "Lord, this debt weighs on me, and I have been afraid to look at it. Give me "
+                    "courage to face the numbers, help to make a plan, and peace while I work my way out.",
+                    "Señor, esta deuda me pesa y he tenido miedo de mirarla. Dame valor para enfrentar "
+                    "los números, ayuda para hacer un plan y paz mientras voy saliendo.",
+                ),
+            },
+            {
+                "key": "money-5",
+                "ref": "Mark 12:41-44",
+                "title": L("How Jesus counts a gift", "Cómo cuenta Jesús una ofrenda"),
+                "truth": L(
+                    "Jesus sits and watches people give at the temple. The wealthy put in large sums. "
+                    "A poor widow puts in two tiny coins, worth almost nothing. Jesus calls his "
+                    "disciples over to say that she gave more than all of them, because they gave out "
+                    "of their surplus and she gave out of her need. He measures a gift by what it "
+                    "costs the giver, not by its size. That means generosity is open to everyone. No "
+                    "gift is too small to count, and none given in love goes unseen.",
+                    "Jesús se sienta y observa a la gente dar en el templo. Los ricos echan grandes "
+                    "sumas. Una viuda pobre echa dos moneditas que casi no valen nada. Jesús llama a "
+                    "sus discípulos para decirles que ella dio más que todos, porque ellos dieron de "
+                    "lo que les sobraba y ella dio desde su necesidad. Él mide un regalo por lo que le "
+                    "cuesta a quien lo da, no por su tamaño. Eso significa que la generosidad está "
+                    "abierta a todos. Ningún regalo es tan pequeño que no cuente, y ninguno dado con "
+                    "amor pasa inadvertido.",
+                ),
+                "simple": L(
+                    "A woman gave two tiny coins, and Jesus said it was a big gift, because it was all "
+                    "she had. Even a small gift matters to God.",
+                    "Una mujer dio dos moneditas, y Jesús dijo que era un regalo grande, porque era "
+                    "todo lo que tenía. Hasta un regalo pequeño le importa a Dios.",
+                ),
+                "ask": L(
+                    "When did you last give in a way you actually felt? What holds you back: fear of "
+                    "not having enough, or something else?",
+                    "¿Cuándo fue la última vez que diste de una manera que de verdad sentiste? ¿Qué te "
+                    "frena: el miedo a que no te alcance, u otra cosa?",
+                ),
+                "kid_ask": L(
+                    "What is something small you could give to make someone happy?",
+                    "¿Qué cosa pequeña podrías dar para alegrar a alguien?",
+                ),
+                "do": L(
+                    "Give something this week that you will notice: money, a meal, an afternoon. "
+                    "Choose an amount that fits what you have, give it quietly, and do not mention it "
+                    "to anyone.",
+                    "Esta semana da algo que se note en tu bolsillo o en tu agenda: dinero, una "
+                    "comida, una tarde. Elige una cantidad acorde con lo que tienes, dalo en silencio "
+                    "y no se lo menciones a nadie.",
+                ),
+                "kid_do": L(
+                    "Give something of yours away today: a coin, a toy, or a drawing you make for someone.",
+                    "Regala hoy algo tuyo: una moneda, un juguete o un dibujo que hagas para alguien.",
+                ),
+                "pray": L(
+                    "Jesus, you see what I give and what I hold back, and why. Loosen my grip. Give me "
+                    "a generous heart with whatever I have.",
+                    "Jesús, tú ves lo que doy y lo que me guardo, y por qué. Afloja mi puño. Dame un "
+                    "corazón generoso con lo que tenga.",
+                ),
+            },
+        ],
+    },
+    {
+        "key": "words",
+        "category": "wisdom",
+        "title": L("Words: what we say and post", "Palabras: lo que decimos y publicamos"),
+        "summary": L(
+            "For anyone who has said something they regret, passed on what was not theirs to share, "
+            "or wants their words to do more good. Four readings on where words come from and how to "
+            "use them to heal.",
+            "Para quien ha dicho algo de lo que se arrepiente, ha contado lo que no le tocaba contar, "
+            "o quiere que sus palabras hagan más bien. Cuatro lecturas sobre de dónde salen las "
+            "palabras y cómo usarlas para sanar.",
+        ),
+        "keywords": [
+            "words", "gossip", "lied", "lying", "rumor", "insult", "complain", "posted", "tongue",
+            "said something", "sarcas", "palabra", "chisme", "mentir", "mentira", "mentí", "quej",
+            "grosería", "lengua", "publiqu", "dije algo",
+        ],
+        "situations": ["student", "parent", "married", "working", "leader"],
+        "traits": ["honesty", "kindness", "self_control"],
+        "stages": ["child", "teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "child": L(
+                "Words can help or hurt. God helps you use kind and true words, even when you are upset.",
+                "Las palabras pueden ayudar o lastimar. Dios te ayuda a usar palabras amables y "
+                "verdaderas, aun cuando algo te molesta.",
+            ),
+            "teen": L(
+                "For group chats, comments, rumors and the things said at home in anger. Your words "
+                "carry more weight than you think.",
+                "Para los chats de grupo, los comentarios, los rumores y lo que se dice en casa con "
+                "enojo. Tus palabras pesan más de lo que crees.",
+            ),
+            "young_adult": L(
+                "For what you post, how you talk about people who are not in the room, and learning "
+                "to tell the truth kindly.",
+                "Para lo que publicas, cómo hablas de quienes no están presentes y aprender a decir "
+                "la verdad con bondad.",
+            ),
+            "adult": L(
+                "Your words shape your home and your workplace every day. Here is how to make them a "
+                "source of life.",
+                "Tus palabras dan forma a tu hogar y a tu trabajo cada día. Aquí verás cómo hacer de "
+                "ellas una fuente de vida.",
+            ),
+            "senior": L(
+                "A lifetime gives your words weight. Use them to bless, to tell the truth gently, and "
+                "to say what should not be left unsaid.",
+                "Toda una vida les da peso a tus palabras. Úsalas para bendecir, para decir la verdad "
+                "con suavidad y para decir lo que no debe quedarse sin decir.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "words-1",
+                "ref": "Luke 6:43-45",
+                "title": L("Words come from somewhere", "Las palabras salen de algún lugar"),
+                "truth": L(
+                    "Jesus uses a picture anyone can check: a tree is known by its fruit. Then he "
+                    "applies it to speech. What comes out of the mouth is the overflow of what fills "
+                    "the heart. So when a harsh, false or belittling word slips out, the honest "
+                    "response is not only to say you did not mean it. It is to ask what is stored up "
+                    "inside: resentment, fear, envy, tiredness. This is hopeful. You cannot fix your "
+                    "speech merely by biting your tongue, but God can change a heart, and new words follow.",
+                    "Jesús usa una imagen que cualquiera puede comprobar: al árbol se le conoce por su "
+                    "fruto. Luego la aplica al hablar. Lo que sale de la boca es lo que rebosa del "
+                    "corazón. Así que cuando se te escapa una palabra dura, falsa o humillante, la "
+                    "respuesta honesta no es solo decir que no fue tu intención. Es preguntarte qué "
+                    "hay guardado adentro: resentimiento, miedo, envidia, cansancio. Esto da "
+                    "esperanza. No arreglas tu manera de hablar solo mordiéndote la lengua, pero Dios "
+                    "puede cambiar un corazón, y las palabras nuevas vienen después.",
+                ),
+                "simple": L(
+                    "Good trees grow good fruit. When our hearts are full of love, kind words come "
+                    "out. God helps fill our hearts with good things.",
+                    "Los árboles buenos dan fruta buena. Cuando nuestro corazón está lleno de amor, "
+                    "salen palabras amables. Dios ayuda a llenar nuestro corazón de cosas buenas.",
+                ),
+                "ask": L(
+                    "Think of something you said recently that you regret. What was your heart full of "
+                    "at that moment?",
+                    "Piensa en algo que dijiste hace poco y lamentas. ¿De qué estaba lleno tu corazón "
+                    "en ese momento?",
+                ),
+                "kid_ask": L(
+                    "What kind words did you say today? Were there any words you wish you could take back?",
+                    "¿Qué palabras amables dijiste hoy? ¿Hubo alguna que quisieras no haber dicho?",
+                ),
+                "do": L(
+                    "For one day, notice your words without judging them: the tone of your messages, "
+                    "your first words to the people you live with. At night, ask what they show about "
+                    "your heart.",
+                    "Durante un día, observa tus palabras sin juzgarlas: el tono de tus mensajes, lo "
+                    "primero que les dices a quienes viven contigo. Por la noche, pregúntate qué "
+                    "muestran de tu corazón.",
+                ),
+                "kid_do": L(
+                    "Say three kind things to three different people today.",
+                    "Dile hoy tres cosas amables a tres personas distintas.",
+                ),
+                "pray": L(
+                    "Lord, my words show what is in me. Fill my heart with what is good, so that what "
+                    "overflows gives life.",
+                    "Señor, mis palabras muestran lo que hay en mí. Llena mi corazón de lo bueno, para "
+                    "que lo que rebose dé vida.",
+                ),
+            },
+            {
+                "key": "words-2",
+                "ref": "Proverbs 12:17-19",
+                "title": L("True words, healing words", "Palabras verdaderas, palabras que sanan"),
+                "truth": L(
+                    "These three proverbs set two kinds of speech side by side. There are words that "
+                    "tell the truth and words that deceive. There are reckless words that stab like a "
+                    "sword, and wise words that bring healing. And there is a difference in how long "
+                    "they last: truth endures, while a lie holds up only for a moment. Honesty and "
+                    "kindness belong together here. Truth told without care can wound, and a kind word "
+                    "that is false does not last. The aim is words that are both true and healing.",
+                    "Estos tres proverbios ponen lado a lado dos clases de palabras. Hay palabras que "
+                    "dicen la verdad y palabras que engañan. Hay palabras imprudentes que hieren como "
+                    "espada, y palabras sabias que traen sanidad. Y hay una diferencia en cuánto "
+                    "duran: la verdad permanece, mientras que la mentira se sostiene solo un instante. "
+                    "Aquí la honestidad y la bondad van juntas. La verdad dicha sin cuidado puede "
+                    "herir, y una palabra amable pero falsa no dura. La meta son palabras a la vez "
+                    "verdaderas y sanadoras.",
+                ),
+                "simple": L(
+                    "True words last. Lies fall apart. And kind words can help someone feel better, "
+                    "like a bandage on a scrape.",
+                    "Las palabras verdaderas duran. Las mentiras se deshacen. Y las palabras amables "
+                    "ayudan a que alguien se sienta mejor, como una curita en un raspón.",
+                ),
+                "ask": L(
+                    "Where are you tempted to shade the truth: to look better, to avoid conflict, to "
+                    "spare yourself? What would the true and kind sentence be?",
+                    "¿Dónde te tienta maquillar la verdad: para quedar mejor, evitar un conflicto o "
+                    "ahorrarte un mal rato? ¿Cuál sería la frase verdadera y amable?",
+                ),
+                "kid_ask": L(
+                    "Why is it sometimes hard to tell the truth?",
+                    "¿Por qué a veces cuesta decir la verdad?",
+                ),
+                "do": L(
+                    "This week, correct one thing you exaggerated, hid or left misleading. Go back to "
+                    "the person and tell them the plain truth.",
+                    "Esta semana corrige una cosa que exageraste, escondiste o dejaste a medias. "
+                    "Vuelve con la persona y dile la verdad sencilla.",
+                ),
+                "kid_do": L(
+                    "If you told a fib, tell the truth to a grown-up today. It is brave, and they will "
+                    "be glad you did.",
+                    "Si dijiste una mentirita, dile hoy la verdad a un adulto. Es de valientes, y le "
+                    "va a dar gusto que lo hagas.",
+                ),
+                "pray": L(
+                    "God of truth, I have bent the truth to protect myself. Make me honest, and make "
+                    "my honesty gentle.",
+                    "Dios de verdad, he torcido la verdad para protegerme. Dame honestidad, y que mi "
+                    "honestidad sea amable.",
+                ),
+            },
+            {
+                "key": "words-3",
+                "ref": "Proverbs 26:20-22",
+                "title": L("The fire needs wood", "El fuego necesita leña"),
+                "truth": L(
+                    "A fire dies when no one adds wood, and a quarrel dies when no one passes it "
+                    "along. That is how this proverb describes gossip: it is fuel. It also admits why "
+                    "gossip is hard to resist. Whispered words about someone else are like tasty bites "
+                    "that go down deep; they are enjoyable, they stay in us, and they change how we "
+                    "see the person. The good news in the picture is how simple the remedy is. You do "
+                    "not have to put out the fire. You only have to stop carrying wood, in person and "
+                    "online.",
+                    "El fuego se apaga cuando nadie le echa leña, y un pleito se apaga cuando nadie lo "
+                    "sigue contando. Así describe este proverbio el chisme: es combustible. También "
+                    "admite por qué cuesta resistirlo. Las palabras dichas en voz baja sobre otra "
+                    "persona son como bocados sabrosos que llegan hasta lo más hondo; se disfrutan, se "
+                    "nos quedan adentro y cambian cómo vemos a esa persona. Lo bueno de la imagen es "
+                    "lo sencillo del remedio. No tienes que apagar el incendio. Solo tienes que dejar "
+                    "de llevar leña, en persona y en línea.",
+                ),
+                "simple": L(
+                    "Telling stories about other people is like putting wood on a fire. It makes "
+                    "fights bigger. If we stop, the fire goes out.",
+                    "Contar cosas de otras personas es como echarle leña al fuego. Hace más grandes "
+                    "los pleitos. Si dejamos de hacerlo, el fuego se apaga.",
+                ),
+                "ask": L(
+                    "What do you get from passing on a story about someone: belonging, importance, "
+                    "relief? Where could you get that honestly instead?",
+                    "¿Qué obtienes al contar algo de otra persona: pertenecer, sentirte importante, "
+                    "desahogarte? ¿Dónde podrías obtenerlo de manera honesta?",
+                ),
+                "kid_ask": L(
+                    "How would you feel if friends were whispering about you?",
+                    "¿Cómo te sentirías si tus amigos hablaran de ti en secreto?",
+                ),
+                "do": L(
+                    "This week, let one story end with you. When you are about to share, forward or "
+                    "repost something about a person, ask: is it true, is it mine to tell, will it "
+                    "help? If not, leave it.",
+                    "Esta semana deja que un chisme termine contigo. Cuando estés por contar, reenviar "
+                    "o compartir algo sobre una persona, pregúntate: ¿es verdad?, ¿me toca a mí "
+                    "contarlo?, ¿va a ayudar? Si no, déjalo ahí.",
+                ),
+                "kid_do": L(
+                    "If someone starts telling you something unkind about a friend today, say: I do "
+                    "not want to talk about them. Let us play.",
+                    "Si hoy alguien empieza a contarte algo feo de un amigo, di: no quiero hablar de "
+                    "él. Mejor vamos a jugar.",
+                ),
+                "pray": L(
+                    "Lord, I like the taste of a story about someone else. Forgive me. Make me the "
+                    "place where the fire runs out of wood.",
+                    "Señor, me gusta el sabor de un chisme. Perdóname. Hazme el lugar donde al fuego "
+                    "se le acaba la leña.",
+                ),
+            },
+            {
+                "key": "words-4",
+                "ref": "Ephesians 4:29",
+                "title": L("Words that build", "Palabras que construyen"),
+                "truth": L(
+                    "Paul gives a filter with three parts. Let nothing rotten come out of your mouth, "
+                    "only what is good for building others up, what fits the need of the moment, and "
+                    "what gives grace to those who hear. The test is not only whether something is "
+                    "true or whether you have the right to say it. It is what your words will do in "
+                    "the person who receives them. This applies to every channel: the dinner table, "
+                    "the meeting, the comment box, the message sent at midnight. Every one of them "
+                    "reaches a real person.",
+                    "Pablo da un filtro de tres partes. Que no salga de tu boca nada podrido, sino "
+                    "solo lo que sirva para edificar a otros, lo que responda a la necesidad del "
+                    "momento y lo que dé gracia a quienes escuchan. La prueba no es solo si algo es "
+                    "verdad o si tienes derecho a decirlo. Es qué harán tus palabras en la persona que "
+                    "las recibe. Vale para todos los canales: la mesa de la cena, la reunión, la caja "
+                    "de comentarios, el mensaje enviado a medianoche. Cada uno llega a una persona real.",
+                ),
+                "simple": L(
+                    "Our words can be like building blocks. God wants us to use words that build "
+                    "people up, not knock them down.",
+                    "Nuestras palabras pueden ser como bloques para construir. Dios quiere que usemos "
+                    "palabras que levanten a las personas, no que las derriben.",
+                ),
+                "ask": L(
+                    "Who in your life most needs a building-up word from you right now, and what "
+                    "specifically could you say?",
+                    "¿Quién en tu vida necesita más de ti una palabra de ánimo ahora mismo, y qué "
+                    "podrías decirle exactamente?",
+                ),
+                "kid_ask": L(
+                    "Who could you cheer up with kind words today?",
+                    "¿A quién podrías animar hoy con palabras amables?",
+                ),
+                "do": L(
+                    "Today, before you post, send or say anything sharp, run it through three "
+                    "questions: does it build, does it fit, does it give grace? Then send one message "
+                    "of specific encouragement to someone.",
+                    "Hoy, antes de publicar, enviar o decir algo cortante, pásalo por tres preguntas: "
+                    "¿edifica?, ¿viene al caso?, ¿da gracia? Luego envíale a alguien un mensaje de "
+                    "ánimo concreto.",
+                ),
+                "kid_do": L(
+                    "Write or draw a kind note for someone and give it to them.",
+                    "Escribe o dibuja una notita amable para alguien y dásela.",
+                ),
+                "pray": L(
+                    "God, watch over my mouth and my thumbs. Let what I say and send today build "
+                    "someone up and give them grace.",
+                    "Dios, cuida mi boca y mis pulgares. Que lo que hoy diga y envíe levante a alguien "
+                    "y le dé gracia.",
+                ),
+            },
+        ],
+    },
     # @@NEXT@@
 ]

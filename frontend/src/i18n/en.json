@@ -1380,8 +1380,7 @@
       "continue": "Continue",
       "continueNamed": "Continue the study “{{title}}”",
       "review": "Review",
-      "reviewNamed": "Review the study “{{title}}”",
-      "startFailed": "The study could not be started."
+      "reviewNamed": "Review the study “{{title}}”"
     }
   }
 }
