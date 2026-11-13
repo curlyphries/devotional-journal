@@ -8,6 +8,7 @@ from .views import (
     AdvanceDayView,
     EnrolledPlansView,
     EnrollView,
+    PlanCategoriesView,
     PlanDeleteView,
     PlanDetailView,
     PlanGenerateView,
@@ -18,6 +19,7 @@ from .views import (
 
 urlpatterns = [
     path("", PlanListView.as_view(), name="plan-list"),
+    path("categories/", PlanCategoriesView.as_view(), name="plan-categories"),
     path("generate/", PlanGenerateView.as_view(), name="plan-generate"),
     path("save/", PlanSaveView.as_view(), name="plan-save"),
     path("<uuid:plan_id>/", PlanDetailView.as_view(), name="plan-detail"),

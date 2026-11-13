@@ -1031,6 +1031,17 @@
     "seeAll": "See all in the audit log"
   },
   "plans": {
+    "categories": {
+      "label": "Category",
+      "filterLabel": "Filter plans by category",
+      "all": "All Plans",
+      "mine": "My Plans",
+      "general": "General",
+      "fallbackGroup": "Faith",
+      "loadFailed": "The full category list could not be loaded. You can still build a General plan, or close and reopen this window to try again.",
+      "moreHint_one": "{{count}} more category has no plans yet. Choose it under “Build a Plan” to create the first one.",
+      "moreHint_other": "{{count}} more categories have no plans yet. Choose any of them under “Build a Plan” to create the first one."
+    },
     "deleteTitle": "Delete plan",
     "deleteBody": "Delete “{{title}}”? The plan and its days are removed for good. This cannot be undone.",
     "deleted": "Plan deleted."

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed — reading-plan categories
+- Reading-plan categories expanded from 6 to 47, in six groups (Faith, Through the Bible, Heart and Mind, Relationships and Family, Calling and Character, Seasons of Life and the Year), in English and Spanish. The original six keep their keys, so existing plans are unaffected
+- One shared list (`backend/apps/plans/categories.py`) now feeds the plan builder, the plans filter, validation and the AI's category suggestion; `GET /api/v1/plans/categories/` serves it with per-category plan counts
+- The plans filter shows only categories that have plans (with counts) and honours `/plans?category=…`
+- Unknown categories are rejected when saving or generating a plan; plans suggested by Speak Your Mind are limited to public plans and the person's own
+
 ### Added — Bible study guide, growth profile, growth plans
 - **Study library**: 48 bilingual studies (about 200 lessons) in eight categories, each lesson shown at one of five life stages from child (with a grown-up) to senior. Verse text is always fetched from the Bible source
 - **Adaptive suggestions** from journal themes, entry wording, moods, profile and growth plans, each with its reasons shown
