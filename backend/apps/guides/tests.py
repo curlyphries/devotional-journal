@@ -1002,6 +1002,12 @@ class TestGrowthPlans:
             format="json",
         )
         assert manual.status_code == 400 and manual.json()["suggestion"]
+        ticked = client.patch(
+            f"/api/v1/guides/plans/{plan['id']}/goals/{auto['id']}/",
+            {"status": "done"},
+            format="json",
+        )
+        assert ticked.status_code == 400
 
         study = start(client, "anxiety")
         answer(client, study["id"], 1)

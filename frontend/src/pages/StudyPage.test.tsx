@@ -401,6 +401,24 @@ describe('StudyPage', () => {
     expect(screen.queryByText('Was this one hard to follow?')).not.toBeInTheDocument()
   })
 
+  it('stays on the lesson after saving, even though the study has moved on', async () => {
+    // The server advances current_lesson when answers are saved. The page must not
+    // follow it, or the person never sees the reply to what they wrote.
+    api.respondToLesson.mockResolvedValue(resultFor())
+    api.getStudy
+      .mockResolvedValueOnce(study)
+      .mockResolvedValue({ ...study, current_lesson: 3, completed_lessons: [1, 2] })
+    const user = userEvent.setup()
+    renderStudy()
+
+    await fillAndSave(user)
+
+    expect(await screen.findByRole('heading', { name: 'A reply to your reflection' })).toBeInTheDocument()
+    await waitFor(() => expect(api.getStudy.mock.calls.length).toBeGreaterThan(1))
+    expect(screen.getByText(aiReply.text)).toBeInTheDocument()
+    expect(api.getLesson).not.toHaveBeenCalledWith('s-1', 3)
+  })
+
   it('says so when the reply is a built-in one because the AI was unavailable', async () => {
     const builtIn: LessonReply = {
       text: 'Thank you for taking time with this passage.',

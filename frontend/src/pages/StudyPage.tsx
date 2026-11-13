@@ -64,8 +64,23 @@ export default function StudyPage() {
   })
   const study = studyQuery.data
 
+  // Opened without `?lesson`: start where the person left off, and then stay
+  // on that lesson. Saving answers moves `study.current_lesson` forward; without
+  // pinning, the page would jump to the next lesson before the person had read
+  // the reply to what they wrote.
+  const [resumeAt, setResumeAt] = useState<{ studyId: string; lesson: number } | null>(null)
+  useEffect(() => {
+    if (study && requested === null && resumeAt?.studyId !== studyId) {
+      setResumeAt({ studyId, lesson: study.current_lesson })
+    }
+  }, [study, requested, resumeAt, studyId])
+  const pinned = resumeAt?.studyId === studyId ? resumeAt.lesson : null
+
   const lessonNumber = study
-    ? Math.min(Math.max(requested ?? study.current_lesson, 1), Math.max(study.lesson_count, 1))
+    ? Math.min(
+        Math.max(requested ?? pinned ?? study.current_lesson, 1),
+        Math.max(study.lesson_count, 1),
+      )
     : requested
 
   const lessonQuery = useQuery({

@@ -256,6 +256,8 @@ export default function LessonView({ studyId, study, lesson, onReload, reloading
   const completedNow = nextStep?.kind === 'study_complete'
   const completedEarlier = !nextStep && !lesson.next && study.status === 'completed'
   const canSimplify = lesson.explanation_level !== 'simple'
+  // A child's lesson is never personalised with AI (the backend refuses it too).
+  const canPersonalize = !personal && !lesson.with_grown_up
   const offerSimpler = !editing && !!saved && saved.understanding <= 2 && canSimplify
   const startingKey = start.isPending ? start.variables : null
 
@@ -347,10 +349,10 @@ export default function LessonView({ studyId, study, lesson, onReload, reloading
           </div>
         )}
 
-        {(canSimplify || !personal) && (
+        {(canSimplify || canPersonalize) && (
           <div className="mt-5 flex flex-wrap gap-3">
             {canSimplify && simplifyButton(false)}
-            {!personal && (
+            {canPersonalize && (
               <button
                 type="button"
                 onClick={() => personalize.mutate()}
@@ -363,7 +365,7 @@ export default function LessonView({ studyId, study, lesson, onReload, reloading
             )}
           </div>
         )}
-        {!personal && !personalize.isPending && !personalize.isError && (
+        {canPersonalize && !personalize.isPending && !personalize.isError && (
           <p className="mt-2 text-xs leading-relaxed text-text-secondary">{t('study.personal.hint')}</p>
         )}
 

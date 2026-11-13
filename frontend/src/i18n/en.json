@@ -1190,7 +1190,7 @@
     },
     "data": {
       "title": "Your data",
-      "stored": "Your profile, your look-inward answers and the reflection are stored encrypted on this server, alongside your journal. Only you can see them.",
+      "stored": "Your profile, your look-inward answers and the reflection are stored encrypted on this server, alongside your journal. They are private to your account and never shown to other users.",
       "control": "You can correct anything above at any time. Erasing removes what the app has worked out about you; it does not touch your journal.",
       "erase": "Erase my profile",
       "eraseTitle": "Erase your growth profile?",

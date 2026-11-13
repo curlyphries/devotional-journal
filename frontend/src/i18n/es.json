@@ -1190,7 +1190,7 @@
     },
     "data": {
       "title": "Tus datos",
-      "stored": "Tu perfil, tus respuestas de la mirada interior y la reflexión se guardan cifrados en este servidor, junto con tu diario. Solo tú puedes verlos.",
+      "stored": "Tu perfil, tus respuestas de la mirada interior y la reflexión se guardan cifrados en este servidor, junto con tu diario. Son privados de tu cuenta y nunca se muestran a otros usuarios.",
       "control": "Puedes corregir cualquier cosa de arriba cuando quieras. Al borrar se elimina lo que la aplicación ha entendido sobre ti; tu diario no se toca.",
       "erase": "Borrar mi perfil",
       "eraseTitle": "¿Borrar tu perfil de crecimiento?",

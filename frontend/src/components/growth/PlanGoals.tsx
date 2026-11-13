@@ -143,16 +143,19 @@ function GoalItem({ planId, goal }: { planId: string; goal: GrowthGoal }) {
                   {t('growth.goals.addOne')}
                 </button>
               )}
-              <button
-                type="button"
-                className={smallButton}
-                disabled={busy}
-                onClick={() => update.mutate({ status: 'done' })}
-                aria-label={named('growth.goals.doneNamed')}
-              >
-                <Check className="h-4 w-4" aria-hidden="true" />
-                {t('common.done')}
-              </button>
+              {/* A study goal is finished by completing lessons, not by ticking it. */}
+              {!goal.auto && (
+                <button
+                  type="button"
+                  className={smallButton}
+                  disabled={busy}
+                  onClick={() => update.mutate({ status: 'done' })}
+                  aria-label={named('growth.goals.doneNamed')}
+                >
+                  <Check className="h-4 w-4" aria-hidden="true" />
+                  {t('common.done')}
+                </button>
+              )}
               <button
                 type="button"
                 className={smallButton}

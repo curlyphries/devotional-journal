@@ -15,8 +15,20 @@ TOPICS = [
             "sobre amar a Dios con el corazón, el alma, la mente y las fuerzas, sabiendo que él te amó primero.",
         ),
         "keywords": [
-            "love god", "worship", "devot", "close to god", "far from god", "obey", "lukewarm",
-            "amar a dios", "ador", "devoc", "cerca de dios", "lejos de dios", "obedec", "tibi",
+            "love god",
+            "worship",
+            "devot",
+            "close to god",
+            "far from god",
+            "obey",
+            "lukewarm",
+            "amar a dios",
+            "ador",
+            "devoc",
+            "cerca de dios",
+            "lejos de dios",
+            "obedec",
+            "tibi",
         ],
         "situations": ["new_believer", "returning"],
         "traits": ["love", "faithfulness", "prayerfulness"],
@@ -121,9 +133,9 @@ TOPICS = [
                 ),
                 "simple": L(
                     "God loved you before you ever loved him. When we love God, we are answering, "
-                    "\"I love you too.\"",
+                    '"I love you too."',
                     "Dios te amó antes de que tú lo amaras. Cuando amamos a Dios, le estamos respondiendo: "
-                    "\"Yo también te amo\".",
+                    '"Yo también te amo".',
                 ),
                 "ask": L(
                     "When you think of God, do you mostly feel loved or mostly feel watched? Where did that "
@@ -309,8 +321,22 @@ TOPICS = [
             "Cinco lecturas sobre la bondad, el prójimo, la persona difícil y el enemigo.",
         ),
         "keywords": [
-            "neighbor", "kindness", "unkind", "difficult person", "annoy", "enemy", "selfish", "compassion",
-            "prójimo", "vecin", "amab", "bondad", "enemig", "egoís", "compasi", "me cae mal",
+            "neighbor",
+            "kindness",
+            "unkind",
+            "difficult person",
+            "annoy",
+            "enemy",
+            "selfish",
+            "compassion",
+            "prójimo",
+            "vecin",
+            "amab",
+            "bondad",
+            "enemig",
+            "egoís",
+            "compasi",
+            "me cae mal",
         ],
         "situations": [],
         "traits": ["love", "kindness", "compassion"],
@@ -446,7 +472,9 @@ TOPICS = [
             {
                 "key": "loving_others-3",
                 "ref": "1 Corinthians 13:4-7",
-                "title": L("Love for the difficult person", "Amor para la persona difícil"),
+                "title": L(
+                    "Love for the difficult person", "Amor para la persona difícil"
+                ),
                 "truth": L(
                     "This is often read at weddings, but Paul wrote it to a church whose members were "
                     "getting on each other's nerves. Read it as a description of how to treat someone who is "
@@ -605,8 +633,22 @@ TOPICS = [
             "quedarte donde te hacen daño.",
         ),
         "keywords": [
-            "forgiv", "grudge", "resent", "bitter", "betray", "guilt", "apolog", "hurt me",
-            "perdon", "rencor", "resenti", "amarg", "traici", "culpa", "disculp", "me lastim",
+            "forgiv",
+            "grudge",
+            "resent",
+            "bitter",
+            "betray",
+            "guilt",
+            "apolog",
+            "hurt me",
+            "perdon",
+            "rencor",
+            "resenti",
+            "amarg",
+            "traici",
+            "culpa",
+            "disculp",
+            "me lastim",
         ],
         "situations": ["divorced", "recovery", "returning"],
         "traits": ["forgiveness", "compassion", "honesty"],
@@ -751,7 +793,9 @@ TOPICS = [
             {
                 "key": "forgiveness-3",
                 "ref": "Matthew 18:23-33",
-                "title": L("Forgiven people forgive", "Quien ha sido perdonado, perdona"),
+                "title": L(
+                    "Forgiven people forgive", "Quien ha sido perdonado, perdona"
+                ),
                 "truth": L(
                     "Peter had just asked how many times he must forgive. Jesus tells of a servant whose "
                     "king cancels a debt too large to repay in many lifetimes. That same servant then seizes "
@@ -790,8 +834,8 @@ TOPICS = [
                     "decisión y no como sentimiento: Dios, te entrego esta deuda.",
                 ),
                 "kid_do": L(
-                    "Think of someone who said sorry to you. Tell them, \"I forgive you.\"",
-                    "Piensa en alguien que te pidió perdón. Dile: \"Te perdono\".",
+                    'Think of someone who said sorry to you. Tell them, "I forgive you."',
+                    'Piensa en alguien que te pidió perdón. Dile: "Te perdono".',
                 ),
                 "pray": L(
                     "Father, you have forgiven me more than I can count. I choose to release … from what "
@@ -930,8 +974,20 @@ TOPICS = [
             "de afuera van primero.",
         ),
         "keywords": [
-            "marriage", "husband", "wife", "spouse", "wedding", "anniversar", "married",
-            "matrimonio", "espos", "marido", "casad", "pareja", "boda", "aniversario",
+            "marriage",
+            "husband",
+            "wife",
+            "spouse",
+            "wedding",
+            "anniversar",
+            "married",
+            "matrimonio",
+            "espos",
+            "marido",
+            "casad",
+            "pareja",
+            "boda",
+            "aniversario",
         ],
         "situations": ["married"],
         "traits": ["love", "faithfulness", "servanthood"],
@@ -1062,7 +1118,9 @@ TOPICS = [
             {
                 "key": "marriage-3",
                 "ref": "Ephesians 4:25-32",
-                "title": L("How you speak when you are angry", "Cómo hablas cuando hay enojo"),
+                "title": L(
+                    "How you speak when you are angry", "Cómo hablas cuando hay enojo"
+                ),
                 "truth": L(
                     "This is practical counsel for people who live close together. Tell each other the "
                     "truth. Anger will come, but do not let it lead you into sin or leave it to harden "
@@ -1095,9 +1153,9 @@ TOPICS = [
                 ),
                 "do": L(
                     "The next time you disagree, say one true thing about what you feel, beginning with "
-                    "\"I\" rather than \"you always,\" and say it before the day ends.",
+                    '"I" rather than "you always," and say it before the day ends.',
                     "La próxima vez que no estén de acuerdo, di una cosa verdadera sobre lo que sientes, "
-                    "empezando con \"yo\" y no con \"tú siempre\", y dila antes de que termine el día.",
+                    'empezando con "yo" y no con "tú siempre", y dila antes de que termine el día.',
                 ),
                 "kid_do": L(
                     "If you feel angry with someone today, take three slow breaths, then use kind words to "
@@ -1115,7 +1173,10 @@ TOPICS = [
             {
                 "key": "marriage-4",
                 "ref": "Ecclesiastes 4:9-12",
-                "title": L("Hard seasons, and help from outside", "Épocas difíciles y ayuda de afuera"),
+                "title": L(
+                    "Hard seasons, and help from outside",
+                    "Épocas difíciles y ayuda de afuera",
+                ),
                 "truth": L(
                     "The Teacher observes that two are better than one: when one falls, the other lifts. "
                     "Then he adds a third strand, and a cord of three is not quickly broken. Every marriage "
@@ -1233,8 +1294,22 @@ TOPICS = [
             "al hijo que se alejó.",
         ),
         "keywords": [
-            "parent", "my son", "my daughter", "my kids", "my child", "toddler", "teenager", "prodigal",
-            "mi hijo", "mi hija", "mis hijos", "crianza", "criar", "adolescente", "pródig", "berrinche",
+            "parent",
+            "my son",
+            "my daughter",
+            "my kids",
+            "my child",
+            "toddler",
+            "teenager",
+            "prodigal",
+            "mi hijo",
+            "mi hija",
+            "mis hijos",
+            "crianza",
+            "criar",
+            "adolescente",
+            "pródig",
+            "berrinche",
         ],
         "situations": ["parent", "single_parent", "grandparent", "caregiver"],
         "traits": ["patience", "love", "trust"],
@@ -1264,7 +1339,10 @@ TOPICS = [
             {
                 "key": "parenting-1",
                 "ref": "Psalm 127:1-3",
-                "title": L("A gift, and not yours alone to build", "Un regalo, y no lo construyes a solas"),
+                "title": L(
+                    "A gift, and not yours alone to build",
+                    "Un regalo, y no lo construyes a solas",
+                ),
                 "truth": L(
                     "The psalm begins with a house: unless the Lord builds it, the builders work for "
                     "nothing. Parents know the anxious toil it describes, rising early and going to bed "
@@ -1536,8 +1614,23 @@ TOPICS = [
             "ver a Dios obrar en la familia que tienes.",
         ),
         "keywords": [
-            "family", "my parents", "my mom", "my dad", "brother", "sister", "sibling", "relatives", "in-law",
-            "familia", "mis padres", "mi mamá", "mi papá", "herman", "parientes", "suegr", "abuel",
+            "family",
+            "my parents",
+            "my mom",
+            "my dad",
+            "brother",
+            "sister",
+            "sibling",
+            "relatives",
+            "in-law",
+            "familia",
+            "mis padres",
+            "mi mamá",
+            "mi papá",
+            "herman",
+            "parientes",
+            "suegr",
+            "abuel",
         ],
         "situations": [],
         "traits": ["love", "patience", "forgiveness"],
@@ -1577,7 +1670,9 @@ TOPICS = [
             {
                 "key": "family-1",
                 "ref": "Ephesians 6:1-4",
-                "title": L("Honor goes both ways", "La honra va en las dos direcciones"),
+                "title": L(
+                    "Honor goes both ways", "La honra va en las dos direcciones"
+                ),
                 "truth": L(
                     "Paul speaks to children directly: obey your parents, and honor your father and mother. "
                     "Then he speaks to parents: do not provoke your children to anger, but bring them up "
@@ -1738,7 +1833,9 @@ TOPICS = [
             {
                 "key": "family-4",
                 "ref": "John 19:25-27",
-                "title": L("Caring for those who cared for you", "Cuidar a quienes te cuidaron"),
+                "title": L(
+                    "Caring for those who cared for you", "Cuidar a quienes te cuidaron"
+                ),
                 "truth": L(
                     "Jesus is dying, and he sees his mother standing near the cross. Among his last words "
                     "he makes sure she will be cared for, placing her in the keeping of the disciple he "
@@ -1789,7 +1886,9 @@ TOPICS = [
             {
                 "key": "family-5",
                 "ref": "Psalm 68:5-6",
-                "title": L("When family has let you down", "Cuando la familia te ha fallado"),
+                "title": L(
+                    "When family has let you down", "Cuando la familia te ha fallado"
+                ),
                 "truth": L(
                     "Not everyone has a family that is safe, or even present. David sings of a God who is "
                     "father to the fatherless and defender of widows, and who gives lonely people a home to "
@@ -1850,8 +1949,18 @@ TOPICS = [
             "honestidad, elegir bien tus compañías, cargarse unos a otros y el amigo que no se va.",
         ),
         "keywords": [
-            "friend", "left out", "peer pressure", "clique", "bad influence", "loyal",
-            "amig", "amistad", "compañer", "me dejaron fuera", "mala influencia", "leal",
+            "friend",
+            "left out",
+            "peer pressure",
+            "clique",
+            "bad influence",
+            "loyal",
+            "amig",
+            "amistad",
+            "compañer",
+            "me dejaron fuera",
+            "mala influencia",
+            "leal",
         ],
         "situations": ["student", "moving"],
         "traits": ["faithfulness", "honesty", "kindness"],
@@ -1940,7 +2049,9 @@ TOPICS = [
             {
                 "key": "friendship-2",
                 "ref": "Proverbs 27:5-6",
-                "title": L("A friend who tells the truth", "Un amigo que dice la verdad"),
+                "title": L(
+                    "A friend who tells the truth", "Un amigo que dice la verdad"
+                ),
                 "truth": L(
                     "These two sayings turn our instincts around. Honest correction, spoken openly, is "
                     "better than love that stays hidden and silent. The wounds a friend gives can be "
@@ -2157,8 +2268,20 @@ TOPICS = [
             "hacer cuando siguen sin estar de acuerdo.",
         ),
         "keywords": [
-            "conflict", "argu", "fight", "disagree", "reconcil", "tension", "quarrel",
-            "conflicto", "discut", "discusi", "pelea", "pleito", "desacuerdo", "tensión",
+            "conflict",
+            "argu",
+            "fight",
+            "disagree",
+            "reconcil",
+            "tension",
+            "quarrel",
+            "conflicto",
+            "discut",
+            "discusi",
+            "pelea",
+            "pleito",
+            "desacuerdo",
+            "tensión",
         ],
         "situations": ["married", "parent", "working", "leader"],
         "traits": ["peace", "gentleness", "humility"],
@@ -2342,8 +2465,8 @@ TOPICS = [
                     "esa persona, y observa qué pasa.",
                 ),
                 "kid_do": L(
-                    "Practice saying in a calm voice, \"I feel upset because…\"",
-                    "Practica decir con voz tranquila: \"Me siento mal porque…\"",
+                    'Practice saying in a calm voice, "I feel upset because…"',
+                    'Practica decir con voz tranquila: "Me siento mal porque…"',
                 ),
                 "pray": L(
                     "God, put gentleness in my mouth. When I am provoked, help me answer in a way that "
@@ -2392,10 +2515,10 @@ TOPICS = [
                     "tu parte y tu deseo de arreglar las cosas, y deja que responda a su tiempo.",
                 ),
                 "kid_do": L(
-                    "If a friend or someone at home is upset with you, go to them today and ask, \"Can we "
-                    "make up?\"",
-                    "Si un amigo o alguien de tu casa está molesto contigo, ve hoy y pregúntale: \"¿Hacemos "
-                    "las paces?\"",
+                    'If a friend or someone at home is upset with you, go to them today and ask, "Can we '
+                    'make up?"',
+                    'Si un amigo o alguien de tu casa está molesto contigo, ve hoy y pregúntale: "¿Hacemos '
+                    'las paces?"',
                 ),
                 "pray": L(
                     "Lord, I have been waiting for … to move first. Give me the humility to go. Prepare "
@@ -2407,7 +2530,9 @@ TOPICS = [
             {
                 "key": "conflict-5",
                 "ref": "Acts 15:36-41",
-                "title": L("When you still cannot agree", "Cuando siguen sin estar de acuerdo"),
+                "title": L(
+                    "When you still cannot agree", "Cuando siguen sin estar de acuerdo"
+                ),
                 "truth": L(
                     "Paul and Barnabas were friends and partners who had risked their lives together. They "
                     "disagreed so sharply over whether to take John Mark along that they parted ways. The "
@@ -2473,8 +2598,18 @@ TOPICS = [
             "el siervo, usar lo que tienes, el trabajo que nadie ve y servir sin caer en el resentimiento.",
         ),
         "keywords": [
-            "serv", "volunteer", "helping", "ministry", "unappreciated", "taken for granted",
-            "voluntari", "ayudar", "ministerio", "nadie agradece", "no me valoran", "útil",
+            "serv",
+            "volunteer",
+            "helping",
+            "ministry",
+            "unappreciated",
+            "taken for granted",
+            "voluntari",
+            "ayudar",
+            "ministerio",
+            "nadie agradece",
+            "no me valoran",
+            "útil",
         ],
         "situations": ["leader", "caregiver", "working", "retired"],
         "traits": ["servanthood", "humility", "generosity"],
@@ -2667,7 +2802,9 @@ TOPICS = [
             {
                 "key": "service-4",
                 "ref": "Matthew 25:34-40",
-                "title": L("The face behind the need", "El rostro detrás de la necesidad"),
+                "title": L(
+                    "The face behind the need", "El rostro detrás de la necesidad"
+                ),
                 "truth": L(
                     "Jesus describes a day when the King welcomes people and tells them that they fed him, "
                     "took him in, clothed him and visited him when he was sick and in prison. They are "
@@ -2721,7 +2858,9 @@ TOPICS = [
             {
                 "key": "service-5",
                 "ref": "Luke 10:38-42",
-                "title": L("Serving without losing heart", "Servir sin perder el corazón"),
+                "title": L(
+                    "Serving without losing heart", "Servir sin perder el corazón"
+                ),
                 "truth": L(
                     "Martha welcomes Jesus into her home and works hard to serve him. That is good. But "
                     "the work turns into worry, and the worry into resentment: at her sister, and even at "
@@ -2791,8 +2930,19 @@ TOPICS = [
             "que en Cristo no eres la mitad de nada.",
         ),
         "keywords": [
-            "singleness", "being single", "still single", "unmarried", "never married", "divorc", "widow",
-            "solter", "sin pareja", "no me he casado", "divorci", "viud", "soledad",
+            "singleness",
+            "being single",
+            "still single",
+            "unmarried",
+            "never married",
+            "divorc",
+            "widow",
+            "solter",
+            "sin pareja",
+            "no me he casado",
+            "divorci",
+            "viud",
+            "soledad",
         ],
         "situations": ["single", "divorced", "widowed", "single_parent"],
         "traits": ["contentment", "trust", "hope"],
@@ -2918,8 +3068,8 @@ TOPICS = [
                     "falta nada para ser una persona completa.",
                 ),
                 "kid_do": L(
-                    "Look in the mirror and say, \"God made me, and God loves me.\"",
-                    "Mírate al espejo y di: \"Dios me hizo, y Dios me ama\".",
+                    'Look in the mirror and say, "God made me, and God loves me."',
+                    'Mírate al espejo y di: "Dios me hizo, y Dios me ama".',
                 ),
                 "pray": L(
                     "Jesus, in you I have been made whole. On the days I feel like half of something, "
@@ -2931,7 +3081,9 @@ TOPICS = [
             {
                 "key": "singleness-3",
                 "ref": "Psalm 62:5-8",
-                "title": L("Honest about the ache", "Con honestidad sobre lo que duele"),
+                "title": L(
+                    "Honest about the ache", "Con honestidad sobre lo que duele"
+                ),
                 "truth": L(
                     "Being whole in Christ does not mean you feel no longing. David tells his own soul to "
                     "wait quietly for God, his rock and refuge, and then tells everyone to pour out their "
@@ -3098,8 +3250,20 @@ TOPICS = [
             "seguir dando fruto y transmitir la fe.",
         ),
         "keywords": [
-            "aging", "getting older", "growing old", "retire", "grandchild", "legacy", "frail",
-            "envejec", "vejez", "jubil", "niet", "legado", "achaque", "ya no puedo",
+            "aging",
+            "getting older",
+            "growing old",
+            "retire",
+            "grandchild",
+            "legacy",
+            "frail",
+            "envejec",
+            "vejez",
+            "jubil",
+            "niet",
+            "legado",
+            "achaque",
+            "ya no puedo",
         ],
         "situations": ["retired", "grandparent", "widowed", "ill"],
         "traits": ["hope", "faithfulness", "gratitude"],
@@ -3267,9 +3431,9 @@ TOPICS = [
                     "demostró ser digno de confianza en tu vida. Que sea breve y verdadera.",
                 ),
                 "kid_do": L(
-                    "Ask an older person, \"What is a good thing God has done for you?\" and listen to "
+                    'Ask an older person, "What is a good thing God has done for you?" and listen to '
                     "the answer.",
-                    "Pregúntale a una persona mayor: \"¿Qué cosa buena ha hecho Dios por ti?\", y escucha "
+                    'Pregúntale a una persona mayor: "¿Qué cosa buena ha hecho Dios por ti?", y escucha '
                     "su respuesta.",
                 ),
                 "pray": L(
@@ -3394,8 +3558,20 @@ TOPICS = [
             "y no cambia.",
         ),
         "keywords": [
-            "change", "moving", "new job", "new school", "transition", "starting over", "uncertain",
-            "cambio", "mudanza", "mudar", "nuevo trabajo", "nueva escuela", "transici", "empezar de nuevo",
+            "change",
+            "moving",
+            "new job",
+            "new school",
+            "transition",
+            "starting over",
+            "uncertain",
+            "cambio",
+            "mudanza",
+            "mudar",
+            "nuevo trabajo",
+            "nueva escuela",
+            "transici",
+            "empezar de nuevo",
             "incertidumbre",
         ],
         "situations": ["moving", "student", "job_seeking", "retired", "divorced"],
@@ -3576,8 +3752,8 @@ TOPICS = [
                     "detente en la puerta y di: tú ya estás aquí.",
                 ),
                 "kid_do": L(
-                    "Before you go somewhere new, whisper, \"God, you are with me.\"",
-                    "Antes de ir a un lugar nuevo, di bajito: \"Dios, tú estás conmigo\".",
+                    'Before you go somewhere new, whisper, "God, you are with me."',
+                    'Antes de ir a un lugar nuevo, di bajito: "Dios, tú estás conmigo".',
                 ),
                 "pray": L(
                     "Lord, you go before me and you will not leave me. I am walking into … Be there ahead "
@@ -3628,8 +3804,8 @@ TOPICS = [
                     "amigo o a un pastor.",
                 ),
                 "kid_do": L(
-                    "When you wake up tomorrow, say, \"Thank you, God, for a new day.\"",
-                    "Mañana, cuando despiertes, di: \"Gracias, Dios, por un día nuevo\".",
+                    'When you wake up tomorrow, say, "Thank you, God, for a new day."',
+                    'Mañana, cuando despiertes, di: "Gracias, Dios, por un día nuevo".',
                 ),
                 "pray": L(
                     "Lord, I did not want to start again, and here I am. Your mercy is new this morning. "
@@ -3689,7 +3865,10 @@ TOPICS = [
     {
         "key": "eternity",
         "category": "seasons",
-        "title": L("Death and the hope of resurrection", "La muerte y la esperanza de la resurrección"),
+        "title": L(
+            "Death and the hope of resurrection",
+            "La muerte y la esperanza de la resurrección",
+        ),
         "summary": L(
             "For anyone facing death: your own, or that of someone you love. Five gentle readings, honest "
             "about fear and grief, that hold to the hope Christians share: Jesus is risen, and death "
@@ -3699,8 +3878,23 @@ TOPICS = [
             "cristianos: Jesús resucitó, y la muerte no tiene la última palabra.",
         ),
         "keywords": [
-            "death", "dying", "died", "funeral", "heaven", "afterlife", "terminal", "passed away", "eternal",
-            "muerte", "morir", "murió", "falleci", "cielo", "eternidad", "vida eterna", "resurrec",
+            "death",
+            "dying",
+            "died",
+            "funeral",
+            "heaven",
+            "afterlife",
+            "terminal",
+            "passed away",
+            "eternal",
+            "muerte",
+            "morir",
+            "murió",
+            "falleci",
+            "cielo",
+            "eternidad",
+            "vida eterna",
+            "resurrec",
         ],
         "situations": ["grieving", "ill", "widowed", "caregiver"],
         "traits": ["hope", "trust", "peace"],
@@ -3799,7 +3993,10 @@ TOPICS = [
             {
                 "key": "eternity-2",
                 "ref": "1 Corinthians 15:20-26",
-                "title": L("Death is not the end of the story", "La muerte no es el final de la historia"),
+                "title": L(
+                    "Death is not the end of the story",
+                    "La muerte no es el final de la historia",
+                ),
                 "truth": L(
                     "Christian hope rests on an event: God raised Jesus from the dead. Paul calls him the "
                     "firstfruits, the first sheaf of a harvest, which is the sign that the rest is "
@@ -3839,8 +4036,8 @@ TOPICS = [
                     "necesitas, y llévala contigo esta semana.",
                 ),
                 "kid_do": L(
-                    "Draw the empty tomb on Easter morning, and say, \"Jesus is alive.\"",
-                    "Dibuja la tumba vacía en la mañana de Pascua, y di: \"Jesús está vivo\".",
+                    'Draw the empty tomb on Easter morning, and say, "Jesus is alive."',
+                    'Dibuja la tumba vacía en la mañana de Pascua, y di: "Jesús está vivo".',
                 ),
                 "pray": L(
                     "Risen Lord, you went into death and came out again. I want to trust that. Where I "

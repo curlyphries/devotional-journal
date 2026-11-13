@@ -470,6 +470,11 @@ def update_goal(goal, data):
     if "status" in data:
         if data["status"] not in ("active", "done", "skipped"):
             raise AppError("“status” must be active, done or skipped.")
+        if data["status"] == "done" and goal.auto:
+            raise AppError(
+                "This goal completes itself as you finish lessons.",
+                suggestion="Complete a lesson in one of the linked studies.",
+            )
         goal.status = data["status"]
         if goal.status == "done" and not goal.auto:
             goal.progress_count = goal.target_count
