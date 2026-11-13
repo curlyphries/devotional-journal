@@ -1143,6 +1143,7 @@
       "noLessonsYet": "Todavía no has respondido lecciones",
       "openThreads_one": "Tienes {{count}} hilo abierto: algo sobre lo que escribiste y que sigue sin resolverse.",
       "openThreads_other": "Tienes {{count}} hilos abiertos: cosas sobre las que escribiste y que siguen sin resolverse.",
+      "openThreadsNone": "No tienes hilos abiertos en este momento.",
       "seeThreads": "Ver tus hilos"
     },
     "overTime": {

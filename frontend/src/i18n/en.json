@@ -1143,6 +1143,7 @@
       "noLessonsYet": "No lessons answered yet",
       "openThreads_one": "You have {{count}} open thread: something you wrote about that is still unresolved.",
       "openThreads_other": "You have {{count}} open threads: things you wrote about that are still unresolved.",
+      "openThreadsNone": "You have no open threads right now.",
       "seeThreads": "See your threads"
     },
     "overTime": {

@@ -520,7 +520,7 @@ function InnerCard({ profile }: { profile: GrowthProfile }) {
       </div>
 
       <p className="text-sm text-text-primary">
-        {t('profile.inner.openThreads', { count: openThreads })}{' '}
+        {openThreads > 0 ? t('profile.inner.openThreads', { count: openThreads }) : t('profile.inner.openThreadsNone')}{' '}
         <Link to="/threads" className="text-accent-primary underline-offset-2 hover:underline">
           {t('profile.inner.seeThreads')}
         </Link>
