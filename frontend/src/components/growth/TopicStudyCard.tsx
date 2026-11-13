@@ -1,9 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { ArrowRight, BookOpen, Loader2 } from 'lucide-react'
-import { guidesKeys, startStudy, type TopicCard } from '../../api/guides'
-import { useToast } from '../Toast'
+import type { TopicCard } from '../../api/guides'
+import { useStartStudy } from '../study/useStartStudy'
 
 /**
  * A study from the library, with one action: continue it when the person has
@@ -18,18 +17,8 @@ export default function TopicStudyCard({
   headingLevel?: 'h3' | 'h4'
 }) {
   const { t } = useTranslation()
-  const toast = useToast()
-  const navigate = useNavigate()
-  const queryClient = useQueryClient()
-
-  const start = useMutation({
-    mutationFn: () => startStudy(topic.key),
-    onSuccess: (study) => {
-      queryClient.invalidateQueries({ queryKey: guidesKeys.all })
-      navigate(`/study/${study.id}`)
-    },
-    onError: (err) => toast.fromError(err, t('growth.topic.startFailed')),
-  })
+  // Shared with the study hub: starts the study, refreshes enrolment everywhere and opens it.
+  const start = useStartStudy()
 
   const enrollment = topic.enrollment
   const done = enrollment?.completed_lessons?.length ?? 0
@@ -67,7 +56,7 @@ export default function TopicStudyCard({
             type="button"
             className="btn-secondary inline-flex items-center gap-2 text-sm disabled:opacity-60"
             disabled={start.isPending}
-            onClick={() => start.mutate()}
+            onClick={() => start.mutate(topic.key)}
             aria-label={t('growth.topic.startNamed', { title: topic.title })}
           >
             {start.isPending && <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />}

@@ -56,7 +56,7 @@ export function ScaleInput({ label, hint, value, onChange, disabled = false, cla
             />
             <span
               aria-hidden="true"
-              className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-bg-elevated text-sm font-medium text-text-primary transition-colors hover:border-accent-primary peer-checked:border-accent-primary peer-checked:bg-accent-primary peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-accent-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-bg-surface peer-disabled:cursor-not-allowed peer-disabled:opacity-60"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-bg-elevated text-base font-semibold text-text-primary transition-colors hover:border-accent-primary peer-checked:border-accent-primary peer-checked:bg-accent-primary peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-accent-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-bg-surface peer-disabled:cursor-not-allowed peer-disabled:opacity-60"
             >
               {option}
             </span>

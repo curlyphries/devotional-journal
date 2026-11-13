@@ -3379,5 +3379,638 @@ TOPICS = [
             },
         ],
     },
-    # --- next topic ---
+    {
+        "key": "change",
+        "category": "seasons",
+        "title": L("Change and new beginnings", "Cambios y nuevos comienzos"),
+        "summary": L(
+            "For when life is shifting under you: a move, a new school or job, an ending you did not "
+            "choose, a fresh start. Five readings on the God who goes ahead of you and does not change.",
+            "Para cuando la vida se mueve bajo tus pies: una mudanza, una escuela o un trabajo nuevo, un "
+            "final que no elegiste, un nuevo comienzo. Cinco lecturas sobre el Dios que va delante de ti "
+            "y no cambia.",
+        ),
+        "keywords": [
+            "change", "moving", "new job", "new school", "transition", "starting over", "uncertain",
+            "cambio", "mudanza", "mudar", "nuevo trabajo", "nueva escuela", "transici", "empezar de nuevo",
+            "incertidumbre",
+        ],
+        "situations": ["moving", "student", "job_seeking", "retired", "divorced"],
+        "traits": ["trust", "courage", "hope"],
+        "stages": ["child", "teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "child": L(
+                "A new school, a new house or a new baby can feel scary. God goes with you into every "
+                "new thing.",
+                "Una escuela nueva, una casa nueva o un bebé nuevo pueden dar miedo. Dios va contigo a "
+                "cada cosa nueva.",
+            ),
+            "teen": L(
+                "New school, new friends, a family that is changing. When nothing feels solid, here is "
+                "something that is.",
+                "Escuela nueva, amigos nuevos, una familia que está cambiando. Cuando nada se siente "
+                "firme, aquí hay algo que sí lo es.",
+            ),
+            "young_adult": L(
+                "Graduating, moving, first jobs, relationships beginning and ending. For walking forward "
+                "without a map.",
+                "Graduarte, mudarte, los primeros trabajos, relaciones que empiezan y terminan. Para "
+                "caminar hacia adelante sin mapa.",
+            ),
+            "adult": L(
+                "A job lost or changed, a move, a child leaving home, a life to rebuild. God is already "
+                "ahead of you there.",
+                "Un trabajo que se pierde o cambia, una mudanza, un hijo que se va de casa, una vida por "
+                "reconstruir. Dios ya está allí, delante de ti.",
+            ),
+            "senior": L(
+                "Retirement, a smaller home, new limits, faces missing. Even now God leads people into "
+                "new chapters.",
+                "La jubilación, una casa más pequeña, nuevos límites, rostros que faltan. Aun ahora Dios "
+                "guía a las personas hacia capítulos nuevos.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "change-1",
+                "ref": "Genesis 12:1-4",
+                "title": L("Going without a map", "Salir sin mapa"),
+                "truth": L(
+                    "God tells Abram to leave his country, his relatives and his father's house for a "
+                    "land he will be shown later. There is no map, only a promise: God will bless him, "
+                    "and through him others will be blessed. And Abram goes. The passage notes that he "
+                    "was seventy-five. Many big changes come like this, with one clear next step and very "
+                    "little view of the road beyond it. Faith is not knowing how it turns out. It is "
+                    "taking the step you have been given, trusting the one who goes with you.",
+                    "Dios le dice a Abram que deje su tierra, a sus parientes y la casa de su padre, y "
+                    "vaya a una tierra que le mostrará después. No hay mapa, solo una promesa: Dios lo "
+                    "bendecirá, y por medio de él otros serán bendecidos. Y Abram sale. El pasaje anota "
+                    "que tenía setenta y cinco años. Muchos cambios grandes llegan así: con un siguiente "
+                    "paso claro y muy poca vista del camino que sigue. La fe no es saber cómo va a "
+                    "terminar. Es dar el paso que se te ha dado, confiando en quien va contigo.",
+                ),
+                "simple": L(
+                    "God asked Abram to move to a new place far away. Abram did not know what it would be "
+                    "like, but he trusted God and went.",
+                    "Dios le pidió a Abram que se fuera a un lugar nuevo y lejano. Abram no sabía cómo "
+                    "sería, pero confió en Dios y fue.",
+                ),
+                "ask": L(
+                    "What is the one next step you can see in the change you are facing, even if you "
+                    "cannot see past it?",
+                    "¿Cuál es el siguiente paso que sí alcanzas a ver en el cambio que enfrentas, aunque "
+                    "no veas más allá?",
+                ),
+                "kid_ask": L(
+                    "What new thing is happening in your life, or coming soon?",
+                    "¿Qué cosa nueva está pasando en tu vida, o va a pasar pronto?",
+                ),
+                "do": L(
+                    "Write down the next step you can actually take this week, and take it. Leave the "
+                    "steps after it with God for now.",
+                    "Escribe el siguiente paso que de verdad puedes dar esta semana, y dalo. Por ahora, "
+                    "deja con Dios los pasos que vienen después.",
+                ),
+                "kid_do": L(
+                    "Draw something new in your life, and draw God right there with you.",
+                    "Dibuja algo nuevo en tu vida, y dibuja a Dios ahí mismo contigo.",
+                ),
+                "pray": L(
+                    "God, I cannot see where this goes. You can. Show me the next step, and give me the "
+                    "trust to take it.",
+                    "Dios, yo no veo adónde lleva esto. Tú sí. Muéstrame el siguiente paso, y dame "
+                    "confianza para darlo.",
+                ),
+            },
+            {
+                "key": "change-2",
+                "ref": "Ecclesiastes 3:1-8",
+                "title": L("Endings are real", "Los finales son reales"),
+                "truth": L(
+                    "The Teacher lists the seasons of a life in pairs: planting and uprooting, weeping "
+                    "and laughing, keeping and letting go. He does not rank them or hurry past the hard "
+                    "ones. Each has its time. Every new beginning is also an ending, and even a change "
+                    "you wanted takes something from you: a place, a routine, people you saw every day. "
+                    "You are allowed to grieve what is over while you walk into what is next. Naming the "
+                    "loss is not ingratitude. It is part of moving on honestly.",
+                    "El Maestro enumera por pares las épocas de una vida: plantar y arrancar, llorar y "
+                    "reír, guardar y soltar. No las ordena por importancia ni pasa de prisa por las "
+                    "difíciles. Cada una tiene su tiempo. Todo comienzo es también un final, y hasta un "
+                    "cambio que deseabas te quita algo: un lugar, una rutina, gente que veías todos los "
+                    "días. Tienes permiso de llorar lo que terminó mientras caminas hacia lo que sigue. "
+                    "Ponerle nombre a la pérdida no es ingratitud. Es parte de avanzar con honestidad.",
+                ),
+                "simple": L(
+                    "There is a time for everything: a time to be happy and a time to be sad. When "
+                    "something changes, it is okay to miss the way it was.",
+                    "Hay un tiempo para todo: un tiempo para estar alegre y un tiempo para estar triste. "
+                    "Cuando algo cambia, está bien extrañar cómo era antes.",
+                ),
+                "ask": L(
+                    "What is ending for you in this change, and have you let yourself be sad about it?",
+                    "¿Qué está terminando para ti con este cambio, y te has permitido sentir tristeza "
+                    "por ello?",
+                ),
+                "kid_ask": L(
+                    "Is there something or someone you miss?",
+                    "¿Hay algo o alguien que extrañas?",
+                ),
+                "do": L(
+                    "Make two short lists: what I am leaving behind, and what I am walking toward. Thank "
+                    "God for one thing on the first list before you ask him about the second.",
+                    "Haz dos listas cortas: lo que dejo atrás y hacia dónde voy. Dale gracias a Dios por "
+                    "una cosa de la primera lista antes de pedirle por la segunda.",
+                ),
+                "kid_do": L(
+                    "Tell a grown-up one thing you miss and one thing you are looking forward to.",
+                    "Cuéntale a un adulto una cosa que extrañas y una cosa que esperas con ganas.",
+                ),
+                "pray": L(
+                    "Lord, a season is ending and I feel it. Thank you for … Help me let go with "
+                    "gratitude, and open my hands for what is next.",
+                    "Señor, una etapa se está acabando y lo siento. Gracias por … Ayúdame a soltar con "
+                    "gratitud, y abre mis manos para lo que sigue.",
+                ),
+            },
+            {
+                "key": "change-3",
+                "ref": "Deuteronomy 31:6-8",
+                "title": L("God goes ahead of you", "Dios va delante de ti"),
+                "truth": L(
+                    "Israel is about to enter an unknown land, and Moses, the only leader they have "
+                    "known, is not going with them. So he tells the people, and then Joshua in front of "
+                    "them all, the one thing they most need to hear: be strong and brave, because the "
+                    "Lord himself goes before you. He will be with you. He will not leave you or abandon "
+                    "you. The new place is new to you, not to God. He is already there. Courage here is "
+                    "not a personality trait. It comes from knowing who is ahead of you and beside you.",
+                    "Israel está por entrar a una tierra desconocida, y Moisés, el único líder que han "
+                    "tenido, no irá con ellos. Así que le dice al pueblo, y luego a Josué delante de "
+                    "todos, lo que más necesitan oír: sean fuertes y valientes, porque el Señor mismo va "
+                    "delante de ustedes. Él estará con ustedes. No los dejará ni los abandonará. El lugar "
+                    "nuevo es nuevo para ti, no para Dios. Él ya está allí. Aquí la valentía no es un "
+                    "rasgo de carácter. Nace de saber quién va delante de ti y a tu lado.",
+                ),
+                "simple": L(
+                    "God goes ahead of you to every new place, and he stays right with you. You are never "
+                    "alone there.",
+                    "Dios va delante de ti a cada lugar nuevo, y se queda contigo. Allí nunca estás solo.",
+                ),
+                "ask": L(
+                    "What part of what lies ahead feels most unknown? How does it change things to "
+                    "picture God already there?",
+                    "¿Qué parte de lo que viene sientes más desconocida? ¿Qué cambia si imaginas que Dios "
+                    "ya está allí?",
+                ),
+                "kid_ask": L(
+                    "What new place or new thing makes you feel a little nervous?",
+                    "¿Qué lugar nuevo o qué cosa nueva te pone un poco nervioso?",
+                ),
+                "do": L(
+                    "Before you walk into the new thing this week (the office, the classroom, the empty "
+                    "house), stop at the door and say: you are already here.",
+                    "Esta semana, antes de entrar a lo nuevo (la oficina, el salón, la casa vacía), "
+                    "detente en la puerta y di: tú ya estás aquí.",
+                ),
+                "kid_do": L(
+                    "Before you go somewhere new, whisper, \"God, you are with me.\"",
+                    "Antes de ir a un lugar nuevo, di bajito: \"Dios, tú estás conmigo\".",
+                ),
+                "pray": L(
+                    "Lord, you go before me and you will not leave me. I am walking into … Be there ahead "
+                    "of me, and make me brave.",
+                    "Señor, tú vas delante de mí y no me vas a dejar. Estoy entrando a … Espérame allí, "
+                    "y dame valor.",
+                ),
+            },
+            {
+                "key": "change-4",
+                "ref": "Lamentations 3:21-24",
+                "title": L("Starting over", "Empezar de nuevo"),
+                "truth": L(
+                    "These lines were written in the ruins of Jerusalem, by someone who had lost nearly "
+                    "everything. In the middle of his grief he deliberately calls something to mind: the "
+                    "Lord's faithful love has not run out. His mercies are new every morning. This is not "
+                    "cheerfulness. It is a choice about where to look when starting again feels "
+                    "impossible. You are not asked to find strength today for the whole rebuilt life. You "
+                    "are given mercy for this morning, and tomorrow there will be more.",
+                    "Estas líneas se escribieron entre las ruinas de Jerusalén, por alguien que lo había "
+                    "perdido casi todo. En medio de su dolor, trae algo a la memoria a propósito: el amor "
+                    "fiel del Señor no se ha acabado. Sus misericordias son nuevas cada mañana. Esto no es "
+                    "optimismo. Es decidir hacia dónde mirar cuando volver a empezar parece imposible. No "
+                    "se te pide encontrar hoy las fuerzas para toda la vida reconstruida. Se te da "
+                    "misericordia para esta mañana, y mañana habrá más.",
+                ),
+                "simple": L(
+                    "Every morning God gives us a fresh start and new love. Even after a bad day, "
+                    "tomorrow is new.",
+                    "Cada mañana Dios nos da un comienzo fresco y un amor nuevo. Aun después de un mal "
+                    "día, mañana es un día nuevo.",
+                ),
+                "ask": L(
+                    "Where are you having to start over, and what is one mercy, however small, that was "
+                    "new for you today?",
+                    "¿En qué te está tocando empezar de nuevo, y cuál es una misericordia, por pequeña "
+                    "que sea, que fue nueva para ti hoy?",
+                ),
+                "kid_ask": L(
+                    "What is good about a brand new day?",
+                    "¿Qué tiene de bueno un día completamente nuevo?",
+                ),
+                "do": L(
+                    "Each morning this week, before anything else, write down one mercy from the day "
+                    "before. If starting over feels too heavy to face alone, tell a friend or a pastor.",
+                    "Cada mañana de esta semana, antes que nada, anota una misericordia del día anterior. "
+                    "Si empezar de nuevo te pesa demasiado para enfrentarlo a solas, cuéntaselo a un "
+                    "amigo o a un pastor.",
+                ),
+                "kid_do": L(
+                    "When you wake up tomorrow, say, \"Thank you, God, for a new day.\"",
+                    "Mañana, cuando despiertes, di: \"Gracias, Dios, por un día nuevo\".",
+                ),
+                "pray": L(
+                    "Lord, I did not want to start again, and here I am. Your mercy is new this morning. "
+                    "Give me enough for today.",
+                    "Señor, yo no quería volver a empezar, y aquí estoy. Tu misericordia es nueva esta "
+                    "mañana. Dame la suficiente para hoy.",
+                ),
+            },
+            {
+                "key": "change-5",
+                "ref": "Psalm 102:25-27",
+                "title": L("The one who does not change", "El que no cambia"),
+                "truth": L(
+                    "The writer of this psalm is frail and feels his days slipping away. He looks at the "
+                    "most permanent things he knows, the earth and the sky, and says even these will wear "
+                    "out like old clothes and be changed. Then he says to God: but you remain the same, "
+                    "and your years never end. Everything in your life can shift: your address, your "
+                    "work, your body, the people around your table. God's character does not. He is the "
+                    "fixed point from which you can face everything that moves.",
+                    "Quien escribe este salmo está débil y siente que los días se le escapan. Mira las "
+                    "cosas más permanentes que conoce, la tierra y el cielo, y dice que hasta ellas se "
+                    "gastarán como ropa vieja y serán cambiadas. Entonces le dice a Dios: pero tú sigues "
+                    "siendo el mismo, y tus años no se acaban. Todo en tu vida puede moverse: tu "
+                    "dirección, tu trabajo, tu cuerpo, las personas alrededor de tu mesa. El carácter de "
+                    "Dios no. Él es el punto fijo desde el cual puedes enfrentar todo lo que se mueve.",
+                ),
+                "simple": L(
+                    "Lots of things change, but God never changes. He always loves you the same.",
+                    "Muchas cosas cambian, pero Dios nunca cambia. Siempre te ama igual.",
+                ),
+                "ask": L(
+                    "What has stayed true about God through every change you have lived through so far?",
+                    "¿Qué ha seguido siendo verdad acerca de Dios en cada cambio que has vivido hasta "
+                    "ahora?",
+                ),
+                "kid_ask": L(
+                    "What is something about God that is always the same?",
+                    "¿Qué es algo de Dios que siempre es igual?",
+                ),
+                "do": L(
+                    "Write down three things that have changed in your life this year, and beneath them "
+                    "three things about God that have not. Read the second list aloud.",
+                    "Escribe tres cosas que cambiaron en tu vida este año, y debajo tres cosas de Dios "
+                    "que no han cambiado. Lee la segunda lista en voz alta.",
+                ),
+                "kid_do": L(
+                    "Name three things in your life that stay the same. God's love is one of them.",
+                    "Nombra tres cosas de tu vida que siguen igual. El amor de Dios es una de ellas.",
+                ),
+                "pray": L(
+                    "God, everything around me is moving, and you are the same. Be my fixed point today.",
+                    "Dios, todo a mi alrededor se mueve, y tú eres el mismo. Sé hoy mi punto fijo.",
+                ),
+            },
+        ],
+    },
+    {
+        "key": "eternity",
+        "category": "seasons",
+        "title": L("Death and the hope of resurrection", "La muerte y la esperanza de la resurrección"),
+        "summary": L(
+            "For anyone facing death: your own, or that of someone you love. Five gentle readings, honest "
+            "about fear and grief, that hold to the hope Christians share: Jesus is risen, and death "
+            "does not have the last word.",
+            "Para quien está frente a la muerte: la propia o la de alguien amado. Cinco lecturas suaves, "
+            "honestas sobre el miedo y el duelo, que se aferran a la esperanza que comparten los "
+            "cristianos: Jesús resucitó, y la muerte no tiene la última palabra.",
+        ),
+        "keywords": [
+            "death", "dying", "died", "funeral", "heaven", "afterlife", "terminal", "passed away", "eternal",
+            "muerte", "morir", "murió", "falleci", "cielo", "eternidad", "vida eterna", "resurrec",
+        ],
+        "situations": ["grieving", "ill", "widowed", "caregiver"],
+        "traits": ["hope", "trust", "peace"],
+        "stages": ["child", "teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "child": L(
+                "When someone dies we feel very sad, and we have questions. Jesus understands, and he "
+                "gives us hope.",
+                "Cuando alguien muere nos sentimos muy tristes y tenemos preguntas. Jesús lo entiende, y "
+                "nos da esperanza.",
+            ),
+            "teen": L(
+                "Maybe someone you love has died, or the thought of death keeps you awake. You can bring "
+                "the fear and the questions here.",
+                "Quizá murió alguien que quieres, o pensar en la muerte no te deja dormir. Aquí puedes "
+                "traer el miedo y las preguntas.",
+            ),
+            "young_adult": L(
+                "Death can feel far away until it is not. Honest readings for a first real loss, and for "
+                "the questions it raises.",
+                "La muerte puede parecer lejana hasta que deja de serlo. Lecturas honestas para una "
+                "primera pérdida real, y para las preguntas que despierta.",
+            ),
+            "adult": L(
+                "Burying parents, friends, sometimes a child; facing your own diagnosis. Hope that does "
+                "not ask you to pretend.",
+                "Despedir a los padres, a amigos, a veces a un hijo; enfrentar tu propio diagnóstico. Una "
+                "esperanza que no te pide fingir.",
+            ),
+            "senior": L(
+                "There are more goodbyes now, and your own is in view. These readings are about who meets "
+                "you there.",
+                "Ahora hay más despedidas, y la tuya ya se alcanza a ver. Estas lecturas tratan de quién "
+                "te recibe allí.",
+            ),
+        },
+        "sensitive": True,
+        "lessons": [
+            {
+                "key": "eternity-1",
+                "ref": "John 11:32-36",
+                "title": L("Jesus cried at a grave", "Jesús lloró ante una tumba"),
+                "truth": L(
+                    "Lazarus has died, and his sister Mary falls at Jesus' feet, saying that if he had "
+                    "been there her brother would not have died. Jesus does not correct her. Seeing her "
+                    "weep, he is deeply moved, and he weeps too. He does this knowing he is about to raise "
+                    "Lazarus, so his tears are not hopelessness. They show that death is an enemy, that "
+                    "grief is right, and that God is not distant from it. If you are afraid of death, or "
+                    "broken by someone's, you have not failed at faith. You are standing where Jesus "
+                    "stood.",
+                    "Lázaro ha muerto, y su hermana María cae a los pies de Jesús y le dice que si él "
+                    "hubiera estado allí, su hermano no habría muerto. Jesús no la corrige. Al verla "
+                    "llorar, se conmueve profundamente, y él también llora. Lo hace sabiendo que está por "
+                    "resucitar a Lázaro, así que sus lágrimas no son desesperanza. Muestran que la muerte "
+                    "es un enemigo, que el duelo es justo y que Dios no está lejos de él. Si le tienes "
+                    "miedo a la muerte, o la muerte de alguien te ha quebrado, no has fallado en la fe. "
+                    "Estás parado donde estuvo Jesús.",
+                ),
+                "simple": L(
+                    "When Jesus' friend died, Jesus cried. It is okay to cry when someone dies. Jesus "
+                    "understands how sad it feels.",
+                    "Cuando murió su amigo, Jesús lloró. Está bien llorar cuando alguien muere. Jesús "
+                    "entiende lo triste que se siente.",
+                ),
+                "ask": L(
+                    "What have you felt about death, or about one particular death, that you thought you "
+                    "were not allowed to say to God?",
+                    "¿Qué has sentido sobre la muerte, o sobre una muerte en particular, que creías que "
+                    "no tenías permiso de decirle a Dios?",
+                ),
+                "kid_ask": L(
+                    "What helps you when you feel very sad?",
+                    "¿Qué te ayuda cuando te sientes muy triste?",
+                ),
+                "do": L(
+                    "Say to God today what Mary said: your own honest sentence that begins, if you had "
+                    "been here. Then tell one trusted person how you are really doing with this loss or "
+                    "this fear.",
+                    "Dile hoy a Dios lo que dijo María: tu propia frase honesta que empieza con si "
+                    "hubieras estado aquí. Luego cuéntale a una persona de confianza cómo estás de verdad "
+                    "con esta pérdida o este miedo.",
+                ),
+                "kid_do": L(
+                    "If you feel sad about someone who died, tell a grown-up, and let them give you "
+                    "a hug.",
+                    "Si te sientes triste por alguien que murió, cuéntaselo a un adulto y deja que te dé "
+                    "un abrazo.",
+                ),
+                "pray": L(
+                    "Jesus, you wept at a grave, so you know. Here is what I am carrying: … Stay near me "
+                    "in it.",
+                    "Jesús, tú lloraste ante una tumba, así que lo sabes. Esto es lo que estoy cargando: … "
+                    "Quédate cerca de mí en esto.",
+                ),
+            },
+            {
+                "key": "eternity-2",
+                "ref": "1 Corinthians 15:20-26",
+                "title": L("Death is not the end of the story", "La muerte no es el final de la historia"),
+                "truth": L(
+                    "Christian hope rests on an event: God raised Jesus from the dead. Paul calls him the "
+                    "firstfruits, the first sheaf of a harvest, which is the sign that the rest is "
+                    "coming. Because he was raised, those who belong to him will be raised too. Paul "
+                    "names death for what it is, an enemy, and says it is the last enemy that will be "
+                    "destroyed. The Bible gives few details about how, and it is wise not to add any. "
+                    "What it gives is a person: the risen Christ, who went through death and came out the "
+                    "other side.",
+                    "La esperanza cristiana descansa en un hecho: Dios resucitó a Jesús de entre los "
+                    "muertos. Pablo lo llama las primicias, el primer manojo de una cosecha, que es la "
+                    "señal de que viene el resto. Porque él resucitó, los que son suyos también "
+                    "resucitarán. Pablo llama a la muerte por lo que es, un enemigo, y dice que es el "
+                    "último enemigo que será destruido. La Biblia da pocos detalles sobre el cómo, y es "
+                    "sabio no añadir ninguno. Lo que da es una persona: Cristo resucitado, que atravesó "
+                    "la muerte y salió del otro lado.",
+                ),
+                "simple": L(
+                    "Jesus died and came back to life. Because of Jesus, death is not the end. One day "
+                    "God will make everything new.",
+                    "Jesús murió y volvió a vivir. Gracias a Jesús, la muerte no es el final. Un día Dios "
+                    "hará nuevas todas las cosas.",
+                ),
+                "ask": L(
+                    "Right now, does the resurrection of Jesus feel to you more like a teaching, a hope "
+                    "or a question? Say why.",
+                    "En este momento, ¿la resurrección de Jesús es para ti más una enseñanza, una "
+                    "esperanza o una pregunta? Di por qué.",
+                ),
+                "kid_ask": L(
+                    "What do you know about what happened at Easter?",
+                    "¿Qué sabes de lo que pasó en la Pascua?",
+                ),
+                "do": L(
+                    "Read today's passage aloud once, slowly. Write down the single phrase you most need, "
+                    "and carry it with you this week.",
+                    "Lee el pasaje de hoy en voz alta una vez, despacio. Anota la frase que más "
+                    "necesitas, y llévala contigo esta semana.",
+                ),
+                "kid_do": L(
+                    "Draw the empty tomb on Easter morning, and say, \"Jesus is alive.\"",
+                    "Dibuja la tumba vacía en la mañana de Pascua, y di: \"Jesús está vivo\".",
+                ),
+                "pray": L(
+                    "Risen Lord, you went into death and came out again. I want to trust that. Where I "
+                    "cannot, help me. Keep me in that hope today.",
+                    "Señor resucitado, tú entraste en la muerte y saliste de ella. Quiero confiar en eso. "
+                    "Donde no puedo, ayúdame. Mantenme hoy en esa esperanza.",
+                ),
+            },
+            {
+                "key": "eternity-3",
+                "ref": "John 14:1-3",
+                "title": L("A place prepared", "Un lugar preparado"),
+                "truth": L(
+                    "On the night before his own death, Jesus speaks to friends whose hearts are "
+                    "troubled. He does not explain what dying is like, or describe in detail what lies "
+                    "beyond. He gives a promise in the plainest terms: there is room in his Father's "
+                    "house, he is going to prepare a place, and he will come himself and take them to be "
+                    "with him. The center of the promise is not a location. It is company: being where "
+                    "he is. If you are facing your own death, the one who waits on the other side is "
+                    "someone who already loves you.",
+                    "La noche antes de su propia muerte, Jesús les habla a unos amigos con el corazón "
+                    "angustiado. No les explica cómo es morir, ni describe en detalle lo que hay más "
+                    "allá. Les da una promesa en los términos más sencillos: en la casa de su Padre hay "
+                    "lugar, él va a preparar un sitio, y vendrá él mismo a llevarlos para que estén con "
+                    "él. El centro de la promesa no es un lugar. Es la compañía: estar donde él está. Si "
+                    "estás frente a tu propia muerte, quien espera del otro lado es alguien que ya te ama.",
+                ),
+                "simple": L(
+                    "Jesus told his friends that he is getting a place ready for them, so they can be "
+                    "with him always.",
+                    "Jesús les dijo a sus amigos que les está preparando un lugar, para que estén con él "
+                    "para siempre.",
+                ),
+                "ask": L(
+                    "When you think about your own death, what are you most afraid of: pain, leaving "
+                    "people, the unknown, being alone? Which of these does Jesus' promise touch?",
+                    "Cuando piensas en tu propia muerte, ¿qué es lo que más temes: el dolor, dejar a los "
+                    "tuyos, lo desconocido, la soledad? ¿Cuál de estos temores toca la promesa de Jesús?",
+                ),
+                "kid_ask": L(
+                    "What makes a place feel like home to you?",
+                    "¿Qué hace que un lugar se sienta como tu hogar?",
+                ),
+                "do": L(
+                    "Tell one person you trust what you fear most about dying, and ask them to pray with "
+                    "you. If you are seriously ill, also tell your doctor or a chaplain what frightens "
+                    "you; they can help with more of it than you might expect.",
+                    "Cuéntale a una persona de confianza qué es lo que más temes de morir, y pídele que "
+                    "ore contigo. Si tienes una enfermedad grave, dile también a tu médico o a un "
+                    "capellán lo que te asusta; pueden ayudarte con más de lo que imaginas.",
+                ),
+                "kid_do": L(
+                    "Ask a grown-up any question you have about heaven. It is okay if they do not know "
+                    "every answer.",
+                    "Hazle a un adulto cualquier pregunta que tengas sobre el cielo. Está bien si no sabe "
+                    "todas las respuestas.",
+                ),
+                "pray": L(
+                    "Jesus, my heart is troubled. You said there is room, and that you will come for me "
+                    "yourself. Let that be enough for today.",
+                    "Jesús, mi corazón está angustiado. Tú dijiste que hay lugar, y que vendrás tú mismo "
+                    "por mí. Que eso me baste por hoy.",
+                ),
+            },
+            {
+                "key": "eternity-4",
+                "ref": "1 Thessalonians 4:13-14",
+                "title": L("Grief with hope in it", "Un duelo con esperanza"),
+                "truth": L(
+                    "Paul writes to believers whose friends have died, and he chooses his words with "
+                    "care. He does not say do not grieve. He says they need not grieve the way people do "
+                    "who have no hope. Christian grief is still grief, with its tears and its empty "
+                    "chair. But there is hope inside it, because Jesus died and rose, and God will bring "
+                    "with him those who have died trusting him. You do not have to choose between "
+                    "mourning and believing. You may do both, for as long as it takes.",
+                    "Pablo les escribe a creyentes cuyos amigos han muerto, y elige sus palabras con "
+                    "cuidado. No dice que no lloren. Dice que no tienen que llorar como quienes no tienen "
+                    "esperanza. El duelo cristiano sigue siendo duelo, con sus lágrimas y su silla vacía. "
+                    "Pero lleva una esperanza por dentro, porque Jesús murió y resucitó, y Dios traerá "
+                    "con él a quienes murieron confiando en él. No tienes que elegir entre llorar y "
+                    "creer. Puedes hacer las dos cosas, todo el tiempo que haga falta.",
+                ),
+                "simple": L(
+                    "When someone we love dies, we are sad and we miss them. We also have hope, because "
+                    "Jesus is alive and takes care of those who belong to him.",
+                    "Cuando muere alguien que amamos, nos ponemos tristes y lo extrañamos. También "
+                    "tenemos esperanza, porque Jesús está vivo y cuida a los que son suyos.",
+                ),
+                "ask": L(
+                    "Whom are you missing? Where do you feel pressure, from others or from yourself, to "
+                    "be finished grieving?",
+                    "¿A quién extrañas? ¿Dónde sientes presión, de otros o de ti, para dar por terminado "
+                    "tu duelo?",
+                ),
+                "kid_ask": L(
+                    "Is there someone you miss? What do you remember about them?",
+                    "¿Hay alguien a quien extrañas? ¿Qué recuerdas de esa persona?",
+                ),
+                "do": L(
+                    "Do one thing this week to remember the person: tell a story about them, visit a "
+                    "place, write a letter you will not send. If grief is making it hard to eat, sleep "
+                    "or want to go on living, tell a doctor, counselor or pastor now. Do not carry that "
+                    "alone.",
+                    "Haz esta semana algo para recordar a esa persona: cuenta una historia suya, visita "
+                    "un lugar, escribe una carta que no vas a enviar. Si el duelo te está quitando el "
+                    "hambre, el sueño o las ganas de seguir viviendo, díselo ya a un médico, consejero o "
+                    "pastor. No cargues eso a solas.",
+                ),
+                "kid_do": L(
+                    "Draw a picture or tell a story about someone you miss, and share it with a grown-up.",
+                    "Haz un dibujo o cuenta una historia de alguien a quien extrañas, y compártelo con "
+                    "un adulto.",
+                ),
+                "pray": L(
+                    "Father, I miss … so much. Thank you for their life. I place them in your hands, and "
+                    "myself too, until the day you make all things right.",
+                    "Padre, extraño muchísimo a … Gracias por su vida. Lo pongo en tus manos, y a mí "
+                    "también, hasta el día en que lo hagas todo nuevo.",
+                ),
+            },
+            {
+                "key": "eternity-5",
+                "ref": "Revelation 21:1-5",
+                "title": L("Every tear", "Cada lágrima"),
+                "truth": L(
+                    "The Bible's last pages do not picture people escaping the world. They picture God "
+                    "coming to live with his people in a creation made new. John hears a voice from the "
+                    "throne: God himself will be with them and will wipe every tear from their eyes. "
+                    "There will be no more death, no more mourning or crying or pain. Much about this is "
+                    "beyond us, and Scripture does not ask us to fill in the blanks. It asks us to trust "
+                    "the one who says he is making everything new, and whose words can be relied on.",
+                    "Las últimas páginas de la Biblia no muestran a la gente escapando del mundo. "
+                    "Muestran a Dios viniendo a vivir con su pueblo en una creación hecha nueva. Juan oye "
+                    "una voz desde el trono: Dios mismo estará con ellos y secará toda lágrima de sus "
+                    "ojos. Ya no habrá muerte, ni duelo, ni llanto, ni dolor. Mucho de esto nos "
+                    "sobrepasa, y la Escritura no nos pide llenar los espacios en blanco. Nos pide confiar "
+                    "en aquel que dice que está haciendo nuevas todas las cosas, y cuyas palabras son "
+                    "dignas de confianza.",
+                ),
+                "simple": L(
+                    "One day God will make everything new. He will wipe away every tear, and no one will "
+                    "be sad or hurt anymore.",
+                    "Un día Dios hará nuevas todas las cosas. Secará cada lágrima, y nadie volverá a "
+                    "estar triste ni a sentir dolor.",
+                ),
+                "ask": L(
+                    "Of the things God promises to end (death, mourning, crying, pain), which do you most "
+                    "long to see gone, and why that one?",
+                    "De las cosas que Dios promete terminar (la muerte, el duelo, el llanto, el dolor), "
+                    "¿cuál es la que más anhelas ver desaparecer, y por qué esa?",
+                ),
+                "kid_ask": L(
+                    "What do you think it will be like when nobody is sad anymore?",
+                    "¿Cómo crees que será cuando ya nadie esté triste?",
+                ),
+                "do": L(
+                    "Write the name of your grief or fear on a card. On the back, write in your own "
+                    "words what God promises in this passage. Keep it by your bed this week.",
+                    "Escribe en una tarjeta el nombre de tu duelo o de tu miedo. Al reverso, escribe con "
+                    "tus propias palabras lo que Dios promete en este pasaje. Tenla junto a tu cama esta "
+                    "semana.",
+                ),
+                "kid_do": L(
+                    "Draw a picture of a world where everyone is happy and safe with God.",
+                    "Haz un dibujo de un mundo donde todos están felices y seguros con Dios.",
+                ),
+                "pray": L(
+                    "God, you have promised to wipe away every tear. I am counting on it. Until that day, "
+                    "be with me in this one.",
+                    "Dios, tú prometiste secar toda lágrima. Cuento con eso. Hasta ese día, quédate "
+                    "conmigo en este.",
+                ),
+            },
+        ],
+    },
 ]

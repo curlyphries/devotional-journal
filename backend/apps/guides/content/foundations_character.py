@@ -207,7 +207,7 @@ TOPICS = [
                 "ref": "Psalm 103:8-14",
                 "title": L("The God who is compassionate", "El Dios compasivo"),
                 "truth": L(
-                    "This psalm describes God's temper: slow to get angry and overflowing with love. He does "
+                    "This psalm describes God's character: slow to get angry and overflowing with love. He does "
                     "not treat us as our wrongs deserve, and he puts those wrongs as far from us as the east "
                     "is from the west. Then comes a picture, a father who is tender with his children, and a "
                     "reason: God remembers what we are made of. He knows how fragile you are, and knowing it "
@@ -544,9 +544,9 @@ TOPICS = [
                 "pray": L(
                     "Risen Jesus, some of this is hard for me to take in. Meet me in my wondering, as you met "
                     "your first friends, and let your life reach the dead places in mine.",
-                    "Jesús resucitado, hay cosas de esto que me cuesta asimilar. Encuéntrame en mi asombro, "
-                    "como encontraste a tus primeros amigos, y que tu vida alcance los lugares muertos de la "
-                    "mía.",
+                    "Jesús resucitado, hay cosas de esto que me cuesta asimilar. Sal a mi encuentro en mi "
+                    "desconcierto, como saliste al encuentro de tus primeros amigos, y que tu vida alcance "
+                    "los lugares muertos de la mía.",
                 ),
             },
             {
@@ -897,7 +897,7 @@ TOPICS = [
                 "For people with little time and a lot on their minds. A few true words count for more "
                 "than many tired ones.",
                 "Para quienes tienen poco tiempo y mucho en la cabeza. Unas pocas palabras sinceras valen "
-                "más que muchas dichas por cansancio.",
+                "más que muchas repetidas sin ganas.",
             ),
             "senior": L(
                 "Whether you have prayed for decades or are starting late, there is still more of God to "
@@ -1111,14 +1111,14 @@ TOPICS = [
                 "ref": "Mark 14:32-36",
                 "title": L("Asking, and trusting the answer", "Pedir, y confiar en la respuesta"),
                 "truth": L(
-                    "On the night before he died, Jesus prayed in a garden, overwhelmed with sorrow. He "
-                    "called God by the close family name Abba, said plainly what he wanted, that this "
+                    "On the night before he died, Jesus prayed in a place called Gethsemane, overwhelmed with "
+                    "sorrow. He called God by the close family name Abba, said plainly what he wanted, that this "
                     "suffering would pass him by, and then placed himself in his Father's hands. The "
                     "suffering was not taken away. So when a request is not granted, it is not proof of weak "
                     "faith or of God's absence. Prayer is not a way of controlling God. It is telling him "
                     "everything and trusting him with the outcome.",
-                    "La noche antes de morir, Jesús oró en un huerto, abrumado por la tristeza. Llamó a Dios "
-                    "con el nombre familiar y cercano de Abba, dijo con claridad lo que quería, que ese "
+                    "La noche antes de morir, Jesús oró en un lugar llamado Getsemaní, abrumado por la "
+                    "tristeza. Llamó a Dios con el nombre familiar y cercano de Abba, dijo con claridad lo que quería, que ese "
                     "sufrimiento pasara de largo, y luego se puso en manos de su Padre. El sufrimiento no le "
                     "fue quitado. Así que cuando una petición no se concede, no es prueba de poca fe ni de "
                     "que Dios esté ausente. Orar no es una forma de controlar a Dios. Es decirle todo y "
@@ -1281,8 +1281,8 @@ TOPICS = [
                     "repasa en su mente de día y de noche. A esa persona la compara con un árbol plantado "
                     "junto a un arroyo: da fruto cuando llega el tiempo, y sus hojas no se secan. La imagen "
                     "no habla de velocidad ni de cantidad. Un árbol no traga el agua de golpe; se queda en "
-                    "su sitio y bebe despacio. Leer un poco, con frecuencia, y darle vueltas es como la "
-                    "Biblia pasa de la página a tu vida.",
+                    "su sitio y bebe despacio. Leer un poco, con frecuencia, y darle vueltas: así es como "
+                    "la Biblia pasa de la página a tu vida.",
                 ),
                 "simple": L(
                     "A tree by a river grows strong because it drinks water every day. When we listen to "
@@ -1324,14 +1324,14 @@ TOPICS = [
                 "ref": "Luke 24:25-32",
                 "title": L("The whole story points to Jesus", "Toda la historia señala a Jesús"),
                 "truth": L(
-                    "Two discouraged followers are walking home after Jesus' death when a stranger joins "
-                    "them. It is the risen Jesus, though they do not know it yet. Starting with the oldest "
+                    "Two discouraged followers are walking to a village outside Jerusalem after Jesus' death "
+                    "when a stranger joins them. It is the risen Jesus, though they do not know it yet. Starting with the oldest "
                     "books of the Bible, he explains how all of it spoke about him. Later, when he breaks "
                     "bread at their table, they recognize him, and they remember how their hearts burned "
                     "while he opened the Scriptures. The Bible is many books, but it tells one story, and "
                     "Jesus is at its center. When a passage is hard, ask what it shows you about him.",
-                    "Dos seguidores desanimados van camino a casa después de la muerte de Jesús cuando un "
-                    "desconocido se les une. Es Jesús resucitado, aunque todavía no lo saben. Empezando por "
+                    "Dos seguidores desanimados van camino a una aldea, después de la muerte de Jesús, cuando "
+                    "un desconocido se les une. Es Jesús resucitado, aunque todavía no lo saben. Empezando por "
                     "los libros más antiguos de la Biblia, les explica cómo todo hablaba de él. Más tarde, "
                     "cuando parte el pan en su mesa, lo reconocen, y recuerdan cómo les ardía el corazón "
                     "mientras les abría las Escrituras. La Biblia son muchos libros, pero cuenta una sola "
@@ -1734,13 +1734,13 @@ TOPICS = [
                 "title": L("Even John asked", "Hasta Juan preguntó"),
                 "truth": L(
                     "John the Baptist had announced Jesus to the world. Now he is in prison, things have not "
-                    "gone as he expected, and he sends friends to ask whether Jesus really is the one or "
+                    "gone as he expected, and he sends some of his followers to ask whether Jesus really is the one or "
                     "whether they should wait for someone else. Jesus does not scold him. He points to what "
                     "is actually happening: the blind see, the lame walk, the poor hear good news. Then he "
                     "blesses whoever does not give up on him. Doubt often comes when God does not act the way "
                     "we assumed he would. Jesus answers it with evidence and with kindness.",
                     "Juan el Bautista había anunciado a Jesús ante todos. Ahora está en la cárcel, las cosas "
-                    "no han salido como esperaba, y envía a unos amigos a preguntar si Jesús es de verdad el "
+                    "no han salido como esperaba, y envía a algunos de sus seguidores a preguntar si Jesús es de verdad el "
                     "que había de venir o si deben esperar a otro. Jesús no lo regaña. Señala lo que "
                     "realmente está pasando: los ciegos ven, los cojos caminan, los pobres reciben buenas "
                     "noticias. Luego llama dichoso a quien no se aparta de él. La duda suele llegar cuando "
@@ -2467,7 +2467,7 @@ TOPICS = [
                     "Pablo, después de muchos años siguiendo a Jesús, dice con claridad que no ha llegado y "
                     "que todavía no es lo que será. Eso no lo aplasta, ni lo usa de excusa. Suelta lo que "
                     "queda atrás y sigue avanzando hacia lo que está adelante, porque Cristo ya lo alcanzó a "
-                    "él. Tenerte paciencia no es bajar la vara. Es aceptar que crecer toma toda la vida, "
+                    "él. Tenerte paciencia no es exigirte menos. Es aceptar que crecer toma toda la vida, "
                     "levantarte otra vez sin despreciarte y dar el siguiente paso.",
                 ),
                 "simple": L(
@@ -2505,5 +2505,525 @@ TOPICS = [
             },
         ],
     },
-    # @@NEXT@@
+    {
+        "key": "hope",
+        "category": "character",
+        "title": L("Hope", "Esperanza"),
+        "summary": L(
+            "For anyone who finds it hard to expect anything good. Four readings on a hope that is more "
+            "than optimism: a steady expectation of good, resting on who God is and what he has "
+            "promised.",
+            "Para quien le cuesta esperar algo bueno. Cuatro lecturas sobre una esperanza que es más "
+            "que optimismo: una expectativa firme del bien, apoyada en quién es Dios y en lo que ha "
+            "prometido.",
+        ),
+        "keywords": [
+            "hope", "discourag", "future", "weary", "bleak", "pointless", "optimis", "expect",
+            "esperanza", "desesperanz", "desanim", "desalent", "futuro", "agotad", "sin sentido",
+            "ilusión",
+        ],
+        "situations": ["grieving", "ill", "job_seeking", "caregiver", "moving", "recovery"],
+        "traits": ["hope", "perseverance", "trust"],
+        "stages": ["teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "teen": L(
+                "When the future looks dark or just blank, hope is not pretending. It is trusting that God "
+                "is good and is not done.",
+                "Cuando el futuro se ve oscuro o simplemente en blanco, tener esperanza no es fingir. Es "
+                "confiar en que Dios es bueno y no ha terminado.",
+            ),
+            "young_adult": L(
+                "For when plans fall through and the world's news is heavy. Hope rests on something "
+                "sturdier than how things look.",
+                "Para cuando los planes se caen y las noticias del mundo pesan. La esperanza se apoya en "
+                "algo más firme que las apariencias.",
+            ),
+            "adult": L(
+                "For the long middle, when you are tired and little seems to change. Hope gives strength "
+                "for today, not only for someday.",
+                "Para el largo trecho de en medio, cuando hay cansancio y poco parece cambiar. La "
+                "esperanza da fuerza para hoy, no solo para algún día.",
+            ),
+            "senior": L(
+                "For when there is more road behind than ahead. Christian hope reaches further than this "
+                "life, and it holds.",
+                "Para cuando hay más camino atrás que adelante. La esperanza cristiana llega más allá de "
+                "esta vida, y sostiene.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "hope-1",
+                "ref": "Romans 5:1-5",
+                "title": L("More than optimism", "Más que optimismo"),
+                "truth": L(
+                    "Optimism says things will probably turn out fine. Hope, as Paul describes it, rests on "
+                    "something else: through Jesus we have peace with God and stand in his favor. That is "
+                    "why Paul can say hardship is not the end of hope but one of the places it grows, as "
+                    "endurance forms character and character deepens hope. And this hope will not let us "
+                    "down, because God has already poured his love into our hearts by the Holy Spirit. It "
+                    "rests on what God has done, not on how things look.",
+                    "El optimismo dice que probablemente todo saldrá bien. La esperanza, como la describe "
+                    "Pablo, se apoya en otra cosa: por medio de Jesús tenemos paz con Dios y vivimos en su "
+                    "favor. Por eso Pablo puede decir que la dificultad no es el fin de la esperanza, sino "
+                    "uno de los lugares donde crece: la constancia forma el carácter, y el carácter hace más "
+                    "honda la esperanza. Y esta esperanza no nos va a fallar, porque Dios ya derramó su amor "
+                    "en nuestro corazón por el Espíritu Santo. Se apoya en lo que Dios ha hecho, no en cómo "
+                    "se ven las cosas.",
+                ),
+                "simple": L(
+                    "Hope means trusting that God is good and will take care of us, even when today is hard.",
+                    "Tener esperanza es confiar en que Dios es bueno y nos va a cuidar, aunque hoy sea un "
+                    "día difícil.",
+                ),
+                "ask": L(
+                    "Is what you call hope closer to optimism about circumstances or to confidence in God? "
+                    "What is it actually resting on?",
+                    "Lo que llamas esperanza, ¿se parece más al optimismo sobre las circunstancias o a la "
+                    "confianza en Dios? ¿En qué se apoya realmente?",
+                ),
+                "kid_ask": L(
+                    "What is something good you are looking forward to?",
+                    "¿Qué cosa buena estás esperando con ganas?",
+                ),
+                "do": L(
+                    "Write two short lists: what I hope will happen, and what I know about God. Underline "
+                    "one item in the second list and carry it with you today.",
+                    "Escribe dos listas cortas: lo que espero que pase, y lo que sé de Dios. Subraya una "
+                    "cosa de la segunda lista y llévala contigo hoy.",
+                ),
+                "kid_do": L(
+                    "Tell a grown-up one thing you know about God that makes you feel safe.",
+                    "Cuéntale a un adulto una cosa que sabes de Dios y que te da seguridad.",
+                ),
+                "pray": L(
+                    "God, I cannot promise myself that things will turn out as I want. Thank you that I have "
+                    "peace with you through Jesus. Pour your love into my heart again today.",
+                    "Dios, no puedo prometerme que las cosas saldrán como quiero. Gracias porque tengo paz "
+                    "contigo por medio de Jesús. Derrama hoy otra vez tu amor en mi corazón.",
+                ),
+            },
+            {
+                "key": "hope-2",
+                "ref": "Hebrews 6:17-20",
+                "title": L("An anchor", "Un ancla"),
+                "truth": L(
+                    "The writer says God wanted to make it very clear that his purpose does not change, so "
+                    "he backed his promise with an oath. God cannot lie, and that gives strong encouragement "
+                    "to people who have run to him for safety. This hope is called an anchor for the soul, "
+                    "one that holds. An anchor does not stop the storm or the waves; it keeps the boat from "
+                    "drifting. And this anchor is fastened in the very presence of God, where Jesus has gone "
+                    "ahead of us.",
+                    "El autor dice que Dios quiso dejar muy claro que su propósito no cambia, y por eso "
+                    "respaldó su promesa con un juramento. Dios no puede mentir, y eso da un ánimo fuerte a "
+                    "quienes han corrido a refugiarse en él. A esta esperanza la llama un ancla para el "
+                    "alma, un ancla que aguanta. Un ancla no detiene la tormenta ni las olas; impide que el "
+                    "barco se vaya a la deriva. Y esta ancla está sujeta en la presencia misma de Dios, "
+                    "adonde Jesús entró antes que nosotros.",
+                ),
+                "simple": L(
+                    "An anchor keeps a boat from floating away in a storm. God's promises are like an anchor "
+                    "for us. God always keeps his word.",
+                    "Un ancla evita que la tormenta se lleve el barco. Las promesas de Dios son como un "
+                    "ancla para nosotros. Dios siempre cumple su palabra.",
+                ),
+                "ask": L(
+                    "What tends to set you adrift: bad news, a mood, a comparison? Which promise of God "
+                    "could you fasten yourself to when that happens?",
+                    "¿Qué suele dejarte a la deriva: una mala noticia, un estado de ánimo, una comparación? "
+                    "¿A qué promesa de Dios podrías amarrarte cuando eso pase?",
+                ),
+                "kid_ask": L(
+                    "What helps you feel steady when you are scared or upset?",
+                    "¿Qué te ayuda a sentir calma cuando tienes miedo o algo te molesta?",
+                ),
+                "do": L(
+                    "Choose one promise of God you know, such as his presence or his forgiveness. Write it "
+                    "on a card and read it whenever today starts to pull you off course.",
+                    "Elige una promesa de Dios que conozcas, como su presencia o su perdón. Escríbela en una "
+                    "tarjeta y léela cada vez que el día empiece a sacarte de rumbo.",
+                ),
+                "kid_do": L(
+                    "Draw a boat with an anchor. Next to the anchor write: God keeps his promises.",
+                    "Dibuja un barco con un ancla. Junto al ancla escribe: Dios cumple sus promesas.",
+                ),
+                "pray": L(
+                    "God, you do not lie and you do not go back on your promises. I am holding on to you. "
+                    "Hold on to me when the waves are high.",
+                    "Dios, tú no mientes ni te retractas de tus promesas. Me aferro a ti. Sujétame cuando "
+                    "las olas estén altas.",
+                ),
+            },
+            {
+                "key": "hope-3",
+                "ref": "1 Peter 1:3-9",
+                "title": L("A living hope", "Una esperanza viva"),
+                "truth": L(
+                    "Peter says that God, in his great mercy, has given us a new birth into a living hope, "
+                    "and he names the reason: Jesus rose from the dead. Because of that, there is an "
+                    "inheritance kept safe where nothing can ruin it. Peter does not hide that his readers "
+                    "are suffering trials of many kinds right now. He says both things are true together: "
+                    "real sorrow for a while, and a future that cannot be taken. Christian hope is alive "
+                    "because the one it depends on is alive.",
+                    "Pedro dice que Dios, por su gran misericordia, nos hizo nacer de nuevo a una esperanza "
+                    "viva, y da la razón: Jesús resucitó de entre los muertos. Por eso hay una herencia "
+                    "guardada donde nada puede dañarla. Pedro no esconde que sus lectores están sufriendo "
+                    "ahora mismo pruebas de muchas clases. Dice que las dos cosas son verdad a la vez: una "
+                    "tristeza real por un tiempo, y un futuro que nadie puede quitar. La esperanza cristiana "
+                    "está viva porque aquel de quien depende está vivo.",
+                ),
+                "simple": L(
+                    "Jesus is alive, so our hope is alive too. God is keeping something wonderful safe for "
+                    "us, and no one can take it.",
+                    "Jesús está vivo, y por eso nuestra esperanza también está viva. Dios nos guarda algo "
+                    "maravilloso, y nadie puede quitárnoslo.",
+                ),
+                "ask": L(
+                    "Peter holds grief and hope in the same sentence. Where in your life do you need "
+                    "permission to feel both?",
+                    "Pedro pone el dolor y la esperanza en la misma frase. ¿En qué parte de tu vida "
+                    "necesitas permiso para sentir las dos cosas?",
+                ),
+                "kid_ask": L(
+                    "Can you feel sad and still know something good is coming? When has that happened?",
+                    "¿Puedes sentir tristeza y saber al mismo tiempo que viene algo bueno? ¿Cuándo te ha "
+                    "pasado?",
+                ),
+                "do": L(
+                    "Say both halves aloud today: This is hard, and: Jesus is alive. If the hard part is very "
+                    "heavy or has lasted a long time, tell a trusted person, and consider talking with a "
+                    "pastor, doctor or counselor.",
+                    "Hoy di en voz alta las dos mitades: Esto es difícil, y: Jesús está vivo. Si la parte "
+                    "difícil pesa mucho o lleva mucho tiempo, cuéntaselo a alguien de confianza, y considera "
+                    "hablar con un pastor, un médico o un consejero.",
+                ),
+                "kid_do": L(
+                    "Say out loud: Jesus is alive, so there is always hope.",
+                    "Di en voz alta: Jesús está vivo, así que siempre hay esperanza.",
+                ),
+                "pray": L(
+                    "Father, thank you for a hope that is alive because Jesus is. I am hurting over … Keep "
+                    "my faith through this, and keep my eyes on what cannot be taken.",
+                    "Padre, gracias por una esperanza que está viva porque Jesús lo está. Me duele … Guarda "
+                    "mi fe en medio de esto, y mantén mis ojos en lo que nadie puede quitar.",
+                ),
+            },
+            {
+                "key": "hope-4",
+                "ref": "Isaiah 40:27-31",
+                "title": L("Strength for the tired", "Fuerza para el cansancio"),
+                "truth": L(
+                    "God's people were saying that he had lost sight of them and no longer cared about their "
+                    "case. Isaiah answers by reminding them who God is: the everlasting Creator, who does "
+                    "not get tired and whose understanding has no limit. This God gives strength to the worn "
+                    "out. Even the young and strong give out eventually, but those who put their hope in the "
+                    "Lord find their strength renewed: sometimes to soar, sometimes to run, and sometimes "
+                    "simply to keep walking without collapsing. Hope is where the strength for today comes "
+                    "from.",
+                    "El pueblo de Dios decía que él los había perdido de vista y ya no le importaba su "
+                    "causa. Isaías responde recordándoles quién es Dios: el Creador eterno, que no se cansa "
+                    "y cuyo entendimiento no tiene límite. Este Dios da fuerza a los agotados. Hasta los "
+                    "jóvenes y fuertes se rinden tarde o temprano, pero quienes ponen su esperanza en el "
+                    "Señor ven renovadas sus fuerzas: a veces para volar, a veces para correr, y a veces "
+                    "simplemente para seguir caminando sin caer. De la esperanza sale la fuerza para hoy.",
+                ),
+                "simple": L(
+                    "God never gets tired. When we are tired and trust him, he gives us new strength, like "
+                    "an eagle flying high.",
+                    "Dios nunca se cansa. Cuando ya no tenemos fuerzas y confiamos en él, nos da fuerzas "
+                    "nuevas, como un águila que vuela alto.",
+                ),
+                "ask": L(
+                    "Have you felt that God has lost sight of you? Which do you need strength for right now: "
+                    "to soar, to run, or just to keep walking?",
+                    "¿Has sentido que Dios te perdió de vista? ¿Para qué necesitas fuerza ahora: para volar, "
+                    "para correr o solo para seguir caminando?",
+                ),
+                "kid_ask": L(
+                    "When do you feel very tired? Who helps you then?",
+                    "¿Cuándo sientes mucho cansancio? ¿Quién te ayuda entonces?",
+                ),
+                "do": L(
+                    "Tell God plainly where you are worn out. Then choose the one next step that counts as "
+                    "walking today, do only that, and let it be enough.",
+                    "Dile a Dios con claridad dónde ya no puedes más. Luego elige el único paso que hoy "
+                    "cuenta como caminar, haz solo eso, y deja que sea suficiente.",
+                ),
+                "kid_do": L(
+                    "Stretch out your arms like eagle wings and say: God, give me strength today.",
+                    "Abre los brazos como alas de águila y di: Dios, dame fuerzas hoy.",
+                ),
+                "pray": L(
+                    "Everlasting God, you do not grow tired, and I do. I feel unseen in … I put my hope in "
+                    "you. Renew my strength enough for today's walk.",
+                    "Dios eterno, tú no te cansas, y yo sí. Siento que nadie me ve en … Pongo mi esperanza "
+                    "en ti. Renueva mis fuerzas lo suficiente para el camino de hoy.",
+                ),
+            },
+        ],
+    },
+    {
+        "key": "joy",
+        "category": "character",
+        "title": L("Joy", "Gozo"),
+        "summary": L(
+            "For anyone who wonders where their joy went, or whether joy is even allowed in a hard "
+            "season. Four readings on a gladness deeper than happiness, one that comes from God and can "
+            "live alongside sorrow.",
+            "Para quien se pregunta adónde se fue su alegría, o si se puede tener gozo en una temporada "
+            "difícil. Cuatro lecturas sobre una alegría más honda que la felicidad, que viene de Dios y "
+            "puede convivir con la tristeza.",
+        ),
+        "keywords": [
+            "joy", "happy", "happiness", "delight", "celebrat", "rejoic", "numb", "glad",
+            "gozo", "alegr", "feliz", "felicidad", "celebr", "regocij", "content", "apagad",
+        ],
+        "situations": [],
+        "traits": ["joy", "gratitude", "contentment"],
+        "stages": ["child", "teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "child": L(
+                "Joy is a deep-down gladness that comes from knowing God loves you. You can have it even "
+                "on a not-so-fun day.",
+                "El gozo es una alegría muy adentro que viene de saber que Dios te ama. Puedes tenerla "
+                "incluso en un día no tan divertido.",
+            ),
+            "teen": L(
+                "Happiness comes and goes with how the day went. Joy goes deeper, and it does not require "
+                "you to fake a smile.",
+                "La felicidad va y viene según cómo te fue en el día. El gozo es más profundo, y no te "
+                "exige fingir una sonrisa.",
+            ),
+            "young_adult": L(
+                "For when the things that were supposed to make you happy have not, and you are looking "
+                "for something that lasts.",
+                "Para cuando lo que se suponía que te haría feliz no lo ha logrado, y buscas algo que "
+                "dure.",
+            ),
+            "adult": L(
+                "For busy, heavy years when joy feels like a luxury. It is closer to a source of strength "
+                "than a reward for finishing.",
+                "Para años ocupados y pesados en que el gozo parece un lujo. Se parece más a una fuente de "
+                "fuerza que a un premio por terminar.",
+            ),
+            "senior": L(
+                "Joy and sorrow have both been part of your road. Here is a joy that does not depend on "
+                "health or circumstances.",
+                "La alegría y la tristeza han sido parte de tu camino. Aquí hay un gozo que no depende de "
+                "la salud ni de las circunstancias.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "joy-1",
+                "ref": "John 15:9-11",
+                "title": L("Where joy comes from", "De dónde viene el gozo"),
+                "truth": L(
+                    "Hours before his arrest, Jesus talks about joy. He tells his friends that he has loved "
+                    "them the way the Father has loved him, and asks them to stay in that love by living as "
+                    "he taught. He says he is telling them this so that his own joy will be in them and "
+                    "their joy will be full. Joy, then, is not a mood you work up. It is something of Jesus' "
+                    "own that he shares, and it comes from living inside a love that is not in question.",
+                    "Horas antes de que lo arresten, Jesús habla de gozo. Les dice a sus amigos que los ha "
+                    "amado como el Padre lo ha amado a él, y les pide que permanezcan en ese amor viviendo "
+                    "como él enseñó. Dice que les cuenta esto para que su propio gozo esté en ellos y el "
+                    "gozo de ellos sea completo. El gozo, entonces, no es un ánimo que uno se fabrica. Es "
+                    "algo del mismo Jesús que él comparte, y nace de vivir dentro de un amor que no está en "
+                    "duda.",
+                ),
+                "simple": L(
+                    "Jesus loves you, and he wants to share his own joy with you. Joy grows when we stay "
+                    "close to him.",
+                    "Jesús te ama y quiere compartir contigo su propia alegría. La alegría crece cuando nos "
+                    "quedamos cerca de él.",
+                ),
+                "ask": L(
+                    "What do you usually depend on for joy? How is that different from staying in the love "
+                    "of Jesus?",
+                    "¿De qué sueles depender para tener alegría? ¿En qué se diferencia eso de permanecer en "
+                    "el amor de Jesús?",
+                ),
+                "kid_ask": L(
+                    "What makes you feel really glad inside?",
+                    "¿Qué te da mucha alegría por dentro?",
+                ),
+                "do": L(
+                    "Set aside five minutes today to do nothing but remember that you are loved by Jesus. Do "
+                    "not ask for anything. Notice what you feel afterward, without forcing it.",
+                    "Aparta hoy cinco minutos solo para recordar que Jesús te ama. No pidas nada. Observa lo "
+                    "que sientes después, sin forzarlo.",
+                ),
+                "kid_do": L(
+                    "Sing a song you like to God, or hum it, just because he loves you.",
+                    "Cántale a Dios una canción que te guste, o tararéala, solo porque él te ama.",
+                ),
+                "pray": L(
+                    "Jesus, I have looked for joy in many places. Keep me in your love today, and let your "
+                    "joy be in me, whatever kind of day this is.",
+                    "Jesús, he buscado la alegría en muchos lugares. Mantenme en tu amor hoy, y que tu gozo "
+                    "esté en mí, sea como sea este día.",
+                ),
+            },
+            {
+                "key": "joy-2",
+                "ref": "Nehemiah 8:9-12",
+                "title": L("Joy that gives strength", "Un gozo que da fuerzas"),
+                "truth": L(
+                    "The people had gathered to hear God's teaching read aloud and explained, and as they "
+                    "listened they began to weep. Their leaders told them the day was holy and not for "
+                    "mourning: they were to go, eat good food and share it with those who had nothing ready, "
+                    "because the gladness that comes from the Lord would be their strength. So they "
+                    "celebrated together, because they had understood what was read to them. Joy here is not "
+                    "ignoring what is wrong. It is strength received from God, and it spills over into "
+                    "sharing.",
+                    "El pueblo se había reunido para oír la enseñanza de Dios leída en voz alta y explicada, "
+                    "y mientras escuchaban empezaron a llorar. Sus líderes les dijeron que ese día era santo "
+                    "y no para estar de luto: que fueran, comieran bien y compartieran con quienes no tenían "
+                    "nada preparado, porque la alegría que viene del Señor sería su fuerza. Así que "
+                    "celebraron juntos, porque habían entendido lo que se les leyó. Aquí el gozo no es "
+                    "ignorar lo que está mal. Es fuerza recibida de Dios, y se desborda en compartir.",
+                ),
+                "simple": L(
+                    "God's people had a big happy meal together and shared their food with those who had "
+                    "none. Joy from God makes us strong.",
+                    "El pueblo de Dios tuvo una gran comida alegre y compartió con los que no tenían. La "
+                    "alegría que viene de Dios nos hace fuertes.",
+                ),
+                "ask": L(
+                    "Do you treat joy as a reward for when everything is done and fixed? What would it mean "
+                    "to receive it now, as strength for what is not?",
+                    "¿Tratas el gozo como un premio para cuando todo esté hecho y arreglado? ¿Qué "
+                    "significaría recibirlo ahora, como fuerza para lo que aún no lo está?",
+                ),
+                "kid_ask": L(
+                    "What is your favorite thing to celebrate? Who do you like to share it with?",
+                    "¿Qué es lo que más te gusta celebrar? ¿Con quién te gusta compartirlo?",
+                ),
+                "do": L(
+                    "Plan one small celebration of God's goodness this week, a meal, a dessert or a walk, "
+                    "and include someone who would otherwise be left out.",
+                    "Planea esta semana una pequeña celebración de la bondad de Dios, una comida, un postre "
+                    "o una caminata, e incluye a alguien que de otro modo quedaría fuera.",
+                ),
+                "kid_do": L(
+                    "Share a snack or a treat with someone today and tell them: God is good!",
+                    "Hoy comparte una merienda o un dulce con alguien y dile: ¡Dios es bueno!",
+                ),
+                "pray": L(
+                    "Lord, I often feel I have not earned the right to be glad. Thank you that your joy is a "
+                    "gift and a strength. Show me who to share it with.",
+                    "Señor, a menudo siento que no me he ganado el derecho a alegrarme. Gracias porque tu "
+                    "gozo es regalo y es fuerza. Muéstrame con quién compartirlo.",
+                ),
+            },
+            {
+                "key": "joy-3",
+                "ref": "Habakkuk 3:17-19",
+                "title": L("Joy when the fields are empty", "Gozo cuando los campos están vacíos"),
+                "truth": L(
+                    "Habakkuk imagines the worst case for a farming people: no figs, no grapes, no olives, "
+                    "no grain, no animals left in the pens. And then he says that even so he will rejoice in "
+                    "the Lord. This is not cheerfulness, and he is not pretending the loss does not hurt. He "
+                    "is saying that his joy rests on God himself, who is still his rescuer and his strength "
+                    "when everything else is gone. Joy and sorrow can be in the same heart at once. One does "
+                    "not cancel the other.",
+                    "Habacuc imagina lo peor para un pueblo que vive del campo: sin higos, sin uvas, sin "
+                    "aceitunas, sin grano, sin animales en los corrales. Y entonces dice que aun así se "
+                    "alegrará en el Señor. Esto no es buen humor, ni está fingiendo que la pérdida no duele. "
+                    "Está diciendo que su gozo se apoya en Dios mismo, que sigue siendo su salvador y su "
+                    "fuerza cuando todo lo demás falta. El gozo y la tristeza pueden estar en el mismo "
+                    "corazón a la vez. Uno no anula a la otra.",
+                ),
+                "simple": L(
+                    "Even when things go wrong, God is still with us and still good. We can be glad about "
+                    "God even on a sad day.",
+                    "Aunque las cosas salgan mal, Dios sigue con nosotros y sigue siendo bueno. Podemos "
+                    "alegrarnos por Dios incluso en un día triste.",
+                ),
+                "ask": L(
+                    "What are the empty fields in your life right now? Without pretending they are full, "
+                    "what about God himself can you still be glad of?",
+                    "¿Cuáles son los campos vacíos de tu vida ahora? Sin fingir que están llenos, ¿de qué "
+                    "puedes alegrarte todavía en Dios mismo?",
+                ),
+                "kid_ask": L(
+                    "What is something about God that is still true on a bad day?",
+                    "¿Qué cosa de Dios sigue siendo verdad en un día malo?",
+                ),
+                "do": L(
+                    "Write your own version: Though … and though …, I will still be glad in God, because … "
+                    "Put the truth in the first part and something specific in the last. If the losses are "
+                    "heavy, share what you wrote with someone you trust.",
+                    "Escribe tu propia versión: Aunque … y aunque …, igual me alegraré en Dios, porque … Pon "
+                    "la verdad en la primera parte y algo concreto en la última. Si las pérdidas pesan, "
+                    "comparte lo que escribiste con alguien de confianza.",
+                ),
+                "kid_do": L(
+                    "Tell God one sad thing and one thing you are glad about. Both are okay to say.",
+                    "Cuéntale a Dios una cosa triste y una cosa que te alegra. Las dos se pueden decir.",
+                ),
+                "pray": L(
+                    "Lord, a lot is missing right now: … I will not pretend otherwise. Still, you are my "
+                    "strength, and I choose to be glad in you.",
+                    "Señor, ahora mismo faltan muchas cosas: … No voy a fingir lo contrario. Aun así, tú "
+                    "eres mi fuerza, y elijo alegrarme en ti.",
+                ),
+            },
+            {
+                "key": "joy-4",
+                "ref": "John 16:20-22",
+                "title": L("Joy no one can take", "Un gozo que nadie puede quitar"),
+                "truth": L(
+                    "Jesus tells his friends honestly that they are about to weep while others celebrate. He "
+                    "does not promise to spare them grief; he promises that their grief will turn into joy. "
+                    "He compares it to a mother in labor, whose pain is real but gives way to gladness when "
+                    "her child is born. He was speaking of his death and of seeing them again after he rose. "
+                    "For those who follow him the pattern holds: sorrow is real and it is not the end, and "
+                    "the joy he gives cannot be taken away by anyone.",
+                    "Jesús les dice con honestidad a sus amigos que están por llorar mientras otros "
+                    "celebran. No promete ahorrarles el dolor; promete que su tristeza se convertirá en "
+                    "alegría. Lo compara con una madre que da a luz: su dolor es real, pero deja paso a la "
+                    "alegría cuando nace su hijo. Hablaba de su muerte y de volver a verlos después de "
+                    "resucitar. Para quienes lo siguen, el patrón se mantiene: la tristeza es real y no es "
+                    "el final, y el gozo que él da no se lo puede quitar nadie.",
+                ),
+                "simple": L(
+                    "Jesus said sad times do not last forever. He turns sadness into joy, and no one can "
+                    "take that joy away.",
+                    "Jesús dijo que los tiempos tristes no duran para siempre. Él convierte la tristeza en "
+                    "alegría, y nadie puede quitarnos esa alegría.",
+                ),
+                "ask": L(
+                    "Jesus does not say sorrow is replaced by joy but that it turns into joy. Have you seen "
+                    "that happen, even partly? Where are you still waiting for it?",
+                    "Jesús no dice que la tristeza es reemplazada por la alegría, sino que se convierte en "
+                    "alegría. ¿Lo has visto suceder, aunque sea en parte? ¿Dónde lo sigues esperando?",
+                ),
+                "kid_ask": L(
+                    "Can you remember a time when you were sad and then felt happy again? What changed?",
+                    "¿Recuerdas una vez que sentías tristeza y luego volvió la alegría? ¿Qué cambió?",
+                ),
+                "do": L(
+                    "Tonight, write down one sorrow you are carrying and one joy that no circumstance has "
+                    "been able to take from you. Thank God for the second while staying honest about the "
+                    "first.",
+                    "Esta noche anota una tristeza que cargas y una alegría que ninguna circunstancia ha "
+                    "podido quitarte. Da gracias a Dios por la segunda sin dejar de decir la verdad sobre la "
+                    "primera.",
+                ),
+                "kid_do": L(
+                    "Give someone who is sad a hug or a drawing today, to share some joy.",
+                    "Hoy dale un abrazo o un dibujo a alguien que esté triste, para compartirle alegría.",
+                ),
+                "pray": L(
+                    "Jesus, you never told me I would not weep. You promised that sorrow is not the end. "
+                    "Turn my grief toward joy in your time, and keep safe the joy you have given.",
+                    "Jesús, nunca me dijiste que no lloraría. Prometiste que la tristeza no es el final. "
+                    "Lleva mi dolor hacia la alegría a tu tiempo, y guarda el gozo que me has dado.",
+                ),
+            },
+        ],
+    },
 ]

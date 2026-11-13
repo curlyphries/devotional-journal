@@ -1743,5 +1743,637 @@ TOPICS = [
     # ======================================================================
     # WISDOM
     # ======================================================================
+    {
+        "key": "decisions",
+        "category": "wisdom",
+        "title": L("Decisions and God's guidance", "Decisiones y la guía de Dios"),
+        "summary": L(
+            "For a choice you keep turning over, or the fear of getting God's will wrong. Five "
+            "readings on asking for wisdom, trusting, seeking counsel and then stepping forward "
+            "without a magic formula.",
+            "Para una decisión a la que le das vueltas, o el temor de equivocarte con la voluntad de "
+            "Dios. Cinco lecturas sobre pedir sabiduría, confiar, buscar consejo y luego dar el paso "
+            "sin fórmulas mágicas.",
+        ),
+        "keywords": [
+            "decision", "decid", "choice", "choos", "guidance", "direction", "crossroad", "unsure",
+            "confus", "god's will", "what should i do", "decisi", "elegir", "elecci", "rumbo",
+            "indecis", "encrucijada", "voluntad de dios", "no sé qué hacer",
+        ],
+        "situations": ["student", "job_seeking", "moving", "dating", "single", "leader", "working"],
+        "traits": ["wisdom", "trust", "prayerfulness"],
+        "stages": ["teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "teen": L(
+                "What to study, who to spend time with, what to say yes and no to: you can learn now "
+                "how to choose well.",
+                "Qué estudiar, con quién juntarte, a qué decir sí y a qué no: desde ahora puedes "
+                "aprender a elegir bien.",
+            ),
+            "young_adult": L(
+                "Career, city, relationship, church. If you are afraid of missing God's one right "
+                "path, start here.",
+                "Carrera, ciudad, pareja, iglesia. Si temes perderte el único camino correcto de "
+                "Dios, empieza aquí.",
+            ),
+            "adult": L(
+                "For decisions that affect other people: a job change, a move, a child's schooling, "
+                "an aging parent's care.",
+                "Para decisiones que afectan a otros: un cambio de trabajo, una mudanza, la escuela "
+                "de un hijo, el cuidado de un padre o una madre mayor.",
+            ),
+            "senior": L(
+                "Where to live, when to stop, what to give away, what to say while there is time. "
+                "Wisdom is still promised to those who ask.",
+                "Dónde vivir, cuándo parar, qué regalar, qué decir mientras hay tiempo. La sabiduría "
+                "sigue prometida a quien la pide.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "decisions-1",
+                "ref": "James 1:5",
+                "title": L("Start by asking", "Empieza por pedir"),
+                "truth": L(
+                    "The first instruction for anyone who does not know what to do is simple: ask God. "
+                    "James describes the God you are asking. He gives generously, to everyone, and "
+                    "without scolding you for not knowing already. What is promised is wisdom, which "
+                    "is not the same as a sign or a detailed map. Wisdom is the ability to see a "
+                    "situation truly and act well in it. It usually comes the way wisdom tends to "
+                    "come: gradually, through Scripture, prayer, thought and other people.",
+                    "La primera indicación para quien no sabe qué hacer es sencilla: pídele a Dios. "
+                    "Santiago describe al Dios a quien le pides. Da con generosidad, a todos, y sin "
+                    "regañarte por no saberlo ya. Lo que promete es sabiduría, que no es lo mismo que "
+                    "una señal o un mapa detallado. La sabiduría es la capacidad de ver una situación "
+                    "como es y actuar bien en ella. Suele llegar como llega la sabiduría: poco a poco, "
+                    "por medio de la Escritura, la oración, la reflexión y otras personas.",
+                ),
+                "simple": L(
+                    "When you do not know what to do, you can ask God. He loves to help, and he never "
+                    "makes fun of you for asking.",
+                    "Cuando no sabes qué hacer, puedes preguntarle a Dios. A él le encanta ayudar y "
+                    "nunca se burla de ti por preguntar.",
+                ),
+                "ask": L(
+                    "What decision are you facing? Have you actually asked God for wisdom about it, or "
+                    "only worried about it?",
+                    "¿Qué decisión tienes delante? ¿De verdad le has pedido sabiduría a Dios, o solo "
+                    "le has dado vueltas con preocupación?",
+                ),
+                "kid_ask": L(
+                    "What is something you are not sure how to do or choose?",
+                    "¿Qué cosa no sabes bien cómo hacer o elegir?",
+                ),
+                "do": L(
+                    "Write the decision as a single question. Each morning this week, ask God for "
+                    "wisdom about it in one sentence before you think about it any further.",
+                    "Escribe la decisión como una sola pregunta. Cada mañana de esta semana, pídele a "
+                    "Dios sabiduría sobre ella en una frase antes de seguir pensándola.",
+                ),
+                "kid_do": L(
+                    "Next time you have to choose something, say first: God, please help me choose well.",
+                    "La próxima vez que tengas que elegir algo, di primero: Dios, ayúdame a elegir bien.",
+                ),
+                "pray": L(
+                    "God, I do not know what to do about … You give wisdom generously and without "
+                    "scolding. I am asking.",
+                    "Dios, no sé qué hacer con … Tú das sabiduría con generosidad y sin regaños. Te la "
+                    "pido.",
+                ),
+            },
+            {
+                "key": "decisions-2",
+                "ref": "Proverbs 3:5-6",
+                "title": L("Trust, with your whole weight", "Confía, con todo tu peso"),
+                "truth": L(
+                    "This proverb does not tell you to stop thinking. It tells you not to rest your "
+                    "full weight on your own understanding, as though it were all there is. You see "
+                    "part of the picture; God sees all of it. Trusting him means bringing him into "
+                    "every area, not only the ones marked spiritual, and being willing to be "
+                    "redirected. The promise is not a life without hard choices. It is that he will "
+                    "straighten the road ahead of you and get you where you need to go.",
+                    "Este proverbio no te dice que dejes de pensar. Te dice que no cargues todo tu "
+                    "peso sobre tu propio entendimiento, como si fuera lo único que hay. Tú ves una "
+                    "parte del cuadro; Dios lo ve entero. Confiar en él es incluirlo en cada área, no "
+                    "solo en las que llevan la etiqueta de espirituales, y aceptar que te cambie el "
+                    "rumbo. La promesa no es una vida sin decisiones difíciles. Es que él enderezará "
+                    "el camino que tienes delante y te llevará a donde necesitas llegar.",
+                ),
+                "simple": L(
+                    "We cannot see everything, but God can. We can trust him to show us the way, like "
+                    "holding a grown-up's hand in a busy place.",
+                    "Nosotros no podemos verlo todo, pero Dios sí. Podemos confiar en que él nos "
+                    "muestra el camino, como cuando tomas la mano de un adulto en un lugar lleno de gente.",
+                ),
+                "ask": L(
+                    "Which area of your life have you been deciding about without really bringing God "
+                    "into it: money, a relationship, your time?",
+                    "¿En qué área de tu vida has estado decidiendo sin incluir de verdad a Dios: el "
+                    "dinero, una relación, tu tiempo?",
+                ),
+                "kid_ask": L(
+                    "When have you needed someone to show you the way?",
+                    "¿Cuándo has necesitado que alguien te muestre el camino?",
+                ),
+                "do": L(
+                    "List what you know and what you do not know about your decision. Beside the "
+                    "second list, write: God sees this part. Pray over both lists.",
+                    "Haz una lista de lo que sabes y otra de lo que no sabes sobre tu decisión. Junto "
+                    "a la segunda escribe: Dios ve esta parte. Ora sobre las dos listas.",
+                ),
+                "kid_do": L(
+                    "Take a walk with a grown-up and let them lead you for ten steps with your eyes "
+                    "closed. Talk about what trusting feels like.",
+                    "Sal a caminar con un adulto y deja que te guíe diez pasos con los ojos cerrados. "
+                    "Hablen de cómo se siente confiar.",
+                ),
+                "pray": L(
+                    "Lord, I have been leaning hard on what I can figure out. I trust you with the "
+                    "part I cannot see. Straighten the path ahead.",
+                    "Señor, me he apoyado demasiado en lo que logro entender. Te confío la parte que "
+                    "no veo. Endereza el camino que tengo delante.",
+                ),
+            },
+            {
+                "key": "decisions-3",
+                "ref": "Romans 12:1-2",
+                "title": L("First, who you are becoming", "Primero, en quién te estás convirtiendo"),
+                "truth": L(
+                    "We tend to ask which option God wants. Paul begins somewhere else. Offer your "
+                    "whole self to God, stop letting the world around you press you into its shape, "
+                    "and let your mind be made new. The result, he says, is that you become able to "
+                    "test and recognize what God's will is: what is good, pleasing and complete. "
+                    "Discernment is not a code to crack. It is a capacity that grows in a person who "
+                    "is being changed. Much of God's will concerns what kind of person makes the choice.",
+                    "Solemos preguntar cuál opción quiere Dios. Pablo empieza por otro lado. Ofrece a "
+                    "Dios todo lo que eres, deja de permitir que el mundo que te rodea te meta en su "
+                    "molde y deja que tu mente sea renovada. El resultado, dice, es que llegas a ser "
+                    "capaz de comprobar y reconocer cuál es la voluntad de Dios: lo bueno, lo que le "
+                    "agrada, lo completo. Discernir no es descifrar un código. Es una capacidad que "
+                    "crece en una persona que está siendo transformada. Buena parte de la voluntad de "
+                    "Dios tiene que ver con qué clase de persona toma la decisión.",
+                ),
+                "simple": L(
+                    "God cares most about who you are becoming: kind, honest and loving. When you grow "
+                    "like that, you get better at choosing.",
+                    "A Dios le importa sobre todo en quién te estás convirtiendo: alguien amable, "
+                    "honesto y que ama. Cuando creces así, eliges cada vez mejor.",
+                ),
+                "ask": L(
+                    "Set aside which option for a moment. Which choice would make you more loving, "
+                    "more honest, more free to serve?",
+                    "Deja a un lado por un momento cuál opción. ¿Qué elección te haría amar más, vivir "
+                    "con más honestidad, tener más libertad para servir?",
+                ),
+                "kid_ask": L(
+                    "What kind of person do you want to be on the inside when you grow up?",
+                    "¿Qué clase de persona quieres ser por dentro cuando seas grande?",
+                ),
+                "do": L(
+                    "Notice one way the pressure around you (what everyone expects, earns or posts) is "
+                    "shaping this decision. Name it, and ask whether it deserves that much say.",
+                    "Fíjate en una manera en que la presión de tu entorno (lo que todos esperan, ganan "
+                    "o publican) está moldeando esta decisión. Nómbrala y pregúntate si merece tanta voz.",
+                ),
+                "kid_do": L(
+                    "Choose one way to be kind or honest today, and do it.",
+                    "Elige una manera de ser amable u honesto hoy, y hazla.",
+                ),
+                "pray": L(
+                    "God, I offer you myself, not just this decision. Renew my mind, so that I can "
+                    "recognize what is good when I see it.",
+                    "Dios, te ofrezco todo lo que soy, no solo esta decisión. Renueva mi mente para "
+                    "que reconozca lo bueno cuando lo vea.",
+                ),
+            },
+            {
+                "key": "decisions-4",
+                "ref": "Proverbs 15:22",
+                "title": L("Do not decide alone", "No decidas a solas"),
+                "truth": L(
+                    "The proverb is short and practical: plans made without advice tend to fail, and "
+                    "plans made with many advisers tend to stand. God often answers a prayer for "
+                    "wisdom through other people. Good counsel is not a vote among friends who will "
+                    "tell you what you want to hear. It is the honest view of people who know you, who "
+                    "know something about the matter, and who are free to disagree with you. Asking "
+                    "for it takes humility, which is part of why it works.",
+                    "El proverbio es breve y práctico: los planes hechos sin consejo suelen fracasar, "
+                    "y los que cuentan con muchos consejeros suelen sostenerse. Muchas veces Dios "
+                    "responde a la oración por sabiduría a través de otras personas. El buen consejo "
+                    "no es una votación entre amigos que te dirán lo que quieres oír. Es la opinión "
+                    "honesta de gente que te conoce, que sabe algo del asunto y que tiene libertad "
+                    "para llevarte la contraria. Pedirlo exige humildad, y en parte por eso funciona.",
+                ),
+                "simple": L(
+                    "Wise people ask for help before they decide. Grown-ups who love you can help you "
+                    "see things you missed.",
+                    "Las personas sabias piden ayuda antes de decidir. Los adultos que te quieren "
+                    "pueden ayudarte a ver lo que se te pasó.",
+                ),
+                "ask": L(
+                    "Who are two or three people who know you well and would tell you the truth? Have "
+                    "you asked them, or only people who will agree?",
+                    "¿Quiénes son dos o tres personas que te conocen bien y te dirían la verdad? ¿Les "
+                    "has preguntado a ellas, o solo a quienes te darán la razón?",
+                ),
+                "kid_ask": L(
+                    "Who do you ask when you need help deciding something?",
+                    "¿A quién le preguntas cuando necesitas ayuda para decidir algo?",
+                ),
+                "do": L(
+                    "This week, ask one wise person: what am I not seeing about this? Listen without "
+                    "defending yourself, and write down what they say.",
+                    "Esta semana pregúntale a una persona sabia: ¿qué no estoy viendo en esto? Escucha "
+                    "sin defenderte y anota lo que te diga.",
+                ),
+                "kid_do": L(
+                    "Ask a grown-up to tell you about a time they had to make a hard choice.",
+                    "Pídele a un adulto que te cuente de alguna vez que tuvo que tomar una decisión difícil.",
+                ),
+                "pray": L(
+                    "Lord, give me the humility to ask and the honesty to listen. Send me people who "
+                    "will tell me the truth in love.",
+                    "Señor, dame humildad para preguntar y honestidad para escuchar. Envíame personas "
+                    "que me digan la verdad con amor.",
+                ),
+            },
+            {
+                "key": "decisions-5",
+                "ref": "Psalm 32:8-9",
+                "title": L("Then take the step", "Y luego da el paso"),
+                "truth": L(
+                    "God promises to teach you the way you should go and to counsel you with his eye "
+                    "on you. Then comes a picture: do not be like a horse or mule that has no "
+                    "understanding and must be steered with bit and bridle. God is not looking to yank "
+                    "you from signal to signal. He wants to guide you as someone who understands, who "
+                    "has learned his ways and can walk in them. So after you have asked, trusted and "
+                    "listened, you are free to choose and move. His eye stays on you after the "
+                    "decision as well as before it. A wrong turn does not put you beyond his care.",
+                    "Dios promete enseñarte el camino que debes seguir y aconsejarte sin quitarte la "
+                    "vista de encima. Luego viene una imagen: no seas como el caballo o la mula, que "
+                    "no entienden y hay que dirigirlos con freno y rienda. Dios no busca moverte a "
+                    "tirones, de señal en señal. Quiere guiarte como a alguien que entiende, que ha "
+                    "aprendido sus caminos y puede andar en ellos. Así que después de pedir, confiar y "
+                    "escuchar, tienes libertad para elegir y avanzar. Su mirada sigue sobre ti después "
+                    "de la decisión igual que antes. Un giro equivocado no te deja fuera de su cuidado.",
+                ),
+                "simple": L(
+                    "God promises to teach you the way to go and to keep his eyes on you. Even if you "
+                    "make a mistake, he does not stop taking care of you.",
+                    "Dios promete enseñarte el camino y tener siempre sus ojos sobre ti. Aunque te "
+                    "equivoques, él no deja de cuidarte.",
+                ),
+                "ask": L(
+                    "Are you waiting for a certainty God has not promised? What decision could you "
+                    "make this week with the light you already have?",
+                    "¿Estás esperando una certeza que Dios no ha prometido? ¿Qué decisión podrías "
+                    "tomar esta semana con la luz que ya tienes?",
+                ),
+                "kid_ask": L(
+                    "How does it feel to know God is always watching over you with love?",
+                    "¿Cómo se siente saber que Dios siempre te cuida con amor?",
+                ),
+                "do": L(
+                    "Set a date to decide. Before it, pray, think and ask counsel. On that day, "
+                    "choose, tell someone, and take the first step without reopening the question "
+                    "every hour.",
+                    "Ponle fecha a tu decisión. Antes de ese día, ora, piensa y pide consejo. Ese día "
+                    "elige, cuéntaselo a alguien y da el primer paso sin reabrir la pregunta a cada hora.",
+                ),
+                "kid_do": L(
+                    "Make one small choice by yourself today, like which book to read, and thank God "
+                    "for helping you learn to choose.",
+                    "Toma hoy una decisión pequeña por tu cuenta, como qué libro leer, y dale gracias "
+                    "a Dios por ayudarte a aprender a elegir.",
+                ),
+                "pray": L(
+                    "God, I have asked and listened. Now I am going to choose. Keep your eye on me, "
+                    "correct me if I am wrong, and go with me.",
+                    "Dios, ya pedí y escuché. Ahora voy a elegir. No me quites la vista de encima, "
+                    "corrígeme si me equivoco y ven conmigo.",
+                ),
+            },
+        ],
+    },
+    {
+        "key": "work",
+        "category": "wisdom",
+        "title": L("Work, study and calling", "Trabajo, estudio y vocación"),
+        "summary": L(
+            "For anyone with a job, a class load, a household to run, or no work right now. Five "
+            "readings on why work is good, why it is hard, who it is for, and why your worth does not "
+            "depend on it.",
+            "Para quien tiene un empleo, una carga de estudios, una casa que sostener, o está sin "
+            "trabajo ahora. Cinco lecturas sobre por qué el trabajo es bueno, por qué cuesta, para "
+            "quién es y por qué tu valor no depende de él.",
+        ),
+        "keywords": [
+            "work", "job", "career", "boss", "coworker", "unemploy", "laid off", "fired", "calling",
+            "vocation", "homework", "exam", "trabaj", "empleo", "desemple", "despid", "jefe",
+            "vocaci", "carrera", "estudi", "examen", "oficina",
+        ],
+        "situations": ["working", "job_seeking", "student", "retired", "parent", "leader"],
+        "traits": ["faithfulness", "servanthood", "perseverance"],
+        "stages": ["teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "teen": L(
+                "School is your work right now, along with chores and maybe a first job. It matters "
+                "to God more than you might think.",
+                "Ahora tu trabajo es la escuela, junto con las tareas de casa y quizá un primer "
+                "empleo. A Dios le importa más de lo que imaginas.",
+            ),
+            "young_adult": L(
+                "For choosing a path, starting at the bottom, or wondering whether what you do all "
+                "day means anything.",
+                "Para elegir un camino, empezar desde abajo o preguntarte si lo que haces todo el día "
+                "significa algo.",
+            ),
+            "adult": L(
+                "For the long years of work, paid or unpaid, and for the seasons of too much of it or "
+                "none at all.",
+                "Para los largos años de trabajo, pagado o no, y para las épocas en que sobra o no hay.",
+            ),
+            "senior": L(
+                "When paid work ends, the question of what you are for does not. There is still good "
+                "work with your name on it.",
+                "Cuando termina el trabajo pagado, no termina la pregunta de para qué estás aquí. "
+                "Todavía hay un buen trabajo con tu nombre.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "work-1",
+                "ref": "Genesis 2:15",
+                "title": L("Work was there from the start", "El trabajo estuvo desde el principio"),
+                "truth": L(
+                    "Before anything had gone wrong in the world, God placed the first human in a "
+                    "garden with a job: to work it and take care of it. So work is not a punishment or "
+                    "a necessary evil. It is part of what people were made for. To tend something, to "
+                    "bring order, to make things grow, to look after what has been entrusted to you: "
+                    "this is to share in God's own care for his world. That is true of paid jobs, and "
+                    "equally of study, raising children, caring for a parent and keeping a home.",
+                    "Antes de que algo se torciera en el mundo, Dios puso al primer ser humano en un "
+                    "huerto con un encargo: cultivarlo y cuidarlo. Así que el trabajo no es un castigo "
+                    "ni un mal necesario. Es parte de aquello para lo que fuimos hechos. Atender algo, "
+                    "poner orden, hacer crecer, cuidar lo que se te confió: eso es participar del "
+                    "cuidado que Dios mismo tiene por su mundo. Vale para el empleo pagado, y lo mismo "
+                    "para el estudio, la crianza, el cuidado de un padre o una madre y el sostén de un hogar.",
+                ),
+                "simple": L(
+                    "God gave the first person a job: to take care of the garden. Helping and taking "
+                    "care of things is something good that God made us to do.",
+                    "Dios le dio un trabajo a la primera persona: cuidar el jardín. Ayudar y cuidar "
+                    "las cosas es algo bueno para lo que Dios nos hizo.",
+                ),
+                "ask": L(
+                    "What has been put in your care right now, at work, at school or at home? How "
+                    "would you treat it if you saw it as given to you by God?",
+                    "¿Qué se ha puesto a tu cuidado ahora, en el trabajo, la escuela o la casa? ¿Cómo "
+                    "lo tratarías si lo vieras como algo que Dios te confió?",
+                ),
+                "kid_ask": L(
+                    "What is something you take care of: a pet, a plant, your room?",
+                    "¿Qué cosa cuidas tú: una mascota, una planta, tu cuarto?",
+                ),
+                "do": L(
+                    "Choose one ordinary task today and do it as an act of care for something God has "
+                    "entrusted to you. Notice whether that changes how it feels.",
+                    "Elige hoy una tarea común y hazla como un acto de cuidado por algo que Dios te "
+                    "confió. Fíjate si eso cambia cómo se siente.",
+                ),
+                "kid_do": L(
+                    "Take care of one thing today without being asked: water a plant, feed a pet or "
+                    "tidy a shelf.",
+                    "Cuida hoy una cosa sin que te lo pidan: riega una planta, dale de comer a una "
+                    "mascota u ordena un estante.",
+                ),
+                "pray": L(
+                    "God, you made me to work and to take care of things. Help me see today's tasks as "
+                    "something you have placed in my hands.",
+                    "Dios, me hiciste para trabajar y cuidar. Ayúdame a ver las tareas de hoy como "
+                    "algo que tú pusiste en mis manos.",
+                ),
+            },
+            {
+                "key": "work-2",
+                "ref": "Genesis 3:17-19",
+                "title": L("Why work is so hard", "Por qué el trabajo cuesta tanto"),
+                "truth": L(
+                    "After the first humans turn from God, the ground itself becomes difficult. Work "
+                    "remains, but now it comes with thorns, sweat and frustration, and it ends in "
+                    "dust. This is the Bible's honest account of why good work is so often exhausting, "
+                    "unfair or fruitless. It means that a hard job is not proof you are in the wrong "
+                    "place or that God is against you. Work is a good thing that has been damaged, "
+                    "along with everything else. You can expect both in the same day: real meaning and "
+                    "real thorns.",
+                    "Después de que los primeros seres humanos se apartan de Dios, la tierra misma se "
+                    "vuelve difícil. El trabajo sigue, pero ahora viene con espinas, sudor y "
+                    "frustración, y termina en polvo. Así explica la Biblia, con honestidad, por qué "
+                    "el buen trabajo tantas veces agota, es injusto o no da fruto. Significa que un "
+                    "trabajo duro no prueba que estés en el lugar equivocado ni que Dios esté en tu "
+                    "contra. El trabajo es algo bueno que quedó dañado, como todo lo demás. Puedes "
+                    "esperar las dos cosas en un mismo día: sentido verdadero y espinas verdaderas.",
+                ),
+                "simple": L(
+                    "Work is good, but sometimes it is hard and tiring, like pulling weeds. That is "
+                    "normal. God is still with us when work is hard.",
+                    "Trabajar es bueno, pero a veces cuesta y cansa, como arrancar hierbas malas. Eso "
+                    "es normal. Dios sigue con nosotros cuando el trabajo es difícil.",
+                ),
+                "ask": L(
+                    "What are the thorns in your work right now? Have you been reading them as a sign "
+                    "that something is wrong with you?",
+                    "¿Cuáles son las espinas de tu trabajo ahora? ¿Las has interpretado como señal de "
+                    "que algo anda mal contigo?",
+                ),
+                "kid_ask": L(
+                    "What job or schoolwork feels hard for you?",
+                    "¿Qué tarea o trabajo de la escuela te parece difícil?",
+                ),
+                "do": L(
+                    "Name one frustration at work or school that you cannot change and one that you "
+                    "can. Hand the first to God in prayer; take one small action on the second.",
+                    "Nombra una frustración del trabajo o la escuela que no puedes cambiar y una que "
+                    "sí. Entrégale la primera a Dios en oración; da un paso pequeño con la segunda.",
+                ),
+                "kid_do": L(
+                    "Finish one hard job today, even a small one, and tell a grown-up how it felt to finish.",
+                    "Termina hoy una tarea difícil, aunque sea pequeña, y cuéntale a un adulto cómo se "
+                    "sintió terminarla.",
+                ),
+                "pray": L(
+                    "Lord, my work has thorns in it, and I am worn out. Help me not to be surprised or "
+                    "bitter. Meet me in the sweat of today.",
+                    "Señor, mi trabajo tiene espinas y me tiene sin fuerzas. Ayúdame a no sorprenderme "
+                    "ni amargarme. Encuéntrame en el sudor de hoy.",
+                ),
+            },
+            {
+                "key": "work-3",
+                "ref": "Colossians 3:23-24",
+                "title": L("Who you are really working for", "Para quién trabajas en realidad"),
+                "truth": L(
+                    "Paul first wrote these words to household servants, people with little say over "
+                    "their tasks and little recognition. He tells them to put their heart into "
+                    "whatever they do, as work done for the Lord and not for human masters, because it "
+                    "is Christ they are serving and he will not overlook it. That gives dignity to "
+                    "work no one applauds: the night shift, the homework, the diapers, the "
+                    "spreadsheet. It is not a reason to accept mistreatment. It is a reason to know "
+                    "your work counts, even when no boss or teacher notices. Someone does.",
+                    "Pablo escribió estas palabras primero a siervos de las casas, gente con poca voz "
+                    "sobre sus tareas y poco reconocimiento. Les dice que pongan el corazón en todo lo "
+                    "que hagan, como trabajo hecho para el Señor y no para amos humanos, porque es a "
+                    "Cristo a quien sirven y él no lo pasará por alto. Eso dignifica el trabajo que "
+                    "nadie aplaude: el turno de noche, la tarea escolar, los pañales, la hoja de "
+                    "cálculo. No es razón para aceptar malos tratos. Es razón para saber que tu "
+                    "trabajo cuenta, aunque ningún jefe o maestro lo note. Alguien sí lo nota.",
+                ),
+                "simple": L(
+                    "When you do your work, you can do it for Jesus. He sees you even when no one else "
+                    "does, and it makes him glad.",
+                    "Cuando haces tu trabajo, puedes hacerlo para Jesús. Él te ve aunque nadie más te "
+                    "vea, y eso lo alegra.",
+                ),
+                "ask": L(
+                    "Which part of your work do you do only for the people watching? How would you do "
+                    "it if Christ were the one receiving it?",
+                    "¿Qué parte de tu trabajo haces solo para quienes te miran? ¿Cómo la harías si "
+                    "fuera Cristo quien la recibe?",
+                ),
+                "kid_ask": L(
+                    "What is a job you do that nobody sees?",
+                    "¿Qué tarea haces tú que nadie ve?",
+                ),
+                "do": L(
+                    "Pick the task you like least today. Before starting, say: Lord, this one is for "
+                    "you. Then do it as well as you can.",
+                    "Elige la tarea que menos te gusta hoy. Antes de empezar di: Señor, esta es para "
+                    "ti. Luego hazla lo mejor que puedas.",
+                ),
+                "kid_do": L(
+                    "Do your homework or a chore today as a gift for Jesus, as carefully as you can.",
+                    "Haz hoy tu tarea o un quehacer como un regalo para Jesús, con todo el cuidado que puedas.",
+                ),
+                "pray": L(
+                    "Lord Jesus, I work for you today, whoever else is watching or not watching. "
+                    "Receive it, and help me do it well.",
+                    "Señor Jesús, hoy trabajo para ti, me mire quien me mire o aunque nadie me mire. "
+                    "Recíbelo y ayúdame a hacerlo bien.",
+                ),
+            },
+            {
+                "key": "work-4",
+                "ref": "Luke 3:21-22",
+                "title": L("Loved before the work begins", "Un amor que llega antes que el trabajo"),
+                "truth": L(
+                    "At his baptism, before his public work has begun, before any sermon, healing or "
+                    "follower, Jesus hears the Father call him the beloved Son and say he is pleased "
+                    "with him. The approval comes before the work. That order matters when you have no "
+                    "work, or have lost it, or feel that what you do impresses no one. God's love for "
+                    "you also comes first, as a gift, and is not earned by results. A job is something "
+                    "you do. It was never meant to carry the weight of who you are.",
+                    "En su bautismo, antes de comenzar su obra pública, antes de cualquier sermón, "
+                    "sanidad o seguidor, Jesús oye al Padre llamarlo Hijo amado y decir que en él se "
+                    "complace. La aprobación llega antes que el trabajo. Ese orden importa cuando no "
+                    "tienes empleo, o lo perdiste, o sientes que lo que haces no impresiona a nadie. "
+                    "El amor de Dios por ti también viene primero, como regalo, y no se gana con "
+                    "resultados. Un empleo es algo que haces. Nunca fue hecho para cargar con el peso "
+                    "de quién eres.",
+                ),
+                "simple": L(
+                    "God told Jesus he loved him before Jesus started his big work. God loves you too, "
+                    "not because of what you do, but because he made you.",
+                    "Dios le dijo a Jesús que lo amaba antes de que Jesús empezara su gran trabajo. A "
+                    "ti también te ama, no por lo que haces, sino porque él te hizo.",
+                ),
+                "ask": L(
+                    "If your work or title were taken away tomorrow, what would you say you are? What "
+                    "does God say?",
+                    "Si mañana te quitaran tu trabajo o tu título, ¿qué dirías que eres? ¿Qué dice Dios?",
+                ),
+                "kid_ask": L(
+                    "Does God love you more when you win or get a good grade? (No. He loves you all "
+                    "the time.)",
+                    "¿Dios te ama más cuando ganas o sacas buena nota? (No. Te ama todo el tiempo.)",
+                ),
+                "do": L(
+                    "Tomorrow, before any work or job search, begin by saying: God loves me before I "
+                    "do anything today. If you are out of work, tell one person honestly how you are "
+                    "doing, and ask them to pray and to keep an ear open for you.",
+                    "Mañana, antes de cualquier trabajo o búsqueda de empleo, empieza diciendo: Dios "
+                    "me ama antes de que yo haga nada hoy. Si estás sin trabajo, dile a una persona "
+                    "con honestidad cómo estás y pídele que ore y esté atenta por si sabe de algo.",
+                ),
+                "kid_do": L(
+                    "Ask a grown-up to tell you three things they love about you that have nothing to "
+                    "do with what you are good at.",
+                    "Pídele a un adulto que te diga tres cosas que ama de ti que no tengan que ver con "
+                    "lo que haces bien.",
+                ),
+                "pray": L(
+                    "Father, I have measured myself by what I produce. Let me hear that I, too, am "
+                    "loved by you. Let me work, or wait, from there.",
+                    "Padre, me he medido por lo que produzco. Déjame oír que tú también me amas a mí. "
+                    "Que desde ahí trabaje, o espere.",
+                ),
+            },
+            {
+                "key": "work-5",
+                "ref": "Ephesians 2:8-10",
+                "title": L("Calling is bigger than a job", "La vocación es más grande que un empleo"),
+                "truth": L(
+                    "Paul puts two things in careful order. First, we are saved by grace as a gift, "
+                    "not by anything we have done, so no one can boast. Then: we are God's own "
+                    "handiwork, made in Christ for good works that God prepared ahead of time for us "
+                    "to walk in. Your calling, then, is not one perfect career you might miss. It is "
+                    "the good that God has already placed along your path: in your job, but also in "
+                    "your street, your family, your church and your interruptions. You can live your "
+                    "calling in any honest work, and without paid work at all.",
+                    "Pablo pone dos cosas en un orden cuidadoso. Primero: somos salvos por gracia, "
+                    "como regalo, no por algo que hayamos hecho, así que nadie puede presumir. "
+                    "Después: somos obra de las manos de Dios, creados en Cristo para buenas obras que "
+                    "él preparó de antemano para que anduviéramos en ellas. Tu vocación, entonces, no "
+                    "es una única carrera perfecta que podrías perderte. Es el bien que Dios ya puso a "
+                    "lo largo de tu camino: en tu empleo, pero también en tu calle, tu familia, tu "
+                    "iglesia y tus interrupciones. Puedes vivirla en cualquier trabajo honrado, y "
+                    "también sin trabajo pagado.",
+                ),
+                "simple": L(
+                    "God made you on purpose, and he has good things for you to do every day, like "
+                    "helping, sharing and being kind.",
+                    "Dios te hizo a propósito, y tiene cosas buenas para que hagas cada día, como "
+                    "ayudar, compartir y tratar bien a los demás.",
+                ),
+                "ask": L(
+                    "What good is sitting in your path this week, outside your job description, that "
+                    "may have been prepared for you?",
+                    "¿Qué bien está en tu camino esta semana, fuera de tus funciones, que quizá fue "
+                    "preparado para ti?",
+                ),
+                "kid_ask": L(
+                    "What good thing could you do today that would help someone?",
+                    "¿Qué cosa buena podrías hacer hoy para ayudar a alguien?",
+                ),
+                "do": L(
+                    "Each morning this week, ask God what good he has prepared for you that day. Each "
+                    "evening, write down one thing that might have been the answer.",
+                    "Cada mañana de esta semana pregúntale a Dios qué bien preparó para ti ese día. "
+                    "Cada noche anota una cosa que pudo haber sido la respuesta.",
+                ),
+                "kid_do": L(
+                    "Look for one good thing to do today that nobody asked you to do, and do it.",
+                    "Busca hoy una cosa buena que nadie te haya pedido, y hazla.",
+                ),
+                "pray": L(
+                    "God, you made me, and you have prepared good for me to do. Open my eyes to it "
+                    "today, and keep me from thinking I must earn your love by doing it.",
+                    "Dios, tú me hiciste y preparaste un bien para que yo lo haga. Ábreme los ojos "
+                    "para verlo hoy, y líbrame de pensar que con eso tengo que ganarme tu amor.",
+                ),
+            },
+        ],
+    },
     # @@NEXT@@
 ]
