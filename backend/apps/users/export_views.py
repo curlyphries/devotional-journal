@@ -116,6 +116,13 @@ class FullDataExportView(APIView):
                 ),
             )
 
+            # Bible study, growth profile and growth plans
+            from apps.guides.export import export_guides
+
+            zf.writestr(
+                "study-and-growth.json", json.dumps(export_guides(user), indent=2)
+            )
+
             # Highlights
             highlights = VerseHighlight.objects.filter(user=user).order_by("created_at")
             zf.writestr(

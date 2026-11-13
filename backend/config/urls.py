@@ -51,6 +51,7 @@ urlpatterns = [
     path("api/v1/journal/", include("apps.journal.urls")),
     path("api/v1/prompts/", include("apps.prompts.urls")),
     path("api/v1/groups/", include("apps.groups.urls")),
+    path("api/v1/guides/", include("apps.guides.urls")),
     path("api/v1/", include("apps.reflections.urls")),
 ]
 

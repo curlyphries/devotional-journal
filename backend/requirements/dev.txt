@@ -6,6 +6,8 @@ pytest>=7.4,<8.0
 pytest-django>=4.7,<5.0
 pytest-cov>=4.1,<5.0
 factory-boy>=3.3,<4.0
+# Verse counts, used by tests to prove every reference in the study library exists
+pythonbible>=0.13,<1.0
 
 # Linting & Formatting
 ruff>=0.1,<1.0

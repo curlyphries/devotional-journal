@@ -72,6 +72,12 @@ If you've been let down by Bible apps that felt like social media or paywalled s
 - **Why this scripture?** — every passage comes with why it was chosen, why it is worth meditating on, and a full decision record (the Audit log)
 - **Honest when AI is down** — you still get a passage, chosen by built-in rules and labelled as such, with the reason and how to fix it
 
+### Study, profile and growth plans
+- **Bible study guide** — 48 studies (about 200 lessons) on peace, refuge, strength, wisdom, love, the foundations of faith, character and the seasons of life, shown at five levels from children (with a grown-up) to seniors
+- **Adapts to you** — suggestions come from what you journal and tell the app, and always show why; any lesson can be explained more simply or made personal
+- **Growth profile** — an honest, non-clinical picture of your walk with God and your inner life; every AI observation cites what it is based on, and you can correct or erase it
+- **Growth plans** — choose a characteristic to grow in and get short- and long-term goals, linked studies, weekly check-ins and a progress status
+
 ### Daily rhythm
 - **AI-Curated Devotionals** — set a focus and get personalized scripture, reflection prompts, and study guides
 - **Reading Plans** — browse pre-built plans (Gospel of John, Covenant Faithfulness, Proverbs) or generate your own with AI
@@ -275,6 +281,7 @@ devotional-journal/
 | Doc | What's in it |
 |-----|--------------|
 | [How feedback works](docs/HOW_FEEDBACK_WORKS.md) | Journal → reflection → verified scripture → audit record |
+| [Study guides, profile and growth plans](docs/STUDY_GUIDES.md) | The study library, how it adapts, what the profile is and is not, how progress is worked out |
 | [Troubleshooting](docs/TROUBLESHOOTING.md) | Every error code, what it means, what to do |
 | [Private mesh deployment](docs/MESH_DEPLOYMENT.md) | Run it on your mesh network only, AI local only |
 | [Developer Handoff](docs/developer-handoff.md) | Architecture, full API reference, priorities, tech debt |

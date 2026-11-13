@@ -9,6 +9,8 @@ import DashboardPage from './pages/DashboardPage'
 import ReadingPage from './pages/ReadingPage'
 import JournalPage from './pages/JournalPage'
 import JournalHistoryPage from './pages/JournalHistoryPage'
+import StudyHubPage from './pages/StudyHubPage'
+import StudyPage from './pages/StudyPage'
 import SettingsPage from './pages/SettingsPage'
 import ReflectionPage from './pages/ReflectionPage'
 import JourneyPage from './pages/JourneyPage'
@@ -22,6 +24,9 @@ import HelpPage from './pages/HelpPage'
 import NotFoundPage from './pages/NotFoundPage'
 import ErrorBoundary from './components/ErrorBoundary'
 import AuditLogPage from './pages/AuditLogPage'
+import ProfilePage from './pages/ProfilePage'
+import GrowthPlansPage from './pages/GrowthPlansPage'
+import GrowthPlanPage from './pages/GrowthPlanPage'
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth()
@@ -61,6 +66,8 @@ function App() {
         <Route path="journal/new" element={<JournalPage />} />
         <Route path="journal/:entryId" element={<JournalPage />} />
         <Route path="journal" element={<JournalHistoryPage />} />
+        <Route path="study" element={<StudyHubPage />} />
+        <Route path="study/:studyId" element={<StudyPage />} />
         <Route path="reflection" element={<ReflectionPage />} />
         <Route path="reflection/:id" element={<ReflectionPage />} />
         <Route path="journey" element={<JourneyPage />} />
@@ -72,6 +79,9 @@ function App() {
         <Route path="insights" element={<InsightsHistoryPage />} />
         <Route path="settings" element={<SettingsPage />} />
         <Route path="audit" element={<AuditLogPage />} />
+        <Route path="profile" element={<ProfilePage />} />
+        <Route path="growth" element={<GrowthPlansPage />} />
+        <Route path="growth/:planId" element={<GrowthPlanPage />} />
         <Route path="help" element={<HelpPage />} />
         {/* Unknown URL: a "not found" page inside the normal layout */}
         <Route path="*" element={<NotFoundPage />} />

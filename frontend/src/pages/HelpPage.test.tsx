@@ -23,7 +23,7 @@ function renderHelp() {
 describe('HelpPage', () => {
   it('has deep-linkable sections and explains every error code', () => {
     const { container } = renderHelp()
-    for (const id of ['quick-start', 'where', 'feedback', 'voice', 'privacy', 'troubleshooting']) {
+    for (const id of ['quick-start', 'where', 'feedback', 'study', 'voice', 'privacy', 'troubleshooting']) {
       expect(container.querySelector(`#${id}`)).not.toBeNull()
     }
     for (const code of [
@@ -37,6 +37,22 @@ describe('HelpPage', () => {
     // No untranslated keys leak into the page.
     expect(container.textContent).not.toMatch(/help\.[a-zA-Z]+\./)
     expect(container.textContent).not.toMatch(/@/)
+  })
+
+  it('explains the study guide, the growth profile and growth plans, and links to each', () => {
+    renderHelp()
+    expect(
+      screen.getByRole('heading', { name: 'Bible study guide, your profile and growth plans' })
+    ).toBeInTheDocument()
+    expect(screen.getByText(/the reasons are always shown/i)).toBeInTheDocument()
+    expect(screen.getByText(/not a diagnosis/i)).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Open the Bible study guide' })).toHaveAttribute('href', '/study')
+    expect(screen.getByRole('link', { name: 'Open my profile' })).toHaveAttribute('href', '/profile')
+    expect(screen.getByRole('link', { name: 'Open growth plans' })).toHaveAttribute('href', '/growth')
+    // "Where things are" lists the three new destinations.
+    expect(screen.getByRole('link', { name: /^Bible study guide/ })).toHaveAttribute('href', '/study')
+    expect(screen.getByRole('link', { name: /^My profile/ })).toHaveAttribute('href', '/profile')
+    expect(screen.getByRole('link', { name: /^Growth plans/ })).toHaveAttribute('href', '/growth')
   })
 
   it('"Replay the tour" goes home and starts the tour', async () => {

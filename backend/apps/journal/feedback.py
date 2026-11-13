@@ -93,6 +93,8 @@ CONTEXT (may be empty):
 - Themes from their recent entries: {recent_themes}
 - Things they said they are working through: {threads}
 - Passages they were given recently (prefer something different): {recent_refs}
+- Their stage of life (write at this level): {life_stage}
+- Characteristics they have chosen to grow in (connect to these only where it is natural): {growth_focus}
 
 Write your reply in {language}.
 
@@ -669,11 +671,32 @@ def _recent_context(user, entry) -> dict:
         user=user, status__in=["open", "following_up", "progressing"]
     ).order_by("-last_mentioned_at")[:5]
 
+    # What they told the study guide about themselves (apps.guides).
+    from apps.guides import library
+    from apps.guides.models import GrowthPlan, GrowthProfile
+
+    profile = GrowthProfile.objects.filter(user=user).first()
+    growth_keys = list(
+        GrowthPlan.objects.filter(user=user, status="active").values_list(
+            "trait_key", flat=True
+        )
+    )
+    for key in (profile.desired_traits if profile else []) or []:
+        if key not in growth_keys:
+            growth_keys.append(key)
+    growth_focus = [
+        library.get_trait(key)["title"]["en"].lower()
+        for key in growth_keys
+        if library.get_trait(key)
+    ][:4]
+
     return {
         "recent_themes": recent_themes,
         "recent_refs": recent_refs,
         "focus": focus.get_intention() if focus else "",
         "threads": list(threads),
+        "life_stage": profile.life_stage if profile else "",
+        "growth_focus": growth_focus,
     }
 
 
@@ -754,6 +777,8 @@ def _ask_model(llm, entry, text: str, context: dict, language: str) -> dict:
         recent_themes=", ".join(context["recent_themes"]) or "none yet",
         threads="; ".join(t.get_summary() for t in context["threads"]) or "none",
         recent_refs=", ".join(context["recent_refs"]) or "none",
+        life_stage=(context.get("life_stage") or "not given").replace("_", " "),
+        growth_focus=", ".join(context.get("growth_focus") or []) or "none chosen",
         language="Spanish" if language == "es" else "English",
     )
     data = llm.complete_json(prompt, SYSTEM_PROMPT, max_tokens=1100, timeout=120.0)
@@ -873,6 +898,10 @@ def generate_feedback(entry: JournalEntry, regenerate: bool = False) -> JournalF
         inputs.append("open_threads")
     if context["recent_refs"]:
         inputs.append("recent_passages")
+    if context.get("life_stage"):
+        inputs.append("life_stage")
+    if context.get("growth_focus"):
+        inputs.append("growth_focus")
 
     llm_config = None
     fallback_reason = None

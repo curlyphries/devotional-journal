@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added — Bible study guide, growth profile, growth plans
+- **Study library**: 48 bilingual studies (about 200 lessons) in eight categories, each lesson shown at one of five life stages from child (with a grown-up) to senior. Verse text is always fetched from the Bible source
+- **Adaptive suggestions** from journal themes, entry wording, moods, profile and growth plans, each with its reasons shown
+- **Lessons**: "Explain it more simply", "Make it personal" (AI), answers with understanding/resonance ratings, and a reply to what the person wrote
+- **Growth profile**: self-assessment with history, a computed snapshot of spiritual practices and inner life, and optional AI observations that must cite their evidence, cannot use clinical language, and can be rejected or erased. No profile is built for children
+- **Growth plans**: 24 characteristics with short- and long-term goals, linked studies that count themselves, weekly check-ins and a progress status; optional AI-tailored goals
+- Journal feedback now knows the person's life stage and chosen characteristics
+- `study-and-growth.json` in the data export; `docs/STUDY_GUIDES.md`
+
 ### Added — journal feedback, audit log, voice, private deployment
 - **Journal feedback**: saving an entry returns a reflection, one scripture passage, why it was chosen, a meditation prompt and a Christlike next step (`POST /api/v1/journal/{id}/feedback/`)
 - **Verified scripture**: models suggest references only; verse text is fetched from a Bible source (local database, then Bolls API). Default translations: World English Bible, then KJV (`SCRIPTURE_TRANSLATIONS`)

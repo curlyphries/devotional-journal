@@ -18,6 +18,7 @@ import HeartPromptExplorer from '../components/HeartPromptExplorer'
 import OnboardingTour from '../components/OnboardingTour'
 import AiStatusBanner from '../components/AiStatusBanner'
 import InlineError from '../components/InlineError'
+import StudyDashboardCard from '../components/study/StudyDashboardCard'
 
 interface DashboardStats {
   date: string
@@ -411,6 +412,9 @@ export default function DashboardPage() {
 
       {/* Says why AI features will not work, when they will not */}
       <AiStatusBanner />
+
+      {/* Bible study guide: continue, start the top suggestion, or browse */}
+      <StudyDashboardCard />
 
       {/* Speak Your Mind */}
       <div data-tour-id="speak-your-mind">

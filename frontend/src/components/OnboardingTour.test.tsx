@@ -133,9 +133,31 @@ describe('OnboardingTour', () => {
     expect(screen.getByRole('dialog')).toBeInTheDocument()
   })
 
-  it('has between 7 and 9 steps, each translated in English and Spanish', () => {
+  it('introduces the Bible study guide right after the feedback step, anchored to the Study link', () => {
+    const keys = TOUR_STEPS.map((step) => step.key)
+    expect(keys.indexOf('tour.study')).toBe(keys.indexOf('tour.feedback') + 1)
+    const study = TOUR_STEPS.find((step) => step.key === 'tour.study')!
+    expect(study.targets[0]).toBe('[data-tour-id="nav-study"]')
+    expect(lookup(en, 'tour.study.title')).toBe('Study the Bible your way')
+  })
+
+  it('anchors the study step to the Study link, and centres it when the link is not visible', async () => {
+    const steps = TOUR_STEPS.filter((step) => step.key === 'tour.welcome' || step.key === 'tour.study')
+    const user = userEvent.setup()
+    const { unmount } = render(<OnboardingTour open onClose={vi.fn()} steps={steps} />)
+    await user.click(screen.getByRole('button', { name: 'Next' }))
+    expect(screen.getByRole('dialog', { name: 'Study the Bible your way' })).toHaveAttribute('data-anchored', 'false')
+    unmount()
+
+    addAnchor('nav-study')
+    render(<OnboardingTour open onClose={vi.fn()} steps={steps} />)
+    await user.click(screen.getByRole('button', { name: 'Next' }))
+    expect(screen.getByRole('dialog', { name: 'Study the Bible your way' })).toHaveAttribute('data-anchored', 'true')
+  })
+
+  it('has between 7 and 10 steps, each translated in English and Spanish', () => {
     expect(TOUR_STEPS.length).toBeGreaterThanOrEqual(7)
-    expect(TOUR_STEPS.length).toBeLessThanOrEqual(9)
+    expect(TOUR_STEPS.length).toBeLessThanOrEqual(10)
     for (const step of TOUR_STEPS) {
       for (const source of [en, es]) {
         expect(typeof lookup(source, `${step.key}.title`)).toBe('string')
