@@ -11,6 +11,7 @@ from rest_framework.views import APIView
 
 from apps.prompts.services import get_prompt_service
 
+from .categories import DEFAULT_CATEGORY, category_label, grouped, is_category
 from .models import ReadingPlan, ReadingPlanDay, UserPlanEnrollment
 from .serializers import (
     ReadingPlanDetailSerializer,
@@ -31,6 +32,20 @@ def _int_param(value, name: str, default=None) -> int:
         return int(value)
     except (TypeError, ValueError):
         raise AppError(f"“{name}” must be a whole number.")
+
+
+def _category_param(value) -> str:
+    """A known category key, the default when none is given, or 400."""
+    from shared.errors import AppError
+
+    if value in (None, ""):
+        return DEFAULT_CATEGORY
+    if not is_category(value):
+        raise AppError(
+            f"“{value}” is not a reading-plan category.",
+            suggestion="Choose a category from the list.",
+        )
+    return value
 
 
 class PlanGenerateThrottle(UserRateThrottle):
@@ -250,7 +265,7 @@ class PlanGenerateView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        category = request.data.get("category", "general")
+        category = _category_param(request.data.get("category"))
         anchor_passages = _parse_anchor_passages(
             request.data.get("anchor_passages", [])
         )
@@ -260,7 +275,8 @@ class PlanGenerateView(APIView):
         plan_data = service.generate_reading_plan(
             topic=topic,
             duration_days=duration_days,
-            category=category,
+            # The model is told the category's name, not its internal key.
+            category=category_label(category),
             anchor_passages=anchor_passages,
             language=language,
         )
@@ -353,7 +369,7 @@ class PlanSaveView(APIView):
         duration_days = _int_param(
             request.data.get("duration_days"), "duration_days", len(days_data)
         )
-        category = request.data.get("category", "general")
+        category = _category_param(request.data.get("category"))
         is_public = bool(request.data.get("is_public", False))
         if is_public and not request.user.is_staff:
             is_public = False
@@ -403,3 +419,29 @@ class PlanDeleteView(APIView):
             )
         plan.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class PlanCategoriesView(APIView):
+    """
+    Every reading-plan category, grouped, in the person's language, with how
+    many plans they can see in each (public plans plus their own).
+    """
+
+    def get(self, request):
+        from django.db.models import Count
+
+        lang = (request.query_params.get("lang") or "").lower()
+        if lang not in ("en", "es"):
+            lang = (
+                "es"
+                if getattr(request.user, "language_preference", "en") == "es"
+                else "en"
+            )
+        counts = dict(
+            ReadingPlan.objects.filter(
+                Q(is_public=True) | Q(created_by=request.user), is_active=True
+            )
+            .values_list("category")
+            .annotate(total=Count("id"))
+        )
+        return Response({"groups": grouped(lang, counts)})

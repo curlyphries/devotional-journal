@@ -7,20 +7,16 @@ import uuid
 from django.conf import settings
 from django.db import models
 
+from .categories import CATEGORY_CHOICES, DEFAULT_CATEGORY
+
 
 class ReadingPlan(models.Model):
     """
     A structured Bible reading plan.
     """
 
-    CATEGORY_CHOICES = [
-        ("general", "General"),
-        ("fatherhood", "Fatherhood"),
-        ("leadership", "Leadership"),
-        ("recovery", "Recovery"),
-        ("marriage", "Marriage"),
-        ("faith", "Faith Foundations"),
-    ]
+    # Defined in apps/plans/categories.py - the single list the whole app uses.
+    CATEGORY_CHOICES = CATEGORY_CHOICES
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title_en = models.CharField(max_length=200)
@@ -29,7 +25,7 @@ class ReadingPlan(models.Model):
     description_es = models.TextField(blank=True)
     duration_days = models.PositiveIntegerField()
     category = models.CharField(
-        max_length=20, choices=CATEGORY_CHOICES, default="general"
+        max_length=30, choices=CATEGORY_CHOICES, default=DEFAULT_CATEGORY
     )
     is_premium = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)

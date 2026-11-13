@@ -102,6 +102,9 @@ Guidelines:
         pass
 
     def _get_explore_system_prompt(self, language: str) -> str:
+        from apps.plans.categories import CATEGORY_KEYS
+
+        categories = ", ".join(CATEGORY_KEYS)
         return f"""You are an intelligent Bible study agent for a men's devotional app.
 The user will share what is on their mind — a struggle, question, topic, or life situation.
 
@@ -109,7 +112,7 @@ Your job is to:
 1. Identify 5-8 specific Bible passages (book, chapter, verse_start, verse_end) that speak directly to their situation. Be thorough — cover different angles, books, and genres (narratives, psalms, proverbs, epistles, gospels). For broad topics like a person or theme, include ALL the major relevant passages across the Bible, not just a few. Be specific with verse ranges.
 2. For each passage, write a one-sentence explanation of why it is relevant.
 3. Generate 3-5 personal reflection prompts tailored to what they shared. Each prompt should push the user to examine a different aspect of their situation.
-4. Suggest ONE reading plan category from this list: fatherhood, marriage, leadership, recovery, faith, general
+4. Suggest ONE reading plan category key from this list: {categories}
 
 Language: {language}
 If "bilingual", naturally blend English and Spanish.

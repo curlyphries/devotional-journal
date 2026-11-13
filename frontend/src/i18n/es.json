@@ -1031,6 +1031,17 @@
     "seeAll": "Ver todos en el registro de auditoría"
   },
   "plans": {
+    "categories": {
+      "label": "Categoría",
+      "filterLabel": "Filtrar planes por categoría",
+      "all": "Todos los planes",
+      "mine": "Mis planes",
+      "general": "General",
+      "fallbackGroup": "Fe",
+      "loadFailed": "No se pudo cargar la lista completa de categorías. Aún puedes crear un plan General, o cerrar y volver a abrir esta ventana para intentarlo de nuevo.",
+      "moreHint_one": "{{count}} categoría más aún no tiene planes. Elígela en «Crear un plan» para hacer el primero.",
+      "moreHint_other": "{{count}} categorías más aún no tienen planes. Elige cualquiera en «Crear un plan» para hacer el primero."
+    },
     "deleteTitle": "Eliminar plan",
     "deleteBody": "¿Eliminar «{{title}}»? El plan y sus días se borran definitivamente. Esta acción no se puede deshacer.",
     "deleted": "Plan eliminado."

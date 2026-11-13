@@ -114,17 +114,28 @@ class HeartPromptGuidanceView(APIView):
             )
 
         # Fetch recommended plans
+        from django.db.models import Q
+
+        from apps.plans.categories import DEFAULT_CATEGORY, is_category
         from apps.plans.models import ReadingPlan
 
-        category = ai_result.get("category", "general")
+        # The model suggests a category; anything not on the list becomes General.
+        category = ai_result.get("category")
+        if not is_category(category):
+            category = DEFAULT_CATEGORY
+
+        # Only plans this person may see: public ones and their own.
+        visible = ReadingPlan.objects.filter(
+            Q(is_public=True) | Q(created_by=request.user), is_active=True
+        )
         plans = list(
-            ReadingPlan.objects.filter(category=category).values(
+            visible.filter(category=category).values(
                 "id", "title_en", "description_en", "category", "duration_days"
             )[:3]
         )
-        if not plans and category != "general":
+        if not plans and category != DEFAULT_CATEGORY:
             plans = list(
-                ReadingPlan.objects.filter(category="general").values(
+                visible.filter(category=DEFAULT_CATEGORY).values(
                     "id", "title_en", "description_en", "category", "duration_days"
                 )[:3]
             )

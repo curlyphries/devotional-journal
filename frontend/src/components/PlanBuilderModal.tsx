@@ -6,6 +6,8 @@ import {
 import apiClient from '../api/client'
 import { toApiError } from '../api/errors'
 import { isAiUsable, useAiStatus } from '../hooks/useAiStatus'
+import { usePlanCategories } from '../hooks/usePlanCategories'
+import { useTranslation } from 'react-i18next'
 
 // A multi-day plan is several model calls; local models need minutes, not seconds.
 const PLAN_GENERATE_TIMEOUT_MS = 300_000
@@ -34,15 +36,6 @@ interface PlanBuilderModalProps {
   onCreated: () => void
 }
 
-const CATEGORIES = [
-  { value: 'general', label: 'General' },
-  { value: 'faith', label: 'Faith Foundations' },
-  { value: 'fatherhood', label: 'Fatherhood' },
-  { value: 'leadership', label: 'Leadership' },
-  { value: 'marriage', label: 'Marriage' },
-  { value: 'recovery', label: 'Recovery' },
-]
-
 const DURATIONS = [7, 14, 21, 28, 30, 40]
 
 const GENERATE_STEPS = [
@@ -63,6 +56,8 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
     ? { configured: false, reachable: false, backend: 'unknown', model: null, suggestion: toApiError(aiStatusQuery.error).suggestion }
     : aiStatusQuery.data ?? null
   const aiReady = isAiUsable(aiStatusQuery.data)
+  const planCategories = usePlanCategories({ enabled: isOpen })
+  const { t } = useTranslation()
 
   // Form state
   const [topic, setTopic] = useState('')
@@ -478,14 +473,26 @@ export default function PlanBuilderModal({ isOpen, onClose, onCreated }: PlanBui
           {/* Category + Duration */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Category</label>
+              <label htmlFor="plan-category" className="block text-sm font-medium text-gray-300 mb-2">
+                {t('plans.categories.label')}
+              </label>
               <select
+                id="plan-category"
                 value={category}
                 onChange={e => setCategory(e.target.value)}
                 className="w-full px-3 py-2.5 bg-gray-800 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
               >
-                {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                {planCategories.groups.map(group => (
+                  <optgroup key={group.key} label={group.title}>
+                    {group.categories.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                  </optgroup>
+                ))}
               </select>
+              {planCategories.isError && (
+                <p role="status" className="mt-1.5 text-xs text-amber-300">
+                  {t('plans.categories.loadFailed')}
+                </p>
+              )}
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">Duration</label>

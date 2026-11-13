@@ -26,6 +26,7 @@ class ReadingPlanSerializer(serializers.ModelSerializer):
     title = serializers.SerializerMethodField()
     description = serializers.SerializerMethodField()
     is_owned = serializers.SerializerMethodField()
+    category_label = serializers.SerializerMethodField()
 
     class Meta:
         model = ReadingPlan
@@ -35,11 +36,21 @@ class ReadingPlanSerializer(serializers.ModelSerializer):
             "description",
             "duration_days",
             "category",
+            "category_label",
             "is_premium",
             "is_public",
             "is_owned",
             "created_at",
         ]
+
+    def get_category_label(self, obj):
+        from .categories import category_label
+
+        request = self.context.get("request")
+        language = "en"
+        if request and request.user.is_authenticated:
+            language = request.user.language_preference
+        return category_label(obj.category, "es" if language == "es" else "en")
 
     def get_is_owned(self, obj):
         request = self.context.get("request")

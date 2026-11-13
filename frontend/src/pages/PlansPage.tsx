@@ -20,17 +20,8 @@ import ConfirmDialog from '../components/ConfirmDialog'
 import InlineError from '../components/InlineError'
 import { useToast } from '../components/Toast'
 import { useTranslation } from 'react-i18next'
-
-const CATEGORIES = [
-  { value: '', label: 'All Plans' },
-  { value: 'mine', label: 'My Plans' },
-  { value: 'general', label: 'General' },
-  { value: 'faith', label: 'Faith Foundations' },
-  { value: 'fatherhood', label: 'Fatherhood' },
-  { value: 'leadership', label: 'Leadership' },
-  { value: 'marriage', label: 'Marriage' },
-  { value: 'recovery', label: 'Recovery' },
-]
+import { useSearchParams } from 'react-router-dom'
+import { usePlanCategories } from '../hooks/usePlanCategories'
 
 function formatPassage(passage: string | { book: string; chapter: number; verses?: string }): string {
   if (typeof passage === 'string') {
@@ -56,7 +47,19 @@ export default function PlansPage() {
   const { t } = useTranslation()
   const toast = useToast()
   const [planToDelete, setPlanToDelete] = useState<ReadingPlan | null>(null)
-  const [selectedCategory, setSelectedCategory] = useState('')
+  // `/plans?category=grief` opens with that filter on (Speak Your Mind links here).
+  const [searchParams, setSearchParams] = useSearchParams()
+  const selectedCategory = searchParams.get('category') ?? ''
+  const setSelectedCategory = (value: string) =>
+    setSearchParams(value ? { category: value } : {}, { replace: true })
+  const planCategories = usePlanCategories()
+  // Offer a filter only where there is something to find, plus whatever is selected now.
+  const categoryFilters = planCategories.all.filter(
+    (category) => category.plan_count > 0 || category.value === selectedCategory,
+  )
+  const emptyCategories = planCategories.all.filter(
+    (category) => category.plan_count === 0 && category.value !== selectedCategory,
+  )
   const [selectedPlan, setSelectedPlan] = useState<ReadingPlanDetail | null>(null)
   const [activeEnrollment, setActiveEnrollment] = useState<UserPlanEnrollment | null>(null)
   const [readingContext, setReadingContext] = useState<ReadingContext | null>(null)
@@ -237,10 +240,19 @@ export default function PlansPage() {
       )}
 
       {/* Category Filter */}
-      <div className="flex gap-2 flex-wrap">
-        {CATEGORIES.map((cat) => (
+      <div role="group" aria-label={t('plans.categories.filterLabel')} className="flex gap-2 flex-wrap">
+        {[
+          { value: '', label: t('plans.categories.all') },
+          { value: 'mine', label: t('plans.categories.mine') },
+          ...categoryFilters.map((category) => ({
+            value: category.value,
+            label: `${category.label} (${category.plan_count})`,
+          })),
+        ].map((cat) => (
           <button
             key={cat.value}
+            type="button"
+            aria-pressed={selectedCategory === cat.value}
             onClick={() => setSelectedCategory(cat.value)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               selectedCategory === cat.value
@@ -252,6 +264,11 @@ export default function PlansPage() {
           </button>
         ))}
       </div>
+      {emptyCategories.length > 0 && !planCategories.isError && (
+        <p className="text-xs text-gray-500">
+          {t('plans.categories.moreHint', { count: emptyCategories.length })}
+        </p>
+      )}
 
       {/* Plans Grid */}
       <ConfirmDialog
@@ -327,8 +344,8 @@ export default function PlansPage() {
                   <Calendar className="w-4 h-4" />
                   {plan.duration_days} days
                 </span>
-                <span className="capitalize px-2 py-0.5 bg-gray-700 rounded text-xs">
-                  {plan.category}
+                <span className="px-2 py-0.5 bg-gray-700 rounded text-xs">
+                  {plan.category_label ?? planCategories.labelOf(plan.category)}
                 </span>
               </div>
 

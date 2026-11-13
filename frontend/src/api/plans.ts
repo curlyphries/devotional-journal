@@ -6,6 +6,8 @@ export interface ReadingPlan {
   description: string
   duration_days: number
   category: string
+  /** The category's display name in the person's language. */
+  category_label?: string
   is_premium: boolean
   is_public: boolean
   is_owned: boolean
@@ -48,6 +50,25 @@ export interface UserPlanEnrollment {
 export interface TodayReading {
   enrollment: UserPlanEnrollment
   day: ReadingPlanDay
+}
+
+export interface PlanCategory {
+  value: string
+  label: string
+  /** Plans the person can see in this category (public ones and their own). */
+  plan_count: number
+}
+
+export interface PlanCategoryGroup {
+  key: string
+  title: string
+  categories: PlanCategory[]
+}
+
+/** Every reading-plan category, grouped, in the current language. */
+export const getPlanCategories = async (lang: 'en' | 'es'): Promise<PlanCategoryGroup[]> => {
+  const response = await client.get('/plans/categories/', { params: { lang } })
+  return response.data.groups
 }
 
 export const getPlans = async (category?: string): Promise<ReadingPlan[]> => {
