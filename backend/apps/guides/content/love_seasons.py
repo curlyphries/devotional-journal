@@ -1839,5 +1839,1545 @@ TOPICS = [
             },
         ],
     },
+    {
+        "key": "friendship",
+        "category": "love",
+        "title": L("Friendship", "La amistad"),
+        "summary": L(
+            "For anyone who wants better friends, or wants to be one. Five readings on loyalty, honesty, "
+            "choosing your company wisely, carrying each other, and the friend who will not leave.",
+            "Para quien quiere mejores amigos, o quiere ser uno. Cinco lecturas sobre la lealtad, la "
+            "honestidad, elegir bien tus compañías, cargarse unos a otros y el amigo que no se va.",
+        ),
+        "keywords": [
+            "friend", "left out", "peer pressure", "clique", "bad influence", "loyal",
+            "amig", "amistad", "compañer", "me dejaron fuera", "mala influencia", "leal",
+        ],
+        "situations": ["student", "moving"],
+        "traits": ["faithfulness", "honesty", "kindness"],
+        "stages": ["child", "teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "child": L(
+                "Friends are a gift. God can help you be a good friend and find good friends.",
+                "Los amigos son un regalo. Dios puede ayudarte a ser un buen amigo y a encontrar buenos "
+                "amigos.",
+            ),
+            "teen": L(
+                "Who you spend time with shapes who you become. This is about loyalty, honesty, and friends "
+                "who are good for you.",
+                "Las personas con quienes pasas el tiempo le dan forma a quien llegas a ser. Esto trata de "
+                "lealtad, honestidad y amigos que te hacen bien.",
+            ),
+            "young_adult": L(
+                "Friendships take effort once school ends. Here is what is worth looking for, and worth "
+                "being.",
+                "Cuando termina la escuela, las amistades requieren esfuerzo. Aquí está lo que vale la pena "
+                "buscar, y lo que vale la pena ser.",
+            ),
+            "adult": L(
+                "Busy years quietly thin out friendships. For rebuilding the kind that tells you the truth.",
+                "Los años ocupados van adelgazando las amistades sin hacer ruido. Para reconstruir las que "
+                "te dicen la verdad.",
+            ),
+            "senior": L(
+                "Old friends are fewer and precious, and new ones are still possible. It is not too late "
+                "to be a friend.",
+                "Los viejos amigos son menos y valen mucho, y todavía es posible hacer nuevos. No es tarde "
+                "para ser amigo de alguien.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "friendship-1",
+                "ref": "1 Samuel 18:1-4",
+                "title": L("A friend who gives", "Un amigo que da"),
+                "truth": L(
+                    "Jonathan was the king's son and heir. David was the young shepherd everyone was "
+                    "suddenly praising. Jonathan had every reason to see a rival. Instead he loved David as "
+                    "himself, made a covenant with him, and handed over his own robe and weapons. Real "
+                    "friendship is not built on what you can get, or on staying ahead. It is glad when the "
+                    "other does well, and it gives without keeping a tally. That kind of friend is rare. "
+                    "The surest way to find one is to become one.",
+                    "Jonatán era hijo y heredero del rey. David era el joven pastor al que de pronto todos "
+                    "elogiaban. Jonatán tenía todos los motivos para ver en él a un rival. En cambio, lo "
+                    "amó como a sí mismo, hizo un pacto con él y le entregó su propio manto y sus armas. La "
+                    "amistad verdadera no se construye sobre lo que puedes sacar ni sobre ir adelante del "
+                    "otro. Se alegra cuando al otro le va bien, y da sin llevar la cuenta. Un amigo así es "
+                    "raro. La manera más segura de encontrarlo es llegar a serlo.",
+                ),
+                "simple": L(
+                    "Jonathan was a prince, and David was his friend. Jonathan gave David his own robe. "
+                    "Good friends share, and they are glad when good things happen to each other.",
+                    "Jonatán era un príncipe, y David era su amigo. Jonatán le dio a David su propio manto. "
+                    "Los buenos amigos comparten y se alegran cuando al otro le pasan cosas buenas.",
+                ),
+                "ask": L(
+                    "Is there a friend whose success you find hard to celebrate? What would it look like "
+                    "to be glad for them out loud?",
+                    "¿Hay un amigo cuyo éxito te cuesta celebrar? ¿Cómo sería alegrarte por él en voz alta?",
+                ),
+                "kid_ask": L(
+                    "What makes someone a good friend?",
+                    "¿Qué hace que alguien sea un buen amigo?",
+                ),
+                "do": L(
+                    "Congratulate one friend today on something good in their life. Be specific, and do "
+                    "not mention yourself.",
+                    "Felicita hoy a un amigo por algo bueno en su vida. Sé específico, y no hables de ti.",
+                ),
+                "kid_do": L(
+                    "Share something you like with a friend today.",
+                    "Comparte hoy con un amigo algo que te gusta.",
+                ),
+                "pray": L(
+                    "Lord, take envy out of my friendships. Make me the kind of friend who gives freely and "
+                    "is glad when … does well.",
+                    "Señor, saca la envidia de mis amistades. Hazme la clase de amigo que da con libertad y "
+                    "se alegra cuando a … le va bien.",
+                ),
+            },
+            {
+                "key": "friendship-2",
+                "ref": "Proverbs 27:5-6",
+                "title": L("A friend who tells the truth", "Un amigo que dice la verdad"),
+                "truth": L(
+                    "These two sayings turn our instincts around. Honest correction, spoken openly, is "
+                    "better than love that stays hidden and silent. The wounds a friend gives can be "
+                    "trusted, while an enemy's kisses are many and worth nothing. A friend who only ever "
+                    "agrees with you is pleasant company and little help. The one who cares enough to say "
+                    "a hard thing, gently and to your face, is giving you something costly. It takes "
+                    "humility to receive it and love to give it.",
+                    "Estos dos dichos le dan vuelta a nuestro instinto. Una corrección sincera, dicha de "
+                    "frente, vale más que un amor que se queda escondido y callado. Las heridas que causa "
+                    "un amigo son de fiar, mientras que los besos de un enemigo son muchos y no valen nada. "
+                    "Un amigo que siempre te da la razón es buena compañía y poca ayuda. Quien te quiere lo "
+                    "bastante para decirte algo difícil, con suavidad y de frente, te está dando algo que "
+                    "le cuesta. Hace falta humildad para recibirlo y amor para darlo.",
+                ),
+                "simple": L(
+                    "A real friend tells you the truth in a kind way, even when it is hard to hear.",
+                    "Un amigo de verdad te dice la verdad con cariño, aun cuando cuesta escucharla.",
+                ),
+                "ask": L(
+                    "Who has permission to tell you the truth about yourself, and when did you last thank "
+                    "them instead of defending yourself?",
+                    "¿Quién tiene permiso de decirte la verdad sobre ti, y cuándo fue la última vez que se "
+                    "lo agradeciste en vez de defenderte?",
+                ),
+                "kid_ask": L(
+                    "Has a friend ever told you something true that was hard to hear?",
+                    "¿Alguna vez un amigo te dijo algo verdadero que te costó escuchar?",
+                ),
+                "do": L(
+                    "Ask one trusted friend this week: is there anything you see in me that I am not "
+                    "seeing? Listen without arguing, and say thank you.",
+                    "Pregúntale esta semana a un amigo de confianza: ¿hay algo que ves en mí que yo no "
+                    "estoy viendo? Escucha sin discutir, y da las gracias.",
+                ),
+                "kid_do": L(
+                    "Tell a friend the truth today in a kind way, even about something small.",
+                    "Dile hoy la verdad a un amigo con cariño, aunque sea sobre algo pequeño.",
+                ),
+                "pray": L(
+                    "God, give me friends honest enough to tell me the truth, and make me humble enough to "
+                    "listen. Help me speak truth with love to …",
+                    "Dios, dame amigos tan sinceros que me digan la verdad, y hazme tan humilde que la "
+                    "escuche. Ayúdame a hablarle con verdad y amor a …",
+                ),
+            },
+            {
+                "key": "friendship-3",
+                "ref": "Psalm 1:1-3",
+                "title": L("Choosing your company", "Elegir tus compañías"),
+                "truth": L(
+                    "The first psalm begins with whom you walk with, stand with and sit with. It pictures "
+                    "a slow slide: first listening to bad advice, then lingering, then settling in among "
+                    "people who mock what is good. Against that it sets a tree planted by water, fed by "
+                    "God's teaching and fruitful in its season. This is not about refusing kindness to "
+                    "anyone; Jesus ate with all kinds of people. It is about whose voice shapes you. You "
+                    "become like the people whose counsel you take.",
+                    "El primer salmo empieza por con quién caminas, con quién te detienes y con quién te "
+                    "sientas. Describe un deslizarse lento: primero escuchar malos consejos, luego "
+                    "quedarse, luego acomodarse entre quienes se burlan de lo bueno. Frente a eso pone un "
+                    "árbol plantado junto al agua, alimentado por la enseñanza de Dios y que da fruto a su "
+                    "tiempo. No se trata de negarle la bondad a nadie; Jesús comió con toda clase de "
+                    "personas. Se trata de qué voz te va formando. Uno termina pareciéndose a aquellos "
+                    "cuyos consejos sigue.",
+                ),
+                "simple": L(
+                    "The friends we spend the most time with change us. Choose friends who help you do "
+                    "what is good.",
+                    "Los amigos con quienes pasamos más tiempo nos cambian. Elige amigos que te ayuden a "
+                    "hacer lo bueno.",
+                ),
+                "ask": L(
+                    "Whose influence are you under most right now, and is it making you more or less like "
+                    "the person you want to be?",
+                    "¿Bajo la influencia de quién estás más ahora, y te está haciendo parecerte más o "
+                    "menos a la persona que quieres ser?",
+                ),
+                "kid_ask": L(
+                    "Which friends help you make good choices?",
+                    "¿Qué amigos te ayudan a tomar buenas decisiones?",
+                ),
+                "do": L(
+                    "List the five people you spend the most time with, in person or on a screen. Beside "
+                    "each, write a word for what they bring out in you. Choose one good friendship to "
+                    "invest in more.",
+                    "Haz una lista de las cinco personas con quienes pasas más tiempo, en persona o en "
+                    "pantalla. Junto a cada una escribe una palabra sobre lo que saca de ti. Elige una "
+                    "buena amistad a la que le vas a dedicar más.",
+                ),
+                "kid_do": L(
+                    "Spend time today with a friend who helps you be kind.",
+                    "Pasa tiempo hoy con un amigo que te ayuda a ser amable.",
+                ),
+                "pray": L(
+                    "Lord, plant me by good water. Show me which voices to draw near to and which to step "
+                    "back from, without looking down on anyone.",
+                    "Señor, plántame junto a buenas aguas. Muéstrame a qué voces acercarme y de cuáles "
+                    "tomar distancia, sin despreciar a nadie.",
+                ),
+            },
+            {
+                "key": "friendship-4",
+                "ref": "Mark 2:1-5",
+                "title": L("Friends who carry you", "Amigos que te cargan"),
+                "truth": L(
+                    "A paralyzed man could not get to Jesus by himself, and the house was too crowded to "
+                    "enter. His four friends carried him up to the roof, opened it, and lowered him down. "
+                    "Mark says Jesus saw their faith, the friends' faith, and spoke to the man. There are "
+                    "days when you cannot pray or hope or move for yourself, and friends carry you. There "
+                    "are days when it is your turn to pick up a corner of someone else's mat. Friendship "
+                    "at its best brings each other to Jesus.",
+                    "Un hombre paralítico no podía llegar a Jesús por sí mismo, y la casa estaba tan llena "
+                    "que no se podía entrar. Sus cuatro amigos lo subieron al techo, lo abrieron y lo "
+                    "bajaron. Marcos dice que Jesús vio la fe de ellos, la de los amigos, y le habló al "
+                    "hombre. Hay días en que no puedes orar, ni esperar, ni moverte por tu cuenta, y los "
+                    "amigos te cargan. Hay días en que te toca a ti tomar una esquina de la camilla de "
+                    "otro. La mejor amistad es la que nos lleva unos a otros a Jesús.",
+                ),
+                "simple": L(
+                    "Four friends carried a man who could not walk all the way to Jesus. Good friends help "
+                    "each other, especially when things are hard.",
+                    "Cuatro amigos cargaron hasta Jesús a un hombre que no podía caminar. Los buenos "
+                    "amigos se ayudan, sobre todo cuando las cosas se ponen difíciles.",
+                ),
+                "ask": L(
+                    "Who has carried you when you could not carry yourself? And whose mat is God asking "
+                    "you to help lift now?",
+                    "¿Quién te ha cargado cuando no podías contigo? ¿Y la camilla de quién te está "
+                    "pidiendo Dios que ayudes a levantar ahora?",
+                ),
+                "kid_ask": L(
+                    "How could you help a friend who is having a hard day?",
+                    "¿Cómo podrías ayudar a un amigo que está teniendo un día difícil?",
+                ),
+                "do": L(
+                    "Pray by name for one friend who is struggling, then do one thing that takes weight "
+                    "off them: a meal, a ride, an hour of company.",
+                    "Ora por su nombre por un amigo que la está pasando mal, y luego haz algo que le "
+                    "aligere la carga: una comida, llevarlo a algún lado, una hora de compañía.",
+                ),
+                "kid_do": L(
+                    "Pray for a friend today, and do one thing to help them.",
+                    "Ora hoy por un amigo, y haz una cosa para ayudarlo.",
+                ),
+                "pray": L(
+                    "Jesus, thank you for the people who have carried me to you. Today I bring you my "
+                    "friend … Show me which corner of the mat is mine.",
+                    "Jesús, gracias por las personas que me han cargado hasta ti. Hoy te traigo a mi amigo "
+                    "… Muéstrame qué esquina de la camilla me toca.",
+                ),
+            },
+            {
+                "key": "friendship-5",
+                "ref": "John 15:12-15",
+                "title": L("The friend who will not leave", "El amigo que no se va"),
+                "truth": L(
+                    "On the night before he died, Jesus gave his followers a new name: no longer servants, "
+                    "but friends. A servant is told what to do. A friend is told why, and Jesus says he "
+                    "has shared with them everything he heard from the Father. Then he defines friendship "
+                    "by its highest act, laying down your life for your friends, which he was about to do. "
+                    "Every human friendship will at some point disappoint you. Beneath them all is this "
+                    "one, offered to you. It is also the pattern for how to love the friends you have.",
+                    "La noche antes de morir, Jesús les dio a sus seguidores un nombre nuevo: ya no "
+                    "siervos, sino amigos. A un siervo se le dice qué hacer. A un amigo se le dice por "
+                    "qué, y Jesús dice que les ha contado todo lo que oyó del Padre. Luego define la "
+                    "amistad por su acto más alto, dar la vida por los amigos, que era lo que estaba por "
+                    "hacer. Toda amistad humana te va a decepcionar en algún momento. Debajo de todas está "
+                    "esta, que se te ofrece a ti. Y es también el modelo para amar a los amigos que tienes.",
+                ),
+                "simple": L(
+                    "Jesus calls us his friends. He loved his friends so much that he gave his life for "
+                    "them. He is a friend who never leaves.",
+                    "Jesús nos llama sus amigos. Amó tanto a sus amigos que dio su vida por ellos. Es un "
+                    "amigo que nunca se va.",
+                ),
+                "ask": L(
+                    "What changes in the way you pray if you think of Jesus as a friend who has told you "
+                    "his heart, and not only as a master?",
+                    "¿Qué cambia en tu manera de orar si piensas en Jesús como un amigo que te ha abierto "
+                    "su corazón, y no solo como un amo?",
+                ),
+                "kid_ask": L(
+                    "What does it mean to you that Jesus wants to be your friend?",
+                    "¿Qué significa para ti que Jesús quiera ser tu amigo?",
+                ),
+                "do": L(
+                    "Talk to Jesus for five minutes today as you would to a close friend: what happened, "
+                    "what you are glad about, and what you are dreading.",
+                    "Habla hoy cinco minutos con Jesús como hablarías con un amigo cercano: qué pasó, qué "
+                    "te alegra y qué te da miedo.",
+                ),
+                "kid_do": L(
+                    "Tell Jesus about your day, just as you would tell a friend.",
+                    "Cuéntale a Jesús cómo te fue hoy, como se lo contarías a un amigo.",
+                ),
+                "pray": L(
+                    "Jesus, you call me friend, and you proved it with your life. Thank you. Teach me to "
+                    "love my friends the way you have loved me.",
+                    "Jesús, me llamas amigo, y lo demostraste con tu vida. Gracias. Enséñame a amar a mis "
+                    "amigos como tú me has amado.",
+                ),
+            },
+        ],
+    },
+    {
+        "key": "conflict",
+        "category": "love",
+        "title": L("Conflict and making peace", "Conflictos y cómo hacer las paces"),
+        "summary": L(
+            "For when you are at odds with someone at home, at work or at church. Five readings on "
+            "listening, owning your part, speaking gently, going first, and what to do when you still "
+            "cannot agree.",
+            "Para cuando estás en conflicto con alguien en casa, en el trabajo o en la iglesia. Cinco "
+            "lecturas sobre escuchar, reconocer tu parte, hablar con suavidad, dar el primer paso y qué "
+            "hacer cuando siguen sin estar de acuerdo.",
+        ),
+        "keywords": [
+            "conflict", "argu", "fight", "disagree", "reconcil", "tension", "quarrel",
+            "conflicto", "discut", "discusi", "pelea", "pleito", "desacuerdo", "tensión",
+        ],
+        "situations": ["married", "parent", "working", "leader"],
+        "traits": ["peace", "gentleness", "humility"],
+        "stages": ["child", "teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "child": L(
+                "Everybody argues sometimes. God can help you listen, say sorry and make friends again.",
+                "Todos discutimos a veces. Dios puede ayudarte a escuchar, pedir perdón y volver a ser "
+                "amigos.",
+            ),
+            "teen": L(
+                "Fights with parents, friends, group chats that blow up. Here is how to disagree without "
+                "burning everything down.",
+                "Peleas con tus padres, con amigos, chats de grupo que explotan. Aquí hay una forma de "
+                "estar en desacuerdo sin quemarlo todo.",
+            ),
+            "young_adult": L(
+                "Roommates, partners, coworkers: you cannot avoid conflict, but you can learn to handle "
+                "it well.",
+                "Compañeros de casa, pareja, compañeros de trabajo: no puedes evitar el conflicto, pero sí "
+                "aprender a manejarlo bien.",
+            ),
+            "adult": L(
+                "For the standoff at home or at work that has gone on too long, and the conversation you "
+                "keep putting off.",
+                "Para ese pulso en casa o en el trabajo que ya duró demasiado, y la conversación que sigues "
+                "posponiendo.",
+            ),
+            "senior": L(
+                "Long family disputes and old estrangements. As far as it depends on you, there may still "
+                "be a step to take.",
+                "Largos pleitos de familia y viejos distanciamientos. En lo que dependa de ti, quizá "
+                "todavía haya un paso que dar.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "conflict-1",
+                "ref": "James 1:19-20",
+                "title": L("Listen first", "Primero escucha"),
+                "truth": L(
+                    "James gives three instructions in an order that matters: be quick to listen, slow to "
+                    "speak, slow to become angry. In most arguments we do the reverse, preparing our reply "
+                    "while the other person is still talking. He adds a reason: human anger does not "
+                    "produce the upright life God wants. Anger feels as though it is setting things right, "
+                    "and it almost never does. Listening is not agreeing. It is making sure you have "
+                    "understood before you answer.",
+                    "Santiago da tres instrucciones en un orden que importa: sé pronto para escuchar, "
+                    "lento para hablar, lento para enojarte. En casi todas las discusiones hacemos lo "
+                    "contrario: preparamos la respuesta mientras la otra persona todavía habla. Y da una "
+                    "razón: el enojo humano no produce la vida recta que Dios quiere. El enojo se siente "
+                    "como si estuviera arreglando las cosas, y casi nunca lo hace. Escuchar no es estar de "
+                    "acuerdo. Es asegurarte de haber entendido antes de responder.",
+                ),
+                "simple": L(
+                    "God wants us to be quick to listen and slow to get angry. Listening can stop a fight "
+                    "before it grows.",
+                    "Dios quiere que seamos rápidos para escuchar y lentos para enojarnos. Escuchar puede "
+                    "detener una pelea antes de que crezca.",
+                ),
+                "ask": L(
+                    "In your last argument, what was the other person really trying to say? Could you put "
+                    "it in words they would agree with?",
+                    "En tu última discusión, ¿qué estaba tratando de decir en realidad la otra persona? "
+                    "¿Podrías ponerlo en palabras con las que ella estaría de acuerdo?",
+                ),
+                "kid_ask": L(
+                    "Is it hard for you to listen when you are upset? Why?",
+                    "¿Te cuesta escuchar cuando estás molesto? ¿Por qué?",
+                ),
+                "do": L(
+                    "In your next disagreement, before you give your side, say back what you heard (what I "
+                    "hear you saying is …) and ask whether you got it right.",
+                    "En tu próximo desacuerdo, antes de dar tu versión, repite lo que oíste (lo que te "
+                    "escucho decir es …) y pregunta si entendiste bien.",
+                ),
+                "kid_do": L(
+                    "The next time someone is upset with you, let them finish talking before you say "
+                    "anything.",
+                    "La próxima vez que alguien esté molesto contigo, déjalo terminar de hablar antes de "
+                    "decir algo.",
+                ),
+                "pray": L(
+                    "Lord, make me quick to listen and slow to speak. When anger rises in me today, slow "
+                    "me down.",
+                    "Señor, hazme pronto para escuchar y lento para hablar. Cuando hoy me suba el enojo, "
+                    "frena mi paso.",
+                ),
+            },
+            {
+                "key": "conflict-2",
+                "ref": "Matthew 7:3-5",
+                "title": L("Your part first", "Primero tu parte"),
+                "truth": L(
+                    "Jesus uses a picture meant to raise a smile: someone with a wooden beam in their own "
+                    "eye, fussing over a speck of sawdust in another's. He does not say the speck is "
+                    "imaginary, or that you may never help with it. He says to deal with your own first, "
+                    "and then you will see clearly. In most ordinary quarrels some part is yours, even if "
+                    "it is the smaller part. Owning it first, without adding a but, changes the whole "
+                    "conversation. This is about quarrels between equals; being mistreated is not your "
+                    "fault.",
+                    "Jesús usa una imagen pensada para hacer sonreír: alguien con una viga de madera en su "
+                    "propio ojo, preocupado por una astilla en el ojo de otro. No dice que la astilla sea "
+                    "imaginaria, ni que nunca puedas ayudar con ella. Dice que primero te ocupes de lo "
+                    "tuyo, y entonces verás con claridad. En la mayoría de los pleitos comunes hay una "
+                    "parte que es tuya, aunque sea la menor. Reconocerla primero, sin agregar un pero, "
+                    "cambia toda la conversación. Esto se refiere a pleitos entre iguales; que te "
+                    "maltraten no es tu culpa.",
+                ),
+                "simple": L(
+                    "Before we point at what someone else did wrong, Jesus asks us to look at what we did "
+                    "wrong first.",
+                    "Antes de señalar lo que otro hizo mal, Jesús nos pide mirar primero lo que hicimos "
+                    "mal nosotros.",
+                ),
+                "ask": L(
+                    "In the conflict on your mind, what is your part, however small? Can you name it "
+                    "without the word but?",
+                    "En el conflicto que tienes en mente, ¿cuál es tu parte, por pequeña que sea? ¿Puedes "
+                    "nombrarla sin usar la palabra pero?",
+                ),
+                "kid_ask": L(
+                    "When you have a fight, is it easy or hard to say what you did wrong?",
+                    "Cuando tienes una pelea, ¿te resulta fácil o difícil decir lo que tú hiciste mal?",
+                ),
+                "do": L(
+                    "Write one sentence that owns your part and nothing else: I was wrong to … Say it to "
+                    "the person this week.",
+                    "Escribe una frase que reconozca tu parte y nada más: hice mal al … Dísela a la "
+                    "persona esta semana.",
+                ),
+                "kid_do": L(
+                    "If you had a fight today, say sorry for your part first.",
+                    "Si hoy tuviste una pelea, pide perdón primero por tu parte.",
+                ),
+                "pray": L(
+                    "Jesus, show me the beam in my own eye. Give me the honesty to name my part before I "
+                    "name theirs.",
+                    "Jesús, muéstrame la viga en mi propio ojo. Dame honestidad para nombrar mi parte "
+                    "antes de nombrar la del otro.",
+                ),
+            },
+            {
+                "key": "conflict-3",
+                "ref": "Proverbs 15:1-4",
+                "title": L("A gentle answer", "Una respuesta suave"),
+                "truth": L(
+                    "A gentle answer turns anger away, and a harsh word stirs it up. The proverb treats a "
+                    "quarrel like a fire: every reply either feeds it or cools it. Gentleness here is not "
+                    "weakness or giving in. You can say something firm, even unwelcome, in a tone that "
+                    "leaves the other person their dignity. These sayings add that a soothing tongue is "
+                    "like a tree of life, while a twisted one crushes the spirit. How you say a thing "
+                    "decides whether it can be heard.",
+                    "Una respuesta suave aparta el enojo, y una palabra áspera lo enciende. El proverbio "
+                    "trata un pleito como un fuego: cada respuesta lo alimenta o lo enfría. Aquí la "
+                    "suavidad no es debilidad ni ceder. Puedes decir algo firme, incluso algo que no se "
+                    "quiere oír, en un tono que le deje a la otra persona su dignidad. Estos dichos añaden "
+                    "que una lengua que calma es como un árbol de vida, mientras que una lengua torcida "
+                    "aplasta el ánimo. La manera de decir algo decide si se puede escuchar.",
+                ),
+                "simple": L(
+                    "Gentle words can calm an angry person. Mean words make a fight bigger.",
+                    "Las palabras suaves pueden calmar a una persona enojada. Las palabras feas hacen más "
+                    "grande la pelea.",
+                ),
+                "ask": L(
+                    "What happens to your tone when you feel attacked, and where did you learn to answer "
+                    "that way?",
+                    "¿Qué le pasa a tu tono cuando sientes que te atacan, y dónde aprendiste a responder "
+                    "así?",
+                ),
+                "kid_ask": L(
+                    "What does a gentle voice sound like?",
+                    "¿Cómo suena una voz suave?",
+                ),
+                "do": L(
+                    "The next time someone speaks sharply to you, answer more quietly and more slowly than "
+                    "they did, and watch what happens.",
+                    "La próxima vez que alguien te hable con dureza, responde más bajo y más despacio que "
+                    "esa persona, y observa qué pasa.",
+                ),
+                "kid_do": L(
+                    "Practice saying in a calm voice, \"I feel upset because…\"",
+                    "Practica decir con voz tranquila: \"Me siento molesto porque…\"",
+                ),
+                "pray": L(
+                    "God, put gentleness in my mouth. When I am provoked, help me answer in a way that "
+                    "cools the fire.",
+                    "Dios, pon suavidad en mi boca. Cuando me provoquen, ayúdame a responder de una manera "
+                    "que enfríe el fuego.",
+                ),
+            },
+            {
+                "key": "conflict-4",
+                "ref": "Matthew 5:23-24",
+                "title": L("Go first", "Da el primer paso"),
+                "truth": L(
+                    "Jesus pictures someone in the middle of worship who remembers that a brother or "
+                    "sister has something against them. He says to leave the gift at the altar, go and be "
+                    "reconciled, and then come back. Making things right with a person matters so much to "
+                    "God that it can interrupt worship. And notice who goes: the one who remembers. Jesus "
+                    "does not say to wait until the other apologizes, or until you are sure who was more "
+                    "wrong. Someone has to move first. He asks that it be you.",
+                    "Jesús imagina a alguien en plena adoración que se acuerda de que un hermano o una "
+                    "hermana tiene algo contra él. Dice que deje la ofrenda en el altar, vaya a "
+                    "reconciliarse y luego regrese. Arreglar las cosas con una persona le importa tanto a "
+                    "Dios que puede interrumpir la adoración. Y fíjate quién va: el que se acuerda. Jesús "
+                    "no dice que esperes a que el otro se disculpe, ni a estar seguro de quién tuvo más "
+                    "culpa. Alguien tiene que moverse primero. Él pide que seas tú.",
+                ),
+                "simple": L(
+                    "If you know someone is upset with you, Jesus says to go and make things right "
+                    "without waiting.",
+                    "Si sabes que alguien está molesto contigo, Jesús dice que vayas a arreglar las cosas "
+                    "sin esperar.",
+                ),
+                "ask": L(
+                    "Who has something against you right now? What has kept you from going to them?",
+                    "¿Quién tiene algo contra ti en este momento? ¿Qué te ha detenido de ir a buscarlo?",
+                ),
+                "kid_ask": L(
+                    "Is there someone you need to make up with?",
+                    "¿Hay alguien con quien necesitas hacer las paces?",
+                ),
+                "do": L(
+                    "Contact that person within the next two days. Talk to them, not about them. Begin "
+                    "with your part and your wish to make things right, and let them answer in their own "
+                    "time.",
+                    "Busca a esa persona en los próximos dos días. Habla con ella, no de ella. Empieza por "
+                    "tu parte y tu deseo de arreglar las cosas, y deja que responda a su tiempo.",
+                ),
+                "kid_do": L(
+                    "If a friend or someone at home is upset with you, go to them today and ask, \"Can we "
+                    "make up?\"",
+                    "Si un amigo o alguien de tu casa está molesto contigo, ve hoy y pregúntale: \"¿Hacemos "
+                    "las paces?\"",
+                ),
+                "pray": L(
+                    "Lord, I have been waiting for … to move first. Give me the humility to go. Prepare "
+                    "their heart and mine.",
+                    "Señor, he estado esperando a que … dé el primer paso. Dame humildad para ir yo. "
+                    "Prepara su corazón y el mío.",
+                ),
+            },
+            {
+                "key": "conflict-5",
+                "ref": "Acts 15:36-41",
+                "title": L("When you still cannot agree", "Cuando siguen sin estar de acuerdo"),
+                "truth": L(
+                    "Paul and Barnabas were friends and partners who had risked their lives together. They "
+                    "disagreed so sharply over whether to take John Mark along that they parted ways. The "
+                    "Bible reports it without tidying it up or naming a winner. Both went on serving God, "
+                    "and years later Paul writes warmly of Mark. Sometimes faithful people cannot agree, "
+                    "and peace means parting without contempt and leaving the door open. And making peace "
+                    "never requires you to go back to someone who is harming you. Peace is not the same as "
+                    "pretending.",
+                    "Pablo y Bernabé eran amigos y compañeros que habían arriesgado la vida juntos. "
+                    "Discutieron tan fuerte sobre si llevar o no a Juan Marcos que se separaron. La Biblia "
+                    "lo cuenta sin maquillarlo y sin declarar un ganador. Los dos siguieron sirviendo a "
+                    "Dios, y años después Pablo escribe de Marcos con aprecio. A veces personas fieles no "
+                    "logran ponerse de acuerdo, y la paz consiste en separarse sin desprecio y dejar la "
+                    "puerta abierta. Y hacer las paces nunca te obliga a volver con alguien que te hace "
+                    "daño. La paz no es lo mismo que fingir.",
+                ),
+                "simple": L(
+                    "Sometimes people try hard and still do not agree. They can still be kind and wish "
+                    "each other well.",
+                    "A veces las personas se esfuerzan y aun así no se ponen de acuerdo. De todos modos "
+                    "pueden ser amables y desearse el bien.",
+                ),
+                "ask": L(
+                    "Is there a disagreement you may need to stop trying to win? What would it mean to "
+                    "part, or to stay, without contempt?",
+                    "¿Hay un desacuerdo que quizá necesitas dejar de querer ganar? ¿Qué significaría "
+                    "separarte, o quedarte, sin desprecio?",
+                ),
+                "kid_ask": L(
+                    "Can you still be kind to someone you disagree with? How?",
+                    "¿Puedes seguir siendo amable con alguien con quien no estás de acuerdo? ¿Cómo?",
+                ),
+                "do": L(
+                    "For one unresolved conflict, write down what you can still honestly respect in the "
+                    "other person, and pray good for them. If the conflict involves being threatened or "
+                    "mistreated, tell a trusted person about it this week.",
+                    "Sobre un conflicto sin resolver, escribe lo que todavía puedes respetar con "
+                    "honestidad en la otra persona, y ora pidiendo su bien. Si en el conflicto hay "
+                    "amenazas o maltrato, cuéntaselo esta semana a una persona de confianza.",
+                ),
+                "kid_do": L(
+                    "Say something kind today to someone you disagreed with.",
+                    "Dile hoy algo amable a alguien con quien no estuviste de acuerdo.",
+                ),
+                "pray": L(
+                    "God, we see this differently, and I cannot fix that. Keep me from bitterness. Bless "
+                    "…, and keep the door open if there is a way back.",
+                    "Dios, vemos esto de manera distinta, y no puedo arreglarlo. Líbrame de la amargura. "
+                    "Bendice a …, y deja la puerta abierta si hay un camino de regreso.",
+                ),
+            },
+        ],
+    },
+    {
+        "key": "service",
+        "category": "love",
+        "title": L("Serving others", "Servir a los demás"),
+        "summary": L(
+            "For anyone who wants their ordinary days to count for someone else. Five readings on Jesus "
+            "the servant, using what you have, work no one sees, and serving without sliding into "
+            "resentment.",
+            "Para quien quiere que sus días comunes le sirvan a alguien más. Cinco lecturas sobre Jesús "
+            "el siervo, usar lo que tienes, el trabajo que nadie ve y servir sin caer en el resentimiento.",
+        ),
+        "keywords": [
+            "serv", "volunteer", "helping", "ministry", "unappreciated", "taken for granted",
+            "voluntari", "ayudar", "ministerio", "nadie agradece", "no me valoran", "útil",
+        ],
+        "situations": ["leader", "caregiver", "working", "retired"],
+        "traits": ["servanthood", "humility", "generosity"],
+        "stages": ["child", "teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "child": L(
+                "You are not too small to help. God is glad when you help at home, at school and with "
+                "your friends.",
+                "No eres demasiado pequeño para ayudar. Dios se alegra cuando ayudas en casa, en la escuela "
+                "y con tus amigos.",
+            ),
+            "teen": L(
+                "You have more to give than you think. This is about noticing a need and doing something, "
+                "even when nobody posts about it.",
+                "Tienes más para dar de lo que crees. Esto trata de notar una necesidad y hacer algo, "
+                "aunque nadie lo publique.",
+            ),
+            "young_adult": L(
+                "Before life fills up, learn the habit of serving. It will shape the kind of person you "
+                "become.",
+                "Antes de que la vida se llene, aprende el hábito de servir. Va a darle forma a la clase "
+                "de persona que llegarás a ser.",
+            ),
+            "adult": L(
+                "Much of your life is already service nobody thanks you for. Here is how God sees it, and "
+                "how to keep going.",
+                "Gran parte de tu vida ya es un servicio que nadie agradece. Aquí está cómo lo ve Dios, y "
+                "cómo seguir adelante.",
+            ),
+            "senior": L(
+                "You may have less strength and more time. There is work only you can do: presence, "
+                "prayer, encouragement.",
+                "Quizá tengas menos fuerzas y más tiempo. Hay un trabajo que solo tú puedes hacer: estar "
+                "presente, orar, animar.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "service-1",
+                "ref": "John 13:12-17",
+                "title": L("The Lord with a towel", "El Señor con una toalla"),
+                "truth": L(
+                    "Jesus has just knelt and washed his disciples' feet, the job of the lowest servant in "
+                    "a house. Then he sits down and explains. He is their Lord and Teacher, he says, and "
+                    "that is exactly why they should do the same for one another. He did not serve because "
+                    "he lacked standing. He served knowing fully who he was. No task is beneath a follower "
+                    "of Jesus, because none was beneath him. And he ends with a promise: the blessing is "
+                    "in the doing, not only in the knowing.",
+                    "Jesús acaba de arrodillarse y lavarles los pies a sus discípulos, el trabajo del "
+                    "sirviente más bajo de una casa. Luego se sienta y lo explica. Él es su Señor y "
+                    "Maestro, dice, y justo por eso ellos deben hacer lo mismo unos por otros. No sirvió "
+                    "porque le faltara posición. Sirvió sabiendo muy bien quién era. Ninguna tarea está por "
+                    "debajo de un seguidor de Jesús, porque ninguna estuvo por debajo de él. Y termina con "
+                    "una promesa: la bendición está en hacerlo, no solo en saberlo.",
+                ),
+                "simple": L(
+                    "Jesus washed his friends' dirty feet to show them how to love. He asks us to help "
+                    "each other the same way.",
+                    "Jesús les lavó los pies sucios a sus amigos para enseñarles cómo amar. Nos pide "
+                    "ayudarnos unos a otros de la misma manera.",
+                ),
+                "ask": L(
+                    "What task do you quietly consider beneath you, at home, at work or at church?",
+                    "¿Qué tarea consideras, sin decirlo, que está por debajo de ti, en casa, en el trabajo "
+                    "o en la iglesia?",
+                ),
+                "kid_ask": L(
+                    "What is a job at home that nobody likes to do?",
+                    "¿Cuál es un trabajo de la casa que a nadie le gusta hacer?",
+                ),
+                "do": L(
+                    "Do that task once this week, cheerfully and without announcing it.",
+                    "Haz esa tarea una vez esta semana, con buen ánimo y sin anunciarlo.",
+                ),
+                "kid_do": L(
+                    "Do one job at home today that is not your favorite, like clearing the table, and do "
+                    "it with a smile.",
+                    "Haz hoy en casa un trabajo que no sea tu favorito, como recoger la mesa, y hazlo con "
+                    "una sonrisa.",
+                ),
+                "pray": L(
+                    "Jesus, you knelt with a towel. Nothing is beneath me if it was not beneath you. Show "
+                    "me whose feet to wash this week.",
+                    "Jesús, tú te arrodillaste con una toalla. Nada está por debajo de mí si no lo estuvo "
+                    "de ti. Muéstrame a quién debo lavarle los pies esta semana.",
+                ),
+            },
+            {
+                "key": "service-2",
+                "ref": "John 6:5-13",
+                "title": L("Bring what you have", "Trae lo que tienes"),
+                "truth": L(
+                    "There is a hungry crowd of thousands, and the disciples can only count what they "
+                    "lack. Andrew finds a boy with five small barley loaves and two fish, and almost "
+                    "apologizes for mentioning it. Jesus takes that lunch, gives thanks, and feeds "
+                    "everyone, with baskets left over. The boy did not have enough. He had something, and "
+                    "it ended up in Jesus' hands. Serving does not start with being gifted, well off or "
+                    "free of your own troubles. It starts with offering what you actually have.",
+                    "Hay una multitud hambrienta de miles, y los discípulos solo saben contar lo que les "
+                    "falta. Andrés encuentra a un muchacho con cinco panes pequeños de cebada y dos "
+                    "pescados, y casi se disculpa por mencionarlo. Jesús toma ese almuerzo, da gracias y "
+                    "alimenta a todos, y sobran canastas. El muchacho no tenía suficiente. Tenía algo, y "
+                    "ese algo llegó a las manos de Jesús. Servir no empieza por tener talento, dinero o "
+                    "una vida sin problemas. Empieza por ofrecer lo que de verdad tienes.",
+                ),
+                "simple": L(
+                    "A boy shared his small lunch with Jesus, and Jesus used it to feed a huge crowd. "
+                    "Jesus can use what you share, even if it is little.",
+                    "Un niño compartió su pequeño almuerzo con Jesús, y Jesús lo usó para dar de comer a "
+                    "muchísima gente. Jesús puede usar lo que compartes, aunque sea poquito.",
+                ),
+                "ask": L(
+                    "What do you have (a skill, a spare hour, a room, a car, a listening ear) that you "
+                    "have dismissed as too small to matter?",
+                    "¿Qué tienes (una habilidad, una hora libre, un cuarto, un carro, un oído que escucha) "
+                    "que has descartado por parecerte demasiado poco?",
+                ),
+                "kid_ask": L(
+                    "What do you have that you could share with someone?",
+                    "¿Qué tienes tú que podrías compartir con alguien?",
+                ),
+                "do": L(
+                    "Write down three things you have, however ordinary. Pick one and offer it to a "
+                    "specific person or need this week.",
+                    "Escribe tres cosas que tienes, por comunes que sean. Elige una y ofrécela esta semana "
+                    "a una persona o necesidad concreta.",
+                ),
+                "kid_do": L(
+                    "Share part of your snack or one of your toys with someone today.",
+                    "Comparte hoy con alguien parte de tu merienda o uno de tus juguetes.",
+                ),
+                "pray": L(
+                    "Lord, here is what I have: … It is not much. Take it, give thanks over it, and use it "
+                    "for someone.",
+                    "Señor, esto es lo que tengo: … No es mucho. Tómalo, da gracias por ello y úsalo para "
+                    "alguien.",
+                ),
+            },
+            {
+                "key": "service-3",
+                "ref": "Matthew 6:1-4",
+                "title": L("Work nobody sees", "El trabajo que nadie ve"),
+                "truth": L(
+                    "Jesus warns against doing good in order to be seen doing it. If applause is what you "
+                    "are after, he says, applause is all you will get. Then he describes another way: "
+                    "giving so quietly that one hand hardly knows what the other is doing. The Father sees "
+                    "what is done in secret. This is good news for everyone whose service is hidden: the "
+                    "night feedings, the cleaning, the care of a parent, the task no one will ever thank "
+                    "you for. It is not lost. It is seen by the one whose notice matters most.",
+                    "Jesús advierte contra hacer el bien para que te vean hacerlo. Si lo que buscas es el "
+                    "aplauso, dice, el aplauso es todo lo que vas a recibir. Luego describe otro camino: "
+                    "dar tan calladamente que una mano casi no sepa lo que hace la otra. El Padre ve lo "
+                    "que se hace en secreto. Es una buena noticia para todos los que sirven a escondidas: "
+                    "las desveladas con el bebé, la limpieza, el cuidado de un padre, la tarea que nadie "
+                    "va a agradecer jamás. No se pierde. La ve aquel cuya mirada más importa.",
+                ),
+                "simple": L(
+                    "You do not need everyone to see the good things you do. God sees, even when nobody "
+                    "else does.",
+                    "No necesitas que todos vean las cosas buenas que haces. Dios las ve, aunque nadie más "
+                    "las vea.",
+                ),
+                "ask": L(
+                    "How much of your serving depends on being noticed or thanked? What happens in you "
+                    "when the thanks do not come?",
+                    "¿Cuánto de tu servicio depende de que lo noten o lo agradezcan? ¿Qué pasa en ti "
+                    "cuando el agradecimiento no llega?",
+                ),
+                "kid_ask": L(
+                    "Could you do something kind in secret? What would it be?",
+                    "¿Podrías hacer algo amable en secreto? ¿Qué sería?",
+                ),
+                "do": L(
+                    "Do one good thing this week that no one can trace back to you, and tell nobody.",
+                    "Haz esta semana algo bueno que nadie pueda saber que fuiste tú, y no se lo cuentes "
+                    "a nadie.",
+                ),
+                "kid_do": L(
+                    "Do a secret kind thing for someone at home today, and do not say it was you.",
+                    "Haz hoy algo amable en secreto por alguien de tu casa, y no digas que fuiste tú.",
+                ),
+                "pray": L(
+                    "Father, you see in secret. Free me from needing to be noticed. Let it be enough that "
+                    "you know.",
+                    "Padre, tú ves en lo secreto. Líbrame de necesitar que me noten. Que me baste con que "
+                    "tú lo sepas.",
+                ),
+            },
+            {
+                "key": "service-4",
+                "ref": "Matthew 25:34-40",
+                "title": L("The face behind the need", "El rostro detrás de la necesidad"),
+                "truth": L(
+                    "Jesus describes a day when the King thanks people for feeding him, welcoming him, "
+                    "clothing him and visiting him when he was sick and in prison. They are puzzled; they "
+                    "do not remember doing any of it. He answers that whatever they did for the least of "
+                    "his brothers and sisters, they did for him. The acts he lists are small and within "
+                    "anyone's reach: a meal, a drink, a visit. Jesus identifies so closely with people in "
+                    "need that serving them is serving him.",
+                    "Jesús describe un día en que el Rey les agradece a unas personas por darle de comer, "
+                    "recibirlo, vestirlo y visitarlo cuando estuvo enfermo y en la cárcel. Ellas se "
+                    "extrañan; no recuerdan haber hecho nada de eso. Él responde que todo lo que hicieron "
+                    "por el más pequeño de sus hermanos, lo hicieron por él. Los actos que menciona son "
+                    "pequeños y están al alcance de cualquiera: una comida, un vaso de agua, una visita. "
+                    "Jesús se identifica tanto con quienes pasan necesidad que servirles a ellos es "
+                    "servirle a él.",
+                ),
+                "simple": L(
+                    "When we help someone who is hungry, sick or lonely, Jesus says it is like helping "
+                    "him.",
+                    "Cuando ayudamos a alguien que tiene hambre, está enfermo o se siente solo, Jesús dice "
+                    "que es como ayudarlo a él.",
+                ),
+                "ask": L(
+                    "Who near you is hungry, sick, new in town or locked away, and when did you last come "
+                    "close to one of them?",
+                    "¿Quién cerca de ti tiene hambre, está enfermo, acaba de llegar o está encerrado, y "
+                    "cuándo fue la última vez que te acercaste a alguno?",
+                ),
+                "kid_ask": L(
+                    "Who do you know that is sick, sad or new and might need a friend?",
+                    "¿A quién conoces que esté enfermo, triste o sea nuevo y quizá necesite un amigo?",
+                ),
+                "do": L(
+                    "Choose one from the list (food, welcome, clothing, a visit to someone sick or "
+                    "confined) and do it for one person this month. Put the date in your calendar today.",
+                    "Elige una cosa de la lista (comida, hospitalidad, ropa, una visita a alguien enfermo "
+                    "o encerrado) y hazla por una persona este mes. Anota hoy la fecha en tu calendario.",
+                ),
+                "kid_do": L(
+                    "Make a card or a drawing for someone who is sick or lonely.",
+                    "Haz una tarjeta o un dibujo para alguien que esté enfermo o se sienta solo.",
+                ),
+                "pray": L(
+                    "Lord Jesus, I have walked past you without knowing it. Open my eyes to see you in "
+                    "the person who needs something from me this week.",
+                    "Señor Jesús, he pasado junto a ti sin saberlo. Ábreme los ojos para verte en la "
+                    "persona que necesita algo de mí esta semana.",
+                ),
+            },
+            {
+                "key": "service-5",
+                "ref": "Luke 10:38-42",
+                "title": L("Serving without losing heart", "Servir sin perder el corazón"),
+                "truth": L(
+                    "Martha welcomes Jesus into her home and works hard to serve him. That is good. But "
+                    "the work turns into worry, and the worry into resentment: at her sister, and even at "
+                    "Jesus, whom she accuses of not caring. Jesus answers her gently, saying her name "
+                    "twice. He does not scold her for serving. He tells her she is anxious about many "
+                    "things, and that Mary, sitting and listening, has chosen something that will not be "
+                    "taken from her. Service that never sits at his feet runs dry. You are allowed to "
+                    "stop, and you need to.",
+                    "Marta recibe a Jesús en su casa y trabaja mucho para atenderlo. Eso es bueno. Pero el "
+                    "trabajo se vuelve preocupación, y la preocupación resentimiento: contra su hermana, y "
+                    "hasta contra Jesús, a quien le reclama que no le importa. Jesús le responde con "
+                    "ternura, diciendo su nombre dos veces. No la regaña por servir. Le dice que está "
+                    "inquieta por muchas cosas, y que María, sentada escuchando, eligió algo que nadie le "
+                    "va a quitar. El servicio que nunca se sienta a sus pies termina por secarse. Tienes "
+                    "permiso de parar, y lo necesitas.",
+                ),
+                "simple": L(
+                    "Martha was so busy helping that she got upset. Jesus reminded her that being with "
+                    "him matters most.",
+                    "Marta estaba tan ocupada ayudando que se molestó. Jesús le recordó que lo más "
+                    "importante es estar con él.",
+                ),
+                "ask": L(
+                    "Where has your serving turned into resentment, and what might that be telling you "
+                    "about your need to stop and receive?",
+                    "¿Dónde se ha convertido tu servicio en resentimiento, y qué te estará diciendo eso "
+                    "sobre tu necesidad de parar y recibir?",
+                ),
+                "kid_ask": L(
+                    "What is your favorite way to spend quiet time with Jesus?",
+                    "¿Cuál es tu manera favorita de pasar un rato tranquilo con Jesús?",
+                ),
+                "do": L(
+                    "Tomorrow, before you do anything for anyone, sit for ten minutes with today's "
+                    "passage and do nothing useful. If you are worn out from serving, tell someone and "
+                    "ask for help with one thing.",
+                    "Mañana, antes de hacer algo por alguien, siéntate diez minutos con el pasaje de hoy "
+                    "y no hagas nada útil. Si servir te tiene sin fuerzas, cuéntaselo a alguien y pide "
+                    "ayuda con una cosa.",
+                ),
+                "kid_do": L(
+                    "Sit quietly for one minute today and tell Jesus you are glad to be with him.",
+                    "Siéntate hoy un minuto en silencio y dile a Jesús que te alegra estar con él.",
+                ),
+                "pray": L(
+                    "Lord, I am anxious and troubled about many things: … Let me sit with you first. Then "
+                    "show me what is mine to do, and what is not.",
+                    "Señor, estoy inquieto y preocupado por muchas cosas: … Déjame sentarme contigo "
+                    "primero. Luego muéstrame qué me toca hacer, y qué no.",
+                ),
+            },
+        ],
+    },
+    # ======================================================================
+    # SEASONS OF LIFE
+    # ======================================================================
+    {
+        "key": "singleness",
+        "category": "seasons",
+        "title": L("Singleness: a whole life", "La soltería: una vida completa"),
+        "summary": L(
+            "For those who have never married, are divorced or are widowed. Five readings on a life that "
+            "is whole now, not a waiting room: honest about longing, and clear that in Christ you are "
+            "not half of anything.",
+            "Para quienes nunca se casaron, se divorciaron o enviudaron. Cinco lecturas sobre una vida que "
+            "ya es completa, no una sala de espera: con honestidad sobre el anhelo, y con la certeza de "
+            "que en Cristo no eres la mitad de nada.",
+        ),
+        "keywords": [
+            "single", "unmarried", "never married", "divorc", "widow", "still alone",
+            "solter", "sin pareja", "no me he casado", "divorci", "viud", "soledad",
+        ],
+        "situations": ["single", "divorced", "widowed", "single_parent"],
+        "traits": ["contentment", "trust", "hope"],
+        "stages": ["young_adult", "adult", "senior"],
+        "stage_notes": {
+            "young_adult": L(
+                "When everyone around you seems to be pairing off, this is about a life that has already "
+                "begun, not one on hold.",
+                "Cuando parece que todos a tu alrededor forman pareja, esto trata de una vida que ya "
+                "empezó, no de una vida en pausa.",
+            ),
+            "adult": L(
+                "Never married, divorced, or raising children alone: your life is not a rough draft. "
+                "Honest about the ache, clear about your worth.",
+                "Sin haberte casado, después de un divorcio o criando hijos sin pareja: tu vida no es un "
+                "borrador. Con honestidad sobre lo que duele y claridad sobre lo que vales.",
+            ),
+            "senior": L(
+                "Widowed after many years, or single for a lifetime. Your days still hold purpose, company "
+                "and God's full attention.",
+                "Con muchos años de viudez o toda una vida de soltería. Tus días todavía tienen propósito, "
+                "compañía y toda la atención de Dios.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "singleness-1",
+                "ref": "1 Corinthians 7:32-35",
+                "title": L("Not second best", "No es un segundo lugar"),
+                "truth": L(
+                    "In a world where nearly everyone was expected to marry, Paul, who was unmarried "
+                    "himself, says something surprising: the single life is good. An unmarried person, he "
+                    "says, can give undivided attention to the Lord. He is careful to add that he is not "
+                    "laying down a restriction, and elsewhere he honors marriage too. But singleness is "
+                    "not the lesser path or a problem to be solved. Jesus lived a full human life without "
+                    "marrying. Whether this season is chosen, unwanted or temporary, it is a real life, "
+                    "with its own freedom to give.",
+                    "En un mundo donde se esperaba que casi todos se casaran, Pablo, que no estaba casado, "
+                    "dice algo sorprendente: la vida de soltero es buena. Una persona sin casarse, dice, "
+                    "puede darle al Señor una atención sin divisiones. Tiene cuidado de aclarar que no "
+                    "está imponiendo una restricción, y en otros lugares también honra el matrimonio. Pero "
+                    "la soltería no es el camino menor ni un problema por resolver. Jesús vivió una vida "
+                    "humana plena sin casarse. Sea esta etapa elegida, no deseada o pasajera, es una vida "
+                    "real, con su propia libertad para dar.",
+                ),
+                "simple": L(
+                    "Some grown-ups are married and some are not. Both are good ways to live and to "
+                    "love God.",
+                    "Algunos adultos están casados y otros no. Las dos son buenas maneras de vivir y de "
+                    "amar a Dios.",
+                ),
+                "ask": L(
+                    "Where have you taken in the idea that your life starts when you find someone? What "
+                    "is already here to be lived?",
+                    "¿Dónde aprendiste la idea de que tu vida empieza cuando encuentres a alguien? ¿Qué "
+                    "hay ya aquí para vivir?",
+                ),
+                "kid_ask": L(
+                    "Which grown-ups who are not your parents are kind to you?",
+                    "¿Qué adultos, además de tus padres, son buenos contigo?",
+                ),
+                "do": L(
+                    "List three things your present life makes possible (time, flexibility, attention for "
+                    "certain people). Give one of them on purpose to God or to someone else this week.",
+                    "Haz una lista de tres cosas que tu vida actual hace posibles (tiempo, flexibilidad, "
+                    "atención para ciertas personas). Esta semana dale una de ellas, a propósito, a Dios "
+                    "o a alguien más.",
+                ),
+                "kid_do": L(
+                    "Say thank you to a grown-up who cares about you, like an aunt, an uncle, a teacher "
+                    "or a neighbor.",
+                    "Dale las gracias a un adulto que te quiere, como una tía, un tío, una maestra o "
+                    "un vecino.",
+                ),
+                "pray": L(
+                    "Lord, this is the life I have today. I do not want to wait to live it. Show me what "
+                    "my undivided attention could be given to.",
+                    "Señor, esta es la vida que tengo hoy. No quiero esperar para vivirla. Muéstrame a "
+                    "qué podría darle mi atención entera.",
+                ),
+            },
+            {
+                "key": "singleness-2",
+                "ref": "Colossians 2:9-10",
+                "title": L("Already whole", "Ya tienes plenitud"),
+                "truth": L(
+                    "Paul says that all the fullness of God lives in Christ, and that those who belong to "
+                    "Christ have been brought to fullness in him. Notice the tense: have been. Not will be "
+                    "once you marry, or once the loneliness lifts. Films and songs, and sometimes "
+                    "churches, suggest a person is half of something until the other half arrives. "
+                    "Scripture never says that. A spouse is a gift, not a completion. You are a whole "
+                    "person now, and a whole person is what you would bring into any relationship.",
+                    "Pablo dice que toda la plenitud de Dios habita en Cristo, y que quienes son de Cristo "
+                    "han recibido esa plenitud en él. Fíjate en el tiempo del verbo: han recibido. No dice "
+                    "que la recibirán cuando se casen, o cuando se vaya la soledad. Las películas y las "
+                    "canciones, y a veces las iglesias, dan a entender que una persona es la mitad de algo "
+                    "hasta que llega la otra mitad. La Escritura nunca dice eso. Un cónyuge es un regalo, "
+                    "no lo que te completa. Ya eres una persona entera, y una persona entera es lo que "
+                    "llevarías a cualquier relación.",
+                ),
+                "simple": L(
+                    "You are a whole person, and Jesus loves you just as you are. You do not need someone "
+                    "else to make you complete.",
+                    "Tú eres una persona completa, y Jesús te ama tal como eres. No necesitas a nadie más "
+                    "para estar completo.",
+                ),
+                "ask": L(
+                    "What have you been expecting another person to supply that this passage says you "
+                    "already have in Christ?",
+                    "¿Qué has estado esperando que otra persona te dé y que, según este pasaje, ya tienes "
+                    "en Cristo?",
+                ),
+                "kid_ask": L(
+                    "What is something special about the way God made you?",
+                    "¿Qué tiene de especial la manera en que Dios te hizo?",
+                ),
+                "do": L(
+                    "Each morning this week, before you look at your phone, say once: in Christ I am not "
+                    "missing anything I need to be whole.",
+                    "Cada mañana de esta semana, antes de mirar el teléfono, di una vez: en Cristo no me "
+                    "falta nada de lo que necesito para estar completo.",
+                ),
+                "kid_do": L(
+                    "Look in the mirror and say, \"God made me, and God loves me.\"",
+                    "Mírate al espejo y di: \"Dios me hizo, y Dios me ama\".",
+                ),
+                "pray": L(
+                    "Jesus, in you I have been made whole. On the days I feel like half of something, "
+                    "remind me whose I am.",
+                    "Jesús, en ti he recibido plenitud. Los días en que me siento la mitad de algo, "
+                    "recuérdame de quién soy.",
+                ),
+            },
+            {
+                "key": "singleness-3",
+                "ref": "Psalm 62:5-8",
+                "title": L("Honest about the ache", "Con honestidad sobre lo que duele"),
+                "truth": L(
+                    "Being whole in Christ does not mean you feel no longing. David tells his own soul to "
+                    "wait quietly for God, his rock and refuge, and then tells everyone to pour out their "
+                    "hearts before him. Not to tidy them first. If you want to be married and are not, if "
+                    "you miss the one who died, if the divorce still aches, God wants to hear exactly "
+                    "that. Longing is not a lack of faith, and contentment is not pretending. You can "
+                    "trust God and grieve what you do not have in the same prayer.",
+                    "Tener plenitud en Cristo no significa que no sientas anhelo. David le dice a su "
+                    "propia alma que espere en silencio a Dios, su roca y su refugio, y luego les dice a "
+                    "todos que derramen el corazón delante de él. No que lo ordenen primero. Si quieres "
+                    "casarte y no ha pasado, si extrañas a quien murió, si el divorcio todavía duele, Dios "
+                    "quiere oír exactamente eso. Anhelar no es falta de fe, y el contentamiento no es "
+                    "fingir. Puedes confiar en Dios y llorar lo que no tienes en la misma oración.",
+                ),
+                "simple": L(
+                    "You can tell God everything you feel, the happy things and the sad things. He is a "
+                    "safe place.",
+                    "Puedes contarle a Dios todo lo que sientes, lo alegre y lo triste. Él es un lugar "
+                    "seguro.",
+                ),
+                "ask": L(
+                    "What would you say to God about being single if you were not trying to sound "
+                    "content?",
+                    "¿Qué le dirías a Dios sobre tu soltería si no estuvieras tratando de sonar conforme?",
+                ),
+                "kid_ask": L(
+                    "What do you do when you feel lonely?",
+                    "¿Qué haces cuando te sientes solo?",
+                ),
+                "do": L(
+                    "Set a timer for ten minutes and pour it out to God, spoken or written, with no "
+                    "editing. End with one sentence: you are my refuge. This week, also tell one trusted "
+                    "friend how you really are.",
+                    "Pon un reloj por diez minutos y derrama todo delante de Dios, hablado o escrito, sin "
+                    "corregir nada. Termina con una frase: tú eres mi refugio. Esta semana cuéntale "
+                    "también a una amistad de confianza cómo estás de verdad.",
+                ),
+                "kid_do": L(
+                    "Tell God one thing that makes you sad and one thing that makes you glad.",
+                    "Cuéntale a Dios una cosa que te pone triste y una cosa que te alegra.",
+                ),
+                "pray": L(
+                    "God, here is the truth: … I am not going to dress it up. Be my rock on the nights "
+                    "the house is too quiet.",
+                    "Dios, esta es la verdad: … No la voy a adornar. Sé mi roca en las noches en que la "
+                    "casa está demasiado callada.",
+                ),
+            },
+            {
+                "key": "singleness-4",
+                "ref": "Isaiah 56:3-5",
+                "title": L("A place and a name", "Un lugar y un nombre"),
+                "truth": L(
+                    "In Isaiah's day a foreigner, or a eunuch (a man who could not have children), would "
+                    "assume he had no future among God's people. No family line meant no name. God "
+                    "answers them directly: do not call yourself a dry tree. To those who hold fast to "
+                    "him he promises a place within his house and a name better than sons and daughters, "
+                    "one that will never be cut off. Your place in God's family does not come through a "
+                    "spouse or through children. It is given to you directly, and it lasts.",
+                    "En tiempos de Isaías, un extranjero o un eunuco (un hombre que no podía tener hijos) "
+                    "daba por hecho que no tenía futuro en el pueblo de Dios. Sin descendencia no había "
+                    "nombre. Dios les responde directamente: no te llames árbol seco. A quienes se aferran "
+                    "a él les promete un lugar dentro de su casa y un nombre mejor que el de hijos e "
+                    "hijas, un nombre que nunca será borrado. Tu lugar en la familia de Dios no llega por "
+                    "medio de un cónyuge ni de los hijos. Se te da directamente, y permanece.",
+                ),
+                "simple": L(
+                    "Everyone who loves God has a place in his family. Nobody is left out.",
+                    "Todos los que aman a Dios tienen un lugar en su familia. Nadie se queda fuera.",
+                ),
+                "ask": L(
+                    "Where do you feel like an outsider at church or in your family because you are single "
+                    "or without children? What does God say here about your place?",
+                    "¿Dónde te sientes de afuera, en la iglesia o en tu familia, por no tener pareja o "
+                    "hijos? ¿Qué dice Dios aquí sobre tu lugar?",
+                ),
+                "kid_ask": L(
+                    "How can you help someone feel that they belong?",
+                    "¿Cómo puedes ayudar a que alguien sienta que tiene un lugar?",
+                ),
+                "do": L(
+                    "Take one step into God's family this week: invite someone to your table, accept an "
+                    "invitation you would usually decline, or ask a household at church if you may join "
+                    "them for a meal.",
+                    "Da esta semana un paso hacia la familia de Dios: invita a alguien a tu mesa, acepta "
+                    "una invitación que normalmente rechazarías, o pregúntale a una familia de la iglesia "
+                    "si puedes acompañarlos a comer.",
+                ),
+                "kid_do": L(
+                    "Invite someone who is sitting alone to join you.",
+                    "Invita a alguien que esté sentado sin compañía a estar contigo.",
+                ),
+                "pray": L(
+                    "Lord, you give a place and a name that cannot be taken away. When I feel like a dry "
+                    "tree, say this to me again. Show me where I belong, and whom I can welcome.",
+                    "Señor, tú das un lugar y un nombre que nadie puede quitar. Cuando me sienta árbol "
+                    "seco, dímelo otra vez. Muéstrame dónde pertenezco, y a quién puedo recibir.",
+                ),
+            },
+            {
+                "key": "singleness-5",
+                "ref": "Luke 2:36-38",
+                "title": L("Anna's long faithfulness", "La larga fidelidad de Ana"),
+                "truth": L(
+                    "Anna was married for seven years and then widowed. When we meet her she is very old, "
+                    "and she has spent the long years since in worship, fasting and prayer. Luke does not "
+                    "present her as a sad footnote. He calls her a prophet. She is among the first to "
+                    "recognize the child Jesus, and she speaks about him to everyone who was waiting for "
+                    "God's rescue. Her life after loss was not a waiting room. It had a purpose, a place "
+                    "and a voice. So does yours.",
+                    "Ana estuvo casada siete años y luego enviudó. Cuando la conocemos ya es muy anciana, "
+                    "y ha pasado los largos años desde entonces en adoración, ayuno y oración. Lucas no la "
+                    "presenta como una nota triste al pie de la página. La llama profetisa. Es de las "
+                    "primeras en reconocer al niño Jesús, y habla de él a todos los que esperaban el "
+                    "rescate de Dios. Su vida después de la pérdida no fue una sala de espera. Tuvo un "
+                    "propósito, un lugar y una voz. La tuya también.",
+                ),
+                "simple": L(
+                    "Anna was a very old woman who had lived without a husband for many years. She loved "
+                    "God, and she got to see baby Jesus and tell others about him.",
+                    "Ana era una mujer muy anciana que había vivido muchos años sin esposo. Amaba a Dios, "
+                    "y pudo ver al niño Jesús y contarles a otros acerca de él.",
+                ),
+                "ask": L(
+                    "What might God want to do through you in this season precisely because of the way "
+                    "your life is arranged now?",
+                    "¿Qué podría querer hacer Dios por medio de ti en esta etapa, justamente por la forma "
+                    "en que está organizada tu vida ahora?",
+                ),
+                "kid_ask": L(
+                    "Who is an older person you know who loves God?",
+                    "¿Qué persona mayor conoces que ama a Dios?",
+                ),
+                "do": L(
+                    "Name one person or one piece of work that could be your steady faithfulness (praying "
+                    "daily for someone, mentoring, serving at church) and begin it this week.",
+                    "Nombra a una persona o una tarea que podría ser tu fidelidad constante (orar a diario "
+                    "por alguien, acompañar a alguien más joven, servir en la iglesia) y empieza esta "
+                    "semana.",
+                ),
+                "kid_do": L(
+                    "Ask an older person you know to tell you a story about God.",
+                    "Pídele a una persona mayor que conoces que te cuente una historia sobre Dios.",
+                ),
+                "pray": L(
+                    "God, you saw Anna through all those years, and you see me. Give my days a purpose. "
+                    "Let me recognize Jesus and speak of him to someone.",
+                    "Dios, tú viste a Ana durante todos esos años, y me ves a mí. Dales un propósito a mis "
+                    "días. Permíteme reconocer a Jesús y hablarle de él a alguien.",
+                ),
+            },
+        ],
+    },
+    {
+        "key": "aging",
+        "category": "seasons",
+        "title": L("Growing older", "Envejecer"),
+        "summary": L(
+            "For anyone feeling the years: a slower body, a shorter list of what you can do, questions "
+            "about what you are still for. Five readings on being carried, still bearing fruit, and "
+            "passing faith on.",
+            "Para quien siente el paso de los años: un cuerpo más lento, una lista más corta de lo que "
+            "puedes hacer, preguntas sobre para qué sigues aquí. Cinco lecturas sobre ser sostenido, "
+            "seguir dando fruto y transmitir la fe.",
+        ),
+        "keywords": [
+            "aging", "getting older", "growing old", "retire", "grandchild", "legacy", "frail",
+            "envejec", "vejez", "jubil", "niet", "legado", "achaque", "ya no puedo",
+        ],
+        "situations": ["retired", "grandparent", "widowed", "ill"],
+        "traits": ["hope", "faithfulness", "gratitude"],
+        "stages": ["adult", "senior"],
+        "stage_notes": {
+            "adult": L(
+                "The first gray hairs, a slower body, parents growing frail. A way to meet the years ahead "
+                "without dread.",
+                "Las primeras canas, un cuerpo más lento, padres que se van debilitando. Una forma de "
+                "recibir los años que vienen sin temor.",
+            ),
+            "senior": L(
+                "For a season of limits and of freedom: what you can no longer do, what only you can give, "
+                "and who carries you.",
+                "Para una etapa de límites y de libertad: lo que ya no puedes hacer, lo que solo tú puedes "
+                "dar, y quién te sostiene.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "aging-1",
+                "ref": "Isaiah 46:3-4",
+                "title": L("Carried all the way", "Sostenido hasta el final"),
+                "truth": L(
+                    "God speaks to his people as one who has carried them since before they were born. "
+                    "Then he looks ahead: even to your old age, even when your hair is gray, he is the "
+                    "same, and he will carry you. Just before this, Isaiah describes the idols of Babylon "
+                    "being loaded onto weary animals; those gods have to be carried. The living God "
+                    "carries his people. As strength lessens and you need more help, you are not becoming "
+                    "a burden to him. He made you, and he has promised to sustain you to the end.",
+                    "Dios le habla a su pueblo como quien lo ha cargado desde antes de nacer. Luego mira "
+                    "hacia adelante: hasta tu vejez, hasta cuando tengas canas, él es el mismo, y te va a "
+                    "sostener. Justo antes, Isaías describe a los ídolos de Babilonia cargados sobre "
+                    "animales cansados; a esos dioses hay que llevarlos. El Dios vivo es quien lleva a su "
+                    "pueblo. Cuando las fuerzas disminuyen y necesitas más ayuda, no te estás volviendo "
+                    "una carga para él. Él te hizo, y prometió sostenerte hasta el final.",
+                ),
+                "simple": L(
+                    "God takes care of people when they are babies, when they are grown, and when they "
+                    "are very old. He never stops.",
+                    "Dios cuida a las personas cuando son bebés, cuando son grandes y cuando son muy "
+                    "ancianas. Nunca deja de hacerlo.",
+                ),
+                "ask": L(
+                    "What frightens you most about growing older, and what does this promise say to that "
+                    "particular fear?",
+                    "¿Qué es lo que más te asusta de envejecer, y qué le dice esta promesa a ese temor "
+                    "en particular?",
+                ),
+                "kid_ask": L(
+                    "Who is the oldest person you know? What do you like about them?",
+                    "¿Quién es la persona de más edad que conoces? ¿Qué te gusta de ella?",
+                ),
+                "do": L(
+                    "Write down the one fear about aging that visits you most. Under it, write in your "
+                    "own words what God promises in this passage. Keep it where you will see it.",
+                    "Escribe el temor sobre la vejez que más te visita. Debajo, escribe con tus propias "
+                    "palabras lo que Dios promete en este pasaje. Guárdalo donde lo veas.",
+                ),
+                "kid_do": L(
+                    "Give a hug or a kind word to an older person today.",
+                    "Dale hoy un abrazo o una palabra amable a una persona mayor.",
+                ),
+                "pray": L(
+                    "Lord, you carried me before I knew you, and you say you will carry me still. When I "
+                    "am afraid of what is coming, hold me.",
+                    "Señor, me llevaste en brazos antes de que yo te conociera, y dices que me seguirás "
+                    "llevando. Cuando tenga miedo de lo que viene, sostenme.",
+                ),
+            },
+            {
+                "key": "aging-2",
+                "ref": "2 Corinthians 4:16-18",
+                "title": L("When the body slows", "Cuando el cuerpo va más lento"),
+                "truth": L(
+                    "Paul does not pretend. Outwardly, he says, we are wearing away. Bodies slow, ache and "
+                    "fail, and it is right to grieve what you can no longer do. But he sets a second truth "
+                    "beside it: inwardly we are being renewed day by day. The person you are before God "
+                    "can keep growing while the body declines. He calls present troubles light and brief "
+                    "only by comparison with what is coming, a glory that outweighs them, and he fixes "
+                    "his eyes on what is unseen and lasting.",
+                    "Pablo no finge. Por fuera, dice, nos vamos desgastando. El cuerpo se vuelve lento, "
+                    "duele y falla, y está bien llorar lo que ya no puedes hacer. Pero al lado pone una "
+                    "segunda verdad: por dentro nos vamos renovando día tras día. La persona que eres "
+                    "delante de Dios puede seguir creciendo mientras el cuerpo decae. Llama ligeras y "
+                    "breves a las aflicciones de ahora solo en comparación con lo que viene, una gloria "
+                    "que pesa mucho más, y fija la mirada en lo que no se ve y permanece.",
+                ),
+                "simple": L(
+                    "Our bodies get older and slower, but God keeps making our hearts new and strong on "
+                    "the inside.",
+                    "Nuestro cuerpo se hace más viejo y más lento, pero Dios sigue haciendo nuevo y fuerte "
+                    "nuestro corazón por dentro.",
+                ),
+                "ask": L(
+                    "What have you had to give up as your body has changed? And where are you more alive "
+                    "inside than you were at thirty?",
+                    "¿A qué has tenido que renunciar con los cambios de tu cuerpo? ¿Y en qué tienes más "
+                    "vida por dentro que a los treinta?",
+                ),
+                "kid_ask": L(
+                    "What matters more about a person than how strong or fast they are?",
+                    "¿Qué importa más de una persona que lo fuerte o lo rápida que es?",
+                ),
+                "do": L(
+                    "Name one loss honestly to God today. Then name one way you have grown inwardly in "
+                    "recent years, and thank him. If a change in your health is worrying you, tell your "
+                    "doctor and someone close to you.",
+                    "Dile hoy a Dios, con honestidad, una pérdida. Luego nombra una forma en que has "
+                    "crecido por dentro en los últimos años, y dale gracias. Si te preocupa un cambio en "
+                    "tu salud, díselo a tu médico y a alguien cercano.",
+                ),
+                "kid_do": L(
+                    "Ask a grandparent or an older friend what they know now that they did not know at "
+                    "your age.",
+                    "Pregúntale a un abuelo o a un amigo mayor qué sabe ahora que no sabía a tu edad.",
+                ),
+                "pray": L(
+                    "God, my body is not what it was, and I miss what I could do. Renew me inside today. "
+                    "Fix my eyes on what does not wear out.",
+                    "Dios, mi cuerpo ya no es el que era, y extraño lo que podía hacer. Renuévame hoy por "
+                    "dentro. Fija mis ojos en lo que no se desgasta.",
+                ),
+            },
+            {
+                "key": "aging-3",
+                "ref": "Psalm 92:12-15",
+                "title": L("Still bearing fruit", "Todavía das fruto"),
+                "truth": L(
+                    "The psalm pictures people rooted in God as palms and cedars, trees that live long and "
+                    "stay green. Planted in the Lord's house, they still bear fruit in old age. The fruit "
+                    "named here is not productivity. It is a life that declares that God is upright and "
+                    "dependable, a rock. Age makes that more possible, not less: you have decades of "
+                    "evidence. You may do less than you once did. Your worth to God was never measured in "
+                    "output. A long life that still trusts him says something no young life can.",
+                    "El salmo describe a quienes están arraigados en Dios como palmeras y cedros, árboles "
+                    "que viven mucho y se mantienen verdes. Plantados en la casa del Señor, todavía dan "
+                    "fruto en la vejez. El fruto que aquí se nombra no es productividad. Es una vida que "
+                    "declara que Dios es recto y digno de confianza, una roca. La edad hace eso más "
+                    "posible, no menos: tienes décadas de evidencia. Quizá hagas menos que antes. Tu valor "
+                    "para Dios nunca se midió por tu rendimiento. Una vida larga que sigue confiando en él "
+                    "dice algo que ninguna vida joven puede decir.",
+                ),
+                "simple": L(
+                    "People who love God are like strong trees. Even when they are very old, they still "
+                    "give good fruit.",
+                    "Las personas que aman a Dios son como árboles fuertes. Aun cuando son muy ancianas, "
+                    "siguen dando buen fruto.",
+                ),
+                "ask": L(
+                    "If your worth is not measured by how much you can do, what fruit could your life "
+                    "bear in this season?",
+                    "Si tu valor no se mide por cuánto puedes hacer, ¿qué fruto podría dar tu vida en "
+                    "esta etapa?",
+                ),
+                "kid_ask": L(
+                    "What good things do older people give you?",
+                    "¿Qué cosas buenas te dan las personas mayores?",
+                ),
+                "do": L(
+                    "This week, tell one younger person a specific story of how God proved dependable in "
+                    "your life. Keep it short and true.",
+                    "Esta semana cuéntale a una persona más joven una historia concreta de cómo Dios "
+                    "demostró ser digno de confianza en tu vida. Que sea breve y verdadera.",
+                ),
+                "kid_do": L(
+                    "Ask an older person, \"What is a good thing God has done for you?\" and listen to "
+                    "the answer.",
+                    "Pregúntale a una persona mayor: \"¿Qué cosa buena ha hecho Dios por ti?\", y escucha "
+                    "su respuesta.",
+                ),
+                "pray": L(
+                    "Lord, keep me green. I can do less, but let my life still say that you are my rock "
+                    "and that you can be trusted.",
+                    "Señor, mantenme verde. Puedo hacer menos, pero que mi vida siga diciendo que tú eres "
+                    "mi roca y que se puede confiar en ti.",
+                ),
+            },
+            {
+                "key": "aging-4",
+                "ref": "Psalm 71:17-18",
+                "title": L("Pass it on", "Pásalo a los que vienen"),
+                "truth": L(
+                    "The writer has known God since youth and has spent a lifetime telling what God has "
+                    "done. Now, old and gray, he asks one thing: do not leave me until I have told the "
+                    "next generation about your power. He sees his remaining years as having a purpose. "
+                    "Those who come after need to hear, from someone who has lived it, that God is real "
+                    "and faithful. You do not need to preach. You need to tell what you have seen, to a "
+                    "grandchild, a neighbor, a young person at church.",
+                    "Quien escribe ha conocido a Dios desde joven y ha pasado la vida contando lo que Dios "
+                    "ha hecho. Ahora, viejo y con canas, pide una cosa: no me dejes hasta que le haya "
+                    "contado de tu poder a la generación que viene. Ve los años que le quedan como años "
+                    "con propósito. Los que vienen detrás necesitan oír, de alguien que lo ha vivido, que "
+                    "Dios es real y fiel. No hace falta predicar. Hace falta contar lo que has visto: a un "
+                    "nieto, a un vecino, a un joven de la iglesia.",
+                ),
+                "simple": L(
+                    "Older people have many stories about how God helped them. They can share those "
+                    "stories with children like you.",
+                    "Las personas mayores tienen muchas historias de cómo Dios las ayudó. Pueden "
+                    "compartirlas con niños como tú.",
+                ),
+                "ask": L(
+                    "Who in the next generation is within your reach, and what do you most want them to "
+                    "know about God?",
+                    "¿Quién de la siguiente generación está a tu alcance, y qué es lo que más quieres que "
+                    "sepa de Dios?",
+                ),
+                "kid_ask": L(
+                    "What story about God would you like to hear from a grandparent or an older friend?",
+                    "¿Qué historia sobre Dios te gustaría escuchar de un abuelo o de un amigo mayor?",
+                ),
+                "do": L(
+                    "Write one page, or record a few minutes, telling one story of God's faithfulness in "
+                    "your life for a particular younger person. Give it to them this month.",
+                    "Escribe una página, o graba unos minutos, contando una historia de la fidelidad de "
+                    "Dios en tu vida para una persona más joven en particular. Entrégasela este mes.",
+                ),
+                "kid_do": L(
+                    "Ask a grandparent or an older friend to tell you how they came to know God.",
+                    "Pídele a un abuelo o a un amigo mayor que te cuente cómo llegó a conocer a Dios.",
+                ),
+                "pray": L(
+                    "God, you have taught me since I was young. Do not let me go until I have told … what "
+                    "you have done. Give me the words and the opening.",
+                    "Dios, tú me has enseñado desde mi juventud. No me sueltes hasta que le haya contado "
+                    "a … lo que has hecho. Dame las palabras y la oportunidad.",
+                ),
+            },
+            {
+                "key": "aging-5",
+                "ref": "Psalm 90:12-17",
+                "title": L("Number your days", "Cuenta tus días"),
+                "truth": L(
+                    "This prayer, handed down under the name of Moses, asks God to teach us to count our "
+                    "days so that we gain a wise heart. Counting them is not morbid. It is how you learn "
+                    "what matters. Then the prayer turns hopeful: fill us in the morning with your "
+                    "faithful love, make us glad, show your work to your servants and your splendor to "
+                    "their children. It ends by asking twice that God would make the work of our hands "
+                    "last. What you leave behind is not finally in your control. You can place it in the "
+                    "hands of the one who makes things endure.",
+                    "Esta oración, transmitida con el nombre de Moisés, le pide a Dios que nos enseñe a "
+                    "contar nuestros días para que tengamos un corazón sabio. Contarlos no es algo "
+                    "morboso. Es la manera de aprender qué importa. Luego la oración se llena de "
+                    "esperanza: sácianos por la mañana con tu amor fiel, alégranos, muestra tu obra a tus "
+                    "siervos y tu esplendor a sus hijos. Termina pidiendo dos veces que Dios haga durar la "
+                    "obra de nuestras manos. Lo que dejas no está, al final, bajo tu control. Puedes "
+                    "ponerlo en las manos de quien hace que las cosas permanezcan.",
+                ),
+                "simple": L(
+                    "Every day is a gift from God. We can ask him to help us use each day well.",
+                    "Cada día es un regalo de Dios. Podemos pedirle que nos ayude a usar bien cada día.",
+                ),
+                "ask": L(
+                    "If you counted your days honestly, what would you stop spending them on, and what "
+                    "would you begin?",
+                    "Si contaras tus días con honestidad, ¿en qué dejarías de gastarlos, y qué empezarías?",
+                ),
+                "kid_ask": L(
+                    "What is one good thing you would like to do with today?",
+                    "¿Qué cosa buena te gustaría hacer con el día de hoy?",
+                ),
+                "do": L(
+                    "Choose one piece of unfinished business (a conversation, a letter, a will, a "
+                    "reconciliation, a blessing to speak) and take the first step this week.",
+                    "Elige un asunto pendiente (una conversación, una carta, un testamento, una "
+                    "reconciliación, una bendición que decir) y da el primer paso esta semana.",
+                ),
+                "kid_do": L(
+                    "Tonight, thank God for one good thing that happened today.",
+                    "Esta noche, dale gracias a Dios por una cosa buena que pasó hoy.",
+                ),
+                "pray": L(
+                    "Lord, teach me to number my days. Satisfy me with your love this morning, and make "
+                    "what my hands have done outlast me.",
+                    "Señor, enséñame a contar mis días. Sáciame de tu amor esta mañana, y haz que lo que "
+                    "hicieron mis manos dure más que yo.",
+                ),
+            },
+        ],
+    },
     # --- next topic ---
 ]

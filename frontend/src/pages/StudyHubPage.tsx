@@ -375,7 +375,9 @@ export default function StudyHubPage() {
               ))}
             </div>
             <p className="mt-3 text-xs leading-relaxed text-text-secondary">
-              {t('study.hub.basedOnEntries', { count: recommendations.data.based_on.entries_considered })}{' '}
+              {recommendations.data.based_on.entries_considered > 0
+                ? t('study.hub.basedOnEntries', { count: recommendations.data.based_on.entries_considered })
+                : t('study.hub.basedOnNoEntries')}{' '}
               {recommendations.data.based_on.has_profile ? t('study.hub.basedOnProfile') : t('study.hub.basedOnNoProfile')}{' '}
               <Link to="/profile" className="text-accent-primary underline-offset-2 hover:underline">
                 {t('study.hub.profileLink')}

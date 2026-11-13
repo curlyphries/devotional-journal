@@ -205,6 +205,17 @@
     },
     "tour": {
       "replay": "Repetir tour"
+    },
+    "study": {
+      "title": "Estudio bíblico",
+      "continue": "Continuar: {{title}}",
+      "suggested": "Sugerido para ti: {{title}}",
+      "why": "Por qué:",
+      "start": "Empezar",
+      "browse": "Ver todos los estudios",
+      "find": "Busca un estudio",
+      "findSub": "Estudios bíblicos breves y guiados para cada edad y etapa de la vida.",
+      "open": "Ver estudios"
     }
   },
   "reading": {
@@ -377,7 +388,11 @@
     "settings": "Ajustes",
     "help": "Ayuda y guía",
     "changeLanguage": "Cambiar idioma",
-    "quickCapture": "Captura rápida"
+    "quickCapture": "Captura rápida",
+    "study": "Estudio",
+    "profile": "Mi perfil",
+    "growth": "Planes de crecimiento",
+    "readingPlans": "Planes de lectura"
   },
   "tour": {
     "stepLabel": "Paso {{current}} de {{total}}",
@@ -398,6 +413,10 @@
       "title": "Al guardar, recibes una respuesta",
       "body": "Verás una reflexión breve sobre lo que escribiste y un pasaje. El texto del versículo siempre viene de la Biblia misma, y «¿Por qué este pasaje?» muestra exactamente cómo se eligió."
     },
+    "study": {
+      "title": "Estudia la Biblia a tu manera",
+      "body": "En Estudio hay estudios bíblicos breves y guiados para cada edad. Se adaptan a tu etapa de la vida y a lo que escribes, y cada sugerencia te dice por qué. Mi perfil y Planes de crecimiento están en Más."
+    },
     "speakYourMind": {
       "title": "Di lo que piensas",
       "body": "¿Aún no quieres escribir en el diario? Escribe aquí lo que hay en tu corazón para encontrar pasajes relacionados y preguntas para reflexionar."
@@ -408,7 +427,7 @@
     },
     "devotional": {
       "title": "Enfoque y planes de lectura",
-      "body": "Define un enfoque espiritual para recibir pasajes diarios sobre él, o sigue un plan de lectura por un libro de la Biblia en Planes."
+      "body": "Define un enfoque espiritual para recibir pasajes diarios sobre él, o sigue un plan de lectura por un libro de la Biblia en Más → Planes de lectura."
     },
     "progress": {
       "title": "Mira cómo vas creciendo",
@@ -566,6 +585,7 @@
       "quick-start": "Inicio rápido",
       "where": "Dónde está cada cosa",
       "feedback": "Respuesta y Escritura",
+      "study": "Estudio, perfil y planes de crecimiento",
       "voice": "Entrada por voz",
       "privacy": "Privacidad e IA",
       "troubleshooting": "Solución de problemas"
@@ -608,12 +628,24 @@
         "name": "Historial del diario",
         "body": "Todas tus entradas, de la más reciente a la más antigua. Filtra por estado de ánimo; cada una muestra el pasaje que recibió."
       },
+      "study": {
+        "name": "Guía de estudio bíblico",
+        "body": "Estudios breves y guiados para cada edad, sugeridos a partir de lo que escribes, con las razones a la vista."
+      },
+      "profile": {
+        "name": "Mi perfil",
+        "body": "Cuéntale a la aplicación sobre tu etapa de la vida y mira un retrato sincero de cómo estás. Tú puedes corregirlo o borrarlo."
+      },
+      "growth": {
+        "name": "Planes de crecimiento",
+        "body": "Elige una cualidad en la que quieres crecer, con metas a corto y largo plazo y revisiones periódicas."
+      },
       "devotional": {
         "name": "Devocional (Enfoque)",
         "body": "Define un enfoque espiritual y recibe pasajes diarios sobre él."
       },
       "plans": {
-        "name": "Planes",
+        "name": "Planes de lectura",
         "body": "Planes de lectura guiados. Empieza uno, lee el pasaje de cada día y escribe sobre él."
       },
       "bible": {
@@ -652,6 +684,27 @@
       "p3": "Si no se puede contactar a la IA, igual recibes un pasaje: lo eligen unas reglas integradas de palabras clave, y un aviso te lo indica. Puedes intentarlo de nuevo con la IA más tarde.",
       "p4": "Cada decisión queda registrada: qué IA se usó y dónde, qué recibió, cada pasaje que sugirió y qué pasó con él.",
       "auditLink": "Abrir el registro de decisiones"
+    },
+    "study": {
+      "title": "Guía de estudio bíblico, tu perfil y planes de crecimiento",
+      "studiesTitle": "Estudios bíblicos",
+      "studies1": "La guía de estudio bíblico es una biblioteca de 48 estudios breves, agrupados según lo que puedas necesitar: paz, refugio, fortaleza, sabiduría, amor, los fundamentos de la fe, carácter y etapas de la vida. Cada estudio tiene unas pocas lecciones. Una lección te da un pasaje para leer, una explicación sencilla, dos o tres preguntas para responder por escrito, algo para poner en práctica y una oración.",
+      "studies2": "El texto del pasaje siempre viene de la fuente bíblica y lleva la misma insignia «Verificado» que la respuesta del diario. Cuando guardas tus respuestas recibes una respuesta breve. Si no se puede contactar a la IA, se usa una respuesta preparada y un aviso te lo indica.",
+      "suggestions": "Cómo se eligen las sugerencias: «Sugeridos para ti» se basa en los temas de tus entradas recientes del diario, en lo que pusiste en tu perfil y en los estudios que ya hiciste. Las razones siempre se muestran en cada tarjeta, para que veas por qué está ahí; y eres libre de ignorarla y elegir cualquier otro.",
+      "stages": "Etapas de la vida: dile a la aplicación para quién son los estudios (niño o niña, adolescente, joven adulto, adulto o adulto mayor) y la redacción, los ejemplos y las preguntas cambian para adaptarse. Los estudios para niños (6-11) son cortos y están pensados para leerse junto con un adulto; cada lección lo indica.",
+      "simpler": "«Explícamelo más sencillo» cambia la explicación por una más corta y clara, y recuerda tu elección para esa lección.",
+      "personal": "«Hazlo personal» le pide a la IA que conecte la lección con tu perfil y con los temas recientes de tu diario, y que escriba preguntas para ti. Muestra qué IA lo escribió y si se ejecutó en tu red o en la nube. Si la IA no está disponible, ves por qué, y la lección estándar se puede seguir usando por completo.",
+      "care": "Algunos estudios tratan temas dolorosos, como el duelo. Llevan la marca «Tratado con cuidado» y un recordatorio amable de que no tienes que cargar con eso a solas.",
+      "studyLink": "Abrir la guía de estudio bíblico",
+      "profileTitle": "Tu perfil de crecimiento",
+      "profile1": "En Mi perfil le cuentas a la aplicación sobre ti (tu etapa de la vida, lo que estás enfrentando, en qué te gustaría crecer) y respondes una breve autoevaluación. Con eso, junto con tu diario y tus estudios, te muestra un retrato sincero de cómo estás espiritual e interiormente, y dice en qué se basa cada afirmación.",
+      "profile2": "Es una reflexión personal, no un diagnóstico. Nada de lo que contiene es una evaluación médica ni psicológica, y no sustituye a un pastor, un consejero ni un médico.",
+      "profile3": "Tú tienes el control: dile a la aplicación cuando una afirmación no es correcta, cambia tus respuestas cuando quieras o borra el perfil completo. Borrarlo no elimina tu diario, tus estudios ni tus planes de crecimiento. Para los niños no se crea ningún perfil de vida interior ni reflexiones de IA.",
+      "profileLink": "Abrir mi perfil",
+      "growthTitle": "Planes de crecimiento",
+      "growth1": "Un plan de crecimiento es una cualidad en la que eliges crecer (paciencia, valentía, gratitud, etc.), con metas a corto plazo para las próximas semanas y metas a largo plazo para los meses siguientes, pasajes bíblicos a los que aferrarte y estudios que la fortalecen.",
+      "growth2": "Marca tu avance en cada meta y responde una breve revisión de vez en cuando; el plan muestra cuánto has avanzado y cómo cambia tu propia valoración. Puedes pausar, terminar o eliminar un plan cuando quieras.",
+      "growthLink": "Abrir planes de crecimiento"
     },
     "voice": {
       "title": "Entrada por voz",
@@ -741,6 +794,183 @@
       }
     }
   },
+  "study": {
+    "eyebrow": "Estudio bíblico",
+    "backToHub": "Todos los estudios",
+    "lessonOf": "Lección {{current}} de {{total}}",
+    "lessonTitle": "Lección {{number}}: {{title}}",
+    "tellUsMore": "Cuéntanos más sobre ti",
+    "startFailed": "No se pudo iniciar el estudio.",
+    "loadFailed": "No se pudo cargar este estudio",
+    "lessonFailed": "No se pudo cargar esta lección",
+    "lessonMissing": "Este estudio no tiene esa lección",
+    "lessonMissingCta": "Ir a donde te quedaste",
+    "hub": {
+      "title": "Guía de estudio bíblico",
+      "intro": "Estudios bíblicos breves y guiados para cada edad y etapa de la vida. Cada lección te da un pasaje para leer, una explicación sencilla, unas preguntas y algo pequeño para poner en práctica.",
+      "catalogFailed": "No se pudieron cargar los estudios",
+      "profileFailed": "No pudimos comprobar para quién son estos estudios",
+      "studiesFailed": "No se pudieron cargar tus estudios",
+      "stageFailed": "No se pudo guardar.",
+      "continueTitle": "Continuar",
+      "progressLabel": "Avance en {{title}}",
+      "suggestedTitle": "Sugeridos para ti",
+      "suggestedHint": "Elegidos a partir de lo que has escrito y de lo que nos has contado. Cada uno dice por qué.",
+      "suggestedFailed": "No se pudieron cargar las sugerencias",
+      "suggestedEmptyTitle": "Todavía no hay sugerencias",
+      "suggestedEmptyBody": "Las sugerencias mejoran a medida que escribes en tu diario y completas tu perfil. Mientras tanto, todos los estudios están abajo: elige el que te llame la atención.",
+      "writeEntry": "Escribir una entrada en el diario",
+      "basedOnEntries_one": "Basado en {{count}} entrada reciente de tu diario.",
+      "basedOnEntries_other": "Basado en {{count}} entradas recientes de tu diario.",
+      "basedOnNoEntries": "Todavía no se basa en tu diario: no hay entradas recientes.",
+      "basedOnProfile": "También se usó tu perfil.",
+      "basedOnNoProfile": "Completa tu perfil para recibir sugerencias más a tu medida.",
+      "profileLink": "Abrir mi perfil",
+      "findTitle": "Busca un estudio",
+      "findHint": "Busca una palabra o elige lo que necesitas ahora.",
+      "searchLabel": "Buscar estudios",
+      "searchPlaceholder": "Busca, p. ej., preocupación, perdón, oración",
+      "needLabel": "Necesito…",
+      "allCategories": "Todo",
+      "everyAge": "Mostrar estudios para todas las edades",
+      "everyAgeShown": "Se muestran estudios para todas las edades.",
+      "matchCount_one": "{{count}} estudio",
+      "matchCount_other": "{{count}} estudios",
+      "noMatchTitle": "Ningún estudio coincide",
+      "noMatchBody": "Prueba con otra palabra o borra la búsqueda y los filtros.",
+      "noMatchBodyStage": "Prueba con otra palabra o muestra estudios para todas las edades.",
+      "clearFilters": "Borrar búsqueda y filtros",
+      "completedTitle": "Estudios terminados ({{count}})",
+      "completedOn": "Terminado el {{date}}"
+    },
+    "whoFor": {
+      "label": "¿Para quién es?",
+      "choose": "Elige…",
+      "unset": "Elige una etapa de la vida y los estudios se escribirán para ella."
+    },
+    "firstRun": {
+      "title": "Primero, ¿para quién es?",
+      "body": "El mismo pasaje se lee distinto a los 9, a los 19 y a los 69 años. Elige la etapa de la vida que corresponda y cada estudio se escribirá para ella. Puedes cambiarla cuando quieras.",
+      "skip": "Ahora no: muéstrame todos los estudios",
+      "privacy": "Esto solo se usa para elegir y redactar tus estudios. Puedes cambiarlo o borrarlo en Mi perfil."
+    },
+    "card": {
+      "lessons_one": "{{count}} lección",
+      "lessons_other": "{{count}} lecciones",
+      "sensitive": "Tratado con cuidado",
+      "sensitiveHelp": "Este estudio toca temas dolorosos. Ve con calma; no tienes que hacerlo a solas.",
+      "inProgress": "En curso",
+      "completed": "Terminado",
+      "why": "Por qué se sugiere",
+      "start": "Empezar",
+      "startNamed": "Empezar: {{title}}",
+      "starting": "Empezando…",
+      "continue": "Continuar",
+      "continueNamed": "Continuar: {{title}}",
+      "again": "Estudiar de nuevo",
+      "againNamed": "Estudiar de nuevo: {{title}}",
+      "review": "Repasar",
+      "reviewNamed": "Repasar {{title}}"
+    },
+    "stepper": {
+      "label": "Lecciones de este estudio",
+      "lesson": "Lección {{number}}: {{title}}",
+      "lessonDone": "Lección {{number}}: {{title}} (terminada)"
+    },
+    "grownUp": {
+      "title": "Lee esta lección junto con un adulto.",
+      "body": "Túrnense para leer en voz alta y conversen sobre las preguntas antes de escribir."
+    },
+    "read": {
+      "title": "Lee"
+    },
+    "passage": {
+      "missingTitle": "No se pudo cargar el texto bíblico"
+    },
+    "understand": {
+      "title": "Comprende",
+      "simpler": "Explícamelo más sencillo",
+      "simpleShown": "Se muestra la explicación más sencilla.",
+      "simplerFailed": "No se pudo cargar la explicación más sencilla"
+    },
+    "personal": {
+      "button": "Hazlo personal",
+      "hint": "«Hazlo personal» le pide a la IA que conecte esta lección con tu perfil y con los temas recientes de tu diario. El texto bíblico nunca cambia.",
+      "working": "Conectando esta lección con tu vida…",
+      "patience": "Puede tardar hasta un par de minutos. Puedes seguir leyendo mientras esperas.",
+      "failed": "No se pudo personalizar esta lección",
+      "failedNote": "La lección está completa tal como está; puedes seguir sin esto.",
+      "title": "Para ti",
+      "byLocal": "Escrito por IA ({{engine}}) en tu red, a partir de tu perfil y de los temas recientes de tu diario.",
+      "byCloud": "Escrito por IA ({{engine}}) en la nube, a partir de tu perfil y de los temas recientes de tu diario."
+    },
+    "reflect": {
+      "title": "Reflexiona",
+      "intro": "No hay respuestas incorrectas. Escribe tanto o tan poco como quieras: una sola frase sincera cuenta.",
+      "draftRestored": "Recuperamos lo que habías escrito aquí antes.",
+      "stoodOut": "¿Qué te llamó la atención?",
+      "understanding": "¿Qué tan bien entendiste este pasaje?",
+      "understandingLow": "me perdí",
+      "understandingHigh": "muy claro",
+      "resonance": "¿Cuánto te habla esto en el momento que estás viviendo?",
+      "resonanceLow": "casi nada",
+      "resonanceHigh": "profundamente",
+      "needAnswer": "Escribe al menos una respuesta, o lo que te llamó la atención, antes de guardar.",
+      "needScales": "Elige un número del 1 al 5 en las dos preguntas de valoración.",
+      "save": "Guardar mi reflexión",
+      "saving": "Guardando…",
+      "savingNote": "Guardando tu reflexión y escribiendo una respuesta. Puede tardar uno o dos minutos.",
+      "keptNote": "Lo que escribes se guarda en este dispositivo hasta que lo guardes, así que no se pierde si la página se recarga.",
+      "saveFailed": "No se pudo guardar tu reflexión"
+    },
+    "saved": {
+      "note": "Tu reflexión está guardada.",
+      "understanding": "Lo entendí: {{value}} de 5",
+      "resonance": "Me habla: {{value}} de 5",
+      "edit": "Editar mis respuestas"
+    },
+    "reply": {
+      "title": "Una respuesta a tu reflexión",
+      "followUp": "Algo para pensar",
+      "builtIn": "La IA no estaba disponible, así que esta es una respuesta preparada y no una escrita para tus respuestas. Tu reflexión quedó guardada de todos modos.",
+      "byAi": "Escrito por IA a partir de tus respuestas.",
+      "none": "Esta vez no se escribió una respuesta. Tus respuestas están a salvo.",
+      "simplerTitle": "¿Te costó seguir esta lección?",
+      "simplerBody": "No pasa nada: algunos pasajes toman tiempo. Una explicación más sencilla puede ayudar."
+    },
+    "practice": {
+      "title": "Practica"
+    },
+    "pray": {
+      "title": "Ora"
+    },
+    "next": {
+      "ready": "¿Seguimos con la siguiente?",
+      "lesson": "Siguiente lección"
+    },
+    "complete": {
+      "title": "Terminaste «{{title}}»",
+      "body": "¡Bien hecho! Tómate un momento para dar gracias a Dios por lo que has visto y, cuando quieras, elige un siguiente paso.",
+      "bodyEarlier": "Ya terminaste este estudio. Puedes releer cualquier lección o cambiar tus respuestas.",
+      "next": "¿Qué sigue?",
+      "growth": "Convertir esto en un plan de crecimiento",
+      "journal": "Escribir sobre esto en tu diario",
+      "more": "Ver todos los estudios"
+    },
+    "leave": {
+      "button": "Dejar este estudio",
+      "title": "¿Dejar este estudio?",
+      "message": "«{{title}}» se quitará de tus estudios, junto con las respuestas que escribiste en él. Puedes volver a empezarlo más adelante.",
+      "confirm": "Dejar el estudio",
+      "done": "Dejaste el estudio.",
+      "failed": "No se pudo quitar el estudio."
+    },
+    "notFound": {
+      "title": "No encontramos ese estudio",
+      "body": "Puede que se haya quitado o que el enlace sea antiguo. Tus otros estudios están a salvo.",
+      "cta": "Ver todos los estudios"
+    }
+  },
   "errors": {
     "defaultTitle": "No se pudo cargar esto",
     "retry": "Intentar de nuevo",
@@ -800,5 +1030,358 @@
     "deleteTitle": "Eliminar plan",
     "deleteBody": "¿Eliminar «{{title}}»? El plan y sus días se borran definitivamente. Esta acción no se puede deshacer.",
     "deleted": "Plan eliminado."
+  },
+  "profile": {
+    "title": "Mi perfil de crecimiento",
+    "intro": "Esto es lo que la aplicación entiende de ti, a partir solo de lo que le has contado y de lo que has hecho aquí. Es un espejo, no un veredicto: puedes corregir lo que no sea cierto y borrarlo todo cuando quieras.",
+    "loadFailed": "No se pudo cargar tu perfil de crecimiento",
+    "catalogFailed": "No se pudo cargar la lista de temas y cualidades",
+    "setup": {
+      "pageIntro": "Unos pasos breves ayudan a la aplicación a elegir estudios que se ajusten a ti y a mostrarte una imagen honesta de dónde estás. Cada paso es opcional, y después puedes cambiar o borrar tus respuestas.",
+      "stepOf": "Paso {{current}} de {{total}}",
+      "stepsLabel": "Pasos de la configuración",
+      "skipStep": "Omitir este paso",
+      "finish": "Terminar",
+      "saveFailed": "No se pudo guardar este paso",
+      "savedAsYouGo": "Tus respuestas se guardan cada vez que avanzas. Nada de esto es un examen y no hay respuestas correctas.",
+      "about": {
+        "short": "Sobre ti",
+        "title": "Sobre ti",
+        "intro": "Un poco sobre el momento de vida en el que estás, para que los estudios y los ejemplos se ajusten a ti."
+      },
+      "looking": {
+        "short": "Lo que buscas",
+        "title": "Lo que buscas",
+        "intro": "Elige en qué te gustaría recibir ayuda y hasta tres cualidades en las que quieres crecer."
+      },
+      "inward": {
+        "short": "Una mirada interior",
+        "title": "Una breve mirada interior",
+        "intro": "Unas frases sinceras sobre tu caminar con Dios y sobre cómo estás por dentro. Deja en blanco lo que prefieras no responder."
+      },
+      "today": {
+        "short": "Cómo te ves",
+        "title": "Cómo te ves hoy",
+        "intro": "Valórate como eres hoy, no como quisieras ser. Este es tu punto de partida, para que más adelante se pueda ver el crecimiento."
+      }
+    },
+    "fields": {
+      "lifeStage": "Etapa de la vida",
+      "lifeStageHint": "Las lecciones se redactan para la etapa que elijas.",
+      "situations": "Tu situación de vida",
+      "situationsHint": "Elige todas las que describan tu vida en este momento.",
+      "faithBackground": "Tu trasfondo de fe",
+      "faithBackgroundHint": "De dónde vienes. No hay respuestas equivocadas.",
+      "needs": "¿En qué te gustaría recibir ayuda?",
+      "needsHint": "Elige todos los que quieras. Con esto se decide qué estudios se te sugieren.",
+      "desiredTraits": "Cualidades en las que quieres crecer",
+      "desiredTraitsHint": "Elige hasta {{max}}. Elegidas hasta ahora: {{chosen}}.",
+      "traitDefinitionEmpty": "Selecciona una cualidad para ver qué significa.",
+      "scaleLabel": "La escala:",
+      "traitScale": "1 significa «casi nunca es cierto en mí» y 5 significa «es cierto en mí casi todos los días».",
+      "ratingChosenFirst": "Las cualidades que elegiste aparecen primero.",
+      "rateMore": "Valorar más cualidades ({{count}})",
+      "rateFewer": "Mostrar menos"
+    },
+    "child": {
+      "title": "No se crea un perfil de un niño",
+      "body": "En el caso de los niños, la aplicación solo usa la edad para elegir lecciones más suaves y sencillas. No crea una imagen de la vida interior de un niño ni escribe reflexiones con IA sobre un niño.",
+      "hidden": "Por eso aquí no aparecen la mirada interior, la sección de vida interior ni «Lo que la aplicación nota»."
+    },
+    "support": {
+      "label": "Una nota de cuidado",
+      "title": "No tienes que cargar con esto a solas"
+    },
+    "about": {
+      "title": "Sobre ti",
+      "editLabel": "Editar «Sobre ti»",
+      "notSaid": "Sin indicar",
+      "needs": "Te gustaría recibir ayuda con",
+      "desiredTraits": "Quieres crecer en",
+      "save": "Guardar cambios",
+      "saved": "Se actualizó tu perfil.",
+      "saveFailed": "No se pudieron guardar tus cambios",
+      "mostlyEmpty": "Todavía no hay mucho aquí. Con unos pasos breves la aplicación tendrá más en qué basarse.",
+      "restartSetup": "Guíame por los pasos"
+    },
+    "aboutMe": {
+      "label": "¿Hay algo que quieras que la aplicación sepa, o algo en lo que se haya equivocado?",
+      "hint": "Escríbelo con tus propias palabras. Se guarda con tu perfil y se usa cuando la aplicación adapta algo para ti.",
+      "saved": "Guardado.",
+      "saveFailed": "No se pudo guardar tu nota"
+    },
+    "walk": {
+      "title": "Tu caminar con Dios",
+      "intro": "A partir de tus propias respuestas y de lo que has hecho en la aplicación.",
+      "practices": "Prácticas",
+      "strengths": "Firme hoy",
+      "strengthsHint": "Las cualidades que valoraste más alto.",
+      "growthAreas": "Espacio para crecer",
+      "growthAreasHint": "Las cualidades que valoraste más bajo.",
+      "noRatings": "Valora algunas cualidades en la mirada interior y aparecerán aquí.",
+      "studiesCompleted": "Estudios completados",
+      "lessonsCompleted": "Lecciones completadas",
+      "entriesWithFeedback": "Entradas del diario con respuesta",
+      "topThemes": "Temas en tu diario",
+      "topThemesHint": "Los temas que más aparecieron en las respuestas a tus entradas."
+    },
+    "inner": {
+      "title": "Cómo estás por dentro",
+      "intro": "Una descripción con tus propias palabras y números. No es un diagnóstico.",
+      "moods": "Estados de ánimo que registraste",
+      "moodsHint": "Cuántas veces elegiste cada estado de ánimo en una entrada del diario.",
+      "noMoods": "Todavía no has registrado un estado de ánimo en una entrada del diario.",
+      "moodEntries_one": "entrada",
+      "moodEntries_other": "entradas",
+      "recurringThemes": "Temas que se repiten",
+      "fromLessons": "De tus lecciones",
+      "understanding": "Qué tan claras te resultaron las lecciones",
+      "understandingHint": "El promedio de lo que respondiste después de cada lección sobre qué tanto la entendiste.",
+      "resonance": "Cuánto te hablaron las lecciones",
+      "resonanceHint": "El promedio de lo que respondiste después de cada lección sobre cuánto le habló a tu momento actual.",
+      "noLessonsYet": "Todavía no has respondido lecciones",
+      "openThreads_one": "Tienes {{count}} hilo abierto: algo sobre lo que escribiste y que sigue sin resolverse.",
+      "openThreads_other": "Tienes {{count}} hilos abiertos: cosas sobre las que escribiste y que siguen sin resolverse.",
+      "seeThreads": "Ver tus hilos"
+    },
+    "overTime": {
+      "title": "A lo largo del tiempo",
+      "lastTaken": "Hiciste la mirada interior por última vez el {{date}}.",
+      "neverTaken": "Todavía no has hecho la mirada interior.",
+      "retake": "Repetir la mirada interior",
+      "take": "Hacer la mirada interior",
+      "prefilled": "Tus últimas respuestas ya están marcadas. Cambia lo que hoy sea distinto.",
+      "save": "Guardar mis respuestas",
+      "saved": "Se guardaron tus respuestas.",
+      "saveFailed": "No se pudieron guardar tus respuestas",
+      "caption": "Tus promedios de la mirada interior cada vez que la hiciste, del más reciente al más antiguo",
+      "date": "Fecha",
+      "averagesHint": "Promedios de tus propias respuestas del 1 al 5. Muestran el cambio con el tiempo; no son calificaciones.",
+      "empty": "Cada vez que hagas la mirada interior se agregará aquí una línea, para que veas el cambio con el tiempo."
+    },
+    "insights": {
+      "title": "Lo que la aplicación nota",
+      "explain": "Puedes pedirle a la aplicación que escriba una breve reflexión sobre ti. Para hacerlo, lee tu mirada interior, tus respuestas a las lecciones y los temas de las respuestas recientes a tu diario.",
+      "generate": "Escribir mi reflexión",
+      "writing": "Leyendo lo que has compartido y escribiendo una reflexión…",
+      "patience": "Puede tardar hasta uno o dos minutos cuando la IA funciona en tu propia red. Puedes quedarte en esta página.",
+      "failed": "No se pudo escribir la reflexión",
+      "notEnoughTitle": "Todavía no hay suficiente en qué basarse",
+      "itemsLabel": "Lo que la aplicación nota",
+      "basedOn": "Se basa en",
+      "right": "Así es",
+      "notMe": "Ese no soy yo",
+      "feedbackLabel": "¿Es cierto esto? {{title}}",
+      "savedRight": "Guardado: dijiste que esto es cierto.",
+      "savedNotMe": "Guardado: dijiste que esto no te describe.",
+      "feedbackFailed": "No se pudo guardar tu respuesta.",
+      "suggestedTopics": "Estudios que pueden ayudarte",
+      "allStudies": "Ver todos los estudios",
+      "suggestedTraits": "Cualidades en las que podrías crecer",
+      "suggestedTraitsHint": "Elige una para comenzar un plan de crecimiento.",
+      "startPlanFor": "Comenzar un plan de crecimiento para {{trait}}",
+      "generatedAt": "Escrita el {{date}}",
+      "refresh": "Actualizar"
+    },
+    "data": {
+      "title": "Tus datos",
+      "stored": "Tu perfil, tus respuestas de la mirada interior y la reflexión se guardan cifrados en este servidor, junto con tu diario. Solo tú puedes verlos.",
+      "control": "Puedes corregir cualquier cosa de arriba cuando quieras. Al borrar se elimina lo que la aplicación ha entendido sobre ti; tu diario no se toca.",
+      "erase": "Borrar mi perfil",
+      "eraseTitle": "¿Borrar tu perfil de crecimiento?",
+      "eraseBody": "Se borrará lo que le contaste a la aplicación sobre ti, tus respuestas de la mirada interior y su historial, y la reflexión que la aplicación escribió sobre ti. Se conservan las entradas de tu diario, tus estudios y tus planes de crecimiento. Esto no se puede deshacer.",
+      "eraseConfirm": "Borrar mi perfil",
+      "erased": "Se borró tu perfil de crecimiento.",
+      "eraseFailed": "No se pudo borrar tu perfil.",
+      "auditLink": "Ver el registro de decisiones",
+      "helpLink": "Cómo funcionan los estudios y el perfil"
+    }
+  },
+  "growth": {
+    "title": "Planes de crecimiento",
+    "intro": "Un plan de crecimiento es una cualidad de Cristo en la que eliges crecer, con algunas metas a corto y a largo plazo para practicarla. Una revisión periódica y los estudios que completas muestran cómo va.",
+    "optional": "(opcional)",
+    "percent": "{{percent}} %",
+    "checkInDue": "Revisión pendiente",
+    "status": {
+      "active": "Activo",
+      "paused": "En pausa",
+      "completed": "Completado"
+    },
+    "scale": {
+      "option": "{{value}} de 5",
+      "clear": "Quitar",
+      "value": "{{value}} de {{max}}",
+      "notAnswered": "Sin responder"
+    },
+    "ai": {
+      "whereLocal": "La IA funciona en tu propia red ({{engine}}), así que esto no sale de ella.",
+      "whereCloud": "La IA es un servicio en la nube ({{engine}}), así que esto se le envía.",
+      "whereUnknown": "De esto se encarga el proveedor de IA elegido en Ajustes.",
+      "unknownEngine": "IA"
+    },
+    "list": {
+      "title": "Tus planes",
+      "startAnother": "Comenzar otro plan",
+      "failed": "No se pudieron cargar tus planes de crecimiento",
+      "emptyTitle": "Todavía no has comenzado un plan de crecimiento",
+      "emptyBody": "Elige una cualidad abajo. Con una basta: es más fácil crecer en una cosa a la vez.",
+      "fromProfile": "En tu perfil dijiste que quieres crecer en:",
+      "chooseNamed": "Comenzar un plan para {{trait}}",
+      "open": "Abrir el plan",
+      "openNamed": "Abrir el plan para {{trait}}"
+    },
+    "start": {
+      "title": "Comenzar un plan",
+      "intro": "Elige una cualidad. El plan incluye metas, pasajes de la Escritura y estudios para ella.",
+      "chooseTrait": "Elige una cualidad",
+      "chooseTraitHint": "Elige la que más te importa en este momento.",
+      "noTrait": "Selecciona una cualidad para ver qué significa.",
+      "alreadyActive": "Ya tienes un plan activo para {{trait}}.",
+      "openExisting": "Abrir ese plan",
+      "why": "¿Por qué es importante esto para ti?",
+      "whyHint": "Una o dos frases con tus propias palabras. Las verás al inicio de tu plan.",
+      "baseline": "¿Dónde estás hoy?",
+      "baselineHint": "1 significa «casi nunca es cierto en mí» y 5 significa «es cierto en mí casi todos los días». Este es tu punto de partida.",
+      "personalize": "Adaptar las metas a mí con IA",
+      "personalizeHint": "Si marcas esta opción, la cualidad, lo que escribas aquí y tu perfil de crecimiento se le entregan a la IA para que las metas se ajusten a tu vida. Si la IA no se puede usar, recibirás el plan estándar.",
+      "personalizing": "Escribiendo metas para ti. Puede tardar hasta uno o dos minutos…",
+      "submit": "Comenzar este plan",
+      "submitNamed": "Comenzar mi plan para {{trait}}",
+      "failed": "No se pudo comenzar el plan",
+      "catalogFailed": "No se pudo cargar la lista de cualidades"
+    },
+    "plan": {
+      "back": "Todos los planes de crecimiento",
+      "why": "Por qué es importante para ti",
+      "editWhy": "Editar por qué es importante para ti",
+      "addWhy": "Agregar",
+      "noWhy": "Todavía no has escrito una razón.",
+      "whyFailed": "No se pudo guardar tu razón.",
+      "actions": "Acciones del plan",
+      "pause": "Pausar",
+      "resume": "Reanudar",
+      "complete": "Marcar como completado",
+      "reopen": "Reabrir el plan",
+      "statusFailed": "No se pudo actualizar el plan.",
+      "statusChanged": {
+        "active": "El plan está activo de nuevo.",
+        "paused": "El plan está en pausa.",
+        "completed": "El plan quedó marcado como completado."
+      },
+      "deleteTitle": "¿Eliminar este plan de crecimiento?",
+      "deleteBody": "Se eliminará tu plan para {{trait}}, con sus metas y revisiones. Se conservan tus estudios y las entradas de tu diario. Esto no se puede deshacer.",
+      "deleteConfirm": "Eliminar el plan",
+      "deleted": "Se eliminó el plan.",
+      "deleteFailed": "No se pudo eliminar el plan.",
+      "loadFailed": "No se pudo cargar este plan",
+      "notFoundTitle": "No se encontró el plan",
+      "notFoundBody": "Este plan de crecimiento ya no existe. Es posible que se haya eliminado.",
+      "openInBible": "Abrir {{reference}} en la Biblia",
+      "personalizeErrorTitle": "No se pudieron adaptar las metas con IA, así que se usó el plan estándar",
+      "goalSourceAi": "Metas escritas por la IA para ti.",
+      "goalSourceCatalog": "Metas del plan estándar."
+    },
+    "progress": {
+      "title": "Estado del progreso",
+      "time": "Tiempo",
+      "day": "Día {{day}} de {{total}}",
+      "rating": "Tu propia valoración",
+      "ratingFromTo": "De {{from}} a {{to}}",
+      "ratingStart": "Comenzaste en {{rating}}",
+      "ratingNow": "Ahora {{rating}}",
+      "ratingNone": "Aún sin valorar",
+      "goals": "Metas",
+      "goalsValue": "{{done}} de {{total}} cumplidas",
+      "lessons": "Lecciones completadas",
+      "dates": "Comenzó el {{start}} · meta: {{target}}"
+    },
+    "scripture": {
+      "title": "En la Escritura",
+      "jesus": "Cómo lo mostró Jesús"
+    },
+    "goals": {
+      "shortTitle": "Metas a corto plazo",
+      "shortHint": "Cosas pequeñas para practicar en los próximos días y semanas.",
+      "longTitle": "Metas a largo plazo",
+      "longHint": "Lo que vas construyendo a lo largo de los próximos meses.",
+      "groupPercent": "{{percent}} % cumplido",
+      "empty": "Todavía no hay metas aquí.",
+      "noneActive": "No hay nada pendiente aquí por ahora.",
+      "finished": "Cumplidas u omitidas ({{count}})",
+      "kind": {
+        "practice": "Práctica",
+        "study": "Estudio",
+        "reflection": "Reflexión",
+        "prayer": "Oración"
+      },
+      "status": {
+        "active": "Activa",
+        "done": "Cumplida",
+        "skipped": "Omitida"
+      },
+      "overdue": "Atrasada",
+      "progressLabel": "Avance",
+      "count": "{{done}} / {{total}}",
+      "due": "Para el {{date}}",
+      "wasDue": "Era para el {{date}}",
+      "auto": "Se cuenta automáticamente a medida que completas lecciones.",
+      "addOne": "+1",
+      "addOneNamed": "Sumar una vez a «{{title}}»",
+      "doneNamed": "Marcar «{{title}}» como cumplida",
+      "skipNamed": "Omitir «{{title}}»",
+      "editNamed": "Editar «{{title}}»",
+      "reopen": "Reabrir",
+      "reopenNamed": "Reabrir «{{title}}»",
+      "remove": "Quitar",
+      "removeNamed": "Quitar «{{title}}»",
+      "removeTitle": "¿Quitar esta meta?",
+      "removeBody": "«{{title}}» y su avance se quitarán de este plan.",
+      "updateFailed": "No se pudo actualizar la meta.",
+      "removeFailed": "No se pudo quitar la meta.",
+      "add": "Agregar una meta",
+      "addSubmit": "Agregar meta",
+      "addFailed": "No se pudo agregar la meta.",
+      "titleLabel": "Meta",
+      "titlePlaceholder": "Por ejemplo: darle las gracias a una persona cada día",
+      "horizonLabel": "Tipo de meta",
+      "horizon": {
+        "short": "A corto plazo",
+        "long": "A largo plazo"
+      },
+      "targetLabel": "¿Cuántas veces?",
+      "daysLabel": "¿En cuántos días?"
+    },
+    "checkIns": {
+      "title": "Revisiones",
+      "checkInNow": "Hacer una revisión ahora",
+      "dueIntro": "Es momento de una revisión. Tómate un minuto para ver cómo va esto.",
+      "ratingLabel": "¿Qué tan cierto es esto en ti esta semana?",
+      "ratingHint": "1 significa «casi nada» y 5 significa «mucho».",
+      "noteLabel": "¿Hay algo que quieras recordar?",
+      "save": "Guardar la revisión",
+      "saved": "Se guardó la revisión.",
+      "failed": "No se pudo guardar la revisión.",
+      "history": "Revisiones anteriores",
+      "empty": "Todavía no hay revisiones."
+    },
+    "studies": {
+      "title": "Estudios que desarrollan esta cualidad",
+      "hint": "Las lecciones que completes en estos estudios cuentan para este plan."
+    },
+    "topic": {
+      "lessons_one": "{{count}} lección",
+      "lessons_other": "{{count}} lecciones",
+      "progress": "{{done}} de {{total}} lecciones completadas",
+      "completed": "Completado",
+      "sensitive": "Un tema delicado",
+      "start": "Comenzar este estudio",
+      "startNamed": "Comenzar el estudio «{{title}}»",
+      "continue": "Continuar",
+      "continueNamed": "Continuar el estudio «{{title}}»",
+      "review": "Repasar",
+      "reviewNamed": "Repasar el estudio «{{title}}»",
+      "startFailed": "No se pudo comenzar el estudio."
+    }
   }
 }

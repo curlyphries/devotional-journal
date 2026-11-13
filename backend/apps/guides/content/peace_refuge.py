@@ -15,10 +15,30 @@ TOPICS = [
             "la preocupación a Dios y recibir una paz que no depende de que todo se arregle.",
         ),
         "keywords": [
-            "anxi", "worr", "stress", "overwhelm", "panic", "nervous", "restless",
-            "ansie", "preocup", "estrés", "agobi", "nervios", "angusti", "inquiet",
+            "anxi",
+            "worr",
+            "stress",
+            "overwhelm",
+            "panic",
+            "nervous",
+            "restless",
+            "ansie",
+            "preocup",
+            "estrés",
+            "agobi",
+            "nervios",
+            "angusti",
+            "inquiet",
         ],
-        "situations": ["working", "parent", "single_parent", "caregiver", "student", "job_seeking", "moving"],
+        "situations": [
+            "working",
+            "parent",
+            "single_parent",
+            "caregiver",
+            "student",
+            "job_seeking",
+            "moving",
+        ],
         "traits": ["peace", "trust", "prayerfulness"],
         "stages": ["child", "teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -195,7 +215,10 @@ TOPICS = [
             {
                 "key": "anxiety-4",
                 "ref": "Psalm 94:18-19",
-                "title": L("When the worries multiply", "Cuando las preocupaciones se multiplican"),
+                "title": L(
+                    "When the worries multiply",
+                    "Cuando las preocupaciones se multiplican",
+                ),
                 "truth": L(
                     "The writer hides nothing: his foot was slipping and his anxious thoughts were many. He "
                     "does not say the thoughts stopped. He says that in the middle of them God's faithful love "
@@ -224,8 +247,8 @@ TOPICS = [
                 "do": L(
                     "Write down one time you were held when you thought you would fall, and keep it where "
                     "you will see it. And if anxiety is keeping you from sleeping, eating or getting through "
-                    "your days, tell a doctor or counselor. Asking for help is one of the ways people are "
-                    "held up.",
+                    "your days, tell a doctor or counselor. Asking for help is one of the ways God holds "
+                    "people up.",
                     "Escribe una ocasión en que algo te sostuvo cuando creías que ibas a caer, y guárdala "
                     "donde la veas. Y si la ansiedad no te deja dormir, comer o sacar adelante tus días, "
                     "cuéntaselo a un médico o consejero. Pedir ayuda es una de las formas en que Dios "
@@ -252,13 +275,13 @@ TOPICS = [
                     "Jesus says this the night before his arrest, when his friends' world is about to come "
                     "apart. He does not promise them calm circumstances. He gives them his own peace and says "
                     "it is unlike the kind the world gives. The world's peace arrives when problems leave. "
-                    "His comes with his presence, through the Spirit who will stay with them and remind them "
-                    "of his words. Troubled hearts are told not to be afraid because they will not be left alone.",
+                    "His comes with his presence, through the Spirit the Father will send to teach them and "
+                    "remind them of his words. Troubled hearts are told not to be afraid because they will not be left alone.",
                     "Jesús dice esto la noche antes de su arresto, cuando el mundo de sus amigos está por "
                     "derrumbarse. No les promete circunstancias tranquilas. Les da su propia paz y dice que no "
                     "se parece a la que da el mundo. La paz del mundo llega cuando los problemas se van. La "
-                    "suya llega con su presencia, por medio del Espíritu que se quedará con ellos y les "
-                    "recordará sus palabras. Al corazón angustiado se le dice que no tema porque no lo "
+                    "suya llega con su presencia, por medio del Espíritu que el Padre enviará para enseñarles "
+                    "y recordarles sus palabras. Al corazón angustiado se le dice que no tema porque no lo "
                     "dejarán solo.",
                 ),
                 "simple": L(
@@ -307,10 +330,30 @@ TOPICS = [
             "Dios que no avergüenza a quien tiene miedo, sino que se queda a su lado.",
         ),
         "keywords": [
-            "fear", "afraid", "scared", "terrif", "dread", "frighten", "nightmare",
-            "miedo", "temor", "asust", "pánico", "pesadilla", "terror", "atemoriz",
+            "fear",
+            "afraid",
+            "scared",
+            "terrif",
+            "dread",
+            "frighten",
+            "nightmare",
+            "miedo",
+            "temor",
+            "asust",
+            "pánico",
+            "pesadilla",
+            "terror",
+            "atemoriz",
         ],
-        "situations": ["parent", "single_parent", "ill", "military", "moving", "job_seeking", "caregiver"],
+        "situations": [
+            "parent",
+            "single_parent",
+            "ill",
+            "military",
+            "moving",
+            "job_seeking",
+            "caregiver",
+        ],
         "traits": ["courage", "trust", "peace"],
         "stages": ["child", "teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -566,7 +609,7 @@ TOPICS = [
                 ),
                 "kid_do": L(
                     "Draw a big heart and write your name inside it. That is you, inside God's love.",
-                    "Dibuja un corazón grande y escribe tu nombre adentro. Ese eres tú, dentro del amor de Dios.",
+                    "Dibuja un corazón grande y escribe tu nombre adentro. Ahí estás tú, dentro del amor de Dios.",
                 ),
                 "pray": L(
                     "God, I am afraid of losing … Thank you that whatever comes, nothing can pull me out of "
@@ -588,10 +631,32 @@ TOPICS = [
             "sobre el descanso como regalo de Dios, no como premio por terminarlo todo.",
         ),
         "keywords": [
-            "tired", "exhaust", "weary", "burnout", "burned out", "worn out", "overwork", "drained",
-            "insomni", "sabbath", "cansa", "agota", "descans", "fatiga", "rendid", "sin fuerzas",
+            "tired",
+            "exhaust",
+            "weary",
+            "burnout",
+            "burned out",
+            "worn out",
+            "overwork",
+            "drained",
+            "insomni",
+            "sabbath",
+            "cansa",
+            "agota",
+            "descans",
+            "fatiga",
+            "rendid",
+            "sin fuerzas",
         ],
-        "situations": ["working", "parent", "single_parent", "caregiver", "leader", "student", "military"],
+        "situations": [
+            "working",
+            "parent",
+            "single_parent",
+            "caregiver",
+            "leader",
+            "student",
+            "military",
+        ],
         "traits": ["peace", "trust", "humility"],
         "stages": ["teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -666,7 +731,10 @@ TOPICS = [
             {
                 "key": "rest-2",
                 "ref": "Genesis 2:1-3",
-                "title": L("Rest was there from the beginning", "El descanso estuvo desde el principio"),
+                "title": L(
+                    "Rest was there from the beginning",
+                    "El descanso estuvo desde el principio",
+                ),
                 "truth": L(
                     "When the work of creation was finished, God rested, and he blessed that day and set it "
                     "apart. God was not exhausted. He was building rest into the shape of the world, as "
@@ -715,7 +783,9 @@ TOPICS = [
             {
                 "key": "rest-3",
                 "ref": "Psalm 127:1-2",
-                "title": L("You are not holding it all up", "No lo estás sosteniendo todo tú"),
+                "title": L(
+                    "You are not holding it all up", "No lo estás sosteniendo todo tú"
+                ),
                 "truth": L(
                     "This psalm is not against hard work. It is against working as though everything "
                     "depended on you: getting up early, staying up late, eating your bread with anxiety. "
@@ -760,7 +830,10 @@ TOPICS = [
             {
                 "key": "rest-4",
                 "ref": "Mark 6:30-32",
-                "title": L("Jesus notices when you are spent", "Jesús nota cuando ya no puedes más"),
+                "title": L(
+                    "Jesus notices when you are spent",
+                    "Jesús nota cuando ya no puedes más",
+                ),
                 "truth": L(
                     "The disciples come back from serving people and report everything they have done. So "
                     "many are coming and going that they have not even had a chance to eat. Jesus does not "
@@ -823,10 +896,31 @@ TOPICS = [
             "Cuatro lecturas sobre una paz que no espera a tener más.",
         ),
         "keywords": [
-            "content", "envy", "envious", "jealous", "compare", "comparison", "enough", "discontent",
-            "dissatisf", "covet", "envidi", "celos", "insatisf", "suficiente", "comparar", "codici",
+            "content",
+            "envy",
+            "envious",
+            "jealous",
+            "compare",
+            "comparison",
+            "enough",
+            "discontent",
+            "dissatisf",
+            "covet",
+            "envidi",
+            "celos",
+            "insatisf",
+            "suficiente",
+            "comparar",
+            "codici",
         ],
-        "situations": ["single", "working", "job_seeking", "student", "retired", "parent"],
+        "situations": [
+            "single",
+            "working",
+            "job_seeking",
+            "student",
+            "retired",
+            "parent",
+        ],
         "traits": ["contentment", "gratitude", "trust"],
         "stages": ["teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -899,7 +993,9 @@ TOPICS = [
             {
                 "key": "contentment-2",
                 "ref": "Luke 12:15-21",
-                "title": L("More is not the same as life", "Tener más no es lo mismo que vivir"),
+                "title": L(
+                    "More is not the same as life", "Tener más no es lo mismo que vivir"
+                ),
                 "truth": L(
                     "Jesus warns that a person's life is not made of how much they own, and tells of a "
                     "farmer with a harvest too big for his barns. The harvest is not the problem. The "
@@ -942,7 +1038,7 @@ TOPICS = [
                 "pray": L(
                     "God, I keep thinking that a little more will be enough. Make me rich toward you, and "
                     "open my hands.",
-                    "Dios, sigo pensando que con un poco más será suficiente. Hazme rico delante de ti, y "
+                    "Dios, sigo pensando que con un poco más será suficiente. Enriquéceme delante de ti, y "
                     "abre mis manos.",
                 ),
             },
@@ -1000,18 +1096,20 @@ TOPICS = [
             {
                 "key": "contentment-4",
                 "ref": "Hebrews 13:5-6",
-                "title": L("Enough, because of who stays", "Suficiente, por quien se queda"),
+                "title": L(
+                    "Enough, because of who stays", "Suficiente, por quien se queda"
+                ),
                 "truth": L(
                     "The writer says to keep free from the love of money and to be content with what you "
                     "have, and then gives the reason: God has promised never to leave you or abandon you. "
                     "Contentment is not pretending you need nothing. It is knowing that the one thing you "
-                    "most need cannot be taken away. That is why the passage ends with courage: the Lord "
-                    "is my helper, so I do not have to be afraid.",
+                    "most need cannot be taken away. That is why the passage ends with courage: with the "
+                    "Lord as your helper, you do not have to be afraid.",
                     "El autor dice que vivamos libres del amor al dinero y contentos con lo que tenemos, y "
                     "luego da la razón: Dios ha prometido que nunca te dejará ni te abandonará. El "
                     "contentamiento no es fingir que no necesitas nada. Es saber que lo que más necesitas "
-                    "no te lo pueden quitar. Por eso el pasaje termina con valentía: el Señor es quien me "
-                    "ayuda, así que no tengo por qué temer.",
+                    "no te lo pueden quitar. Por eso el pasaje termina con valentía: con el Señor de tu "
+                    "lado para ayudarte, no tienes por qué temer.",
                 ),
                 "simple": L(
                     "God promises never to leave you. That is better than having any thing.",
@@ -1055,8 +1153,19 @@ TOPICS = [
             "lecturas sobre el agradecimiento como hábito del corazón, no como sonrisa forzada.",
         ),
         "keywords": [
-            "thank", "grateful", "gratitud", "bless", "appreciat", "ungrateful", "complain",
-            "gracias", "agradec", "bendic", "ingrat", "quej", "valorar",
+            "thank",
+            "grateful",
+            "gratitud",
+            "bless",
+            "appreciat",
+            "ungrateful",
+            "complain",
+            "gracias",
+            "agradec",
+            "bendic",
+            "ingrat",
+            "quej",
+            "valorar",
         ],
         "situations": [],
         "traits": ["gratitude", "joy", "contentment"],
@@ -1102,10 +1211,10 @@ TOPICS = [
                     "se lo dio. La gratitud es ese volver: notar de dónde vino lo bueno, y decirlo.",
                 ),
                 "simple": L(
-                    "Jesus helped ten men, and only one came back to say thank you. Jesus was glad he did. "
+                    "Jesus helped ten men, and only one came back to say thank you. Jesus noticed. "
                     "We can be like the one who came back.",
-                    "Jesús ayudó a diez hombres, y solo uno regresó a dar las gracias. A Jesús le alegró "
-                    "que volviera. Nosotros podemos ser como el que regresó.",
+                    "Jesús ayudó a diez hombres, y solo uno regresó a dar las gracias. Jesús lo notó. "
+                    "Nosotros podemos ser como el que regresó.",
                 ),
                 "ask": L(
                     "What good thing have you received lately and simply walked on from? Who do you need "
@@ -1137,7 +1246,9 @@ TOPICS = [
             {
                 "key": "gratitude-2",
                 "ref": "Psalm 103:1-5",
-                "title": L("Telling your soul to remember", "Decirle a tu alma que recuerde"),
+                "title": L(
+                    "Telling your soul to remember", "Decirle a tu alma que recuerde"
+                ),
                 "truth": L(
                     "David is not talking to God here. He is talking to himself. He tells his own soul to "
                     "praise the Lord and not to forget what God has done, and then he begins a list: "
@@ -1185,18 +1296,20 @@ TOPICS = [
             {
                 "key": "gratitude-3",
                 "ref": "Deuteronomy 8:10-14",
-                "title": L("The danger of a full table", "El peligro de una mesa llena"),
+                "title": L(
+                    "The danger of a full table", "El peligro de una mesa llena"
+                ),
                 "truth": L(
                     "Moses is preparing people who have known hunger to enter a good land. His warning is "
                     "surprising: the risky moment is not the hard time but the comfortable one. When you "
                     "have eaten your fill, built good houses and watched everything you own grow, the "
-                    "heart becomes proud and forgets the God who brought you out. So he tells them that "
+                    "heart becomes proud and forgets the God who brought you out of slavery. So he says that "
                     "when they are full, they are to bless the Lord. Thanks keeps a full life from "
                     "becoming a forgetful one.",
                     "Moisés prepara a un pueblo que ha conocido el hambre para entrar a una buena tierra. "
                     "Su advertencia sorprende: el momento de riesgo no es el tiempo difícil sino el cómodo. "
                     "Cuando has comido hasta saciarte, has construido buenas casas y has visto crecer todo "
-                    "lo que tienes, el corazón se vuelve orgulloso y olvida al Dios que te sacó adelante. "
+                    "lo que tienes, el corazón se vuelve orgulloso y olvida al Dios que te sacó de la esclavitud. "
                     "Por eso les dice que, cuando estén satisfechos, bendigan al Señor. Dar gracias evita "
                     "que una vida llena se vuelva una vida olvidadiza.",
                 ),
@@ -1296,10 +1409,32 @@ TOPICS = [
             "oraciones sin respuesta, sinceras sobre el silencio y sobre el Dios que sigue ahí.",
         ),
         "keywords": [
-            "wait", "unanswered", "delay", "stuck", "how long", "impatien", "silence", "nothing changes",
-            "esper", "sin respuesta", "demora", "estanc", "hasta cuándo", "impacien", "silencio", "nada cambia",
+            "wait",
+            "unanswered",
+            "delay",
+            "stuck",
+            "how long",
+            "impatien",
+            "silence",
+            "nothing changes",
+            "esper",
+            "sin respuesta",
+            "demora",
+            "estanc",
+            "hasta cuándo",
+            "impacien",
+            "silencio",
+            "nada cambia",
         ],
-        "situations": ["single", "job_seeking", "ill", "caregiver", "moving", "exploring", "parent"],
+        "situations": [
+            "single",
+            "job_seeking",
+            "ill",
+            "caregiver",
+            "moving",
+            "exploring",
+            "parent",
+        ],
         "traits": ["patience", "trust", "perseverance"],
         "stages": ["teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -1418,7 +1553,10 @@ TOPICS = [
             {
                 "key": "waiting-3",
                 "ref": "Mark 14:32-36",
-                "title": L("When the answer is not what you asked", "Cuando la respuesta no es lo que pediste"),
+                "title": L(
+                    "When the answer is not what you asked",
+                    "Cuando la respuesta no es lo que pediste",
+                ),
                 "truth": L(
                     "The night before the cross, Jesus is overwhelmed with sorrow. He calls God by the "
                     "close family word for father and asks that the suffering ahead be taken away. Then he "
@@ -1471,7 +1609,10 @@ TOPICS = [
             {
                 "key": "waiting-4",
                 "ref": "Lamentations 3:22-26",
-                "title": L("Enough mercy for this morning", "Misericordia suficiente para esta mañana"),
+                "title": L(
+                    "Enough mercy for this morning",
+                    "Misericordia suficiente para esta mañana",
+                ),
                 "truth": L(
                     "These lines were written in the ruins of a destroyed city, in the middle of a book of "
                     "grief. Right there, the writer calls something to mind: the Lord's faithful love has "
@@ -1580,10 +1721,34 @@ TOPICS = [
             "sobre Dios como un refugio al que puedes correr, tal como estás, a cualquier hora.",
         ),
         "keywords": [
-            "refuge", "safe", "shelter", "unstable", "chaos", "protect", "insecur", "crisis", "unsafe",
-            "refugi", "seguridad", "a salvo", "protec", "proteg", "inestab", "caos", "amparo", "insegur",
+            "refuge",
+            "safe",
+            "shelter",
+            "unstable",
+            "chaos",
+            "protect",
+            "insecur",
+            "crisis",
+            "unsafe",
+            "refugi",
+            "seguridad",
+            "a salvo",
+            "protec",
+            "proteg",
+            "inestab",
+            "caos",
+            "amparo",
+            "insegur",
         ],
-        "situations": ["moving", "single_parent", "divorced", "military", "job_seeking", "caregiver", "ill"],
+        "situations": [
+            "moving",
+            "single_parent",
+            "divorced",
+            "military",
+            "job_seeking",
+            "caregiver",
+            "ill",
+        ],
         "traits": ["trust", "peace", "courage"],
         "stages": ["child", "teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -1639,7 +1804,7 @@ TOPICS = [
                 ),
                 "kid_ask": L(
                     "Where is a place you feel safe?",
-                    "¿En qué lugar sientes que nada malo te va a pasar?",
+                    "¿En qué lugar te sientes a salvo?",
                 ),
                 "do": L(
                     "Notice the first thing you reach for when you are afraid this week: your phone, food, "
@@ -1663,7 +1828,9 @@ TOPICS = [
             {
                 "key": "refuge-2",
                 "ref": "Psalm 62:5-8",
-                "title": L("A place to pour it all out", "Un lugar para vaciar el corazón"),
+                "title": L(
+                    "A place to pour it all out", "Un lugar para vaciar el corazón"
+                ),
                 "truth": L(
                     "David tells his own soul to find its rest in God alone, his rock and his fortress. "
                     "Then he turns to everyone else with an invitation: trust God at all times, and pour "
@@ -1673,7 +1840,7 @@ TOPICS = [
                     "David le dice a su propia alma que halle su descanso solo en Dios, su roca y su "
                     "fortaleza. Luego se vuelve hacia todos los demás con una invitación: confíen en Dios "
                     "en todo momento y derramen su corazón delante de él. Un refugio no es un lugar donde "
-                    "tengas que mantenerte entero. Es el lugar donde por fin puedes dejar de hacerlo. Nada "
+                    "tengas que aguantar sin quebrarte. Es el lugar donde por fin puedes dejar de hacerlo. Nada "
                     "de lo que derrames allí, miedo, enojo, confusión, será demasiado para él.",
                 ),
                 "simple": L(
@@ -1712,7 +1879,10 @@ TOPICS = [
             {
                 "key": "refuge-3",
                 "ref": "Matthew 7:24-27",
-                "title": L("The storm comes to both houses", "La tormenta llega a las dos casas"),
+                "title": L(
+                    "The storm comes to both houses",
+                    "La tormenta llega a las dos casas",
+                ),
                 "truth": L(
                     "Jesus describes two builders. Rain, floods and wind hit both of their houses; following "
                     "Jesus does not keep the storm away. The difference is underneath. One house rests on "
@@ -1762,7 +1932,9 @@ TOPICS = [
             {
                 "key": "refuge-4",
                 "ref": "Psalm 121:1-8",
-                "title": L("The one who watches does not sleep", "Quien te cuida no duerme"),
+                "title": L(
+                    "The one who watches does not sleep", "Quien te cuida no duerme"
+                ),
                 "truth": L(
                     "A traveler looks up at the hills ahead and asks where help will come from. The answer "
                     "is not the hills but the Lord who made them. Six times the psalm says that God keeps "
@@ -1819,10 +1991,34 @@ TOPICS = [
             "dolor, sino mostrar a un Dios que no te culpa, escucha tus preguntas y se queda contigo.",
         ),
         "keywords": [
-            "suffer", "hardship", "hurting", "painful", "trial", "afflict", "tragedy", "why god", "unfair",
-            "sufr", "dolor", "prueba", "duele", "aflic", "tragedia", "adversi", "injust", "por qué dios",
+            "suffer",
+            "hardship",
+            "hurting",
+            "painful",
+            "trial",
+            "afflict",
+            "tragedy",
+            "why god",
+            "unfair",
+            "sufr",
+            "dolor",
+            "prueba",
+            "duele",
+            "aflic",
+            "tragedia",
+            "adversi",
+            "injust",
+            "por qué dios",
         ],
-        "situations": ["ill", "grieving", "caregiver", "divorced", "widowed", "job_seeking", "single_parent"],
+        "situations": [
+            "ill",
+            "grieving",
+            "caregiver",
+            "divorced",
+            "widowed",
+            "job_seeking",
+            "single_parent",
+        ],
         "traits": ["perseverance", "hope", "trust"],
         "stages": ["teen", "young_adult", "adult", "senior"],
         "stage_notes": {
@@ -1900,7 +2096,9 @@ TOPICS = [
             {
                 "key": "suffering-2",
                 "ref": "Psalm 22:1-5",
-                "title": L("You are allowed to ask why", "Tienes permiso de preguntar por qué"),
+                "title": L(
+                    "You are allowed to ask why", "Tienes permiso de preguntar por qué"
+                ),
                 "truth": L(
                     "David cries out that God has abandoned him. He prays day and night and hears nothing. "
                     "Even so he still says my God, and he reminds himself that those who came before him "
@@ -1964,7 +2162,7 @@ TOPICS = [
                 "simple": L(
                     "God knows your name, and you belong to him. When hard things come, God goes through "
                     "them with you.",
-                    "Dios sabe tu nombre, y tú eres suyo. Cuando llegan cosas difíciles, Dios las "
+                    "Dios sabe tu nombre, y tú le perteneces. Cuando llegan cosas difíciles, Dios las "
                     "atraviesa contigo.",
                 ),
                 "ask": L(
@@ -1981,7 +2179,7 @@ TOPICS = [
                     "You were not meant to go through this without people either. This week tell one "
                     "trusted person what you are really facing: a friend, a pastor, or a doctor or "
                     "counselor if the strain is affecting your health or your sleep.",
-                    "Tampoco fuiste hecho para atravesar esto sin gente a tu lado. Esta semana cuéntale a "
+                    "Esto tampoco se atraviesa sin gente a tu lado. Esta semana cuéntale a "
                     "una persona de confianza lo que de verdad enfrentas: un amigo, un pastor, o un médico "
                     "o consejero si la carga está afectando tu salud o tu sueño.",
                 ),
@@ -1992,14 +2190,17 @@ TOPICS = [
                 "pray": L(
                     "God, you call me by name and say I am yours. The water is deep. Do not let it sweep "
                     "me away. Walk through it with me.",
-                    "Dios, tú me llamas por mi nombre y dices que soy tuyo. El agua está honda. No dejes "
+                    "Dios, tú me llamas por mi nombre y dices que te pertenezco. El agua está honda. No dejes "
                     "que me arrastre. Atraviésala conmigo.",
                 ),
             },
             {
                 "key": "suffering-4",
                 "ref": "Hebrews 4:14-16",
-                "title": L("A God who knows from the inside", "Un Dios que lo sabe desde adentro"),
+                "title": L(
+                    "A God who knows from the inside",
+                    "Un Dios que lo sabe desde adentro",
+                ),
                 "truth": L(
                     "A high priest was the person who stood before God on behalf of the people. This "
                     "passage says Jesus is that for us, and that he is not out of touch with what we go "
@@ -2051,7 +2252,9 @@ TOPICS = [
             {
                 "key": "suffering-5",
                 "ref": "2 Corinthians 1:3-7",
-                "title": L("Comfort that gets passed on", "Un consuelo que se comparte"),
+                "title": L(
+                    "Comfort that gets passed on", "Un consuelo que se comparte"
+                ),
                 "truth": L(
                     "Paul calls God the Father of compassion and the God of all comfort, who comes "
                     "alongside us in every trouble. Then he notices what comfort does: once received, it "
@@ -2102,5 +2305,1274 @@ TOPICS = [
             },
         ],
     },
-    # @@NEXT@@
+    {
+        "key": "grief",
+        "category": "refuge",
+        "title": L("Grief and loss", "Duelo y pérdida"),
+        "summary": L(
+            "For when someone or something you love is gone. Five gentle readings that make room for "
+            "tears, set no timetable, and stay close to the God who is near the brokenhearted.",
+            "Para cuando alguien o algo que amas ya no está. Cinco lecturas suaves que dan lugar a las "
+            "lágrimas, no ponen plazos y se quedan cerca del Dios que acompaña a quien tiene el corazón roto.",
+        ),
+        "keywords": [
+            "grief",
+            "griev",
+            "mourn",
+            "loss",
+            "died",
+            "death",
+            "funeral",
+            "bereave",
+            "widow",
+            "passed away",
+            "duelo",
+            "luto",
+            "pérdida",
+            "murió",
+            "falleci",
+            "muerte",
+            "funeral",
+            "viud",
+            "velorio",
+        ],
+        "situations": [
+            "grieving",
+            "widowed",
+            "divorced",
+            "caregiver",
+            "grandparent",
+            "parent",
+        ],
+        "traits": ["hope", "compassion", "trust"],
+        "stages": ["child", "teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "child": L(
+                "When someone you love has died or gone away, it is okay to feel sad and to cry. Jesus stays close to you.",
+                "Cuando alguien que amas murió o se fue, está bien sentir tristeza y llorar. Jesús se queda cerca de ti.",
+            ),
+            "teen": L(
+                "Losing someone at your age can feel like nobody around you understands. You do not have to hide it or hurry it.",
+                "Perder a alguien a tu edad puede sentirse como si nadie a tu alrededor entendiera. No tienes que esconderlo ni apurarlo.",
+            ),
+            "young_adult": L(
+                "For losses that came early: a parent, a friend, a relationship, a future you had pictured.",
+                "Para pérdidas que llegaron temprano: un padre o una madre, un amigo, una relación, un futuro que habías imaginado.",
+            ),
+            "adult": L(
+                "For grieving while everyone still needs you to keep going. Here you may stop and mourn.",
+                "Para vivir un duelo mientras todos necesitan que sigas adelante. Aquí puedes detenerte y llorar.",
+            ),
+            "senior": L(
+                "For the losses that gather with the years: a spouse, friends, brothers and sisters. Each one is known to God.",
+                "Para las pérdidas que se juntan con los años: tu cónyuge, amigos, hermanos. Dios conoce cada una.",
+            ),
+        },
+        "sensitive": True,
+        "lessons": [
+            {
+                "key": "grief-1",
+                "ref": "John 11:32-36",
+                "title": L("Jesus cried too", "Jesús también lloró"),
+                "truth": L(
+                    "Mary falls at Jesus's feet and says what grieving people often think: if you had been "
+                    "here, this would not have happened. Jesus does not correct her. He sees her tears, is "
+                    "deeply moved, and weeps. He did this knowing he was about to raise Lazarus. So tears "
+                    "are not a lack of faith, and hope does not cancel sorrow. The people watching "
+                    "understood: his tears showed how much he loved.",
+                    "María cae a los pies de Jesús y dice lo que muchas veces piensa quien está de duelo: "
+                    "si hubieras estado aquí, esto no habría pasado. Jesús no la corrige. Ve sus lágrimas, "
+                    "se conmueve profundamente y llora. Lo hizo sabiendo que estaba por resucitar a "
+                    "Lázaro. Así que las lágrimas no son falta de fe, y la esperanza no anula la tristeza. "
+                    "Quienes miraban lo entendieron: sus lágrimas mostraban cuánto amaba.",
+                ),
+                "simple": L(
+                    "When Jesus's friend died, Jesus cried. It is okay to cry when you miss someone. Jesus "
+                    "understands.",
+                    "Cuando murió el amigo de Jesús, Jesús lloró. Está bien llorar cuando extrañas a "
+                    "alguien. Jesús entiende.",
+                ),
+                "ask": L(
+                    "What is your own if only? What does it mean to you that Jesus wept beside the people "
+                    "he loved?",
+                    "¿Cuál es tu propio si tan solo? ¿Qué significa para ti que Jesús haya llorado junto a "
+                    "las personas que amaba?",
+                ),
+                "kid_ask": L(
+                    "Who do you miss? What is something you remember about them?",
+                    "¿A quién extrañas? ¿Qué recuerdas de esa persona?",
+                ),
+                "do": L(
+                    "Let the tears come today if they come. Say the name of the one you lost out loud to "
+                    "God, and tell him one thing you miss.",
+                    "Deja que hoy salgan las lágrimas si llegan. Dile a Dios en voz alta el nombre de "
+                    "quien perdiste, y cuéntale una cosa que extrañas.",
+                ),
+                "kid_do": L(
+                    "Draw a happy memory with the person you miss, and show it to a grown-up.",
+                    "Dibuja un recuerdo feliz con la persona que extrañas, y enséñaselo a un adulto.",
+                ),
+                "pray": L(
+                    "Jesus, you wept at a grave. Weep with me at mine. I miss … so much.",
+                    "Jesús, tú lloraste ante una tumba. Llora conmigo ante la mía. Extraño tanto a …",
+                ),
+            },
+            {
+                "key": "grief-2",
+                "ref": "Matthew 5:4",
+                "title": L(
+                    "No deadline for mourning", "El duelo no tiene fecha límite"
+                ),
+                "truth": L(
+                    "Near the start of his best-known teaching, Jesus names people who mourn and calls "
+                    "them blessed, which means God's favor rests on them. He does not say this because "
+                    "loss is good. He says it because God moves toward those who grieve, with a promise "
+                    "of comfort. Notice what Jesus does not say: that the blessed ones are those who get "
+                    "over it quickly. People around you may want you to be better by now. You are not "
+                    "behind. The comfort is promised to people who are still mourning.",
+                    "Casi al comienzo de su enseñanza más conocida, Jesús nombra a quienes lloran una "
+                    "pérdida y los llama dichosos, es decir, personas sobre las que descansa el favor de "
+                    "Dios. No lo dice porque la pérdida sea buena. Lo dice porque Dios se acerca a quienes "
+                    "están de duelo, con una promesa de consuelo. Fíjate en lo que Jesús no dice: que los "
+                    "dichosos sean quienes lo superan rápido. Quizá la gente a tu alrededor quiera que ya "
+                    "estés mejor. No vas con atraso. El consuelo se promete a quienes todavía lloran.",
+                ),
+                "simple": L(
+                    "Jesus says God takes special care of people who are sad because they miss someone. "
+                    "He promises to comfort them.",
+                    "Jesús dice que Dios cuida de manera especial a quienes sienten tristeza porque "
+                    "extrañan a alguien. Él promete consolarlos.",
+                ),
+                "ask": L(
+                    "Where do you feel pressure, from others or from yourself, to be further along than "
+                    "you are? What comfort, however small, has reached you so far?",
+                    "¿Dónde sientes presión, de otros o tuya, para ir más adelante de donde estás? ¿Qué "
+                    "consuelo, por pequeño que sea, te ha llegado hasta ahora?",
+                ),
+                "kid_ask": L(
+                    "How are you feeling today: sad, happy, or all mixed up?",
+                    "¿Cómo te sientes hoy: con tristeza, con alegría, o con todo revuelto?",
+                ),
+                "do": L(
+                    "Tell one person where you really are today, without softening it. And if for weeks "
+                    "you have hardly been able to eat, sleep or get through the day, or you find yourself "
+                    "wishing you were not alive, talk to a doctor or a grief counselor. That is what they "
+                    "are there for.",
+                    "Dile a una persona dónde estás hoy de verdad, sin suavizarlo. Y si llevas semanas "
+                    "casi sin poder comer, dormir o sacar adelante el día, o te descubres deseando no "
+                    "vivir, habla con un médico o un consejero de duelo. Para eso están.",
+                ),
+                "kid_do": L(
+                    "Draw a face that shows how you feel today, and tell a grown-up why.",
+                    "Dibuja una cara que muestre cómo te sientes hoy, y cuéntale a un adulto por qué.",
+                ),
+                "pray": L(
+                    "God, I am mourning. Help me not to rush it or to be ashamed of it. Comfort me as "
+                    "Jesus promised, for as long as I need.",
+                    "Dios, estoy de duelo. Ayúdame a no apurarlo ni avergonzarme de él. Consuélame como "
+                    "prometió Jesús, todo el tiempo que me haga falta.",
+                ),
+            },
+            {
+                "key": "grief-3",
+                "ref": "Psalm 147:3-5",
+                "title": L(
+                    "He counts the stars and tends the wound",
+                    "Cuenta las estrellas y cura la herida",
+                ),
+                "truth": L(
+                    "In one breath this psalm says God heals the brokenhearted and bandages their wounds. "
+                    "In the next it says he decides the number of the stars and calls each by name. It is "
+                    "the same God: great enough for galaxies and close enough to tend one broken heart. "
+                    "Bandaging is slow, hands-on work. A wound is not erased in a moment. It is cared for, "
+                    "day after day, by someone who does not lose track of you.",
+                    "En un mismo respiro este salmo dice que Dios sana a los que tienen el corazón roto y "
+                    "venda sus heridas. En el siguiente dice que él fija el número de las estrellas y "
+                    "llama a cada una por su nombre. Es el mismo Dios: tan grande como para las galaxias y "
+                    "tan cercano como para atender un solo corazón roto. Vendar es un trabajo lento, hecho "
+                    "con las manos. Una herida no se borra en un instante. Se cuida, día tras día, por "
+                    "alguien que no te pierde de vista.",
+                ),
+                "simple": L(
+                    "God knows every star by name, and he knows you too. He takes gentle care of hearts "
+                    "that hurt.",
+                    "Dios conoce cada estrella por su nombre, y también te conoce a ti. Él cuida con "
+                    "ternura los corazones que duelen.",
+                ),
+                "ask": L(
+                    "Where does your heart feel most broken today? What would it mean to let that place "
+                    "be tended slowly, instead of fixed quickly?",
+                    "¿Dónde sientes hoy más roto el corazón? ¿Qué significaría dejar que ese lugar sea "
+                    "atendido despacio, en vez de arreglado rápido?",
+                ),
+                "kid_ask": L(
+                    "What helps your heart feel a little better when it hurts?",
+                    "¿Qué ayuda a tu corazón a sentirse un poquito mejor cuando duele?",
+                ),
+                "do": L(
+                    "If the sky is clear tonight, step outside and look at the stars for a few minutes. "
+                    "Let the one who names each of them hear the name of the one you grieve.",
+                    "Si esta noche el cielo está despejado, sal y mira las estrellas unos minutos. Deja "
+                    "que quien nombra a cada una escuche el nombre de quien lloras.",
+                ),
+                "kid_do": L(
+                    "Look at the stars tonight, or draw some. Remember that God knows each one, and he "
+                    "knows you.",
+                    "Mira las estrellas esta noche, o dibuja algunas. Recuerda que Dios conoce cada una, "
+                    "y te conoce a ti.",
+                ),
+                "pray": L(
+                    "God, you know the stars by name, and you know mine. My heart is broken. Bind it up, "
+                    "as slowly as it needs.",
+                    "Dios, tú conoces las estrellas por su nombre, y conoces el mío. Tengo el corazón "
+                    "roto. Véndalo, tan despacio como haga falta.",
+                ),
+            },
+            {
+                "key": "grief-4",
+                "ref": "Psalm 23:1-6",
+                "title": L("Through the valley", "Por el valle"),
+                "truth": L(
+                    "Watch what happens in the middle of this psalm. In the green pastures David talks "
+                    "about God: he leads, he restores. In the darkest valley he begins talking to God: "
+                    "you are with me. Grief can make God feel more distant, and yet here it is the place "
+                    "where the shepherd is closest. The valley is something you walk through, not where "
+                    "you live. Goodness and mercy are following behind, even when you cannot see them.",
+                    "Fíjate en lo que pasa a la mitad de este salmo. En los pastos verdes David habla "
+                    "acerca de Dios: él guía, él restaura. En el valle más oscuro empieza a hablarle a "
+                    "Dios: tú estás conmigo. El duelo puede hacer que Dios se sienta más lejos, y sin "
+                    "embargo aquí es el lugar donde el pastor está más cerca. El valle es algo que se "
+                    "atraviesa, no donde se vive. La bondad y la misericordia vienen detrás, aunque no "
+                    "puedas verlas.",
+                ),
+                "simple": L(
+                    "God is like a good shepherd who stays close to his sheep. Even in dark, sad places, "
+                    "he is right beside you.",
+                    "Dios es como un buen pastor que se queda cerca de sus ovejas. Aun en lugares oscuros "
+                    "y tristes, él está a tu lado.",
+                ),
+                "ask": L(
+                    "In this valley, what has helped you sense, even a little, that you are not walking "
+                    "alone?",
+                    "En este valle, ¿qué te ha ayudado a percibir, aunque sea un poco, que no caminas sin "
+                    "compañía?",
+                ),
+                "kid_ask": L(
+                    "What does a shepherd do for his sheep?",
+                    "¿Qué hace un pastor por sus ovejas?",
+                ),
+                "do": L(
+                    "Read this psalm slowly once a day this week, aloud if you can. When you reach the "
+                    "valley, stop and say to God: you are with me. Nothing more is needed.",
+                    "Lee este salmo despacio una vez al día esta semana, en voz alta si puedes. Cuando "
+                    "llegues al valle, detente y dile a Dios: tú estás conmigo. No hace falta más.",
+                ),
+                "kid_do": L(
+                    "Draw a shepherd with a little sheep right beside him. The little sheep is you.",
+                    "Dibuja un pastor con una ovejita a su lado. Esa ovejita eres tú.",
+                ),
+                "pray": L(
+                    "Lord, my shepherd, this valley is dark. I am not asking to understand it. Stay close "
+                    "enough that I know you are here.",
+                    "Señor, mi pastor, este valle está oscuro. No te pido entenderlo. Quédate tan cerca "
+                    "que yo sepa que estás aquí.",
+                ),
+            },
+            {
+                "key": "grief-5",
+                "ref": "Revelation 21:3-5",
+                "title": L("Every tear", "Cada lágrima"),
+                "truth": L(
+                    "This is a picture of where the whole story is going. God makes his home with people. "
+                    "He himself wipes every tear from their eyes. Death, mourning, crying and pain are "
+                    "gone, and everything is made new. This is not a demand that you stop crying now. It "
+                    "is a promise that sorrow is not the last chapter, and that every tear matters enough "
+                    "for God to wipe it away with his own hand.",
+                    "Esta es una imagen de hacia dónde va toda la historia. Dios pone su hogar entre las "
+                    "personas. Él mismo seca cada lágrima de sus ojos. La muerte, el luto, el llanto y el "
+                    "dolor ya no existen, y todo es hecho nuevo. Esto no es una orden de dejar de llorar "
+                    "ahora. Es una promesa de que la tristeza no es el último capítulo, y de que cada "
+                    "lágrima importa tanto que Dios la seca con su propia mano.",
+                ),
+                "simple": L(
+                    "One day God will make everything new, with no more crying and no more hurting. God "
+                    "himself will wipe away every tear.",
+                    "Un día Dios hará todo nuevo, sin más llanto y sin más dolor. Dios mismo secará cada "
+                    "lágrima.",
+                ),
+                "ask": L(
+                    "What do you most long for God to make new? How does it change today to know that "
+                    "grief is not where the story ends?",
+                    "¿Qué es lo que más anhelas que Dios haga nuevo? ¿Cómo cambia el día de hoy saber que "
+                    "el duelo no es donde termina la historia?",
+                ),
+                "kid_ask": L(
+                    "What is something sad that you would like God to make new?",
+                    "¿Qué cosa triste te gustaría que Dios hiciera nueva?",
+                ),
+                "do": L(
+                    "Light a candle or sit by a window for a few minutes today. Name your loss before "
+                    "God, and then name this hope. You do not have to feel it for it to be true.",
+                    "Enciende una vela o siéntate junto a una ventana unos minutos hoy. Nombra tu pérdida "
+                    "delante de Dios, y luego nombra esta esperanza. No tienes que sentirla para que sea "
+                    "verdad.",
+                ),
+                "kid_do": L(
+                    "Pray one sentence: God, thank you that one day you will make everything new.",
+                    "Ora una frase: Dios, gracias porque un día harás todo nuevo.",
+                ),
+                "pray": L(
+                    "God, I am still crying, and you have not asked me to stop. Thank you that a day is "
+                    "coming when you will wipe these tears yourself. Until then, stay with me.",
+                    "Dios, sigo llorando, y tú no me has pedido que pare. Gracias porque viene un día en "
+                    "que tú mismo secarás estas lágrimas. Hasta entonces, quédate conmigo.",
+                ),
+            },
+        ],
+    },
+    {
+        "key": "loneliness",
+        "category": "refuge",
+        "title": L("Loneliness", "Soledad"),
+        "summary": L(
+            "For when you feel unseen, left out or on your own. Four readings about a God who knows "
+            "you completely, a Savior who has felt alone, and small steps toward other people.",
+            "Para cuando sientes que nadie te ve, que te dejaron fuera o que no tienes a nadie. Cuatro "
+            "lecturas sobre un Dios que te conoce por completo, un Salvador que sintió la soledad, y "
+            "pasos pequeños hacia otras personas.",
+        ),
+        "keywords": [
+            "lonel",
+            "alone",
+            "isolat",
+            "left out",
+            "no friends",
+            "abandon",
+            "invisible",
+            "nobody",
+            "soledad",
+            "solitari",
+            "aisla",
+            "sin amigos",
+            "nadie me",
+            "excluid",
+            "me siento solo",
+            "me siento sola",
+        ],
+        "situations": [
+            "single",
+            "widowed",
+            "divorced",
+            "moving",
+            "retired",
+            "single_parent",
+            "caregiver",
+            "student",
+        ],
+        "traits": ["love", "trust", "kindness"],
+        "stages": ["child", "teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "child": L(
+                "Sometimes we feel left out or by ourselves. God is always with you, and Jesus calls you his friend.",
+                "A veces sentimos que nos dejan fuera o que no hay nadie con nosotros. Dios siempre está contigo, y Jesús te llama su amigo.",
+            ),
+            "teen": L(
+                "You can be surrounded by people and a full phone and still feel that no one really knows you. Someone does.",
+                "Puedes tener gente alrededor y el teléfono lleno, y aun así sentir que nadie te conoce de verdad. Alguien sí.",
+            ),
+            "young_adult": L(
+                "New places, friends scattered, evenings that are too quiet: for building real connection from the ground up.",
+                "Lugares nuevos, amigos dispersos, tardes demasiado calladas: para construir una conexión real desde cero.",
+            ),
+            "adult": L(
+                "For the loneliness that hides inside a busy life, a marriage, or caring for everyone but yourself.",
+                "Para la soledad que se esconde dentro de una vida ocupada, de un matrimonio, o de cuidar a todos menos a ti.",
+            ),
+            "senior": L(
+                "For a quieter house and a shorter list of people to call. You are not forgotten, and you still have company to give.",
+                "Para una casa más callada y una lista más corta de personas a quienes llamar. Nadie te ha olvidado, y todavía tienes compañía que dar.",
+            ),
+        },
+        "sensitive": False,
+        "lessons": [
+            {
+                "key": "loneliness-1",
+                "ref": "Psalm 139:1-6",
+                "title": L("Already known", "Alguien ya te conoce"),
+                "truth": L(
+                    "Much of loneliness is the ache of not being known. David says that God has searched "
+                    "him and knows him: when he sits down and gets up, what he is thinking, what he is "
+                    "about to say before he says it. God is around him on every side, with a hand resting "
+                    "on him. Before anyone else understands you, you are already understood, completely, "
+                    "by someone who has not turned away.",
+                    "Gran parte de la soledad es el dolor de que nadie nos conozca. David dice que Dios lo "
+                    "ha examinado y lo conoce: cuándo se sienta y cuándo se levanta, lo que piensa, lo que "
+                    "va a decir antes de decirlo. Dios lo rodea por todos lados y tiene la mano puesta "
+                    "sobre él. Antes de que cualquier otra persona te entienda, alguien ya te entiende por "
+                    "completo, y no se ha apartado.",
+                ),
+                "simple": L(
+                    "God knows everything about you: when you sit, when you play and what you are "
+                    "thinking. You are never a stranger to God.",
+                    "Dios sabe todo de ti: cuándo te sientas, cuándo juegas y lo que estás pensando. Para "
+                    "Dios nunca eres alguien desconocido.",
+                ),
+                "ask": L(
+                    "What part of you feels most unknown to the people around you? How does it land to "
+                    "hear that God already knows it?",
+                    "¿Qué parte de ti sientes que la gente a tu alrededor menos conoce? ¿Cómo te cae oír "
+                    "que Dios ya la conoce?",
+                ),
+                "kid_ask": L(
+                    "What is something about you that you wish someone knew?",
+                    "¿Qué te gustaría que alguien supiera de ti?",
+                ),
+                "do": L(
+                    "Tell God one thing about today that no one else knows, as if he were sitting across "
+                    "from you. Then tell one true thing about yourself to one person this week.",
+                    "Cuéntale a Dios una cosa de hoy que nadie más sabe, como si estuviera sentado frente "
+                    "a ti. Luego dile una cosa verdadera de ti a una persona esta semana.",
+                ),
+                "kid_do": L(
+                    "Tell God one thing about your day that nobody else knows.",
+                    "Cuéntale a Dios una cosa de tu día que nadie más sabe.",
+                ),
+                "pray": L(
+                    "Lord, you know when I sit and when I rise, and what I have not told anyone. Thank "
+                    "you that I am known. Help me to let someone else know me too.",
+                    "Señor, tú sabes cuándo me siento y cuándo me levanto, y lo que no le he contado a "
+                    "nadie. Gracias porque me conoces. Ayúdame a dejar que alguien más me conozca también.",
+                ),
+            },
+            {
+                "key": "loneliness-2",
+                "ref": "Matthew 26:36-41",
+                "title": L(
+                    "Jesus knows what lonely feels like",
+                    "Jesús sabe lo que es la soledad",
+                ),
+                "truth": L(
+                    "On the hardest night of his life, Jesus tells his three closest friends that his soul "
+                    "is crushed with sorrow, and asks them to stay awake with him. They fall asleep. Two "
+                    "things stand out. Needing people is not weakness: Jesus asked for company. And when "
+                    "the people you counted on are not there, you are feeling something Jesus has felt.",
+                    "En la noche más dura de su vida, Jesús les dice a sus tres amigos más cercanos que su "
+                    "alma está abrumada de tristeza, y les pide que se queden despiertos con él. Ellos se "
+                    "duermen. Dos cosas resaltan. Necesitar a la gente no es debilidad: Jesús pidió "
+                    "compañía. Y cuando las personas con las que contabas no están, sientes algo que "
+                    "Jesús ya sintió.",
+                ),
+                "simple": L(
+                    "One night Jesus was very sad and asked his friends to stay with him, but they fell "
+                    "asleep. Jesus knows what it is like to feel lonely, so he understands you.",
+                    "Una noche Jesús tenía mucha tristeza y les pidió a sus amigos que se quedaran con él, "
+                    "pero se durmieron. Jesús sabe lo que es la soledad, así que te entiende.",
+                ),
+                "ask": L(
+                    "When did you need someone and they were not there? Is there someone you could ask "
+                    "for company now, as plainly as Jesus did?",
+                    "¿Cuándo necesitaste a alguien y no estuvo? ¿Hay alguien a quien podrías pedirle "
+                    "compañía ahora, con la misma sencillez con que lo hizo Jesús?",
+                ),
+                "kid_ask": L(
+                    "When do you feel lonely?",
+                    "¿Cuándo sientes que te falta compañía?",
+                ),
+                "do": L(
+                    "Do what Jesus did: ask. Today, send one person a simple message asking to spend some "
+                    "time together this week.",
+                    "Haz lo que hizo Jesús: pide. Hoy envíale a una persona un mensaje sencillo pidiéndole "
+                    "pasar un rato juntos esta semana.",
+                ),
+                "kid_do": L(
+                    "When you feel lonely, tell Jesus. Then ask a grown-up: will you sit with me?",
+                    "Cuando te falte compañía, cuéntaselo a Jesús. Luego pregúntale a un adulto: ¿te "
+                    "sientas conmigo?",
+                ),
+                "pray": L(
+                    "Jesus, you asked your friends to stay, and they slept. You know this ache. Stay with "
+                    "me, and give me the courage to ask someone to keep me company.",
+                    "Jesús, tú les pediste a tus amigos que se quedaran, y se durmieron. Conoces este "
+                    "dolor. Quédate conmigo, y dame el valor de pedirle compañía a alguien.",
+                ),
+            },
+            {
+                "key": "loneliness-3",
+                "ref": "2 Timothy 4:16-18",
+                "title": L("When no one showed up", "Cuando nadie llegó"),
+                "truth": L(
+                    "Near the end of his life Paul stands trial, and no one comes to stand with him. He "
+                    "does not pretend it did not hurt; he writes it down. He also refuses to let it turn "
+                    "bitter, and asks that it not be held against them. Then he says what kept him on his "
+                    "feet: the Lord stood beside him and gave him strength. Both things are true in this "
+                    "passage. People were absent, and God was present.",
+                    "Cerca del final de su vida Pablo enfrenta un juicio, y nadie llega a acompañarlo. No "
+                    "finge que no dolió; lo deja por escrito. Tampoco deja que se vuelva amargura, y pide "
+                    "que no se les tome en cuenta. Luego dice lo que lo mantuvo en pie: el Señor estuvo a "
+                    "su lado y le dio fuerzas. Las dos cosas son verdad en este pasaje. La gente faltó, y "
+                    "Dios estuvo presente.",
+                ),
+                "simple": L(
+                    "Once, nobody came to help Paul. But God stayed right beside him and made him strong. "
+                    "God stays beside you too.",
+                    "Una vez nadie llegó a ayudar a Pablo. Pero Dios se quedó a su lado y le dio fuerzas. "
+                    "Dios también se queda a tu lado.",
+                ),
+                "ask": L(
+                    "Who was not there when you needed them? Have you let that harden into something "
+                    "that keeps other people out as well?",
+                    "¿Quién no estuvo cuando lo necesitabas? ¿Has dejado que eso se endurezca hasta "
+                    "cerrarles la puerta también a otras personas?",
+                ),
+                "kid_ask": L(
+                    "Has there been a time when you felt left out? What happened?",
+                    "¿Alguna vez sentiste que te dejaron fuera? ¿Qué pasó?",
+                ),
+                "do": L(
+                    "Name to God the person or people who were absent, and pray Paul's short prayer for "
+                    "them. Then look back for one moment in that time when you were given strength you "
+                    "could not explain.",
+                    "Nómbrale a Dios la persona o personas que faltaron, y haz por ellas la breve oración "
+                    "de Pablo. Luego busca en ese tiempo un momento en que recibiste una fuerza que no "
+                    "podías explicar.",
+                ),
+                "kid_do": L(
+                    "Look for someone who is by themselves today, and invite them to play or sit with you.",
+                    "Busca hoy a alguien que no tenga con quién estar, e invítalo a jugar o a sentarse contigo.",
+                ),
+                "pray": L(
+                    "Lord, when I needed them, they were not there, and it still hurts. Do not let it "
+                    "make me bitter. Stand beside me and give me strength.",
+                    "Señor, cuando los necesité no estuvieron, y todavía duele. No dejes que eso me "
+                    "amargue. Quédate a mi lado y dame fuerzas.",
+                ),
+            },
+            {
+                "key": "loneliness-4",
+                "ref": "John 15:12-15",
+                "title": L("Called a friend", "Te llama amigo"),
+                "truth": L(
+                    "Jesus tells his followers that he no longer calls them servants but friends, because "
+                    "he has shared with them everything he heard from his Father. He says the greatest "
+                    "love is to lay down your life for your friends, which he is about to do. This "
+                    "friendship is offered, not earned by being popular or interesting. And it comes with "
+                    "a direction: love one another as he has loved you. Part of how loneliness heals is "
+                    "by becoming a friend to someone else.",
+                    "Jesús les dice a sus seguidores que ya no los llama siervos sino amigos, porque les "
+                    "ha compartido todo lo que oyó de su Padre. Dice que el amor más grande es dar la vida "
+                    "por los amigos, y eso es lo que está por hacer. Esta amistad se ofrece; no se gana "
+                    "por ser popular o interesante. Y viene con una dirección: ámense unos a otros como él "
+                    "los ha amado. Parte de cómo sana la soledad es volverse amigo de otra persona.",
+                ),
+                "simple": L(
+                    "Jesus calls you his friend. He is a friend who never leaves, and he asks us to be "
+                    "good friends to others.",
+                    "Jesús te llama su amigo. Es un amigo que nunca se va, y nos pide ser buenos amigos "
+                    "de los demás.",
+                ),
+                "ask": L(
+                    "What would change in your day if you took seriously that Jesus calls you a friend? "
+                    "Who near you might be lonelier than you are?",
+                    "¿Qué cambiaría en tu día si tomaras en serio que Jesús te llama amigo? ¿Quién cerca "
+                    "de ti podría tener más soledad que tú?",
+                ),
+                "kid_ask": L(
+                    "What makes someone a good friend?",
+                    "¿Qué hace que alguien sea un buen amigo?",
+                ),
+                "do": L(
+                    "Think of someone who may be lonelier than you: a neighbor, an older relative, someone "
+                    "new. Reach out to them this week. And if loneliness has become heavy and constant, "
+                    "tell a pastor, counselor or doctor; you do not have to solve it alone.",
+                    "Piensa en alguien que quizá tenga más soledad que tú: un vecino, un familiar mayor, "
+                    "alguien nuevo. Búscalo esta semana. Y si la soledad se ha vuelto pesada y constante, "
+                    "cuéntaselo a un pastor, consejero o médico; no tienes que resolverla por tu cuenta.",
+                ),
+                "kid_do": L(
+                    "Do one kind thing for a friend today, or make a card for someone who might be lonely.",
+                    "Haz hoy algo amable por un amigo, o hazle una tarjeta a alguien que quizá no tenga "
+                    "compañía.",
+                ),
+                "pray": L(
+                    "Jesus, you call me your friend. Let me believe it today. Show me one person I can be "
+                    "a friend to this week.",
+                    "Jesús, tú me llamas tu amigo. Ayúdame a creerlo hoy. Muéstrame a una persona de quien "
+                    "pueda ser amigo esta semana.",
+                ),
+            },
+        ],
+    },
+    {
+        "key": "illness",
+        "category": "refuge",
+        "title": L("Living with illness or pain", "Vivir con enfermedad o dolor"),
+        "summary": L(
+            "For anyone living with sickness, pain or disability. Five readings that do not promise a "
+            "cure, but speak honestly about weakness, about prayers not answered as hoped, and about a "
+            "God who keeps hold of you.",
+            "Para quien vive con enfermedad, dolor o discapacidad. Cinco lecturas que no prometen una "
+            "cura, pero hablan con sinceridad de la debilidad, de oraciones no respondidas como "
+            "esperabas, y de un Dios que no te suelta.",
+        ),
+        "keywords": [
+            "illness",
+            "sick",
+            "disease",
+            "diagnos",
+            "chronic",
+            "disab",
+            "surgery",
+            "hospital",
+            "cancer",
+            "chemo",
+            "treatment",
+            "enferm",
+            "diagnós",
+            "crónic",
+            "discapac",
+            "cirugía",
+            "cáncer",
+            "quimio",
+            "tratamiento",
+            "dolor crónico",
+        ],
+        "situations": ["ill", "caregiver", "retired", "grandparent"],
+        "traits": ["perseverance", "hope", "trust"],
+        "stages": ["teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "teen": L(
+                "Being sick or in pain when others your age seem fine can feel unfair and lonely. God has not overlooked you.",
+                "Vivir con enfermedad o dolor cuando otros de tu edad parecen estar bien puede sentirse injusto y solitario. Dios no te ha pasado por alto.",
+            ),
+            "young_adult": L(
+                "For a diagnosis or a body that did not follow the plan. Your life is not on hold, and you are not worth less.",
+                "Para un diagnóstico o un cuerpo que no siguió el plan. Tu vida no está en pausa, y no vales menos.",
+            ),
+            "adult": L(
+                "For living with illness or pain while people still depend on you, and for the days you cannot do what you used to.",
+                "Para vivir con enfermedad o dolor mientras otros siguen dependiendo de ti, y para los días en que no puedes hacer lo de antes.",
+            ),
+            "senior": L(
+                "For a body that is wearing out and a calendar full of appointments. You are held, and you still matter.",
+                "Para un cuerpo que se desgasta y un calendario lleno de citas médicas. Dios te sostiene, y sigues importando.",
+            ),
+        },
+        "sensitive": True,
+        "lessons": [
+            {
+                "key": "illness-1",
+                "ref": "Psalm 73:23-26",
+                "title": L("When the body fails", "Cuando el cuerpo falla"),
+                "truth": L(
+                    "The writer says plainly that his body and his heart may give out. The Bible does not "
+                    "pretend that bodies hold up. But around that sentence he tells God three things: that "
+                    "he is always with him, that God holds him by the hand, and that God is the strength "
+                    "of his heart and his share forever. A failing body is not a failing God, and it is not all that "
+                    "you are. The hand that holds yours does not let go on the bad days.",
+                    "El autor dice con toda claridad que su cuerpo y su corazón pueden desfallecer. La "
+                    "Biblia no finge que el cuerpo aguanta. Pero alrededor de esa frase le dice tres cosas "
+                    "a Dios: que siempre está con él, que Dios lo lleva de la mano, y que Dios es la fuerza "
+                    "de su corazón y su herencia para siempre. Un cuerpo que falla no es un Dios que falla, y "
+                    "no es todo lo que eres. La mano que sostiene la tuya no te suelta en los días malos.",
+                ),
+                "simple": L(
+                    "Sometimes our bodies get sick or hurt. God stays with you and holds your hand, on "
+                    "good days and on bad days.",
+                    "A veces nuestro cuerpo se enferma o duele. Dios se queda contigo y te toma de la "
+                    "mano, en los días buenos y en los malos.",
+                ),
+                "ask": L(
+                    "What has your body's weakness taken from you? What has it not been able to take?",
+                    "¿Qué te ha quitado la debilidad de tu cuerpo? ¿Qué no ha podido quitarte?",
+                ),
+                "kid_ask": L(
+                    "How does your body feel today?",
+                    "¿Cómo se siente tu cuerpo hoy?",
+                ),
+                "do": L(
+                    "On a hard day this week, tell God honestly what is failing in your body, and then add: "
+                    "and still you are holding my hand. Keep following your treatment, and tell your "
+                    "doctor what is really going on. Good care is one of the ways God sustains people.",
+                    "En un día difícil de esta semana, dile a Dios con sinceridad qué está fallando en tu "
+                    "cuerpo, y luego añade: y aun así me tienes de la mano. Sigue tu tratamiento y "
+                    "cuéntale a tu médico lo que de verdad está pasando. Una buena atención es una de las "
+                    "formas en que Dios sostiene a las personas.",
+                ),
+                "kid_do": L(
+                    "Tell a grown-up how your body feels today, and thank God for one thing your body can do.",
+                    "Cuéntale a un adulto cómo se siente tu cuerpo hoy, y dale gracias a Dios por una "
+                    "cosa que tu cuerpo puede hacer.",
+                ),
+                "pray": L(
+                    "God, my body is failing in ways I cannot control. Be the strength of my heart today. "
+                    "Keep hold of my hand.",
+                    "Dios, mi cuerpo está fallando de maneras que no puedo controlar. Sé hoy la fuerza de "
+                    "mi corazón. No sueltes mi mano.",
+                ),
+            },
+            {
+                "key": "illness-2",
+                "ref": "2 Corinthians 12:7-10",
+                "title": L("When healing does not come", "Cuando la sanidad no llega"),
+                "truth": L(
+                    "Paul lived with what he calls a thorn, a lasting affliction he never names. Three "
+                    "times he begged the Lord to take it away. The answer was not healing. It was a "
+                    "promise that grace would be enough for him, and that Christ's power shows most fully "
+                    "in weakness. Paul did not lack faith, and he was not being punished. Being unhealed "
+                    "is not the same as being unheard or unloved. He still calls it a thorn; it still "
+                    "hurt. And Christ's strength met him there.",
+                    "Pablo vivía con lo que él llama una espina, una aflicción duradera que nunca nombra. "
+                    "Tres veces le rogó al Señor que se la quitara. La respuesta no fue la sanidad. Fue la "
+                    "promesa de que la gracia le bastaría, y de que el poder de Cristo se muestra más "
+                    "plenamente en la debilidad. A Pablo no le faltaba fe, ni estaba recibiendo un "
+                    "castigo. No haber sanado no es lo mismo que no haber sido escuchado o amado. Él la "
+                    "sigue llamando espina; seguía doliendo. Y la fuerza de Cristo lo encontró ahí.",
+                ),
+                "simple": L(
+                    "Paul asked God to take away something that hurt. It did not go away, but God stayed "
+                    "with Paul and gave him strength. God gives you strength when you feel weak.",
+                    "Pablo le pidió a Dios que le quitara algo que le dolía. No se fue, pero Dios se quedó "
+                    "con Pablo y le dio fuerzas. Dios te da fuerzas cuando sientes debilidad.",
+                ),
+                "ask": L(
+                    "Has anyone, including you, suggested that you are still ill because your faith is "
+                    "too small? What does Paul's story say to that?",
+                    "¿Alguien, incluso tú, ha insinuado que sigues con la enfermedad porque tu fe es muy "
+                    "pequeña? ¿Qué le responde a eso la historia de Pablo?",
+                ),
+                "kid_ask": L(
+                    "When you feel weak or sick, what helps you feel a little stronger?",
+                    "Cuando sientes debilidad o enfermedad, ¿qué te ayuda a sentir un poco más de fuerza?",
+                ),
+                "do": L(
+                    "Keep asking God for healing if you want to; Paul asked. Alongside that, each morning "
+                    "this week, ask for grace that is enough for this one day, and at night note one way "
+                    "it came.",
+                    "Sigue pidiéndole a Dios la sanidad si quieres; Pablo la pidió. Junto con eso, cada "
+                    "mañana de esta semana pide gracia suficiente para este solo día, y por la noche anota "
+                    "una forma en que llegó.",
+                ),
+                "kid_do": L(
+                    "Pray one sentence: God, please make me strong inside today.",
+                    "Ora una frase: Dios, por favor dame fuerza por dentro hoy.",
+                ),
+                "pray": L(
+                    "Lord, I have asked you to take this away, and it is still here. I am asking again. "
+                    "And for today, let your grace be enough and your strength rest on my weakness.",
+                    "Señor, te he pedido que me quites esto, y sigue aquí. Te lo pido otra vez. Y por hoy, "
+                    "que tu gracia me baste y tu fuerza descanse sobre mi debilidad.",
+                ),
+            },
+            {
+                "key": "illness-3",
+                "ref": "Romans 8:26-27",
+                "title": L(
+                    "When you are too tired to pray",
+                    "Cuando no tienes fuerzas para orar",
+                ),
+                "truth": L(
+                    "Pain and exhaustion can take your words away. Paul says that the Spirit helps us in "
+                    "exactly that weakness. When we do not know what to pray, the Spirit himself prays for "
+                    "us with groans too deep for words, and God, who searches hearts, understands. Prayer "
+                    "does not depend on your energy or your eloquence. On the days when all you have is a "
+                    "sigh, the sigh is heard, and someone is praying for you.",
+                    "El dolor y el agotamiento pueden dejarte sin palabras. Pablo dice que el Espíritu nos "
+                    "ayuda justamente en esa debilidad. Cuando no sabemos qué pedir, el Espíritu mismo "
+                    "ruega por nosotros con gemidos demasiado hondos para las palabras, y Dios, que "
+                    "examina los corazones, entiende. La oración no depende de tu energía ni de tu "
+                    "elocuencia. En los días en que solo tienes un suspiro, ese suspiro es escuchado, y "
+                    "alguien está orando por ti.",
+                ),
+                "simple": L(
+                    "Sometimes you feel too tired or too sick to pray. God's Spirit prays for you, and God "
+                    "understands even without words.",
+                    "A veces el cansancio o la enfermedad no te dejan orar. El Espíritu de Dios ora por "
+                    "ti, y Dios entiende aun sin palabras.",
+                ),
+                "ask": L(
+                    "When has illness left you with no words for God? How does it feel to hear that "
+                    "prayer was still going on for you?",
+                    "¿Cuándo te ha dejado la enfermedad sin palabras para Dios? ¿Cómo te sientes al oír "
+                    "que la oración por ti seguía?",
+                ),
+                "kid_ask": L(
+                    "Does God understand you even when you do not say anything? How do you know?",
+                    "¿Dios te entiende aunque no digas nada? ¿Cómo lo sabes?",
+                ),
+                "do": L(
+                    "Today, do not try to pray well. Sit or lie still for two minutes and let your "
+                    "breathing, or your sigh, be the prayer.",
+                    "Hoy no intentes orar bien. Quédate sin moverte dos minutos, en una silla o en la cama, y "
+                    "deja que tu respiración, o tu suspiro, sea la oración.",
+                ),
+                "kid_do": L(
+                    "If you do not feel like talking, sit quietly and take a slow breath. God understands.",
+                    "Si no tienes ganas de hablar, quédate en silencio y respira despacio. Dios entiende.",
+                ),
+                "pray": L(
+                    "God, I have no words today. Hear what I cannot say. Spirit, pray for me.",
+                    "Dios, hoy no tengo palabras. Escucha lo que no puedo decir. Espíritu, ora por mí.",
+                ),
+            },
+            {
+                "key": "illness-4",
+                "ref": "1 Corinthians 12:21-26",
+                "title": L("You are not a burden", "No eres una carga"),
+                "truth": L(
+                    "Illness and disability can make you feel useless, or like a weight on the people "
+                    "around you. Paul says the opposite. He compares the church to a body in which no "
+                    "part can tell another that it is not needed, and he says the parts that seem weaker "
+                    "are in fact indispensable. When one part suffers, all suffer with it. The community "
+                    "of Jesus is incomplete without you, and your pain is meant to be shared, not hidden.",
+                    "La enfermedad y la discapacidad pueden hacerte sentir que no sirves, o que eres un "
+                    "peso para quienes te rodean. Pablo dice lo contrario. Compara a la iglesia con un "
+                    "cuerpo en el que ninguna parte puede decirle a otra que no la necesita, y dice que "
+                    "las partes que parecen más débiles son en realidad indispensables. Cuando una parte "
+                    "sufre, todas sufren con ella. La comunidad de Jesús está incompleta sin ti, y tu "
+                    "dolor es para compartirlo, no para esconderlo.",
+                ),
+                "simple": L(
+                    "God's family is like a body, and every part matters. Strong or weak, sick or well, "
+                    "you are needed and loved.",
+                    "La familia de Dios es como un cuerpo, y cada parte importa. Con fuerza o con "
+                    "debilidad, con salud o sin ella, te necesitan y te aman.",
+                ),
+                "ask": L(
+                    "Where have you been hiding your need so as not to be a bother? What might others "
+                    "lose if you keep yourself away?",
+                    "¿Dónde has escondido tu necesidad para no molestar? ¿Qué podrían perder los demás si "
+                    "te mantienes lejos?",
+                ),
+                "kid_ask": L(
+                    "Which part of your body is small but very important?",
+                    "¿Qué parte de tu cuerpo es pequeña pero muy importante?",
+                ),
+                "do": L(
+                    "Let one person carry part of this with you. Tell them one specific thing that would "
+                    "help: a ride, a meal, company at an appointment, a talk about something else. And if "
+                    "illness is weighing on your mind as well as your body, tell your doctor or a counselor.",
+                    "Deja que una persona cargue parte de esto contigo. Dile una cosa concreta que te "
+                    "ayudaría: que alguien te lleve, una comida, compañía en una cita, una conversación sobre otra "
+                    "cosa. Y si la enfermedad te pesa en el ánimo además de en el cuerpo, cuéntaselo a tu "
+                    "médico o a un consejero.",
+                ),
+                "kid_do": L(
+                    "Make a card for someone who is sick that says: I am glad you are in our family.",
+                    "Hazle una tarjeta a alguien que tenga una enfermedad que diga: Me alegra que seas de "
+                    "nuestra familia.",
+                ),
+                "pray": L(
+                    "God, I am afraid of being a burden. Help me believe that I am needed, and give me "
+                    "the humility to let someone help me this week.",
+                    "Dios, tengo miedo de ser una carga. Ayúdame a creer que me necesitan, y dame la "
+                    "humildad de dejar que alguien me ayude esta semana.",
+                ),
+            },
+            {
+                "key": "illness-5",
+                "ref": "2 Corinthians 4:16-18",
+                "title": L("Wearing out, being renewed", "Desgastarse, ser renovado"),
+                "truth": L(
+                    "Paul admits that outwardly he is wearing away. He also says that inwardly he is "
+                    "being made new day by day. Both are true at once. He calls his troubles light and "
+                    "brief, and this from a man who had been beaten and shipwrecked. He is not saying "
+                    "pain is small. He is setting his own against something far heavier and longer "
+                    "lasting: a glory that cannot yet be seen. He does not ask you to deny what is "
+                    "visible, only not to let it be the whole picture.",
+                    "Pablo reconoce que por fuera se va desgastando. También dice que por dentro se "
+                    "renueva de día en día. Las dos cosas son verdad a la vez. Llama a sus problemas "
+                    "ligeros y pasajeros, y lo dice un hombre que había sido golpeado y había "
+                    "naufragado. No está diciendo que el dolor sea poca cosa. Pone el suyo frente a algo "
+                    "mucho más pesado y duradero: una gloria que todavía no se ve. No te pide negar lo "
+                    "visible, solo no dejar que sea el cuadro completo.",
+                ),
+                "simple": L(
+                    "Even when your body feels weak, God can make your heart strong and new each day.",
+                    "Aunque tu cuerpo sienta debilidad, Dios puede hacer tu corazón fuerte y nuevo cada día.",
+                ),
+                "ask": L(
+                    "Alongside what is wearing out, is anything in you being renewed: patience, "
+                    "tenderness, honesty, dependence on God?",
+                    "Junto a lo que se desgasta, ¿hay algo en ti que se esté renovando: paciencia, "
+                    "ternura, sinceridad, dependencia de Dios?",
+                ),
+                "kid_ask": L(
+                    "What is something inside you, like kindness or courage, that can keep growing?",
+                    "¿Qué cosa dentro de ti, como la bondad o la valentía, puede seguir creciendo?",
+                ),
+                "do": L(
+                    "Keep two short lists this week. On one, what was hard in your body today. On the "
+                    "other, one sign of life inside you. Neither list cancels the other.",
+                    "Lleva dos listas cortas esta semana. En una, lo que fue difícil hoy en tu cuerpo. En "
+                    "la otra, una señal de vida dentro de ti. Ninguna lista anula a la otra.",
+                ),
+                "kid_do": L(
+                    "Do one kind thing today, even a small one. That is your heart growing strong.",
+                    "Haz hoy algo amable, aunque sea pequeño. Así se fortalece tu corazón.",
+                ),
+                "pray": L(
+                    "God, I see what is wearing out. Renew what is inside me today, and lift my eyes to "
+                    "what I cannot yet see.",
+                    "Dios, veo lo que se desgasta. Renueva hoy lo que hay dentro de mí, y levanta mis "
+                    "ojos hacia lo que todavía no puedo ver.",
+                ),
+            },
+        ],
+    },
+    {
+        "key": "despair",
+        "category": "refuge",
+        "title": L("When the darkness does not lift", "Cuando la oscuridad no se va"),
+        "summary": L(
+            "For depression, hopelessness and days when you cannot see a way forward. Five readings "
+            "that take the darkness seriously. They go alongside real help, not instead of it: please "
+            "tell someone you trust and see a doctor or counselor.",
+            "Para la depresión, la desesperanza y los días en que no ves salida. Cinco lecturas que "
+            "toman en serio la oscuridad. Acompañan la ayuda real, no la reemplazan: por favor "
+            "cuéntaselo a alguien de confianza y consulta a un médico o consejero.",
+        ),
+        "keywords": [
+            "despair",
+            "depress",
+            "hopeless",
+            "empty",
+            "darkness",
+            "give up",
+            "worthless",
+            "suicid",
+            "pointless",
+            "can't go on",
+            "desesper",
+            "deprim",
+            "depresi",
+            "sin esperanza",
+            "vací",
+            "oscuridad",
+            "rendirme",
+            "no puedo más",
+            "sin sentido",
+            "no valgo",
+        ],
+        "situations": [
+            "grieving",
+            "ill",
+            "caregiver",
+            "divorced",
+            "widowed",
+            "job_seeking",
+            "recovery",
+            "single_parent",
+        ],
+        "traits": ["hope", "perseverance", "trust"],
+        "stages": ["teen", "young_adult", "adult", "senior"],
+        "stage_notes": {
+            "teen": L(
+                "If everything has felt gray or pointless for a while, you are not broken and you are not the only one. Please let an adult you trust know.",
+                "Si desde hace tiempo todo se siente gris o sin sentido, no tienes nada roto y no eres la única persona a quien le pasa. Por favor cuéntaselo a un adulto de confianza.",
+            ),
+            "young_adult": L(
+                "For when getting through the day takes everything you have. This is not weakness or failed faith, and there is help.",
+                "Para cuando llegar al final del día te cuesta todo lo que tienes. Esto no es debilidad ni una fe fracasada, y hay ayuda.",
+            ),
+            "adult": L(
+                "For the heaviness you hide so you can keep functioning for everyone else. You are allowed to need help too.",
+                "Para el peso que escondes para seguir funcionando para todos los demás. Tú también tienes permiso de necesitar ayuda.",
+            ),
+            "senior": L(
+                "For low days that stretch into weeks, after losses or for no clear reason. It is not just age, and it is worth telling your doctor.",
+                "Para días bajos que se alargan por semanas, tras pérdidas o sin razón clara. No es solo la edad, y vale la pena decírselo a tu médico.",
+            ),
+        },
+        "sensitive": True,
+        "lessons": [
+            {
+                "key": "despair-1",
+                "ref": "Psalm 42:5-11",
+                "title": L(
+                    "Why are you so low, my soul?",
+                    "¿Por qué estás tan abatida, alma mía?",
+                ),
+                "truth": L(
+                    "The writer's soul is weighed down. He feels as if wave after wave has gone over him, "
+                    "and he asks God why he has been forgotten. In the same prayer he calls God his rock. "
+                    "Twice he asks his own soul why it is so low and tells it to hope in God, because he "
+                    "will praise him again. That again is in the future. He does not feel it yet. The "
+                    "Bible has words for the state you are in, and they were written by a person of faith.",
+                    "El alma del autor está agobiada. Siente como si le hubiera pasado encima una ola "
+                    "tras otra, y le pregunta a Dios por qué lo ha olvidado. En la misma oración llama a "
+                    "Dios su roca. Dos veces le pregunta a su propia alma por qué está tan abatida y le "
+                    "dice que espere en Dios, porque volverá a alabarlo. Ese volverá está en el futuro. "
+                    "Todavía no lo siente. La Biblia tiene palabras para el estado en que estás, y las "
+                    "escribió una persona de fe.",
+                ),
+                "simple": L(
+                    "Sometimes people feel very sad deep inside, even people who love God. They can tell "
+                    "God exactly how they feel.",
+                    "A veces las personas sienten una tristeza muy honda, incluso las que aman a Dios. "
+                    "Pueden decirle a Dios exactamente cómo se sienten.",
+                ),
+                "ask": L(
+                    "If you spoke to God as honestly as this writer does, what would you say about how "
+                    "you really are?",
+                    "Si le hablaras a Dios con la misma sinceridad que este autor, ¿qué le dirías sobre "
+                    "cómo estás de verdad?",
+                ),
+                "kid_ask": L(
+                    "Who can you talk to when you feel sad inside?",
+                    "¿Con quién puedes hablar cuando sientes tristeza por dentro?",
+                ),
+                "do": L(
+                    "Put the heaviness into words today: write three honest sentences about how you "
+                    "actually are. Then show them or say them to one person you trust. If you have felt "
+                    "this way most days for two weeks or more, make an appointment with a doctor or "
+                    "counselor.",
+                    "Ponle palabras hoy al peso que llevas: escribe tres frases sinceras sobre cómo estás "
+                    "en realidad. Luego muéstraselas o díselas a una persona de confianza. Si te has "
+                    "sentido así la mayoría de los días por dos semanas o más, pide una cita con un médico "
+                    "o consejero.",
+                ),
+                "kid_do": L(
+                    "If you feel sad inside, tell a grown-up you trust today. You can tell God too.",
+                    "Si sientes tristeza por dentro, cuéntaselo hoy a un adulto de confianza. También "
+                    "puedes contárselo a Dios.",
+                ),
+                "pray": L(
+                    "God, my soul is weighed down and I do not fully know why. I cannot feel hope today. "
+                    "Hold on to it for me until I can.",
+                    "Dios, mi alma está agobiada y no sé del todo por qué. Hoy no puedo sentir esperanza. "
+                    "Guárdala tú por mí hasta que yo pueda.",
+                ),
+            },
+            {
+                "key": "despair-2",
+                "ref": "1 Kings 19:3-8",
+                "title": L("First, sleep and food", "Primero, sueño y comida"),
+                "truth": L(
+                    "Elijah was one of the great prophets, and this comes right after his greatest day. He "
+                    "runs, leaves his servant behind, sits down alone under a bush and tells God he has "
+                    "had enough and wants his life to end. God's answer has no lecture in it. He lets "
+                    "Elijah sleep. An angel touches him and gives him fresh bread and water, twice, and "
+                    "says the journey is too much for him. God takes an exhausted body seriously and "
+                    "tends it first. Despair is not only a spiritual matter, and God does not treat it "
+                    "as one.",
+                    "Elías fue uno de los grandes profetas, y esto pasa justo después de su día más "
+                    "grande. Huye, deja atrás a su criado, se sienta sin nadie bajo un arbusto y le "
+                    "dice a Dios que ya no puede más y que quiere que su vida termine. En la respuesta de "
+                    "Dios no hay sermón. Deja dormir a Elías. Un ángel lo toca y le da pan recién "
+                    "hecho y agua, dos veces, y le dice que el camino es demasiado para él. Dios toma en "
+                    "serio un cuerpo agotado y lo atiende primero. La desesperación no es solo un asunto "
+                    "espiritual, y Dios no la trata así.",
+                ),
+                "simple": L(
+                    "Elijah felt so sad and tired that he wanted to stop. God let him sleep and gave him "
+                    "food. God is gentle with us when we are sad.",
+                    "Elías sentía tanta tristeza y cansancio que ya no quería seguir. Dios lo dejó dormir "
+                    "y le dio de comer. Dios es tierno con nosotros cuando hay tristeza.",
+                ),
+                "ask": L(
+                    "What has become too much for you? How have you been treating your body in the "
+                    "middle of it: sleep, food, rest?",
+                    "¿Qué se ha vuelto demasiado para ti? ¿Cómo has tratado a tu cuerpo en medio de esto: "
+                    "sueño, comida, descanso?",
+                ),
+                "kid_ask": L(
+                    "What helps you feel better when you are very tired and sad?",
+                    "¿Qué te ayuda a sentirte mejor cuando tienes mucho cansancio y tristeza?",
+                ),
+                "do": L(
+                    "Treat your body today as God treated Elijah's: eat a real meal, drink water, and "
+                    "rest. Then book a visit with a doctor and say plainly how low you have been. "
+                    "Depression is an illness that can be treated, and getting medical help is not a lack "
+                    "of faith.",
+                    "Trata hoy a tu cuerpo como Dios trató al de Elías: come una comida de verdad, toma "
+                    "agua y descansa. Luego pide una cita con un médico y dile con claridad qué tan mal "
+                    "has estado. La depresión es una enfermedad que tiene tratamiento, y buscar ayuda "
+                    "médica no es falta de fe.",
+                ),
+                "kid_do": L(
+                    "When you feel tired and sad, tell a grown-up, have a snack and some water, and rest "
+                    "for a while.",
+                    "Cuando sientas cansancio y tristeza, cuéntaselo a un adulto, come algo, toma agua y "
+                    "descansa un rato.",
+                ),
+                "pray": L(
+                    "Lord, I have had enough. The journey is too much for me. Meet me the way you met "
+                    "Elijah: with rest, with what I need, and with someone to help me.",
+                    "Señor, ya no puedo más. El camino es demasiado para mí. Encuéntrame como encontraste "
+                    "a Elías: con descanso, con lo que necesito, y con alguien que me ayude.",
+                ),
+            },
+            {
+                "key": "despair-3",
+                "ref": "Psalm 88:1-9",
+                "title": L(
+                    "A prayer that stays in the dark",
+                    "Una oración que se queda en la oscuridad",
+                ),
+                "truth": L(
+                    "This is often called the darkest prayer in the Bible. Nearly every other psalm of sorrow turns "
+                    "toward praise before it ends; this one never does. The writer feels close to the "
+                    "grave, cut off, without friends, and it seems to him that God is against him. Yet "
+                    "this prayer was kept in Scripture. One thread runs through it: day and night he "
+                    "keeps calling out to the God who saves. If the darkness has not lifted for you, you "
+                    "have not failed at faith. You have been given this prayer to pray.",
+                    "A esta se le ha llamado la oración más oscura de la Biblia. Casi todos los demás salmos de dolor "
+                    "giran hacia la alabanza antes de terminar; este nunca lo hace. El autor se siente "
+                    "cerca de la tumba, aislado, sin amigos, y le parece que Dios está en su contra. Sin "
+                    "embargo, esta oración quedó en la Escritura. Un hilo la recorre: de día y de noche "
+                    "sigue clamando al Dios que salva. Si la oscuridad no se ha ido para ti, no has "
+                    "fracasado en la fe. Se te ha dado esta oración para orarla.",
+                ),
+                "simple": L(
+                    "Sometimes people feel sad for a long time. They can still talk to God, and God "
+                    "still listens.",
+                    "A veces las personas sienten tristeza por mucho tiempo. Aun así pueden hablar con "
+                    "Dios, y Dios sigue escuchando.",
+                ),
+                "ask": L(
+                    "What does it mean to you that a prayer with no happy ending is part of the Bible? "
+                    "Who knows how dark things have been for you?",
+                    "¿Qué significa para ti que una oración sin final feliz sea parte de la Biblia? "
+                    "¿Quién sabe lo oscuras que han estado las cosas para ti?",
+                ),
+                "kid_ask": L(
+                    "Do you know someone who has been sad for a long time? How could you be kind to them?",
+                    "¿Conoces a alguien que lleva mucho tiempo con tristeza? ¿Cómo podrías tratarlo con "
+                    "cariño?",
+                ),
+                "do": L(
+                    "If you can pray nothing else, read this psalm as your own prayer. And do not stay "
+                    "alone with thoughts like these: tell a trusted person today how dark it has been. If "
+                    "you are thinking about ending your life, do not wait. Call your local emergency "
+                    "number or a crisis line now, or go to someone near you and tell them.",
+                    "Si no puedes orar otra cosa, lee este salmo como tu propia oración. Y no te quedes a "
+                    "solas con pensamientos así: cuéntale hoy a una persona de confianza lo oscuro que ha "
+                    "estado todo. Si estás pensando en quitarte la vida, no esperes. Llama ahora al número "
+                    "de emergencias de tu país o a una línea de crisis, o ve con alguien cercano y díselo.",
+                ),
+                "kid_do": L(
+                    "If you or someone you love feels sad for a long time, tell a grown-up you trust.",
+                    "Si tú o alguien que quieres siente tristeza por mucho tiempo, cuéntaselo a un adulto "
+                    "de confianza.",
+                ),
+                "pray": L(
+                    "Lord, God who saves me, I am calling to you day and night, and it is still dark. I "
+                    "have nothing else to bring. Let my cry reach you.",
+                    "Señor, Dios que me salva, clamo a ti de día y de noche, y sigue oscuro. No tengo "
+                    "nada más que traer. Que mi clamor llegue hasta ti.",
+                ),
+            },
+            {
+                "key": "despair-4",
+                "ref": "Psalm 139:7-12",
+                "title": L(
+                    "The dark is not dark to God", "La oscuridad no es oscura para Dios"
+                ),
+                "truth": L(
+                    "David asks where he could go to get away from God's presence, and finds there is "
+                    "nowhere: not the heights, not the depths, not the far side of the sea. Even if he "
+                    "says the darkness will surely hide him, the darkness is not dark to God. The psalm "
+                    "does not say the dark is not dark to you. It says God sees in it, and that his hand "
+                    "holds you in places where you cannot feel it. His presence does not depend on your "
+                    "being able to sense it.",
+                    "David pregunta adónde podría ir para alejarse de la presencia de Dios, y descubre "
+                    "que no hay tal lugar: ni las alturas, ni las profundidades, ni el otro lado del mar. "
+                    "Aunque diga que seguramente la oscuridad lo va a esconder, la oscuridad no es oscura "
+                    "para Dios. El salmo no dice que la oscuridad no sea oscura para ti. Dice que Dios ve "
+                    "en ella, y que su mano te sostiene en lugares donde no puedes sentirla. Su presencia "
+                    "no depende de que tú logres percibirla.",
+                ),
+                "simple": L(
+                    "There is nowhere you can go where God is not with you. Even in the dark, God sees "
+                    "you and holds your hand.",
+                    "No hay ningún lugar adonde vayas en el que Dios no esté contigo. Aun en la "
+                    "oscuridad, Dios te ve y te toma de la mano.",
+                ),
+                "ask": L(
+                    "Where have you assumed God could not be, because you could not feel him there? What "
+                    "if he is there anyway?",
+                    "¿Dónde has dado por hecho que Dios no podía estar, porque no lo sentías ahí? ¿Y si "
+                    "está ahí de todos modos?",
+                ),
+                "kid_ask": L(
+                    "Can God see you in the dark? How does that make you feel?",
+                    "¿Dios puede verte en la oscuridad? ¿Cómo te hace sentir eso?",
+                ),
+                "do": L(
+                    "Tonight, turn on one small light and sit near it for a few minutes. You do not need "
+                    "to feel anything. Let it stand for what the psalm says: you are seen in the dark. "
+                    "And keep your next appointment or conversation with the person helping you; if there "
+                    "is none yet, arrange one tomorrow.",
+                    "Esta noche enciende una luz pequeña y siéntate cerca unos minutos. No necesitas "
+                    "sentir nada. Deja que represente lo que dice el salmo: en la oscuridad alguien te ve. "
+                    "Y no faltes a tu próxima cita o conversación con quien te está ayudando; si todavía "
+                    "no hay ninguna, organízala mañana.",
+                ),
+                "kid_do": L(
+                    "Tonight when the lights go out, say: God, you can see me, and you are with me.",
+                    "Esta noche, cuando apaguen la luz, di: Dios, tú me ves, y estás conmigo.",
+                ),
+                "pray": L(
+                    "God, I cannot see you or feel you here. Your word says the dark is not dark to you. "
+                    "See me. Hold me, even though I cannot feel your hand.",
+                    "Dios, aquí no puedo verte ni sentirte. Tu palabra dice que la oscuridad no es oscura "
+                    "para ti. Mírame. Sostenme, aunque yo no sienta tu mano.",
+                ),
+            },
+            {
+                "key": "despair-5",
+                "ref": "2 Corinthians 1:8-11",
+                "title": L("Paul told someone", "Pablo se lo contó a alguien"),
+                "truth": L(
+                    "Paul writes to a whole church that he had been weighed down far beyond his strength, "
+                    "to the point of giving up on life itself. He does not hide it; he says he wants them "
+                    "to know. He says it taught him to rely not on himself but on the God who raises the "
+                    "dead. And then he asks for their help, through their prayers. Even an apostle did "
+                    "not get through on private faith. He let people know, and he let them help.",
+                    "Pablo le escribe a toda una iglesia que estuvo agobiado mucho más allá de sus "
+                    "fuerzas, al punto de perder la esperanza de seguir con vida. No lo esconde; dice que "
+                    "quiere que lo sepan. Dice que eso le enseñó a no confiar en sí mismo sino en el Dios "
+                    "que resucita a los muertos. Y luego les pide ayuda, por medio de sus oraciones. Ni "
+                    "siquiera un apóstol salió adelante con una fe privada. Dejó que la gente supiera, y "
+                    "dejó que lo ayudaran.",
+                ),
+                "simple": L(
+                    "When Paul was having a very hard time, he told his friends and asked them to pray. "
+                    "It is good to tell people when things are hard.",
+                    "Cuando Pablo pasaba por un momento muy difícil, se lo contó a sus amigos y les pidió "
+                    "que oraran. Es bueno contarle a la gente cuando las cosas están difíciles.",
+                ),
+                "ask": L(
+                    "Who knows the truth about how you are? What has kept you from telling someone, and "
+                    "is that reason really stronger than your need?",
+                    "¿Quién sabe la verdad de cómo estás? ¿Qué te ha impedido contárselo a alguien, y es "
+                    "esa razón de verdad más fuerte que tu necesidad?",
+                ),
+                "kid_ask": L(
+                    "Who are two people you can tell when something is hard?",
+                    "¿Quiénes son dos personas a las que puedes contarles cuando algo es difícil?",
+                ),
+                "do": L(
+                    "Choose two people this week: someone close to you, and a professional such as a "
+                    "doctor, counselor or pastor. Tell each of them the truth in plain words, as Paul "
+                    "did: this has been more than I can bear. Then let them help, and ask them to pray "
+                    "for you.",
+                    "Elige a dos personas esta semana: alguien cercano, y un profesional como un médico, "
+                    "consejero o pastor. Dile a cada una la verdad con palabras sencillas, como Pablo: "
+                    "esto ha sido más de lo que puedo soportar. Luego deja que te ayuden, y pídeles que "
+                    "oren por ti.",
+                ),
+                "kid_do": L(
+                    "Ask a grown-up to pray with you about something that is hard.",
+                    "Pídele a un adulto que ore contigo por algo que es difícil.",
+                ),
+                "pray": L(
+                    "God who raises the dead, I cannot rely on myself anymore. Give me the courage to "
+                    "tell … the truth, and to let them help me.",
+                    "Dios que resucitas a los muertos, ya no puedo apoyarme en mí. Dame el valor de "
+                    "decirle la verdad a …, y de dejar que me ayuden.",
+                ),
+            },
+        ],
+    },
 ]

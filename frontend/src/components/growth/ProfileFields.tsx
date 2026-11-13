@@ -167,7 +167,7 @@ export function LookingForFields({ catalog, values, onChange }: LookingForFields
           {t('profile.fields.desiredTraits')}
         </p>
         <p id={`${id}-traits-hint`} className={groupHint}>
-          {t('profile.fields.desiredTraitsHint', { max: MAX_DESIRED_TRAITS, count: values.desiredTraits.length })}
+          {t('profile.fields.desiredTraitsHint', { max: MAX_DESIRED_TRAITS, chosen: values.desiredTraits.length })}
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {catalog.traits.map((trait) => {

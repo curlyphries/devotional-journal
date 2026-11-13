@@ -205,6 +205,17 @@
     },
     "tour": {
       "replay": "Replay tour"
+    },
+    "study": {
+      "title": "Bible study",
+      "continue": "Continue: {{title}}",
+      "suggested": "Suggested for you: {{title}}",
+      "why": "Why:",
+      "start": "Start",
+      "browse": "See all studies",
+      "find": "Find a study",
+      "findSub": "Short guided Bible studies for every age and season of life.",
+      "open": "Browse studies"
     }
   },
   "reading": {
@@ -377,7 +388,11 @@
     "settings": "Settings",
     "help": "Help & Guide",
     "changeLanguage": "Change language",
-    "quickCapture": "Quick capture"
+    "quickCapture": "Quick capture",
+    "study": "Study",
+    "profile": "My profile",
+    "growth": "Growth plans",
+    "readingPlans": "Reading plans"
   },
   "tour": {
     "stepLabel": "Step {{current}} of {{total}}",
@@ -398,6 +413,10 @@
       "title": "After you save, you get feedback",
       "body": "You'll see a short reflection on what you wrote and a scripture. The verse text always comes from the Bible itself, and \"Why this scripture?\" shows exactly how it was chosen."
     },
+    "study": {
+      "title": "Study the Bible your way",
+      "body": "Study has short guided Bible studies for every age. They adapt to your season of life and to what you write, and each suggestion tells you why. My profile and Growth plans are under More."
+    },
     "speakYourMind": {
       "title": "Speak Your Mind",
       "body": "Not ready to journal? Type what's on your heart here to find related scripture and questions to think about."
@@ -408,7 +427,7 @@
     },
     "devotional": {
       "title": "Focus and reading plans",
-      "body": "Set a spiritual focus to get daily passages around it, or follow a reading plan through a book of the Bible under Plans."
+      "body": "Set a spiritual focus to get daily passages around it, or follow a reading plan through a book of the Bible under More → Reading plans."
     },
     "progress": {
       "title": "See how you're growing",
@@ -566,6 +585,7 @@
       "quick-start": "Quick start",
       "where": "Where things are",
       "feedback": "Feedback and scripture",
+      "study": "Study, profile and growth plans",
       "voice": "Voice entry",
       "privacy": "Privacy and AI",
       "troubleshooting": "Troubleshooting"
@@ -608,12 +628,24 @@
         "name": "Journal history",
         "body": "All your entries, newest first. Filter by mood; each shows the scripture it received."
       },
+      "study": {
+        "name": "Bible study guide",
+        "body": "Short guided studies for every age, suggested from what you write — with the reasons shown."
+      },
+      "profile": {
+        "name": "My profile",
+        "body": "Tell the app about your season of life and see an honest picture of how you are doing. Yours to correct or erase."
+      },
+      "growth": {
+        "name": "Growth plans",
+        "body": "Choose a characteristic to grow in, with short- and long-term goals and regular check-ins."
+      },
       "devotional": {
         "name": "Devotional (Focus)",
         "body": "Set a spiritual focus and receive daily passages around it."
       },
       "plans": {
-        "name": "Plans",
+        "name": "Reading plans",
         "body": "Guided reading plans. Start one, read each day's passage and journal about it."
       },
       "bible": {
@@ -652,6 +684,27 @@
       "p3": "If the AI can't be reached, you still get a passage: built-in keyword rules pick one, and a notice says so. You can try again with the AI later.",
       "p4": "Every decision is recorded: which AI ran and where, what it was given, each passage it suggested and what happened to it.",
       "auditLink": "Open the Audit log"
+    },
+    "study": {
+      "title": "Bible study guide, your profile and growth plans",
+      "studiesTitle": "Bible studies",
+      "studies1": "The Bible study guide is a library of 48 short studies, grouped by what you might need: peace, refuge, strength, wisdom, love, the foundations of the faith, character, and seasons of life. Each study has a few lessons. A lesson gives you a passage to read, a plain explanation, two or three questions to answer in writing, one thing to practise, and a prayer.",
+      "studies2": "The passage text always comes from the Bible source and carries the same \"Verified\" badge as journal feedback. When you save your answers you get a short reply. If the AI can't be reached, a prepared reply is used and a notice says so.",
+      "suggestions": "How suggestions are chosen: \"Suggested for you\" draws on themes in your recent journal entries, what you put in your profile and the studies you have already done. The reasons are always shown on each card, so you can see why it is there — and you are free to ignore it and choose anything.",
+      "stages": "Life stages: tell the app who the studies are for — child, teen, young adult, adult or senior — and the wording, examples and questions change to fit. Studies for children (6-11) are short and meant to be read together with a grown-up; each lesson says so.",
+      "simpler": "\"Explain it more simply\" swaps the explanation for a shorter, plainer one and remembers your choice for that lesson.",
+      "personal": "\"Make it personal\" asks the AI to connect the lesson to your profile and recent journal themes, and to write questions for you. It shows which AI wrote it and whether it ran on your network or in the cloud. If the AI is unavailable you see why, and the standard lesson stays fully usable.",
+      "care": "Some studies deal with painful things such as grief. They carry a \"Handled with care\" mark and a gentle reminder that you don't have to carry it alone.",
+      "studyLink": "Open the Bible study guide",
+      "profileTitle": "Your growth profile",
+      "profile1": "My profile is where you tell the app about yourself — your season of life, what you are facing, what you would like to grow in — and take a short self-assessment. From that, together with your journal and studies, it shows an honest picture of how you are doing spiritually and inwardly, and says what each statement is based on.",
+      "profile2": "It is self-reflection, not a diagnosis. Nothing in it is a medical or psychological assessment, and it is no substitute for a pastor, counsellor or doctor.",
+      "profile3": "You stay in control: tell the app when a statement is not right, change your answers at any time, or erase the whole profile. Erasing it does not delete your journal, studies or growth plans. No inner-life profile or AI insights are built for children.",
+      "profileLink": "Open my profile",
+      "growthTitle": "Growth plans",
+      "growth1": "A growth plan is one characteristic you choose to grow in — patience, courage, gratitude and so on — with short-term goals for the coming weeks and long-term goals for the months ahead, scripture to hold on to, and studies that build it.",
+      "growth2": "Mark your progress on each goal and answer a short check-in from time to time; the plan shows how far you have come and how your own rating changes. You can pause, finish or delete a plan whenever you like.",
+      "growthLink": "Open growth plans"
     },
     "voice": {
       "title": "Voice entry",
@@ -741,6 +794,183 @@
       }
     }
   },
+  "study": {
+    "eyebrow": "Bible study",
+    "backToHub": "All studies",
+    "lessonOf": "Lesson {{current}} of {{total}}",
+    "lessonTitle": "Lesson {{number}}: {{title}}",
+    "tellUsMore": "Tell us more about you",
+    "startFailed": "The study couldn't be started.",
+    "loadFailed": "This study couldn't be loaded",
+    "lessonFailed": "This lesson couldn't be loaded",
+    "lessonMissing": "This study doesn't have that lesson",
+    "lessonMissingCta": "Go to where you left off",
+    "hub": {
+      "title": "Bible study guide",
+      "intro": "Short, guided Bible studies for every age and season of life. Each lesson gives you a passage to read, a plain explanation, a few questions and one small thing to try.",
+      "catalogFailed": "The studies couldn't be loaded",
+      "profileFailed": "We couldn't check who these studies are for",
+      "studiesFailed": "Your studies couldn't be loaded",
+      "stageFailed": "That couldn't be saved.",
+      "continueTitle": "Continue",
+      "progressLabel": "Progress in {{title}}",
+      "suggestedTitle": "Suggested for you",
+      "suggestedHint": "Chosen from what you've written and what you've told us. Each one says why.",
+      "suggestedFailed": "Suggestions couldn't be loaded",
+      "suggestedEmptyTitle": "No suggestions yet",
+      "suggestedEmptyBody": "Suggestions get better as you journal and fill in your profile. Until then, every study is listed below — pick whatever speaks to you.",
+      "writeEntry": "Write a journal entry",
+      "basedOnEntries_one": "Based on {{count}} recent journal entry.",
+      "basedOnEntries_other": "Based on {{count}} recent journal entries.",
+      "basedOnNoEntries": "Not based on your journal yet — there are no recent entries to go on.",
+      "basedOnProfile": "Your profile was used too.",
+      "basedOnNoProfile": "Fill in your profile for suggestions that fit you better.",
+      "profileLink": "Open my profile",
+      "findTitle": "Find a study",
+      "findHint": "Search for a word, or choose what you need right now.",
+      "searchLabel": "Search studies",
+      "searchPlaceholder": "Search, e.g. worry, forgiveness, prayer",
+      "needLabel": "I need…",
+      "allCategories": "Everything",
+      "everyAge": "Show studies for every age",
+      "everyAgeShown": "Showing studies for every age.",
+      "matchCount_one": "{{count}} study",
+      "matchCount_other": "{{count}} studies",
+      "noMatchTitle": "No studies match",
+      "noMatchBody": "Try a different word, or clear the search and filters.",
+      "noMatchBodyStage": "Try a different word, or show studies for every age.",
+      "clearFilters": "Clear search and filters",
+      "completedTitle": "Completed studies ({{count}})",
+      "completedOn": "Completed {{date}}"
+    },
+    "whoFor": {
+      "label": "Who is this for?",
+      "choose": "Choose…",
+      "unset": "Choose a season of life and the studies will be written for it."
+    },
+    "firstRun": {
+      "title": "First, who is this for?",
+      "body": "The same passage reads differently at 9, 19 and 69. Choose the season of life that fits, and each study will be written for it. You can change this anytime.",
+      "skip": "Not now — show me every study",
+      "privacy": "This is only used to choose and word your studies. You can change or erase it in My profile."
+    },
+    "card": {
+      "lessons_one": "{{count}} lesson",
+      "lessons_other": "{{count}} lessons",
+      "sensitive": "Handled with care",
+      "sensitiveHelp": "This study touches on painful things. Go gently — you don't have to do it alone.",
+      "inProgress": "In progress",
+      "completed": "Completed",
+      "why": "Why this is suggested",
+      "start": "Start",
+      "startNamed": "Start: {{title}}",
+      "starting": "Starting…",
+      "continue": "Continue",
+      "continueNamed": "Continue: {{title}}",
+      "again": "Study again",
+      "againNamed": "Study again: {{title}}",
+      "review": "Look back",
+      "reviewNamed": "Look back at {{title}}"
+    },
+    "stepper": {
+      "label": "Lessons in this study",
+      "lesson": "Lesson {{number}}: {{title}}",
+      "lessonDone": "Lesson {{number}}: {{title}} (completed)"
+    },
+    "grownUp": {
+      "title": "Read this one together with a grown-up.",
+      "body": "Take turns reading out loud, and talk about the questions before you write."
+    },
+    "read": {
+      "title": "Read"
+    },
+    "passage": {
+      "missingTitle": "The Bible text couldn't be loaded"
+    },
+    "understand": {
+      "title": "Understand",
+      "simpler": "Explain it more simply",
+      "simpleShown": "Showing the simpler explanation.",
+      "simplerFailed": "The simpler explanation couldn't be loaded"
+    },
+    "personal": {
+      "button": "Make it personal",
+      "hint": "“Make it personal” asks the AI to connect this lesson to your profile and recent journal themes. The Bible text never changes.",
+      "working": "Connecting this lesson to your life…",
+      "patience": "This can take up to a couple of minutes. You can keep reading while you wait.",
+      "failed": "This lesson couldn't be made personal",
+      "failedNote": "The lesson is complete as it is — you can carry on without this.",
+      "title": "For you",
+      "byLocal": "Written by AI ({{engine}}) on your network, from your profile and recent journal themes.",
+      "byCloud": "Written by AI ({{engine}}) in the cloud, from your profile and recent journal themes."
+    },
+    "reflect": {
+      "title": "Reflect",
+      "intro": "There are no wrong answers. Write as much or as little as you like — one honest sentence counts.",
+      "draftRestored": "We brought back what you had written here before.",
+      "stoodOut": "What stood out to you?",
+      "understanding": "How well did you understand this passage?",
+      "understandingLow": "lost",
+      "understandingHigh": "clear",
+      "resonance": "How much does this speak to where you are right now?",
+      "resonanceLow": "not really",
+      "resonanceHigh": "deeply",
+      "needAnswer": "Write at least one answer, or what stood out to you, before saving.",
+      "needScales": "Choose a number from 1 to 5 for both rating questions.",
+      "save": "Save my reflection",
+      "saving": "Saving…",
+      "savingNote": "Saving your reflection and writing a reply. This can take a minute or two.",
+      "keptNote": "What you write is kept on this device until you save, so a reload won't lose it.",
+      "saveFailed": "Your reflection couldn't be saved"
+    },
+    "saved": {
+      "note": "Your reflection is saved.",
+      "understanding": "Understood: {{value}} of 5",
+      "resonance": "Speaks to me: {{value}} of 5",
+      "edit": "Edit my answers"
+    },
+    "reply": {
+      "title": "A reply to your reflection",
+      "followUp": "Something to think about",
+      "builtIn": "The AI wasn't available, so this is a prepared reply rather than one written for your answers. Your reflection is saved either way.",
+      "byAi": "Written by AI from your answers.",
+      "none": "No reply was written this time. Your answers are safe.",
+      "simplerTitle": "Was this one hard to follow?",
+      "simplerBody": "That's completely fine — some passages take time. A simpler explanation may help."
+    },
+    "practice": {
+      "title": "Practice"
+    },
+    "pray": {
+      "title": "Pray"
+    },
+    "next": {
+      "ready": "Ready for the next one?",
+      "lesson": "Next lesson"
+    },
+    "complete": {
+      "title": "You finished “{{title}}”",
+      "body": "Well done. Take a moment to thank God for what you've seen, then choose a next step whenever you're ready.",
+      "bodyEarlier": "You've completed this study. You can reread any lesson or change your answers.",
+      "next": "Where next?",
+      "growth": "Turn this into a growth plan",
+      "journal": "Write about it in your journal",
+      "more": "Browse all studies"
+    },
+    "leave": {
+      "button": "Leave this study",
+      "title": "Leave this study?",
+      "message": "“{{title}}” will be removed from your studies, along with the answers you wrote in it. You can start it again later.",
+      "confirm": "Leave study",
+      "done": "You left the study.",
+      "failed": "The study couldn't be removed."
+    },
+    "notFound": {
+      "title": "We couldn't find that study",
+      "body": "It may have been removed, or the link is old. Your other studies are safe.",
+      "cta": "See all studies"
+    }
+  },
   "errors": {
     "defaultTitle": "This couldn't be loaded",
     "retry": "Try again",
@@ -800,5 +1030,358 @@
     "deleteTitle": "Delete plan",
     "deleteBody": "Delete “{{title}}”? The plan and its days are removed for good. This cannot be undone.",
     "deleted": "Plan deleted."
+  },
+  "profile": {
+    "title": "My growth profile",
+    "intro": "This is what the app understands about you, drawn only from what you have told it and what you have done here. It is a mirror, not a verdict: you can correct anything that is off, and erase all of it whenever you like.",
+    "loadFailed": "Your growth profile could not be loaded",
+    "catalogFailed": "The list of topics and characteristics could not be loaded",
+    "setup": {
+      "pageIntro": "A few short steps help the app choose studies that fit you and show you an honest picture of where you are. Every step is optional, and you can change or erase your answers later.",
+      "stepOf": "Step {{current}} of {{total}}",
+      "stepsLabel": "Setup steps",
+      "skipStep": "Skip this step",
+      "finish": "Finish",
+      "saveFailed": "This step could not be saved",
+      "savedAsYouGo": "Your answers are saved each time you move on. Nothing here is a test, and there are no right answers.",
+      "about": {
+        "short": "About you",
+        "title": "About you",
+        "intro": "A little about where you are in life, so the studies and examples fit you."
+      },
+      "looking": {
+        "short": "What you are looking for",
+        "title": "What you are looking for",
+        "intro": "Pick what you would like help with, and up to three characteristics you want to grow in."
+      },
+      "inward": {
+        "short": "A look inward",
+        "title": "A quick look inward",
+        "intro": "A few honest statements about your walk with God and how you are doing inside. Leave blank anything you would rather not answer."
+      },
+      "today": {
+        "short": "How you see yourself",
+        "title": "How you see yourself today",
+        "intro": "Rate yourself as you are today, not as you wish you were. This is your starting point, so that growth can be seen later."
+      }
+    },
+    "fields": {
+      "lifeStage": "Life stage",
+      "lifeStageHint": "Lessons are worded for the stage you choose.",
+      "situations": "Walks of life",
+      "situationsHint": "Choose any that describe your life right now.",
+      "faithBackground": "Faith background",
+      "faithBackgroundHint": "Where you are coming from. There is no wrong answer.",
+      "needs": "What would you like help with?",
+      "needsHint": "Choose as many as you like. These shape which studies are suggested to you.",
+      "desiredTraits": "Characteristics you want to grow in",
+      "desiredTraitsHint": "Choose up to {{max}}. Chosen so far: {{chosen}}.",
+      "traitDefinitionEmpty": "Select a characteristic to see what it means.",
+      "scaleLabel": "The scale:",
+      "traitScale": "1 means “rarely true of me”, 5 means “true of me most days”.",
+      "ratingChosenFirst": "The characteristics you chose come first.",
+      "rateMore": "Rate more characteristics ({{count}})",
+      "rateFewer": "Show fewer"
+    },
+    "child": {
+      "title": "No profile is built for a child",
+      "body": "For children, the app only uses age to choose gentler, simpler lessons. It does not build a picture of a child's inner life, and it does not write AI reflections about a child.",
+      "hidden": "That is why the look inward, the inner-life section and “What the app notices” are not shown here."
+    },
+    "support": {
+      "label": "A note of care",
+      "title": "You do not have to carry this alone"
+    },
+    "about": {
+      "title": "About you",
+      "editLabel": "Edit about you",
+      "notSaid": "Not said",
+      "needs": "You would like help with",
+      "desiredTraits": "You want to grow in",
+      "save": "Save changes",
+      "saved": "Your profile was updated.",
+      "saveFailed": "Your changes could not be saved",
+      "mostlyEmpty": "There is not much here yet. A few short steps will give the app more to go on.",
+      "restartSetup": "Walk me through the steps"
+    },
+    "aboutMe": {
+      "label": "Anything you want the app to know, or that it has gotten wrong?",
+      "hint": "Write it in your own words. It is kept with your profile and used when the app tailors things to you.",
+      "saved": "Saved.",
+      "saveFailed": "Your note could not be saved"
+    },
+    "walk": {
+      "title": "Your walk with God",
+      "intro": "From your own answers and from what you have done in the app.",
+      "practices": "Practices",
+      "strengths": "Strong today",
+      "strengthsHint": "The characteristics you rated highest.",
+      "growthAreas": "Room to grow",
+      "growthAreasHint": "The characteristics you rated lowest.",
+      "noRatings": "Rate a few characteristics in the look inward and they will appear here.",
+      "studiesCompleted": "Studies completed",
+      "lessonsCompleted": "Lessons completed",
+      "entriesWithFeedback": "Journal entries with feedback",
+      "topThemes": "Themes in your journal",
+      "topThemesHint": "The themes that came up most often in the feedback on your entries."
+    },
+    "inner": {
+      "title": "How you are doing inside",
+      "intro": "A description in your own words and numbers. It is not a diagnosis.",
+      "moods": "Moods you recorded",
+      "moodsHint": "How often you chose each mood on a journal entry.",
+      "noMoods": "You have not recorded a mood on a journal entry yet.",
+      "moodEntries_one": "entry",
+      "moodEntries_other": "entries",
+      "recurringThemes": "Themes that keep coming back",
+      "fromLessons": "From your lessons",
+      "understanding": "How well lessons made sense",
+      "understandingHint": "The average of what you answered after each lesson about how well you understood it.",
+      "resonance": "How much lessons spoke to you",
+      "resonanceHint": "The average of what you answered after each lesson about how much it spoke to where you are.",
+      "noLessonsYet": "No lessons answered yet",
+      "openThreads_one": "You have {{count}} open thread: something you wrote about that is still unresolved.",
+      "openThreads_other": "You have {{count}} open threads: things you wrote about that are still unresolved.",
+      "seeThreads": "See your threads"
+    },
+    "overTime": {
+      "title": "Over time",
+      "lastTaken": "You last took the look inward on {{date}}.",
+      "neverTaken": "You have not taken the look inward yet.",
+      "retake": "Retake the look inward",
+      "take": "Take the look inward",
+      "prefilled": "Your last answers are filled in. Change whatever is different today.",
+      "save": "Save my answers",
+      "saved": "Your answers were saved.",
+      "saveFailed": "Your answers could not be saved",
+      "caption": "Your look-inward averages each time you took it, newest first",
+      "date": "Date",
+      "averagesHint": "Averages of your own answers from 1 to 5. They show movement over time; they are not grades.",
+      "empty": "Each time you take the look inward, a line is added here so you can see change over time."
+    },
+    "insights": {
+      "title": "What the app notices",
+      "explain": "You can ask the app to write a short reflection about you. To do it, it reads your look inward, your lesson answers and the themes from recent journal feedback.",
+      "generate": "Write my reflection",
+      "writing": "Reading what you have shared and writing a reflection…",
+      "patience": "This can take up to a minute or two when the AI runs on your own network. You can stay on this page.",
+      "failed": "The reflection could not be written",
+      "notEnoughTitle": "There is not enough to go on yet",
+      "itemsLabel": "What the app notices",
+      "basedOn": "Based on",
+      "right": "That's right",
+      "notMe": "That's not me",
+      "feedbackLabel": "Is this right? {{title}}",
+      "savedRight": "Saved: you said this is right.",
+      "savedNotMe": "Saved: you said this is not you.",
+      "feedbackFailed": "Your answer could not be saved.",
+      "suggestedTopics": "Studies that may help",
+      "allStudies": "See all studies",
+      "suggestedTraits": "Characteristics you might grow in",
+      "suggestedTraitsHint": "Choose one to start a growth plan for it.",
+      "startPlanFor": "Start a growth plan for {{trait}}",
+      "generatedAt": "Written {{date}}",
+      "refresh": "Refresh"
+    },
+    "data": {
+      "title": "Your data",
+      "stored": "Your profile, your look-inward answers and the reflection are stored encrypted on this server, alongside your journal. Only you can see them.",
+      "control": "You can correct anything above at any time. Erasing removes what the app has worked out about you; it does not touch your journal.",
+      "erase": "Erase my profile",
+      "eraseTitle": "Erase your growth profile?",
+      "eraseBody": "This erases what you told the app about yourself, your look-inward answers and their history, and the reflection the app wrote about you. Your journal entries, your studies and your growth plans are kept. This cannot be undone.",
+      "eraseConfirm": "Erase my profile",
+      "erased": "Your growth profile was erased.",
+      "eraseFailed": "Your profile could not be erased.",
+      "auditLink": "See the audit log",
+      "helpLink": "How studies and the profile work"
+    }
+  },
+  "growth": {
+    "title": "Growth plans",
+    "intro": "A growth plan is one characteristic of Christ that you choose to grow in, with a few short-term and long-term goals for practising it. A regular check-in and the studies you complete show how it is going.",
+    "optional": "(optional)",
+    "percent": "{{percent}}%",
+    "checkInDue": "Check-in due",
+    "status": {
+      "active": "Active",
+      "paused": "Paused",
+      "completed": "Completed"
+    },
+    "scale": {
+      "option": "{{value}} out of 5",
+      "clear": "Clear",
+      "value": "{{value}} of {{max}}",
+      "notAnswered": "Not answered"
+    },
+    "ai": {
+      "whereLocal": "The AI runs on your own network ({{engine}}), so this does not leave it.",
+      "whereCloud": "The AI is a cloud service ({{engine}}), so this is sent to it.",
+      "whereUnknown": "It is handled by the AI provider chosen in Settings.",
+      "unknownEngine": "AI"
+    },
+    "list": {
+      "title": "Your plans",
+      "startAnother": "Start another plan",
+      "failed": "Your growth plans could not be loaded",
+      "emptyTitle": "You have not started a growth plan yet",
+      "emptyBody": "Choose one characteristic below. One is enough: it is easier to grow in one thing at a time.",
+      "fromProfile": "In your profile you said you want to grow in:",
+      "chooseNamed": "Start a plan for {{trait}}",
+      "open": "Open plan",
+      "openNamed": "Open the plan for {{trait}}"
+    },
+    "start": {
+      "title": "Start a plan",
+      "intro": "Choose one characteristic. The plan comes with goals, Scripture and studies for it.",
+      "chooseTrait": "Choose a characteristic",
+      "chooseTraitHint": "Pick the one that matters most right now.",
+      "noTrait": "Select a characteristic to see what it means.",
+      "alreadyActive": "You already have an active plan for {{trait}}.",
+      "openExisting": "Open that plan",
+      "why": "Why does this matter to you?",
+      "whyHint": "A sentence or two in your own words. You will see it at the top of your plan.",
+      "baseline": "Where are you today?",
+      "baselineHint": "1 means “rarely true of me”, 5 means “true of me most days”. This is your starting point.",
+      "personalize": "Tailor the goals to me with AI",
+      "personalizeHint": "If you tick this, the characteristic, what you write here and your growth profile are given to the AI so the goals fit your life. If the AI cannot be used, you get the standard plan.",
+      "personalizing": "Writing goals for you. This can take up to a minute or two…",
+      "submit": "Start this plan",
+      "submitNamed": "Start my plan for {{trait}}",
+      "failed": "The plan could not be started",
+      "catalogFailed": "The list of characteristics could not be loaded"
+    },
+    "plan": {
+      "back": "All growth plans",
+      "why": "Why this matters to you",
+      "editWhy": "Edit why this matters to you",
+      "addWhy": "Add",
+      "noWhy": "You have not written a reason yet.",
+      "whyFailed": "Your reason could not be saved.",
+      "actions": "Plan actions",
+      "pause": "Pause",
+      "resume": "Resume",
+      "complete": "Mark complete",
+      "reopen": "Reopen plan",
+      "statusFailed": "The plan could not be updated.",
+      "statusChanged": {
+        "active": "The plan is active again.",
+        "paused": "The plan is paused.",
+        "completed": "The plan is marked complete."
+      },
+      "deleteTitle": "Delete this growth plan?",
+      "deleteBody": "This removes your plan for {{trait}}, with its goals and check-ins. Your studies and journal entries are kept. This cannot be undone.",
+      "deleteConfirm": "Delete plan",
+      "deleted": "The plan was deleted.",
+      "deleteFailed": "The plan could not be deleted.",
+      "loadFailed": "This plan could not be loaded",
+      "notFoundTitle": "Plan not found",
+      "notFoundBody": "This growth plan does not exist any more. It may have been deleted.",
+      "openInBible": "Open {{reference}} in the Bible",
+      "personalizeErrorTitle": "The goals could not be tailored by AI, so the standard plan was used",
+      "goalSourceAi": "Goals written by AI for you.",
+      "goalSourceCatalog": "Goals from the standard plan."
+    },
+    "progress": {
+      "title": "Progress status",
+      "time": "Time",
+      "day": "Day {{day}} of {{total}}",
+      "rating": "Your own rating",
+      "ratingFromTo": "From {{from}} to {{to}}",
+      "ratingStart": "Started at {{rating}}",
+      "ratingNow": "Now {{rating}}",
+      "ratingNone": "Not rated yet",
+      "goals": "Goals",
+      "goalsValue": "{{done}} of {{total}} done",
+      "lessons": "Lessons completed",
+      "dates": "Started {{start}} · aiming for {{target}}"
+    },
+    "scripture": {
+      "title": "In Scripture",
+      "jesus": "How Jesus showed it"
+    },
+    "goals": {
+      "shortTitle": "Short-term goals",
+      "shortHint": "Small things to practise over the coming days and weeks.",
+      "longTitle": "Long-term goals",
+      "longHint": "What you are building toward over the coming months.",
+      "groupPercent": "{{percent}}% done",
+      "empty": "No goals here yet.",
+      "noneActive": "Nothing open here right now.",
+      "finished": "Finished or skipped ({{count}})",
+      "kind": {
+        "practice": "Practice",
+        "study": "Study",
+        "reflection": "Reflection",
+        "prayer": "Prayer"
+      },
+      "status": {
+        "active": "Active",
+        "done": "Done",
+        "skipped": "Skipped"
+      },
+      "overdue": "Overdue",
+      "progressLabel": "Progress",
+      "count": "{{done}} / {{total}}",
+      "due": "By {{date}}",
+      "wasDue": "Was due {{date}}",
+      "auto": "Counts automatically as you complete lessons.",
+      "addOne": "+1",
+      "addOneNamed": "Add one to “{{title}}”",
+      "doneNamed": "Mark “{{title}}” as done",
+      "skipNamed": "Skip “{{title}}”",
+      "editNamed": "Edit “{{title}}”",
+      "reopen": "Reopen",
+      "reopenNamed": "Reopen “{{title}}”",
+      "remove": "Remove",
+      "removeNamed": "Remove “{{title}}”",
+      "removeTitle": "Remove this goal?",
+      "removeBody": "“{{title}}” and its progress will be removed from this plan.",
+      "updateFailed": "The goal could not be updated.",
+      "removeFailed": "The goal could not be removed.",
+      "add": "Add a goal",
+      "addSubmit": "Add goal",
+      "addFailed": "The goal could not be added.",
+      "titleLabel": "Goal",
+      "titlePlaceholder": "For example: thank one person each day",
+      "horizonLabel": "Kind of goal",
+      "horizon": {
+        "short": "Short-term",
+        "long": "Long-term"
+      },
+      "targetLabel": "How many times?",
+      "daysLabel": "Within how many days?"
+    },
+    "checkIns": {
+      "title": "Check-ins",
+      "checkInNow": "Check in now",
+      "dueIntro": "It is time for a check-in. Take a minute to look at how this is going.",
+      "ratingLabel": "How true is this of you this week?",
+      "ratingHint": "1 means “hardly at all”, 5 means “very much”.",
+      "noteLabel": "Anything you want to remember?",
+      "save": "Save check-in",
+      "saved": "Check-in saved.",
+      "failed": "The check-in could not be saved.",
+      "history": "Earlier check-ins",
+      "empty": "No check-ins yet."
+    },
+    "studies": {
+      "title": "Studies that build this",
+      "hint": "Lessons you complete in these studies count toward this plan."
+    },
+    "topic": {
+      "lessons_one": "{{count}} lesson",
+      "lessons_other": "{{count}} lessons",
+      "progress": "{{done}} of {{total}} lessons done",
+      "completed": "Completed",
+      "sensitive": "A tender subject",
+      "start": "Start this study",
+      "startNamed": "Start the study “{{title}}”",
+      "continue": "Continue",
+      "continueNamed": "Continue the study “{{title}}”",
+      "review": "Review",
+      "reviewNamed": "Review the study “{{title}}”",
+      "startFailed": "The study could not be started."
+    }
   }
 }

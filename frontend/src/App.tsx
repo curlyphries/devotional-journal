@@ -24,6 +24,9 @@ import HelpPage from './pages/HelpPage'
 import NotFoundPage from './pages/NotFoundPage'
 import ErrorBoundary from './components/ErrorBoundary'
 import AuditLogPage from './pages/AuditLogPage'
+import ProfilePage from './pages/ProfilePage'
+import GrowthPlansPage from './pages/GrowthPlansPage'
+import GrowthPlanPage from './pages/GrowthPlanPage'
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth()
@@ -76,6 +79,9 @@ function App() {
         <Route path="insights" element={<InsightsHistoryPage />} />
         <Route path="settings" element={<SettingsPage />} />
         <Route path="audit" element={<AuditLogPage />} />
+        <Route path="profile" element={<ProfilePage />} />
+        <Route path="growth" element={<GrowthPlansPage />} />
+        <Route path="growth/:planId" element={<GrowthPlanPage />} />
         <Route path="help" element={<HelpPage />} />
         {/* Unknown URL: a "not found" page inside the normal layout */}
         <Route path="*" element={<NotFoundPage />} />

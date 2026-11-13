@@ -32,14 +32,15 @@ export default function ScaleField({ legend, lowLabel, highLabel, value, onChang
                 value={step}
                 checked={value === step}
                 onChange={() => onChange(step)}
+                aria-label={endLabel ? `${step} — ${endLabel}` : String(step)}
                 className="peer sr-only"
               />
               <span
+                aria-hidden="true"
                 className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-bg-elevated text-base font-semibold text-text-primary transition-colors hover:border-accent-primary peer-checked:border-accent-primary peer-checked:bg-accent-primary peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-accent-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-bg-surface peer-disabled:cursor-not-allowed peer-disabled:opacity-60"
               >
                 {step}
               </span>
-              {endLabel && <span className="sr-only"> — {endLabel}</span>}
             </label>
           )
         })}
