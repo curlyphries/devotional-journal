@@ -254,7 +254,7 @@ class TestMagicLinkToken:
 class TestMagicLinkRequest:
     def test_existing_user_gets_200(self, api_client, user):
         with patch("apps.users.views.send_magic_link_email") as mock_task:
-            mock_task.delay = lambda *a, **kw: None
+            mock_task.apply_async = lambda *a, **kw: None
             response = api_client.post(
                 "/api/v1/auth/magic-link/request/", {"email": user.email}
             )

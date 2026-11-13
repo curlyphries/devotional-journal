@@ -282,6 +282,7 @@ devotional-journal/
 |-----|--------------|
 | [How feedback works](docs/HOW_FEEDBACK_WORKS.md) | Journal → reflection → verified scripture → audit record |
 | [Study guides, profile and growth plans](docs/STUDY_GUIDES.md) | The study library, how it adapts, what the profile is and is not, how progress is worked out |
+| [Signing in](docs/SIGNING_IN.md) | Your own mail server, signing in without one, and why a sign-in email might not arrive |
 | [Troubleshooting](docs/TROUBLESHOOTING.md) | Every error code, what it means, what to do |
 | [Private mesh deployment](docs/MESH_DEPLOYMENT.md) | Run it on your mesh network only, AI local only |
 | [Developer Handoff](docs/developer-handoff.md) | Architecture, full API reference, priorities, tech debt |

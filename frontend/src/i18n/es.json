@@ -32,8 +32,23 @@
     "magicLinkExplainer": "Te enviaremos un enlace de acceso de un solo toque. Sin contraseñas que recordar.",
     "checkEmailHeading": "Revisa tu correo",
     "useAnotherEmail": "Usar otro correo",
+    "magicLinkExplainerLog": "Este servidor no tiene servidor de correo, así que el enlace de acceso llega al administrador y no a tu bandeja de entrada.",
+    "sent": {
+      "emailBody": "Si {{email}} tiene una cuenta aquí, va en camino un enlace de acceso. Funciona una sola vez y vence en 15 minutos.",
+      "tipWait": "Puede tardar uno o dos minutos en llegar.",
+      "tipSpam": "Revisa tu carpeta de spam o correo no deseado.",
+      "tipNoAccount": "¿Aún nada? Puede que todavía no exista una cuenta para esa dirección. Pídele a quien administra este servidor que la cree.",
+      "tipTypo": "¿Aún nada? Revisa que la dirección no tenga un error e inténtalo de nuevo.",
+      "logHeading": "Pide el enlace a tu administrador",
+      "logBody": "Este servidor no tiene servidor de correo, así que no se envió ningún correo. Si la dirección tiene una cuenta, se escribió un enlace de acceso de un solo uso en el registro del servidor.",
+      "logAdmin": "Quien administra este servidor puede leerlo ahí, o crear un enlace nuevo con:"
+    },
+    "noMail": {
+      "log": "Este servidor no envía correos. Los enlaces de acceso se escriben en el registro del servidor para que el administrador te los pase.",
+      "unavailable": "El acceso por correo no está configurado en este servidor. Pídele al administrador que configure un servidor de correo o que cree un enlace de acceso para ti."
+    },
     "trust": {
-      "encrypted": "Diario cifrado de extremo a extremo",
+      "encrypted": "Diario cifrado en reposo",
       "bilingual": "Bilingüe EN / ES",
       "byoai": "Usa tu propia IA"
     },
@@ -56,13 +71,13 @@
         "part1": "Construye un ritmo diario en la Biblia",
         "part2": "que de verdad dure."
       },
-      "sub": "Un compañero de estudio bíblico bilingüe (EN/ES) para hombres que quieren constancia. Establece un enfoque, sigue planes de lectura con IA y lleva un diario privado — cifrado de extremo a extremo.",
+      "sub": "Un compañero de estudio bíblico bilingüe (EN/ES) para hombres que quieren constancia. Establece un enfoque, sigue planes de lectura con IA y lleva un diario privado — cifrado en reposo.",
       "ctaPrimary": "Empezar — gratis",
       "ctaSecondary": "Aloja en tu servidor",
       "screenshotAlt": "Vista previa del panel de Devotional Journal"
     },
     "trust": {
-      "encrypted": "Cifrado de extremo a extremo",
+      "encrypted": "Cifrado en reposo",
       "bilingual": "Bilingüe EN / ES",
       "selfHost": "Amigable para autohospedaje",
       "byoai": "Usa tu propia IA"
