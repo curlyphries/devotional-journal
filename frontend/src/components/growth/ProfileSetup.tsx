@@ -88,8 +88,9 @@ export default function ProfileSetup({ catalog, profile, onDone }: ProfileSetupP
     if (step === 'inward') {
       return hasAnswers ? submitAssessment({ answers, trait_ratings: traitRatings }) : null
     }
-    // Send the answers again with the ratings so the latest assessment is complete.
-    return hasAnswers || hasRatings ? submitAssessment({ answers, trait_ratings: traitRatings }) : null
+    // Nothing new on this step unless something was rated. The answers go along
+    // again so that the latest assessment is complete in one piece.
+    return hasRatings ? submitAssessment({ answers, trait_ratings: traitRatings }) : null
   }
 
   const advance = async () => {
